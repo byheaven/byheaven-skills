@@ -18,7 +18,7 @@ Push to main → release-please maintains a Release PR
     ▼
 Developer edits CHANGELOG.md in the PR
     │  → Uses AI to rewrite raw commits into Linear-style prose
-    │  → References: assets/ai-changelog-guide.md for the AI prompt
+    │  → References: references/ai-changelog-guide.md for the AI prompt
     ▼
 Merge Release PR → release-please creates tag
     │
@@ -181,7 +181,7 @@ found, which will fail the CI run and alert the developer.
 
 ## Step 5: AI Changelog Guide
 
-Copy `assets/ai-changelog-guide.md` to `docs/ai-changelog-guide.md` (or wherever
+Copy `references/ai-changelog-guide.md` to `docs/ai-changelog-guide.md` (or wherever
 the team keeps internal docs).
 
 This file is the system prompt / instructions for using AI to edit Release PR changelogs.
