@@ -1,6 +1,6 @@
-# ByHeaven Skills
+# Byheaven Skills
 
-> A monorepo of Claude Code skills/plugins by ByHeaven
+> A monorepo of Claude Code skills/plugins by Byheaven
 
 English | [中文 README](README.zh-CN.md)
 

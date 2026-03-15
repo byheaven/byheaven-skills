@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-A monorepo of Claude Code plugins by ByHeaven. Each plugin lives under `plugins/<name>/` and is self-contained.
+A monorepo of Claude Code plugins by Byheaven. Each plugin lives under `plugins/<name>/` and is self-contained.
 
 ## Plugin Structure
 

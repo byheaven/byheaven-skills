@@ -1,6 +1,6 @@
-# ByHeaven Skills
+# Byheaven Skills
 
-> ByHeaven 的 Claude Code skills/plugins 单仓库（monorepo）
+> Byheaven 的 Claude Code skills/plugins 单仓库（monorepo）
 
 [English README](README.md)
 
