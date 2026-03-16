@@ -1,6 +1,6 @@
 ---
 name: github-release-workflow
-description: Sets up a complete automated GitHub release workflow for any project. Use this skill whenever the user wants to automate releases, set up changelogs, configure release-please, generate release notes, or establish a versioning workflow on a GitHub project. Also use when the user mentions semantic versioning, conventional commits, CHANGELOG.md, release automation, or wants GitHub Releases to be created automatically. This skill sets up the full pipeline: conventional commits enforcement → release-please manages Release PRs and tags → AI-assisted changelog editing → automated GitHub Release creation from the edited CHANGELOG.md.
+description: "Sets up a complete automated GitHub release workflow for any project. Use this skill whenever the user wants to automate releases, set up changelogs, configure release-please, generate release notes, or establish a versioning workflow on a GitHub project. Also use when the user mentions semantic versioning, conventional commits, CHANGELOG.md, release automation, or wants GitHub Releases to be created automatically. This skill sets up the full pipeline: conventional commits enforcement → release-please manages Release PRs and tags → AI-assisted changelog editing → automated GitHub Release creation from the edited CHANGELOG.md."
 ---
 
 # GitHub Release Workflow Skill
