@@ -110,6 +110,20 @@ After pushing:
 
 ---
 
+## Step 7: Update CLAUDE.md
+
+Add a Dependabot pointer to `CLAUDE.md` so Claude knows how dependency updates
+are handled in this project.
+
+Check if `CLAUDE.md` has a `## Contributor Conventions` section:
+
+- **If it doesn't exist**: create the section first (see project-scaffold Step 9 for the base template)
+- **Then add** the following line to the section (if not already present):
+
+> `Dependencies: Dependabot opens PRs for updates automatically. Patch and minor updates are auto-merged; major updates require manual review.`
+
+---
+
 ## Reference Files
 
 - `references/decisions.md` — Why Dependabot over Renovate, why grouped updates, why auto-merge only for minor/patch

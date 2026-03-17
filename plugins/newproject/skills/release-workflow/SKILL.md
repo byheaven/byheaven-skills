@@ -415,3 +415,17 @@ Read these when you need more detail:
 
 **release-please creates wrong version (e.g., 1.0.0 instead of 0.2.0)**
 → Edit `.release-please-manifest.json` to set the current version correctly
+
+---
+
+## Step 9: Update CLAUDE.md
+
+Add a release workflow pointer to `CLAUDE.md` so Claude knows the release keywords
+and where the workflow is documented.
+
+Check if `CLAUDE.md` has a `## Contributor Conventions` section:
+
+- **If it doesn't exist**: create the section first (see project-scaffold Step 9 for the base template)
+- **Then add** the following lines to the section (if not already present):
+
+> `Release: when the user says "release", "ship", or "merge the release PR", follow the Release Workflow section in CONTRIBUTING.md. Use docs/changelog-style-guide.md for changelog rewriting.`

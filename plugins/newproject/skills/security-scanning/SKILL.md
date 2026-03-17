@@ -119,6 +119,20 @@ After the first run:
 
 ---
 
+## Step 6: Update CLAUDE.md
+
+Add a security scanning pointer to `CLAUDE.md` so Claude knows what security
+checks are in place for this project.
+
+Check if `CLAUDE.md` has a `## Contributor Conventions` section:
+
+- **If it doesn't exist**: create the section first (see project-scaffold Step 9 for the base template)
+- **Then add** the following line to the section (if not already present):
+
+> `Security: CodeQL runs on every push and PR. Dependency review blocks PRs that introduce high/critical CVEs. Check the Security tab for any open alerts.`
+
+---
+
 ## Reference Files
 
 - `references/decisions.md` — Why CodeQL over alternatives, why dependency-review, secret scanning limitations

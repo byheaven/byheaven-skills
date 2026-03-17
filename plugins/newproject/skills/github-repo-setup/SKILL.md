@@ -144,6 +144,20 @@ git push
 
 ---
 
+## Step 7: Update CLAUDE.md
+
+Add a GitHub repository setup pointer to `CLAUDE.md` so Claude knows the PR and
+review conventions for this project.
+
+Check if `CLAUDE.md` has a `## Contributor Conventions` section:
+
+- **If it doesn't exist**: create the section first (see project-scaffold Step 9 for the base template)
+- **Then add** the following line to the section (if not already present):
+
+> `PRs: all pull requests must use the PR template (.github/pull_request_template.md). Branch protection requires at least 1 approving review before merge.`
+
+---
+
 ## Reference Files
 
 - `references/decisions.md` — Why YAML issue forms, CODEOWNERS placement, and gh api over UI
