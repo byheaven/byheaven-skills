@@ -186,7 +186,7 @@ gh api --method PATCH "repos/${REPO}" \
 
 Configured:
   ✅ project-scaffold    — README.md, LICENSE (MIT), .gitignore, .editorconfig
-  ✅ release-workflow    — commitlint + release-please + publish.yml
+  ✅ release-workflow    — commitlint + release-please + release.yml
   ✅ ci-pipeline         — .github/workflows/ci.yml (Node [version] matrix)
   ✅ code-quality        — ESLint + Prettier + lint-staged + husky pre-commit
   ✅ github-repo-setup   — PR template + issue forms + branch protection

@@ -18,12 +18,12 @@ Push to main → release-please maintains a Release PR
     ▼
 Developer edits CHANGELOG.md in the PR
     │  → Uses AI to rewrite raw commits into Linear-style prose
-    │  → References: references/ai-changelog-guide.md for the style guide
+    │  → References: references/changelog-style-guide.md for the style guide
     ▼
 Merge Release PR → release-please creates tag
     │
     ▼
-Tag-triggered workflow (publish.yml or release-only.yml)
+Tag-triggered workflow (release.yml)
     │  → Reads CHANGELOG.md, extracts this version's section
     │  → Creates GitHub Release with the human-edited content
     │  → Runs publish step if needed (npm / pip / go / custom)
@@ -137,19 +137,31 @@ Remind the user to check these settings — they are off by default on new repos
 
 ## Step 3: Tag-Triggered Release Workflow
 
-### Web projects
+Copy `assets/workflows/release.yml` to `.github/workflows/release.yml`.
 
-Copy `assets/workflows/release-only.yml` to `.github/workflows/release-only.yml`.
-No further customization needed. The platform (Vercel, Netlify, etc.) handles
-deployment on push to main — the workflow only creates the GitHub Release.
+Then update the tag pattern in the `on.push.tags` section to match the tag format
+release-please will create. The pattern must include the `tag-prefix` from
+`release-please-config.json`:
 
-### All other project types
+```bash
+# Get the tag-prefix value
+cat release-please-config.json | grep tag-prefix
+```
 
-Copy `assets/workflows/publish.yml` to `.github/workflows/publish.yml`.
+- **No prefix** (tag-prefix is empty or absent): `'[0-9]+.[0-9]+.[0-9]+'`
+- **Prefix `myapp-`**: `'myapp-[0-9]+.[0-9]+.[0-9]+'`
 
-Then customize the **Publish step** at the bottom of the file for the project type:
+Replace the `TAG_PREFIX_HERE` placeholder in `release.yml` with the correct prefix
+(or remove it entirely if there is no prefix).
 
-**Node.js:**
+This workflow triggers on every matching tag push, extracts the matching section from
+`CHANGELOG.md`, and creates a GitHub Release. No customization needed for web apps
+or projects where deployment is handled by the platform (Vercel, Netlify, etc.).
+
+**If the project publishes a package**, append a publish step to the `jobs.release.steps`
+list in `release.yml` after the "Create GitHub Release" step:
+
+**Node.js — publish to npm:**
 
 ```yaml
 - name: Publish to npm
@@ -158,7 +170,7 @@ Then customize the **Publish step** at the bottom of the file for the project ty
     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
 
-**Python:**
+**Python — publish to PyPI:**
 
 ```yaml
 - name: Publish to PyPI
@@ -168,7 +180,7 @@ Then customize the **Publish step** at the bottom of the file for the project ty
     TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
 ```
 
-**Go / Rust / Other:**
+**Go / Rust — upload binary:**
 
 ```yaml
 - name: Build release binary
@@ -178,9 +190,6 @@ Then customize the **Publish step** at the bottom of the file for the project ty
   with:
     files: myapp-${{ github.ref_name }}
 ```
-
-**No publish needed (open source library / internal tool):**
-Remove the publish step entirely, or use `release-only.yml` instead (see above).
 
 ---
 
@@ -194,7 +203,7 @@ chmod +x scripts/extract-release-notes.sh
 git add scripts/extract-release-notes.sh
 ```
 
-This script is called by `publish.yml` to parse `CHANGELOG.md` and extract the
+This script is called by `release.yml` to parse `CHANGELOG.md` and extract the
 section for the current tag version. It exits with an error if the version is not
 found, which will fail the CI run and alert the developer.
 
@@ -202,15 +211,20 @@ found, which will fail the CI run and alert the developer.
 
 ## Step 5: Changelog Style Guide
 
-Copy `references/ai-changelog-guide.md` to `docs/changelog-style-guide.md`:
+Copy `references/changelog-style-guide.md` to `docs/changelog-style-guide.md`:
 
 ```bash
 mkdir -p docs
-cp references/ai-changelog-guide.md docs/changelog-style-guide.md
+cp references/changelog-style-guide.md docs/changelog-style-guide.md
 ```
 
 This is the style reference for writing Linear-quality release notes. It works as both
 a human reference and an AI system prompt.
+
+**Release title convention:** The first bold line (`**...**`) in each changelog section
+becomes the GitHub Release title (e.g., `1.2.0 - Multi-Language CI Templates`). Keep
+it 3–6 words, user-centric. If no bold line is present, the title falls back to the
+bare version number.
 
 ---
 
@@ -306,7 +320,18 @@ and Changelog Style sections in place of the placeholder comment.
 
 ## Step 6: Initial CHANGELOG.md
 
-If no `CHANGELOG.md` exists, create one:
+If no `CHANGELOG.md` exists, create one. First, derive the values you need:
+
+```bash
+# Get OWNER/REPO from remote URL
+git remote get-url origin
+# e.g., https://github.com/OWNER/REPO.git  →  OWNER/REPO
+
+# Get tag prefix from release-please-config.json (tag-prefix field, may be empty)
+cat release-please-config.json | grep tag-prefix
+```
+
+Then create `CHANGELOG.md` with this template (substitute `OWNER/REPO` and `TAG_PREFIX`):
 
 ```markdown
 # Changelog
@@ -315,7 +340,15 @@ All notable changes to this project will be documented in this file.
 Versions follow [Semantic Versioning](https://semver.org).
 
 <!-- Entries below are maintained automatically by release-please and edited manually -->
+
+## [Unreleased]
+
+<!-- Link definitions -->
+[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-0.0.0...HEAD
 ```
+
+> Replace `TAG_PREFIX-0.0.0` with `TAG_PREFIX-` followed by the version in
+> `.release-please-manifest.json`. If the tag prefix is empty, use just `0.0.0`.
 
 Commit everything:
 
@@ -367,12 +400,22 @@ git push origin main
    - Feed the raw diff to Claude with the guide as context
    - Review and adjust the AI output
    - Paste the result back, keeping the `## [x.x.x] - YYYY-MM-DD` header unchanged
-5. Merge the PR when satisfied
+   - The **first bold line** in the new section becomes the GitHub Release title
+     (e.g., `**Smarter Project Initialization**` → `1.1.0 - Smarter Project Initialization`)
+5. Update the `[unreleased]:` link definition at the very bottom of `CHANGELOG.md`
+   to compare from the new version's tag. For example, when releasing `1.2.0`:
+
+   ```
+   [unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
+   ```
+
+   The tag doesn't exist yet — it's created on merge. This is expected.
+6. Merge the PR when satisfied
 
 ### What happens after merge
 
 - release-please creates a git tag
-- The tag-triggered workflow triggers automatically (`publish.yml` or `release-only.yml`)
+- The tag-triggered workflow triggers automatically (`release.yml`)
 - It reads your edited `CHANGELOG.md` and creates the GitHub Release
 - Runs the publish step (if applicable)
 
@@ -383,7 +426,7 @@ git push origin main
 Read these when you need more detail:
 
 - `references/changelog-editing-workflow.md` — Human workflow for editing changelogs with AI
-- `references/ai-changelog-guide.md` — Changelog style guide (deployed to target project as `docs/changelog-style-guide.md`)
+- `references/changelog-style-guide.md` — Changelog style guide (deployed to target project as `docs/changelog-style-guide.md`)
 - `references/decisions.md` — Why each tool was chosen; useful when user asks about alternatives
 
 ---
@@ -392,7 +435,7 @@ Read these when you need more detail:
 
 | Type | release-type | Version file | Notes |
 |------|-------------|--------------|-------|
-| Web app | `node` | `package.json` | Uses `release-only.yml`; deploys via platform |
+| Web app | `node` | `package.json` | Uses `release.yml`; platform handles deployment |
 | Node.js | `node` | `package.json` | Auto-bumps version field |
 | Python | `python` | `pyproject.toml` | Also updates `__version__` if present |
 | Go | `go` | `version.go` or tag only | Often tag-only is fine |
@@ -406,8 +449,8 @@ Read these when you need more detail:
 **release-please PR never appears**
 → Check workflow permissions in repo Settings → Actions → General
 
-**Tag created but publish.yml doesn't trigger**
-→ Verify the tag pattern in publish.yml matches: `'[0-9]+.[0-9]+.[0-9]+'` catches `1.0.0`
+**Tag created but release.yml doesn't trigger**
+→ Verify the tag pattern in release.yml matches: `'[0-9]+.[0-9]+.[0-9]+'` catches `1.0.0`
 
 **extract-release-notes.sh exits with "version not found"**
 → The CHANGELOG.md section header doesn't match the tag. Ensure format is

@@ -100,6 +100,37 @@ Each item:
 
 ---
 
+## GitHub Release Title Convention
+
+The **first bold line** (`**...**`) immediately after the version header becomes the
+GitHub Release title. The release workflow automatically extracts it and formats the
+title as `1.2.0 - Headline`.
+
+### Rules
+
+- Keep it **3–6 words**, user-centric — like a product feature announcement
+- It doubles as the opening of your changelog section, so write it as a bold feature name
+- If no bold line is present, the release title falls back to the bare version number
+
+### Examples
+
+```
+✅ Good titles (short, user-centric, punchy)
+**Multi-Language CI Templates**         → 1.2.0 - Multi-Language CI Templates
+**Smarter Project Initialization**      → 1.1.0 - Smarter Project Initialization
+**Sign in with Google and GitHub**      → 2.0.0 - Sign in with Google and GitHub
+
+❌ Bad titles
+**This release adds support for multiple CI template languages across the board**
+  → Too long; exceeds 6 words; restates the version
+**refactor: migrate logger to structured logging**
+  → Commit-style syntax; not user-centric
+**Improvements and Bug Fixes**
+  → Generic; gives no information about what changed
+```
+
+---
+
 ## Format Rules
 
 ### Version Header — NEVER MODIFY
@@ -111,6 +142,32 @@ Each item:
 This line is parsed by automation scripts. Never change its format.
 Valid: any content below this line.
 Invalid: changing `[1.2.0]` to `v1.2.0`, removing the date, adding extra characters.
+
+### Unreleased Header — Update Link Each Release
+
+The `## [Unreleased]` section sits above all versioned entries and always stays empty
+(release-please never writes content into it). Its clickable link is defined as a
+**reference-style link** at the very bottom of the file, keeping the header clean:
+
+```markdown
+## [Unreleased]
+
+## [1.2.0] - 2026-03-15
+...
+
+<!-- Link definitions -->
+[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
+```
+
+**When editing a Release PR**, update the `[unreleased]:` definition at the bottom to
+compare from the **new** version's tag. For example, when releasing 1.2.0:
+
+```
+[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
+```
+
+The tag doesn't exist yet while you're editing the PR — it's created on merge. This is
+expected and normal. release-please ignores this line entirely.
 
 ### Headline Format
 
@@ -289,3 +346,4 @@ relevant content appears immediately without waiting for the full page.
 - [ ] All raw items accounted for (headline / list / intentionally omitted)
 - [ ] No invented specifics
 - [ ] Present tense throughout
+- [ ] `[unreleased]` link definition at bottom of file updated to new version tag

@@ -1,0 +1,56 @@
+# .github/workflows/release.yml
+# Triggered by tag push (created by release-please after merging the Release PR).
+# Reads the human-edited CHANGELOG.md and creates a GitHub Release.
+# If your project publishes a package, add a publish step after the release step.
+
+name: Release
+
+on:
+  push:
+    tags:
+      # Match tags created by release-please. The pattern must include the tag-prefix
+      # from release-please-config.json. Examples:
+      #   No prefix:          '[0-9]+.[0-9]+.[0-9]+'
+      #   Prefix 'myapp-':   'myapp-[0-9]+.[0-9]+.[0-9]+'
+      - 'TAG_PREFIX_HERE[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract release notes from CHANGELOG.md
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          chmod +x scripts/extract-release-notes.sh
+          ./scripts/extract-release-notes.sh "$REF_NAME"
+
+      # Build the release title: "1.2.0 - Headline" or just "1.2.0" if no headline
+      - name: Read release title
+        id: title
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [[ -s RELEASE_TITLE.txt ]]; then
+            TITLE="${REF_NAME} - $(cat RELEASE_TITLE.txt)"
+          else
+            TITLE="${REF_NAME}"
+          fi
+          echo "name=$TITLE" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ steps.title.outputs.name }}
+          body_path: RELEASE_NOTES.md
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

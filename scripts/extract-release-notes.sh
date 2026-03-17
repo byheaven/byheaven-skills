@@ -2,7 +2,7 @@
 # scripts/extract-release-notes.sh
 #
 # Extracts a single version's section from CHANGELOG.md.
-# Used by publish.yml to get the release body for GitHub Releases.
+# Used by release.yml to get the release body for GitHub Releases.
 #
 # Usage: ./scripts/extract-release-notes.sh v1.2.0
 #
@@ -19,11 +19,16 @@ if [[ -z "$VERSION_TAG" ]]; then
   exit 1
 fi
 
-# Strip leading 'v' → "1.2.0"
-VERSION="${VERSION_TAG#v}"
+# Extract semver from tag: handles 'v1.2.0', 'byheaven-skills-1.2.0', '1.2.0'
+VERSION=$(echo "$VERSION_TAG" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+if [[ -z "$VERSION" ]]; then
+  echo "❌ Could not extract semver from tag: $VERSION_TAG" >&2
+  exit 1
+fi
 
 CHANGELOG_FILE="${CHANGELOG_FILE:-CHANGELOG.md}"
 OUTPUT_FILE="${OUTPUT_FILE:-RELEASE_NOTES.md}"
+TITLE_FILE="${TITLE_FILE:-RELEASE_TITLE.txt}"
 
 if [[ ! -f "$CHANGELOG_FILE" ]]; then
   echo "❌ $CHANGELOG_FILE not found in $(pwd)" >&2
@@ -48,3 +53,15 @@ if [[ ! -s "$OUTPUT_FILE" ]]; then
 fi
 
 echo "✅ Extracted release notes for ${VERSION} → ${OUTPUT_FILE}"
+
+# Extract the first bold line (**...**) as the release title
+BOLD_LINE=$(grep -m 1 '^\*\*[^*]' "$OUTPUT_FILE" || true)
+if [[ -n "$BOLD_LINE" ]]; then
+  # Strip leading/trailing ** markers
+  TITLE=$(echo "$BOLD_LINE" | sed 's/^\*\*//; s/\*\*.*//')
+  echo "$TITLE" > "$TITLE_FILE"
+  echo "✅ Extracted release title → ${TITLE_FILE}: ${TITLE}"
+else
+  : > "$TITLE_FILE"
+  echo "ℹ️  No bold headline found; ${TITLE_FILE} left empty (release will use tag name)"
+fi

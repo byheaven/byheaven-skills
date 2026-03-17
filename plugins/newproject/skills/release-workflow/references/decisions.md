@@ -51,7 +51,7 @@ changie works for any language; changesets is JS/monorepo-focused.
 Alternative: maintain CHANGELOG.md separately from GitHub Release notes.
 Problem: they inevitably diverge. Someone updates one and forgets the other.
 
-By having `publish.yml` parse `CHANGELOG.md` to generate the GitHub Release body,
+By having `release.yml` parse `CHANGELOG.md` to generate the GitHub Release body,
 there's only one file to maintain. The GitHub Release is always a subset of the
 changelog, never independent.
 
@@ -92,12 +92,9 @@ for its own commits (version bumps, changelog updates).
 
 ---
 
-## Why a separate release-only.yml for web projects?
+## Why a single release.yml instead of separate publish/release-only files?
 
-Web apps deploy via platforms like Vercel and Netlify on push to main.
-They don't need a package publish step, but still benefit from versioned
-GitHub Releases with human-edited changelogs.
-
-A separate `release-only.yml` (instead of "delete the placeholder in
-publish.yml") makes intent explicit and avoids confusion about whether
-a publish step should be added later.
+A single `release.yml` handles all project types. Web apps that deploy via
+Vercel or Netlify need no publish step — the workflow creates the GitHub Release
+and stops. Projects that publish packages append a publish step to the same file.
+This is simpler than maintaining two templates with nearly identical content.

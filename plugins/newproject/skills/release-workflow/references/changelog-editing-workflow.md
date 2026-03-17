@@ -102,6 +102,19 @@ On GitHub, in the Files Changed tab:
    with your edited content
 5. Commit directly to the PR branch
 
+### 6.5. Update the `[unreleased]` link definition
+
+At the very bottom of `CHANGELOG.md`, update the `[unreleased]:` reference-style link
+to compare from the **new** version's tag:
+
+```markdown
+<!-- Link definitions -->
+[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
+```
+
+The tag doesn't exist yet while you're editing — it's created on merge. This is
+expected and normal. Commit this change to the same PR branch.
+
 ### 7. Merge when satisfied
 
 Once you're happy with the changelog entry, merge the PR.
@@ -109,7 +122,7 @@ Once you're happy with the changelog entry, merge the PR.
 What happens next (automatically):
 
 - release-please creates the git tag `v1.2.0`
-- The tag-triggered workflow runs (`publish.yml` or `release-only.yml`)
+- The tag-triggered workflow runs (`release.yml`)
 - It parses `CHANGELOG.md`, extracts the `[1.2.0]` section
 - Creates the GitHub Release with your edited content
 - Runs the publish step (if applicable)

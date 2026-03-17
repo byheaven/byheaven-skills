@@ -76,9 +76,9 @@ plugins/newproject/
 │   │   ├── assets/
 │   │   │   ├── config/            # commitlint.config.js, release-please-config.json
 │   │   │   ├── scripts/           # extract-release-notes.sh
-│   │   │   └── workflows/         # commitlint-check.yml, publish.yml, release-only.yml, release-please.yml
+│   │   │   └── workflows/         # commitlint-check.yml, release.yml, release.yml, release-please.yml
 │   │   └── references/
-│   │       ├── ai-changelog-guide.md
+│   │       ├── changelog-style-guide.md
 │   │       ├── changelog-editing-workflow.md
 │   │       └── decisions.md
 │   │

@@ -53,8 +53,10 @@ Edit `CHANGELOG.md` in the PR to produce human-readable release notes:
 2. Check out the branch: `gh pr checkout <number>`
 3. Open `CHANGELOG.md` and find the new `## [x.x.x] - YYYY-MM-DD` section
 4. Rewrite it following [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md)
-5. Commit and push: `git commit -am "docs: polish changelog for x.x.x" && git push`
-6. Merge the PR: `gh pr merge --merge`
+5. Update the `[unreleased]` link definition at the bottom of `CHANGELOG.md`
+   to compare from the new version tag (e.g., `...compare/byheaven-skills-1.2.0...HEAD`)
+6. Commit and push: `git commit -am "docs: polish changelog for x.x.x" && git push`
+7. Merge the PR: `gh pr merge --merge`
 
 > **Claude users:** say "release" or "发版" — Claude reads this workflow from CLAUDE.md and executes it automatically.
 

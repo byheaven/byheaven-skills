@@ -1,11 +1,18 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+Versions follow [Semantic Versioning](https://semver.org).
+
+<!-- Entries below are maintained automatically by release-please and edited manually -->
+
+## [Unreleased]
+
 ## [1.1.0](https://github.com/byheaven/byheaven-skills/compare/byheaven-skills-1.0.0...byheaven-skills-1.1.0) (2026-03-17)
 
-**newproject plugin** — a complete workflow for initializing any new project from
-scratch, replacing the earlier github-workflow plugin. Seven skills cover the full
-stack: project scaffold, CI pipeline, release workflow, code quality, GitHub repo
-setup, dependency management, and security scanning.
+**Smarter Project Initialization** — a complete workflow for initializing any new
+project from scratch, replacing the earlier github-workflow plugin. Seven skills cover
+the full stack: project scaffold, CI pipeline, release workflow, code quality, GitHub
+repo setup, dependency management, and security scanning.
 
 **Smarter `/newproject` command** — the command now detects whether you're starting
 from an empty folder or an existing project and adapts accordingly. For brand-new
@@ -33,9 +40,5 @@ manual Settings UI steps that previously appeared in the summary.
 full, covering all three cases (file missing, section missing, section exists). No
 skill references another skill's steps.
 
-## Changelog
-
-All notable changes to this project will be documented in this file.
-Versions follow [Semantic Versioning](https://semver.org).
-
-<!-- Entries below are maintained automatically by release-please and edited manually -->
+<!-- Link definitions -->
+[unreleased]: https://github.com/byheaven/byheaven-skills/compare/byheaven-skills-1.1.0...HEAD
