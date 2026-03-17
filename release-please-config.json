@@ -4,6 +4,13 @@
     ".": {
       "release-type": "node",
       "include-v-in-tag": false,
+      "extra-files": [
+        {
+          "type": "json",
+          "path": ".claude-plugin/marketplace.json",
+          "jsonpath": "$.version"
+        }
+      ],
       "changelog-sections": [
         { "type": "feat",     "section": "### Features" },
         { "type": "fix",      "section": "### Bug Fixes" },

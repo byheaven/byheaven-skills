@@ -5,7 +5,7 @@
     "name": "Yubai",
     "email": "byheaven0912@gmail.com"
   },
-  "version": "0.2.0",
+  "version": "1.1.0",
   "description": "A monorepo of Claude Code skills/plugins by Byheaven.",
   "plugins": [
     {

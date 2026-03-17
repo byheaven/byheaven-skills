@@ -79,8 +79,11 @@ For commands, declare `AskUserQuestion` in the `allowed-tools` frontmatter field
 ## Versioning
 
 The repo has a single version (`"."` in `.release-please-manifest.json`) that covers
-the entire monorepo. Individual plugin versions in `plugin.json` are **not** updated
-automatically — keep them in sync manually when a plugin has a meaningful change.
+the entire monorepo. release-please automatically updates both `package.json` and
+`.claude-plugin/marketplace.json` (via `extra-files` in `release-please-config.json`).
+
+Individual plugin versions in each `plugin.json` are **not** updated automatically —
+keep them in sync manually when a plugin has a meaningful change.
 
 ## Contributor Conventions
 
