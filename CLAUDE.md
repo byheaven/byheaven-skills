@@ -76,6 +76,12 @@ Ask the user for the project name.
 
 For commands, declare `AskUserQuestion` in the `allowed-tools` frontmatter field so Claude knows it is available.
 
+## Versioning
+
+The repo has a single version (`"."` in `.release-please-manifest.json`) that covers
+the entire monorepo. Individual plugin versions in `plugin.json` are **not** updated
+automatically — keep them in sync manually when a plugin has a meaningful change.
+
 ## Contributor Conventions
 
 Follow [CONTRIBUTING.md](CONTRIBUTING.md) for commit conventions, PR guidelines, and the release workflow.
