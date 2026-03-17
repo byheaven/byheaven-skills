@@ -1,6 +1,6 @@
 {
   "name": "byheaven-skills",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A monorepo of Claude Code skills/plugins by Byheaven",
   "private": true,
   "scripts": {
