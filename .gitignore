@@ -22,6 +22,9 @@ node_modules/
 # Logs
 *.log
 
+# Local plan files
+docs/plans/
+
 # Temporary files
 *.tmp
 *.temp
