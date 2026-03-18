@@ -1,10 +1,9 @@
 ---
-description: "Orchestrates full project setup by detecting project type, inventorying existing configuration, and running selected skills in dependency order. Run this command to set up a new project end-to-end."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
-argument-hint: "[--tier1 | --all | skill-name]"
+name: newproject
+description: "Orchestrates full project setup by detecting project type, inventorying existing configuration, and running selected skills in dependency order. Use this skill when the user wants to set up a new project end-to-end, initialize a project from scratch, configure an existing project, or run multiple newproject skills at once. Also triggers on commands like 'set up my project', 'initialize everything', 'run newproject', or '/newproject'."
 ---
 
-# /newproject Command
+# newproject
 
 Sets up a new or existing project end-to-end by orchestrating all newproject skills
 in the correct dependency order.
@@ -115,7 +114,7 @@ Tier 3 — Security:
 
 Use the AskUserQuestion tool: "Which skills do you want to run? (Press Enter to run all unchecked Tier 1 items, or specify: 'all', 'tier2', 'all tiers', or specific skill names)"
 
-If the user passes an argument at invocation time:
+If the user passed an argument when invoking the skill:
 
 - `--tier1` / `tier1`: run only Tier 1 skills that aren't done
 - `--all` / `all`: run all skills that aren't done

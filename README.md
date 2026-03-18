@@ -6,7 +6,7 @@ English | [中文 README](README.zh-CN.md)
 
 ## Skills
 
-- **xhs-publisher** — Xiaohongshu (RED) auto publisher (browser automation)
+- **xhs-publisher** — Xiaohongshu (RedNote) auto publisher (browser automation)
 - **newproject** — Full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning
 
 ## Installation

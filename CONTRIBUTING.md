@@ -60,7 +60,8 @@ still a draft, then mark it ready and merge.
 5. Update the `[unreleased]` link definition at the bottom of the changelog
    to compare from the new version tag (e.g., `...compare/newproject-0.2.1...HEAD`)
 6. Commit and push: `git commit -am "docs: polish changelog for <plugin> x.x.x" && git push`
-7. Merge the PR: `gh pr merge --merge`
+7. Mark as ready: `gh pr ready <number>`
+8. Merge the PR: `gh pr merge --merge`
 
 > **Claude users:** say "release" or "发版" — Claude reads this workflow from CLAUDE.md and executes it automatically.
 

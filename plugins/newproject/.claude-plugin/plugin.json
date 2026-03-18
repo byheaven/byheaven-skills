@@ -1,10 +1,18 @@
 {
   "name": "newproject",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Scaffolds and configures production-ready projects: structure, CI, linting, release automation, GitHub repository setup, dependency management, and security scanning.",
   "author": {
     "name": "Yubai",
     "email": "byheaven0912@gmail.com"
   },
-  "keywords": ["project-setup", "scaffolding", "ci-cd", "github-actions", "code-quality", "security", "automation"]
+  "keywords": [
+    "project-setup",
+    "scaffolding",
+    "ci-cd",
+    "github-actions",
+    "code-quality",
+    "security",
+    "automation"
+  ]
 }

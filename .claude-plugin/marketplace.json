@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "xhs-publisher",
-      "description": "Automatically publishes Xiaohongshu (RED) posts via browser automation (text+images and photo-note modes).",
+      "description": "Automatically publishes Xiaohongshu (RedNote) posts via browser automation (text+images and photo-note modes).",
       "source": "./plugins/xhs-publisher"
     },
     {

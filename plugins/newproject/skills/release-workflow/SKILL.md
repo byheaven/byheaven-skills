@@ -253,14 +253,16 @@ This project uses [release-please](https://github.com/googleapis/release-please)
 
 ### Before merging a Release PR
 
-Edit `CHANGELOG.md` in the PR to produce human-readable release notes:
+Release PRs are created as **drafts** automatically. Edit `CHANGELOG.md` while it's
+still a draft, then mark it ready and merge.
 
-1. Find the Release PR: `gh pr list --label "autorelease: pending"`
+1. Find the Release PR: `gh pr list --label "autorelease: pending" --draft`
 2. Check out the branch: `gh pr checkout <number>`
 3. Open `CHANGELOG.md` and find the new `## [x.x.x] - YYYY-MM-DD` section
 4. Rewrite it following [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md)
 5. Commit and push: `git commit -am "docs: polish changelog for x.x.x" && git push`
-6. Merge the PR: `gh pr merge --merge`
+6. Mark as ready: `gh pr ready <number>`
+7. Merge the PR: `gh pr merge --merge`
 
 ### After merge
 
@@ -397,7 +399,9 @@ git push origin main
 
 ### Editing the Release PR (before merging)
 
-1. Open the Release PR on GitHub
+The PR is created as a **draft** — edit the changelog before marking it ready.
+
+1. Open the draft Release PR on GitHub
 2. Find the `CHANGELOG.md` change in the diff
 3. Click "..." → "Edit file" on the CHANGELOG.md
 4. Use the changelog style guide (`docs/changelog-style-guide.md`) as a reference:
@@ -414,7 +418,8 @@ git push origin main
    ```
 
    The tag doesn't exist yet — it's created on merge. This is expected.
-6. Merge the PR when satisfied
+6. Mark as ready: `gh pr ready <number>` (or click **"Ready for review"** on GitHub)
+7. Merge the PR when satisfied
 
 ### What happens after merge
 

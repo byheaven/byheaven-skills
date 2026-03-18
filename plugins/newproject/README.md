@@ -6,7 +6,7 @@ dependency management, and security scanning.
 
 ## What It Does
 
-The `/newproject` command orchestrates 7 specialized skills to configure everything
+The `newproject` skill orchestrates 7 specialized skills to configure everything
 a production project needs, in the correct dependency order.
 
 ```
@@ -38,7 +38,10 @@ npx skills add byheaven/byheaven-skills
 
 ### Full project setup
 
+Just ask Claude:
+
 ```
+Set up my new project
 /newproject
 ```
 
