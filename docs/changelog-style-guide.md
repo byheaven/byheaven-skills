@@ -50,7 +50,6 @@ Pick the 1 to 3 most significant changes. For each:
 - Follow with **1–3 sentences of prose** explaining what changed and why it matters
 - Use plain, direct language — no jargon, no passive voice
 - Write from the user's perspective
-- Mention plan restrictions briefly at the end if applicable
 
 **What qualifies as a headline:**
 
@@ -110,7 +109,7 @@ title as `newproject-0.2.1 - Headline`.
 
 - Keep it **3–6 words**, user-centric — like a product feature announcement
 - It doubles as the opening of your changelog section, so write it as a bold feature name
-- If no bold line is present, the release title falls back to the bare version number
+- If no bold line is present, the release title falls back to the bare tag name
 
 ### Examples
 
@@ -133,45 +132,41 @@ title as `newproject-0.2.1 - Headline`.
 
 ## Format Rules
 
-### Version Header — NEVER MODIFY
+### Version Header — Always Use Linked Headers
 
 ```markdown
-## [1.2.0] - 2026-03-15
+## [1.2.0](https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.1.0...PLUGIN_NAME-1.2.0) (2026-03-15)
 ```
 
-This line is parsed by automation scripts. Never change its format.
-Valid: any content below this line.
-Invalid: changing `[1.2.0]` to `v1.2.0`, removing the date, adding extra characters.
+When editing a plugin changelog:
+
+- Always link the version header to the compare view from the previous tag to the new tag
+- Never change `[1.2.0]` to `v1.2.0`
+- Always keep the release date on the header line
 
 ### Unreleased Header — Update Link Each Release
 
 The `## [Unreleased]` section sits above all versioned entries and stays empty between
-releases. Its clickable link is defined as a **reference-style link** at the very bottom
-of the file, keeping the header clean:
+releases. It should also be a linked header:
 
 ```markdown
-## [Unreleased]
+## [Unreleased](https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.2.0...HEAD)
 
-## [1.2.0] - 2026-03-15
-...
-
-<!-- Link definitions -->
-[unreleased]: https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.2.0...HEAD
+## [1.2.0](https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.1.0...PLUGIN_NAME-1.2.0) (2026-03-15)
 ```
 
-**When preparing a release commit**, update the `[unreleased]:` definition at the bottom
-to compare from the **new** version's tag. For example, when releasing 1.2.0:
+When preparing a release commit:
 
-```
-[unreleased]: https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.2.0...HEAD
-```
+- Update `Unreleased` to compare from the new tag to `HEAD`
+- Add the new linked version header comparing the previous tag to the new tag
+- Keep the `Unreleased` section body empty
 
 The tag does not exist yet while you're editing the release commit. This is expected and normal.
 
 ### Headline Format
 
 ```markdown
-## [1.2.0] - 2026-03-15
+## [1.2.0](https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.1.0...PLUGIN_NAME-1.2.0) (2026-03-15)
 
 **Feature Name** — One or two sentences describing the user benefit.
 Additional context or usage instruction if needed.
@@ -273,10 +268,12 @@ fix(search): search input cleared when switching result tabs (#313)
 
 ### Full example
 
-**Input (raw):**
+**Input (release inputs):**
 
 ```markdown
-## [2.4.0] - 2026-03-15
+## [Unreleased](https://github.com/OWNER/REPO/compare/example-2.4.0...HEAD)
+
+## [2.4.0](https://github.com/OWNER/REPO/compare/example-2.3.0...example-2.4.0) (2026-03-15)
 
 ### Features
 * feat(auth): add OAuth2 PKCE flow (#228)
@@ -297,7 +294,9 @@ fix(search): search input cleared when switching result tabs (#313)
 **Output (rewritten):**
 
 ```markdown
-## [2.4.0] - 2026-03-15
+## [Unreleased](https://github.com/OWNER/REPO/compare/example-2.4.0...HEAD)
+
+## [2.4.0](https://github.com/OWNER/REPO/compare/example-2.3.0...example-2.4.0) (2026-03-15)
 
 **Customizable mobile navigation** — Personalize the bottom toolbar to prioritize
 the features you use most. Rearrange navigation items or pin specific projects
@@ -336,7 +335,8 @@ relevant content appears immediately without waiting for the full page.
 
 ## Final Checklist
 
-- [ ] Version header `## [x.x.x] - YYYY-MM-DD` is unchanged
+- [ ] `Unreleased` is a linked header to `compare/<new-tag>...HEAD`
+- [ ] Version header is a linked header to `compare/<previous-tag>...<new-tag>`
 - [ ] 1–3 headline features present (or none if all minor fixes)
 - [ ] Headlines written from the user's perspective
 - [ ] No commit message syntax in output
@@ -345,4 +345,4 @@ relevant content appears immediately without waiting for the full page.
 - [ ] All raw items accounted for (headline / list / intentionally omitted)
 - [ ] No invented specifics
 - [ ] Present tense throughout
-- [ ] `[unreleased]` link definition at bottom of file updated to new version tag
+- [ ] No reference-style compare links remain at the bottom of the file

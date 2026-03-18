@@ -88,7 +88,7 @@ The authoritative version lives in each plugin's `.claude-plugin/plugin.json`.
 When adding a new plugin, also:
 
 1. Set `plugins/<name>/.claude-plugin/plugin.json` to `0.1.0`
-2. Create `plugins/<name>/CHANGELOG.md` with a `## [Unreleased]` section and compare links
+2. Create `plugins/<name>/CHANGELOG.md` with a linked `## [Unreleased](compare-url)` header
 
 ## Contributor Conventions
 

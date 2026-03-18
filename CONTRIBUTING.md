@@ -15,7 +15,7 @@ Thank you for your interest in contributing!
 1. Create `plugins/<name>/` with the required structure (see [CLAUDE.md](CLAUDE.md))
 2. Set the initial plugin version in `plugins/<name>/.claude-plugin/plugin.json` to `0.1.0`
 3. Add an entry to `.claude-plugin/marketplace.json` (no `version` field)
-4. Create `plugins/<name>/CHANGELOG.md` with a `## [Unreleased]` section and link definitions
+4. Create `plugins/<name>/CHANGELOG.md` with a linked `## [Unreleased](compare-url)` header
 5. Include a `README.md` and `LICENSE` in the plugin directory
 
 ## Commit Convention
@@ -43,8 +43,8 @@ This project uses a single tag-triggered workflow for manually curated per-plugi
 ### How it works
 
 1. Day-to-day PRs merge into `main` normally. No Release PR is created and `CHANGELOG.md` is not rewritten automatically.
-2. When you want to release a plugin, manually edit `plugins/<name>/CHANGELOG.md` and add a new curated section `## [x.y.z] - YYYY-MM-DD`.
-3. Update the bottom compare links so `[unreleased]` points from the new tag to `HEAD`, and the new version link compares the previous plugin tag to the new plugin tag.
+2. When you want to release a plugin, manually edit `plugins/<name>/CHANGELOG.md` and add a new linked section header `## [x.y.z](compare-url) (YYYY-MM-DD)`.
+3. Update `## [Unreleased](compare-url)` so it points from the new tag to `HEAD`, and link the new version header from the previous plugin tag to the new plugin tag.
 4. Bump `plugins/<name>/.claude-plugin/plugin.json` to the same version.
 5. Commit those changes on `main` in one human-authored release commit.
 6. Create and push tag `<plugin>-<version>` on that same commit, for example `newproject-0.2.1`.
@@ -68,7 +68,7 @@ Key principles:
 
 - **User benefit first**: describe what users *get*, not what developers *did*
 - **Bold headlines**: 1–3 punchy feature titles for the most significant changes
-- **Never modify the version header**: `## [x.x.x] - YYYY-MM-DD` is parsed by automation
+- **Use linked headers**: `## [x.x.x](compare-url) (YYYY-MM-DD)` for every released version
 - **Omit internal changes**: `chore`, `ci`, `refactor`, `docs` should usually stay out unless they matter to plugin users
 
 See [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md) for the full guide with examples.
