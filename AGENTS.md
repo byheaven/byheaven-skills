@@ -9,8 +9,7 @@ A monorepo of AI coding skills by Byheaven. Each skill lives under `plugins/<nam
 and can be installed and used independently by any AI coding tool (Claude Code, OpenAI Codex, etc.).
 
 For Claude Code users, skills are also bundled into **plugins** — the recommended installation method.
-Installing as a plugin enables auto-updates, slash commands that orchestrate multiple skills at once
-(e.g. `/newproject`), and the ability to enable or disable individual skills in bulk.
+Installing as a plugin enables auto-updates and the ability to enable or disable individual skills in bulk.
 
 ## Plugin Structure
 
@@ -29,12 +28,6 @@ plugins/<name>/
 └── LICENSE
 ```
 
-Optional (only when the plugin exposes slash commands):
-
-```
-├── commands/<command-name>.md   # Command frontmatter: name, description
-```
-
 No `AGENTS.md` inside individual plugins — this root file covers all of them.
 
 ## Marketplace Registration
@@ -46,7 +39,6 @@ All plugins must be registered in `.claude-plugin/marketplace.json`. Add an entr
 - All content (code, comments, docs) must be in **English**
 - `plugin.json` `author` field must include both `name` and `email`
 - Skills go in `skills/<skill-name>/SKILL.md`; asset/reference files go in subdirectories alongside the SKILL.md
-- Commands are optional — only add them when the plugin needs user-invocable slash commands with parameters
 
 ## ⚠️ Skill Independence: Non-Negotiable Rule
 
@@ -68,9 +60,9 @@ Before authoring or modifying a skill, ask: *"Can I run this skill on a brand-ne
 
 ---
 
-## Skill & Command Authoring: User Input
+## Skill Authoring: User Input
 
-**Always use the `AskUserQuestion` tool explicitly** when a skill or command needs input from the user. Never write vague prose like "ask the user for X" — Claude will skip the tool and ask inline in text instead.
+**Always use the `AskUserQuestion` tool explicitly** when a skill needs input from the user. Never write vague prose like "ask the user for X" — Claude will skip the tool and ask inline in text instead.
 
 Do this:
 
@@ -83,8 +75,6 @@ Not this:
 ```
 Ask the user for the project name.
 ```
-
-For commands, declare `AskUserQuestion` in the `allowed-tools` frontmatter field so Claude knows it is available.
 
 ## Versioning
 
