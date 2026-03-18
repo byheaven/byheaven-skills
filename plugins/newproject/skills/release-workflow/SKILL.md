@@ -261,7 +261,8 @@ still a draft, then mark it ready and merge.
 3. Open `CHANGELOG.md` and find the new `## [x.x.x] - YYYY-MM-DD` section
 4. Rewrite it following [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md)
 5. Commit and push: `git commit -am "docs: polish changelog for x.x.x" && git push`
-6. Merge the PR: `gh pr merge --merge`
+6. Mark as ready: `gh pr ready <number>`
+7. Merge the PR: `gh pr merge --merge`
 
 ### After merge
 
@@ -417,7 +418,7 @@ The PR is created as a **draft** — edit the changelog before marking it ready.
    ```
 
    The tag doesn't exist yet — it's created on merge. This is expected.
-6. Click **"Ready for review"** to convert the draft to a regular PR
+6. Mark as ready: `gh pr ready <number>` (or click **"Ready for review"** on GitHub)
 7. Merge the PR when satisfied
 
 ### What happens after merge
