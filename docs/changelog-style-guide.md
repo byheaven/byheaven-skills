@@ -104,7 +104,7 @@ Each item:
 
 The **first bold line** (`**...**`) immediately after the version header becomes the
 GitHub Release title. The release workflow automatically extracts it and formats the
-title as `1.2.0 - Headline`.
+title as `newproject-0.2.1 - Headline`.
 
 ### Rules
 
@@ -116,9 +116,9 @@ title as `1.2.0 - Headline`.
 
 ```
 ✅ Good titles (short, user-centric, punchy)
-**Multi-Language CI Templates**         → 1.2.0 - Multi-Language CI Templates
-**Smarter Project Initialization**      → 1.1.0 - Smarter Project Initialization
-**Sign in with Google and GitHub**      → 2.0.0 - Sign in with Google and GitHub
+**Multi-Language CI Templates**         → newproject-0.2.0 - Multi-Language CI Templates
+**Smarter Project Initialization**      → newproject-0.1.0 - Smarter Project Initialization
+**Sign in with Google and GitHub**      → xhs-publisher-1.0.0 - Sign in with Google and GitHub
 
 ❌ Bad titles
 **This release adds support for multiple CI template languages across the board**
@@ -156,14 +156,14 @@ The `## [Unreleased]` section sits above all versioned entries and always stays 
 ...
 
 <!-- Link definitions -->
-[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
+[unreleased]: https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.2.0...HEAD
 ```
 
 **When editing a Release PR**, update the `[unreleased]:` definition at the bottom to
 compare from the **new** version's tag. For example, when releasing 1.2.0:
 
 ```
-[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
+[unreleased]: https://github.com/OWNER/REPO/compare/PLUGIN_NAME-1.2.0...HEAD
 ```
 
 The tag doesn't exist yet while you're editing the PR — it's created on merge. This is

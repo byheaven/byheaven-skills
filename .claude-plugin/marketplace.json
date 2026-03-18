@@ -5,18 +5,15 @@
     "name": "Yubai",
     "email": "byheaven0912@gmail.com"
   },
-  "version": "1.1.0",
   "description": "A monorepo of Claude Code skills/plugins by Byheaven.",
   "plugins": [
     {
       "name": "xhs-publisher",
-      "version": "0.1.0",
       "description": "Automatically publishes Xiaohongshu (RED) posts via browser automation (text+images and photo-note modes).",
       "source": "./plugins/xhs-publisher"
     },
     {
       "name": "newproject",
-      "version": "0.1.0",
       "description": "Scaffolds and configures production-ready projects: structure, CI, linting, release automation, GitHub repository setup, dependency management, and security scanning.",
       "source": "./plugins/newproject"
     }

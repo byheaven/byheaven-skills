@@ -1,9 +1,12 @@
-# Changelog
+# Changelog (Archive)
+
+> **Note**: This changelog covers monorepo-level releases up through 1.1.0.
+> Each plugin now maintains its own changelog at `plugins/<name>/CHANGELOG.md`.
 
 All notable changes to this project will be documented in this file.
 Versions follow [Semantic Versioning](https://semver.org).
 
-<!-- Entries below are maintained automatically by release-please and edited manually -->
+<!-- Archived — no longer updated by release-please -->
 
 ## [Unreleased]
 

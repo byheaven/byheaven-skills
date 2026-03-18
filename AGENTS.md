@@ -39,7 +39,7 @@ No `AGENTS.md` inside individual plugins — this root file covers all of them.
 
 ## Marketplace Registration
 
-All plugins must be registered in `.claude-plugin/marketplace.json`. Add an entry to the `plugins` array with `name`, `version`, `description`, and `source` (relative path).
+All plugins must be registered in `.claude-plugin/marketplace.json`. Add an entry to the `plugins` array with `name`, `description`, and `source` (relative path). Do **not** include a `version` field — the authoritative version lives in each plugin's own `.claude-plugin/plugin.json`.
 
 ## Authoring Conventions
 
@@ -88,12 +88,19 @@ For commands, declare `AskUserQuestion` in the `allowed-tools` frontmatter field
 
 ## Versioning
 
-The repo has a single version (`"."` in `.release-please-manifest.json`) that covers
-the entire monorepo. release-please automatically updates both `package.json` and
-`.claude-plugin/marketplace.json` (via `extra-files` in `release-please-config.json`).
+Each plugin is versioned independently using [release-please](https://github.com/googleapis/release-please).
+The authoritative version lives in each plugin's `.claude-plugin/plugin.json`.
 
-Individual plugin versions in each `plugin.json` are **not** updated automatically —
-keep them in sync manually when a plugin has a meaningful change.
+- Conventional commits scoped to a plugin name (e.g. `feat(newproject): ...`) trigger that plugin's version bump
+- Each plugin has its own changelog at `plugins/<name>/CHANGELOG.md`
+- Tags follow the pattern `<plugin-name>-<version>` (e.g. `newproject-0.2.1`)
+- New plugins start at `0.1.0` by default
+
+When adding a new plugin, also:
+
+1. Create `plugins/<name>/version.txt` containing `0.1.0` (required by release-please)
+2. Add a package entry to `release-please-config.json`
+3. Add `"plugins/<name>": "0.1.0"` to `.release-please-manifest.json`
 
 ## Contributor Conventions
 

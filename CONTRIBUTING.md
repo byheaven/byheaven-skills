@@ -13,8 +13,11 @@ Thank you for your interest in contributing!
 ## Adding a Plugin
 
 1. Create `plugins/<name>/` with the required structure (see [CLAUDE.md](CLAUDE.md))
-2. Add an entry to `.claude-plugin/marketplace.json`
-3. Include a `README.md` and `LICENSE` in the plugin directory
+2. Create `plugins/<name>/version.txt` containing `0.1.0`
+3. Add an entry to `.claude-plugin/marketplace.json` (no `version` field)
+4. Add the plugin to `release-please-config.json` under `packages`
+5. Add `"plugins/<name>": "0.1.0"` to `.release-please-manifest.json`
+6. Include a `README.md` and `LICENSE` in the plugin directory
 
 ## Commit Convention
 
@@ -36,34 +39,34 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 
 ## Release Workflow
 
-This project uses [release-please](https://github.com/googleapis/release-please) for automated releases.
+This project uses [release-please](https://github.com/googleapis/release-please) for automated per-plugin releases.
 
 ### How it works
 
-1. Every `feat:` or `fix:` commit pushed to `main` is picked up by release-please
-2. release-please maintains an open **Release PR** (titled `chore(main): release x.x.x`)
-3. The Release PR auto-updates `CHANGELOG.md` with raw commit entries
-4. When you merge the Release PR → release-please creates a git tag → the tag triggers a GitHub Release
+1. Every `feat:` or `fix:` commit pushed to `main` that touches a plugin's directory (or uses the plugin name as a commit scope) is picked up by release-please
+2. release-please maintains a separate **Release PR** per plugin that has pending changes
+3. Each Release PR auto-updates the plugin's `plugins/<name>/CHANGELOG.md` with raw commit entries
+4. When you merge a Release PR → release-please creates a git tag (e.g., `newproject-0.2.1`) → the tag triggers a GitHub Release
 
 ### Before merging a Release PR
 
-Release PRs are created as **drafts** automatically. Edit `CHANGELOG.md` while it's
+Release PRs are created as **drafts** automatically. Edit the plugin's changelog while it's
 still a draft, then mark it ready and merge.
 
 1. Find the Release PR: `gh pr list --label "autorelease: pending" --draft`
 2. Check out the branch: `gh pr checkout <number>`
-3. Open `CHANGELOG.md` and find the new `## [x.x.x] - YYYY-MM-DD` section
+3. Open `plugins/<name>/CHANGELOG.md` and find the new `## [x.x.x] - YYYY-MM-DD` section
 4. Rewrite it following [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md)
-5. Update the `[unreleased]` link definition at the bottom of `CHANGELOG.md`
-   to compare from the new version tag (e.g., `...compare/byheaven-skills-1.2.0...HEAD`)
-6. Commit and push: `git commit -am "docs: polish changelog for x.x.x" && git push`
+5. Update the `[unreleased]` link definition at the bottom of the changelog
+   to compare from the new version tag (e.g., `...compare/newproject-0.2.1...HEAD`)
+6. Commit and push: `git commit -am "docs: polish changelog for <plugin> x.x.x" && git push`
 7. Merge the PR: `gh pr merge --merge`
 
 > **Claude users:** say "release" or "发版" — Claude reads this workflow from CLAUDE.md and executes it automatically.
 
 ### After merge
 
-- A git tag is created automatically
+- A git tag is created automatically (e.g., `newproject-0.2.1`)
 - The tag-triggered workflow creates a GitHub Release with your edited changelog content
 
 ## Changelog Style

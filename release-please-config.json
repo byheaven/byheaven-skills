@@ -1,26 +1,31 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "include-v-in-tag": false,
+  "changelog-sections": [
+    { "type": "feat",     "section": "### Features" },
+    { "type": "fix",      "section": "### Bug Fixes" },
+    { "type": "perf",     "section": "### Performance" },
+    { "type": "refactor", "section": "### Refactoring" },
+    { "type": "docs",     "section": "### Documentation", "hidden": true },
+    { "type": "chore",    "hidden": true },
+    { "type": "test",     "hidden": true },
+    { "type": "ci",       "hidden": true },
+    { "type": "build",    "hidden": true }
+  ],
   "packages": {
-    ".": {
-      "release-type": "node",
-      "include-v-in-tag": false,
+    "plugins/xhs-publisher": {
+      "release-type": "simple",
+      "component": "xhs-publisher",
       "extra-files": [
-        {
-          "type": "json",
-          "path": ".claude-plugin/marketplace.json",
-          "jsonpath": "$.version"
-        }
-      ],
-      "changelog-sections": [
-        { "type": "feat",     "section": "### Features" },
-        { "type": "fix",      "section": "### Bug Fixes" },
-        { "type": "perf",     "section": "### Performance" },
-        { "type": "refactor", "section": "### Refactoring" },
-        { "type": "docs",     "section": "### Documentation", "hidden": true },
-        { "type": "chore",    "hidden": true },
-        { "type": "test",     "hidden": true },
-        { "type": "ci",       "hidden": true },
-        { "type": "build",    "hidden": true }
+        { "type": "json", "path": ".claude-plugin/plugin.json", "jsonpath": "$.version" }
+      ]
+    },
+    "plugins/newproject": {
+      "release-type": "simple",
+      "component": "newproject",
+      "extra-files": [
+        { "type": "json", "path": ".claude-plugin/plugin.json", "jsonpath": "$.version" }
       ]
     }
   }

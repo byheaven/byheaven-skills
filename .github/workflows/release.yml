@@ -1,6 +1,6 @@
 # .github/workflows/release.yml
 # Responsibility: Triggered by tag push (created by release-please after PR merge).
-# Reads the human-edited CHANGELOG.md to create the GitHub Release.
+# Reads the human-edited per-plugin CHANGELOG.md to create the GitHub Release.
 # No publish step — this is a Claude plugin monorepo distributed via marketplace.
 
 name: Release
@@ -8,7 +8,7 @@ name: Release
 on:
   push:
     tags:
-      - 'byheaven-skills-[0-9]+.[0-9]+.[0-9]+'
+      - '*-[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
   contents: write
@@ -21,15 +21,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Extract this version's section from the human-edited CHANGELOG.md
+      # Parse plugin name and version from the tag (e.g. newproject-0.2.1)
+      - name: Parse tag
+        id: parse
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          VERSION=$(echo "$REF_NAME" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$')
+          COMPONENT="${REF_NAME%-$VERSION}"
+          echo "component=$COMPONENT" >> "$GITHUB_OUTPUT"
+
+      # Extract this version's section from the plugin's human-edited CHANGELOG.md
       - name: Extract release notes from CHANGELOG.md
         env:
           REF_NAME: ${{ github.ref_name }}
+          CHANGELOG_FILE: plugins/${{ steps.parse.outputs.component }}/CHANGELOG.md
         run: |
           chmod +x scripts/extract-release-notes.sh
           ./scripts/extract-release-notes.sh "$REF_NAME"
 
-      # Build the release title: "1.2.0 - Headline" or just "1.2.0" if no headline
+      # Build the release title: "newproject-0.2.1 - Headline" or just the tag if no headline
       - name: Read release title
         id: title
         env:
