@@ -19,10 +19,11 @@ the GitHub Release body will be extracted automatically from this file.
 
 ### 1. Open the Release PR
 
-Find the PR titled something like:
+Find the **draft** PR titled something like:
 > `chore(main): release 1.2.0`
 
-It was created automatically by release-please.
+It was created automatically by release-please as a draft, giving you time to
+edit the changelog before it's visible for review.
 
 ### 2. Find the CHANGELOG.md diff
 
@@ -115,9 +116,12 @@ to compare from the **new** version's tag:
 The tag doesn't exist yet while you're editing — it's created on merge. This is
 expected and normal. Commit this change to the same PR branch.
 
-### 7. Merge when satisfied
+### 7. Mark ready and merge
 
-Once you're happy with the changelog entry, merge the PR.
+Once you're happy with the changelog entry:
+
+1. On the PR page, click **"Ready for review"** to convert the draft to a regular PR
+2. Merge the PR
 
 What happens next (automatically):
 
