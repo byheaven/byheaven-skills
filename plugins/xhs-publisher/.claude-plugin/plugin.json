@@ -1,10 +1,16 @@
 {
   "name": "xhs-publisher",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "自动发布小红书图文内容的 Claude Code 插件",
   "author": {
     "name": "yubai",
     "email": "byheaven0912@gmail.com"
   },
-  "keywords": ["xiaohongshu", "小红书", "publisher", "automation", "browser-automation"]
+  "keywords": [
+    "xiaohongshu",
+    "小红书",
+    "publisher",
+    "automation",
+    "browser-automation"
+  ]
 }
