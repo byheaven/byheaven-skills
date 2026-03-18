@@ -2,7 +2,7 @@
 # scripts/extract-release-notes.sh
 #
 # Extracts a single version's section from CHANGELOG.md.
-# Used by release.yml to get the release body for GitHub Releases.
+# Used by release.yml to publish GitHub Releases from manually curated changelog sections.
 #
 # Usage: ./scripts/extract-release-notes.sh v1.2.0
 #
@@ -35,20 +35,59 @@ if [[ ! -f "$CHANGELOG_FILE" ]]; then
   exit 1
 fi
 
-# Extract everything between ## [VERSION] and the next ## [ heading
-awk "
-  /^\#\# \[${VERSION}\]/ { found=1; next }
-  found && /^\#\# \[/    { exit }
-  found                  { print }
-" "$CHANGELOG_FILE" \
-  | sed '/./!d' \
-  > "$OUTPUT_FILE"
+rm -f "$OUTPUT_FILE" "$TITLE_FILE"
+
+python3 - "$CHANGELOG_FILE" "$VERSION" "$OUTPUT_FILE" "$TITLE_FILE" <<'PY'
+import pathlib
+import re
+import sys
+
+changelog_file, version, output_file, title_file = sys.argv[1:]
+content = pathlib.Path(changelog_file).read_text(encoding="utf-8").splitlines()
+
+header_pattern = re.compile(rf"^## \[{re.escape(version)}\]\(")
+next_header_pattern = re.compile(r"^## \[")
+
+capturing = False
+section_lines = []
+
+for line in content:
+    if not capturing:
+        if header_pattern.match(line):
+            capturing = True
+        continue
+
+    if next_header_pattern.match(line):
+        break
+
+    section_lines.append(line)
+
+while section_lines and not section_lines[0].strip():
+    section_lines.pop(0)
+
+while section_lines and not section_lines[-1].strip():
+    section_lines.pop()
+
+if not section_lines:
+    sys.exit(0)
+
+pathlib.Path(output_file).write_text("\n".join(section_lines) + "\n", encoding="utf-8")
+
+title = ""
+for line in section_lines:
+    if re.match(r"^\*\*[^*]", line):
+        title = re.sub(r"^\*\*", "", line)
+        title = re.sub(r"\*\*.*$", "", title)
+        break
+
+pathlib.Path(title_file).write_text(title + ("\n" if title else ""), encoding="utf-8")
+PY
 
 # Fail loudly if nothing was extracted
 if [[ ! -s "$OUTPUT_FILE" ]]; then
   echo "❌ Version [${VERSION}] not found in ${CHANGELOG_FILE}." >&2
   echo "   Make sure the changelog has a section starting with:" >&2
-  echo "   ## [${VERSION}] - YYYY-MM-DD" >&2
+  echo "   ## [${VERSION}](compare-url) (YYYY-MM-DD)" >&2
   exit 1
 fi
 

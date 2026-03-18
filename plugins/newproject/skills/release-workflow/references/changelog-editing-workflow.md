@@ -1,148 +1,103 @@
 # Changelog Editing Workflow
 
-How to edit the auto-generated `CHANGELOG.md` in a Release PR before merging,
-using AI to produce Linear-style release notes.
+How to prepare a curated release commit and tag it, using AI to produce polished
+release notes from rough engineering inputs.
 
 ---
 
 ## When to Do This
 
-After release-please creates or updates a Release PR, you have a window to edit
-`CHANGELOG.md` before merging. This is the only place you need to edit —
-the GitHub Release body will be extracted automatically from this file.
+Do this when the team has decided a release is ready.
 
-**One source of truth:** edit `CHANGELOG.md` → GitHub Release matches it automatically.
+Normal merges to `main` do not publish releases and do not rewrite `CHANGELOG.md`.
+The release happens only after a human prepares the release commit.
+
+**One source of truth:** edit `CHANGELOG.md` and let `release.yml` publish from it.
 
 ---
 
 ## Step-by-Step
 
-### 1. Open the Release PR
+### 1. Gather the release inputs
 
-Find the **draft** PR titled something like:
-> `chore(main): release 1.2.0`
+Collect the commits, PRs, or notes that should be covered in this release.
 
-It was created automatically by release-please as a draft, giving you time to
-edit the changelog before it's visible for review.
-
-### 2. Find the CHANGELOG.md diff
-
-In the PR's "Files changed" tab, locate the `CHANGELOG.md` change.
-The new section will look like:
+You are preparing one new version section, for example:
 
 ```markdown
-## [1.2.0] - 2026-03-15
-
-### Features
-
-* feat(auth): implement OAuth2 PKCE flow with state parameter validation (#228)
-* feat(api): support batch processing with configurable chunk size (#234)
-
-### Bug Fixes
-
-* fix(pool): memory leak after 8+ hours continuous operation (#250)
+## [1.2.0](https://github.com/OWNER/REPO/compare/v1.1.0...v1.2.0) (2026-03-18)
 ```
 
-This is the raw auto-generated version — commit-centric, developer-focused.
+### 2. Draft the section with AI
 
-### 3. Copy the raw section
+Use the changelog style guide as the instruction set and provide the rough release inputs.
 
-Copy everything **below** the `## [1.2.0] - YYYY-MM-DD` header line.
-(Don't copy the header itself — you'll paste it back unchanged.)
+The AI should produce only the section body, not the header.
 
-### 4. Use AI to rewrite it
+### 3. Edit `CHANGELOG.md`
 
-Open Claude and use this prompt:
-
----
-
-**Prompt template:**
-
-```
-I need you to rewrite a raw auto-generated changelog section into
-Linear-style release notes. Follow the guidelines in this document:
-
-[paste the full contents of docs/changelog-style-guide.md here]
-
----
-
-Here is the raw changelog section to rewrite:
-
-## [1.2.0] - 2026-03-15
-
-[paste the raw section here]
-```
-
----
-
-### 5. Review the AI output
-
-Check that:
-
-- The 1–3 headline features are written from the user's perspective
-- No commit message syntax (`feat:`, `fix:`) remains
-- Internal changes (refactor, chore, ci) have been removed
-- The complete changes list is still present (Improvements + Bug Fixes)
-- Nothing has been invented — all items trace back to real commits
-
-Adjust freely. The AI output is a draft, not final.
-
-### 6. Edit the CHANGELOG.md in the PR
-
-On GitHub, in the Files Changed tab:
-
-1. Click the `...` menu on `CHANGELOG.md` → **Edit file**
-2. Find the new version section
-3. Keep the header line exactly as-is:
-
-   ```
-   ## [1.2.0] - 2026-03-15
-   ```
-
-4. Replace everything below the header (until the next `## [` line)
-   with your edited content
-5. Commit directly to the PR branch
-
-### 6.5. Update the `[unreleased]` link definition
-
-At the very bottom of `CHANGELOG.md`, update the `[unreleased]:` reference-style link
-to compare from the **new** version's tag:
+Add or update:
 
 ```markdown
-<!-- Link definitions -->
-[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
+## [Unreleased](https://github.com/OWNER/REPO/compare/v1.2.0...HEAD)
+
+## [1.2.0](https://github.com/OWNER/REPO/compare/v1.1.0...v1.2.0) (2026-03-18)
 ```
 
-The tag doesn't exist yet while you're editing — it's created on merge. This is
-expected and normal. Commit this change to the same PR branch.
+Then paste the rewritten release notes below the `1.2.0` header.
 
-### 7. Mark ready and merge
+Rules:
 
-Once you're happy with the changelog entry:
+- keep `Unreleased` empty
+- keep the version header linked
+- make sure the first bold line can serve as the GitHub Release title
 
-1. On the PR page, click **"Ready for review"** to convert the draft to a regular PR
-2. Merge the PR
+### 4. Bump the project version
 
-What happens next (automatically):
+Update the project's real version source if it has one:
 
-- release-please creates the git tag `v1.2.0`
-- The tag-triggered workflow runs (`release.yml`)
-- It parses `CHANGELOG.md`, extracts the `[1.2.0]` section
-- Creates the GitHub Release with your edited content
-- Runs the publish step (if applicable)
+- `package.json`
+- `pyproject.toml`
+- `Cargo.toml`
+- another established version file
+
+If the project is tag-only, there may be no version file to edit.
+
+### 5. Commit the release changes
+
+Example:
+
+```bash
+git commit -m "chore(release): prepare 1.2.0"
+```
+
+### 6. Tag that exact commit
+
+Example:
+
+```bash
+git tag v1.2.0
+git push origin main --follow-tags
+```
+
+### 7. What happens next
+
+After the tag is pushed:
+
+- `release.yml` runs
+- it validates the configured version metadata if applicable
+- it extracts the `1.2.0` section from `CHANGELOG.md`
+- it creates or updates the GitHub Release
+- it runs any optional publish step
 
 ---
 
 ## Tips
 
-**Rotate who writes the changelog** — the person who built the feature knows best
-what it means to users. This is how Linear does it.
+**Rotate changelog ownership** — the person closest to the work usually writes the best user-facing summary.
 
-**Don't overthink the headlines** — 1–3 punchy sentences per headline feature.
-If a release is mostly bug fixes, skip headlines entirely and go straight to the list.
+**Skip headlines when the release is small** — if a release is mostly bug fixes, go straight to the list sections.
 
-**Keep the full list** — don't delete small fixes just because you elevated something
-to a headline. Users with that specific bug care about it.
+**Do not invent details** — if a metric or precise behavior is unknown, write conservatively.
 
-**The header line is sacred** — `## [1.2.0] - 2026-03-15` must be untouched.
-The extract script and the release automation depend on this exact format.
+**The header matters** — the extract script depends on the version header matching the tag version exactly.

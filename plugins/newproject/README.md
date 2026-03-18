@@ -14,7 +14,7 @@ project-scaffold       README, LICENSE, .gitignore, .editorconfig
     │
     ├── code-quality      ESLint/Prettier/Ruff + pre-commit hooks
     │
-    ├── release-workflow  conventional commits + release-please + changelogs
+    ├── release-workflow  conventional commits + curated changelogs + GitHub Releases
     │
     ├── ci-pipeline       GitHub Actions CI with test, lint, build
     │       │
@@ -64,7 +64,7 @@ Configure ESLint and Prettier
 | Skill | Purpose | Project types |
 |-------|---------|--------------|
 | `project-scaffold` | README, LICENSE, .gitignore, .editorconfig, directory structure | All |
-| `release-workflow` | release-please, conventional commits, AI changelog editing | All |
+| `release-workflow` | conventional commits, manual curated releases, AI changelog editing | All |
 | `ci-pipeline` | GitHub Actions CI: test, lint, build, matrix strategies, caching | All |
 | `code-quality` | ESLint+Prettier, Ruff, gofmt, rustfmt, pre-commit hooks, markdownlint | Node/Web/Python/Go/Rust |
 | `github-repo-setup` | PR template, issue YAML forms, CODEOWNERS, branch protection via gh | All |

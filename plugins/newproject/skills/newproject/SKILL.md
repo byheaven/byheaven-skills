@@ -37,7 +37,7 @@ ls .github/workflows/ci* .github/workflows/release* .github/workflows/codeql* .g
 ls .eslintrc* eslint.config.* prettier.config.* ruff.toml .golangci.yml rustfmt.toml .husky/ .pre-commit-config.yaml 2>/dev/null
 
 # Release workflow
-ls release-please-config.json .release-please-manifest.json 2>/dev/null
+ls .github/workflows/release* CHANGELOG.md 2>/dev/null
 
 # Git status
 git remote -v 2>/dev/null || echo "no remote"
@@ -75,7 +75,7 @@ New [type] project: [name] — all skills selected by default
 
 Tier 1 — Foundation:
   ☑ project-scaffold   — README, LICENSE (MIT), .gitignore, .editorconfig, AGENTS.md + CLAUDE.md symlink
-  ☑ release-workflow   — conventional commits + release-please + changelogs
+  ☑ release-workflow   — conventional commits + curated changelogs + GitHub Releases
   ☑ ci-pipeline        — GitHub Actions CI with test, lint, build
 
 Tier 2 — Quality & Governance:
@@ -100,7 +100,7 @@ Project: [detected type] — [project name]
 
 Tier 1 — Foundation:
   [✅ or □] project-scaffold   — README, LICENSE, .gitignore, .editorconfig, AGENTS.md + CLAUDE.md symlink
-  [✅ or □] release-workflow   — conventional commits + release-please + changelogs
+  [✅ or □] release-workflow   — conventional commits + curated changelogs + GitHub Releases
   [✅ or □] ci-pipeline        — GitHub Actions CI with test, lint, build
 
 Tier 2 — Quality & Governance:
@@ -151,7 +151,7 @@ After all skills are committed and pushed, configure GitHub settings via `gh api
 REPO=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
 ```
 
-**If `release-workflow` was run** — enable Actions write permissions:
+**If `release-workflow` was run** — ensure Actions can create releases:
 
 ```bash
 gh api --method PUT "repos/${REPO}/actions/permissions/workflow" \
@@ -189,7 +189,7 @@ gh api --method PATCH "repos/${REPO}" \
 
 Configured:
   ✅ project-scaffold    — README.md, LICENSE (MIT), .gitignore, .editorconfig, AGENTS.md + CLAUDE.md symlink
-  ✅ release-workflow    — commitlint + release-please + release.yml
+  ✅ release-workflow    — commitlint + curated changelog flow + release.yml
   ✅ ci-pipeline         — .github/workflows/ci.yml (Node [version] matrix)
   ✅ code-quality        — ESLint + Prettier + lint-staged + husky pre-commit
   ✅ github-repo-setup   — PR template + issue forms + branch protection
@@ -197,7 +197,7 @@ Configured:
   ✅ security-scanning   — CodeQL + dependency-review
 
 GitHub settings automated:
-  ✅ Actions write permissions — release-please can open Release PRs
+  ✅ Actions write permissions — release workflow can publish GitHub Releases
   ✅ Auto-merge enabled — Dependabot patch/minor updates merge automatically
   [✅ or ⚠️] Secret scanning — check output above
 

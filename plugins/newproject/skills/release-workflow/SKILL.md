@@ -1,65 +1,75 @@
 ---
 name: release-workflow
-description: "Sets up a complete automated GitHub release workflow for any project. Use this skill whenever the user wants to automate releases, set up changelogs, configure release-please, generate release notes, or establish a versioning workflow on a GitHub project. Also use when the user mentions semantic versioning, conventional commits, CHANGELOG.md, release automation, or wants GitHub Releases to be created automatically. This skill sets up the full pipeline: conventional commits enforcement → release-please manages Release PRs and tags → AI-assisted changelog editing → automated GitHub Release creation from the edited CHANGELOG.md."
+description: "Sets up a manual curated GitHub release workflow for a single-project repository. Use this skill whenever the user wants conventional commits, a changelog-driven release process, GitHub Releases published from edited release notes, or a clear semantic versioning workflow without release-please. The workflow is: enforce conventional commits, maintain a linked-header CHANGELOG.md, prepare a human-authored release commit when ready, tag that exact commit, and let release.yml publish the GitHub Release from the changelog."
 ---
 
 # GitHub Release Workflow Skill
 
-Sets up a complete, production-ready release automation pipeline on a GitHub project. The workflow combines release-please for versioning automation with a human-in-the-loop AI editing step for Linear-quality changelogs.
+Sets up a production-ready release workflow for a normal project repository. Day-to-day
+development stays on `main`, and releases happen only when a human prepares a curated
+changelog section, bumps the project version, tags that exact commit, and lets GitHub
+Actions publish the release from `CHANGELOG.md`.
 
 ## Overview of What Gets Set Up
 
-```
-Conventional commits (enforced by commitlint + husky)
+```text
+Conventional commits (commitlint + optional husky / CI check)
     │
     ▼
-Push to main → release-please maintains a Release PR
-    │             (auto-updates CHANGELOG.md draft + bumps version)
+Normal development on main
+    │  → no release PRs
+    │  → no automatic changelog rewrites
     ▼
-Developer edits CHANGELOG.md in the PR
-    │  → Uses AI to rewrite raw commits into Linear-style prose
-    │  → References: references/changelog-style-guide.md for the style guide
+Developer prepares a release commit
+    │  → edits CHANGELOG.md with linked headers
+    │  → bumps the project version file
     ▼
-Merge Release PR → release-please creates tag
+Developer tags that exact commit
     │
     ▼
 Tag-triggered workflow (release.yml)
-    │  → Reads CHANGELOG.md, extracts this version's section
-    │  → Creates GitHub Release with the human-edited content
-    │  → Runs publish step if needed (npm / pip / go / custom)
-    └
+    │  → validates version metadata
+    │  → extracts the matching CHANGELOG.md section
+    │  → creates or updates the GitHub Release
+    │  → runs publish step if needed (npm / PyPI / binaries / custom)
 ```
 
 ---
 
 ## Step 0: Read the Project First
 
-Before doing anything, understand the project:
+Before making changes, inspect the repository:
 
 ```bash
 # Detect project type
 ls package.json pyproject.toml setup.py go.mod Cargo.toml 2>/dev/null
 
-# Detect web framework (run if package.json exists)
+# Detect web framework (if package.json exists)
 ls next.config.* nuxt.config.* vite.config.* angular.json svelte.config.* astro.config.* remix.config.* 2>/dev/null
 
-# Check if git is initialized
+# Check Git metadata
 git remote -v
+git branch --show-current
 
-# Check existing CI
+# Check existing CI / release files
 ls .github/workflows/ 2>/dev/null
+ls CHANGELOG.md CONTRIBUTING.md AGENTS.md 2>/dev/null
 ```
 
 Determine:
 
 - **Project type**: web / node / python / go / rust / other
   - If a Node project has a web framework config file, classify as **web**
-  - If ambiguous, use the AskUserQuestion tool: "Is this a web app (deployed via Vercel/Netlify) or a Node.js library/tool? (web/node)"
-- **Primary branch name**: main / master (check `git remote show origin`)
-- **Package name**: from package.json / pyproject.toml / go.mod
-- **Existing workflows**: avoid overwriting anything
+  - If ambiguous, use the AskUserQuestion tool: "Is this a web app or a Node.js library/tool?"
+- **Primary branch name**: `main` / `master`
+- **Current version source of truth**:
+  - Node/web: `package.json`
+  - Python: `pyproject.toml` / `setup.py`
+  - Rust: `Cargo.toml`
+  - Go/other: existing version file if one already exists, otherwise tag-only
+- **Existing workflows and changelog state**: avoid overwriting useful files blindly
 
-If anything is ambiguous, use the AskUserQuestion tool to resolve it before proceeding.
+If anything is ambiguous, resolve it with the AskUserQuestion tool before proceeding.
 
 ---
 
@@ -84,136 +94,75 @@ Create `commitlint.config.js`:
 module.exports = { extends: ['@commitlint/config-conventional'] }
 ```
 
-### Non-Node projects — commitlint via npm (no package.json required)
+### Non-Node projects — commitlint in CI
 
-If the project doesn't use Node, install commitlint globally or use a GitHub Action
-to validate commit messages on PRs instead of local hooks.
+If the project does not use Node, prefer a GitHub Actions check instead of forcing
+local npm tooling. Use `assets/workflows/commitlint-check.yml` as the optional CI check.
 
-Use the workflow at `assets/workflows/commitlint-check.yml` as an optional CI check.
+### Commit type reference
 
-### Commit types reference
-
-| Type | Triggers version bump | Description |
-|------|----------------------|-------------|
-| `feat` | minor (0.x.0) | New feature |
-| `fix` | patch (0.0.x) | Bug fix |
-| `BREAKING CHANGE` | major (x.0.0) | Breaking change (in footer) |
+| Type | Typical bump | Description |
+|------|--------------|-------------|
+| `feat` | minor | New feature |
+| `fix` | patch | Bug fix |
+| `BREAKING CHANGE` / `!` | major | Breaking change |
 | `docs/chore/refactor/test/ci` | none | Internal |
 
 ---
 
-## Step 2: release-please Configuration
-
-### Copy workflow files
-
-Copy `assets/workflows/release-please.yml` to `.github/workflows/release-please.yml`.
-
-Then create `release-please-config.json` in the project root.
-Use `assets/config/release-please-config.json` as the base, then edit:
-
-- Set `"release-type"` to match the project: `node` (also for web) / `python` / `go` / `rust` / `simple`
-- Verify `"changelog-sections"` match the team's commit type conventions
-
-Also create `.release-please-manifest.json` in the project root:
-
-```json
-{
-  ".": "0.0.0"
-}
-```
-
-Replace `"0.0.0"` with the current version if the project already has releases.
-
-### Permissions required
-
-In the GitHub repo → Settings → Actions → General:
-
-- Workflow permissions: **Read and write**
-- Allow GitHub Actions to create and approve pull requests: **enabled**
-
-Remind the user to check these settings — they are off by default on new repos.
-
-> **Note:** Release PRs are created as **drafts** by default (`draft-pull-request: true`).
-> This gives you time to edit `CHANGELOG.md` before the PR is visible for review.
-> Mark the PR as "Ready for review" (or merge directly) once the changelog is polished.
-
----
-
-## Step 3: Tag-Triggered Release Workflow
+## Step 2: Release Workflow
 
 Copy `assets/workflows/release.yml` to `.github/workflows/release.yml`.
 
-Then update the tag pattern in the `on.push.tags` section to match the tag format
-release-please will create. The pattern must include the `tag-prefix` from
-`release-please-config.json`:
+This workflow should be the only release workflow. It triggers on matching release tags,
+validates the version file, extracts the matching changelog section, and publishes the
+GitHub Release from that section.
 
-```bash
-# Get the tag-prefix value
-cat release-please-config.json | grep tag-prefix
-```
+### Configure the tag pattern
 
-- **No prefix** (tag-prefix is empty or absent): `'[0-9]+.[0-9]+.[0-9]+'`
-- **Prefix `myapp-`**: `'myapp-[0-9]+.[0-9]+.[0-9]+'`
+Edit the `on.push.tags` pattern in `release.yml` to match the project's tag format:
 
-Replace the `TAG_PREFIX_HERE` placeholder in `release.yml` with the correct prefix
-(or remove it entirely if there is no prefix).
+- **No prefix**: `'*.*.*'`
+- **Prefix `myapp-`**: `'myapp-*.*.*'`
 
-This workflow triggers on every matching tag push, extracts the matching section from
-`CHANGELOG.md`, and creates a GitHub Release. No customization needed for web apps
-or projects where deployment is handled by the platform (Vercel, Netlify, etc.).
+The workflow itself should enforce the exact semantic version shape during parsing, so
+the tag trigger can stay broad.
 
-**If the project publishes a package**, append a publish step to the `jobs.release.steps`
-list in `release.yml` after the "Create GitHub Release" step:
+### Configure the version file
 
-**Node.js — publish to npm:**
+Set the workflow's version validation step to read the project's actual version source:
 
-```yaml
-- name: Publish to npm
-  run: npm ci && npm publish
-  env:
-    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-```
+- Node/web: `package.json`
+- Python: `pyproject.toml` or another established version file
+- Rust: `Cargo.toml`
+- Go/other: skip version-file validation if the project is intentionally tag-only
 
-**Python — publish to PyPI:**
-
-```yaml
-- name: Publish to PyPI
-  run: pip install build twine && python -m build && twine upload dist/*
-  env:
-    TWINE_USERNAME: __token__
-    TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-```
-
-**Go / Rust — upload binary:**
-
-```yaml
-- name: Build release binary
-  run: go build -o myapp-${{ github.ref_name }} ./cmd/myapp
-- name: Upload binary to release
-  uses: softprops/action-gh-release@v2
-  with:
-    files: myapp-${{ github.ref_name }}
-```
+If the project publishes packages or binaries, append the publish step after the
+GitHub Release step in `release.yml`.
 
 ---
 
-## Step 4: Extract-Release-Notes Script
+## Step 3: Extract Release Notes Script
 
-Copy `assets/scripts/extract-release-notes.sh` to `scripts/extract-release-notes.sh`.
-Make it executable:
+Copy `assets/scripts/extract-release-notes.sh` to `scripts/extract-release-notes.sh`:
 
 ```bash
+mkdir -p scripts
+cp assets/scripts/extract-release-notes.sh scripts/extract-release-notes.sh
 chmod +x scripts/extract-release-notes.sh
-git add scripts/extract-release-notes.sh
 ```
 
-This script is called by `release.yml` to parse `CHANGELOG.md` and extract the
-section for the current tag version. It exits with an error if the version is not
-found, which will fail the CI run and alert the developer.
+This script parses `CHANGELOG.md`, extracts the section for the current tag version,
+and writes:
+
+- `RELEASE_NOTES.md`
+- `RELEASE_TITLE.txt`
+
+It must fail loudly when the target version section is missing.
 
 ---
 
-## Step 5: Changelog Style Guide
+## Step 4: Changelog Style Guide
 
 Copy `references/changelog-style-guide.md` to `docs/changelog-style-guide.md`:
 
@@ -222,122 +171,53 @@ mkdir -p docs
 cp references/changelog-style-guide.md docs/changelog-style-guide.md
 ```
 
-This is the style reference for writing Linear-quality release notes. It works as both
-a human reference and an AI system prompt.
+This guide is both:
 
-**Release title convention:** The first bold line (`**...**`) in each changelog section
-becomes the GitHub Release title (e.g., `1.2.0 - Multi-Language CI Templates`). Keep
-it 3–6 words, user-centric. If no bold line is present, the title falls back to the
-bare version number.
+- the human writing standard for release notes
+- the AI prompt reference when rewriting rough notes into polished changelog prose
+
+The first bold line in a version section becomes the GitHub Release title.
+If no bold line exists, the release title falls back to the tag name.
 
 ---
 
-## Step 5.5: Update CONTRIBUTING.md
+## Step 5: Update CONTRIBUTING.md
 
-Add release workflow and changelog style sections to `CONTRIBUTING.md`.
+Add a release workflow section describing the ongoing process:
 
-If `CONTRIBUTING.md` **already exists**, append the following sections before the last
-section (usually "Reporting Issues"):
+- normal merges to `main` do not publish releases
+- release happens only when a human:
+  - edits `CHANGELOG.md`
+  - bumps the version file
+  - commits those changes
+  - tags that exact commit
+- the tag triggers `release.yml`, which publishes the GitHub Release
 
-```markdown
-## Release Workflow
+If `CONTRIBUTING.md` already exists, update or replace its release section.
+If it does not exist, create a minimal one that includes:
 
-This project uses [release-please](https://github.com/googleapis/release-please) for automated releases.
+- Getting Started
+- Commit Convention
+- Release Workflow
+- Changelog Style
+- Reporting Issues
 
-### How it works
-
-1. Every `feat:` or `fix:` commit pushed to `main` is picked up by release-please
-2. release-please maintains an open **Release PR** (titled `chore(main): release x.x.x`)
-3. The Release PR auto-updates `CHANGELOG.md` with raw commit entries
-4. When you merge the Release PR → release-please creates a git tag → the tag triggers a GitHub Release
-
-### Before merging a Release PR
-
-Release PRs are created as **drafts** automatically. Edit `CHANGELOG.md` while it's
-still a draft, then mark it ready and merge.
-
-1. Find the Release PR: `gh pr list --label "autorelease: pending" --draft`
-2. Check out the branch: `gh pr checkout <number>`
-3. Open `CHANGELOG.md` and find the new `## [x.x.x] - YYYY-MM-DD` section
-4. Rewrite it following [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md)
-5. Commit and push: `git commit -am "docs: polish changelog for x.x.x" && git push`
-6. Mark as ready: `gh pr ready <number>`
-7. Merge the PR: `gh pr merge --merge`
-
-### After merge
-
-- A git tag is created automatically
-- The tag-triggered workflow creates a GitHub Release with your edited changelog content
-
-## Changelog Style
-
-Changelogs follow [Linear-style prose](docs/changelog-style-guide.md) — user-centric, not commit-centric.
-
-Key principles:
-
-- **User benefit first**: describe what users *get*, not what developers *did*
-- **Bold headlines**: 1–3 punchy feature titles for the most significant changes
-- **Never modify the version header**: `## [x.x.x] - YYYY-MM-DD` is parsed by automation
-- **Omit internal changes**: `chore`, `ci`, `refactor`, `docs` commits are hidden by default
-
-See [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md) for the full guide with examples.
-```
-
-If `CONTRIBUTING.md` **does not exist**, create a minimal one:
-
-```markdown
-# Contributing to [Project Name]
-
-Thank you for your interest in contributing!
-
-## Getting Started
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/your-feature`
-3. Commit using [conventional commits](https://www.conventionalcommits.org/)
-4. Push and open a pull request
-
-## Commit Convention
-
-This project uses [Conventional Commits](https://www.conventionalcommits.org/):
-
-| Type | When to use |
-|------|-------------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
-| `refactor` | Code change, no feature/fix |
-| `chore` | Maintenance, dependencies |
-
-[paste Release Workflow and Changelog Style sections here]
-
-## Reporting Issues
-
-Use the GitHub issue tracker. For bugs, include:
-- Steps to reproduce
-- Expected vs actual behavior
-- Environment details (OS, version)
-```
-
-Replace `[Project Name]` with the actual project name and insert the Release Workflow
-and Changelog Style sections in place of the placeholder comment.
+Use the linked-header changelog format described below.
 
 ---
 
 ## Step 6: Initial CHANGELOG.md
 
-If no `CHANGELOG.md` exists, create one. First, derive the values you need:
+If no `CHANGELOG.md` exists, create one.
+
+First derive:
 
 ```bash
-# Get OWNER/REPO from remote URL
 git remote get-url origin
-# e.g., https://github.com/OWNER/REPO.git  →  OWNER/REPO
-
-# Get tag prefix from release-please-config.json (tag-prefix field, may be empty)
-cat release-please-config.json | grep tag-prefix
+# Example: https://github.com/OWNER/REPO.git
 ```
 
-Then create `CHANGELOG.md` with this template (substitute `OWNER/REPO` and `TAG_PREFIX`):
+Use this template:
 
 ```markdown
 # Changelog
@@ -345,42 +225,40 @@ Then create `CHANGELOG.md` with this template (substitute `OWNER/REPO` and `TAG_
 All notable changes to this project will be documented in this file.
 Versions follow [Semantic Versioning](https://semver.org).
 
-<!-- Entries below are maintained automatically by release-please and edited manually -->
-
-## [Unreleased]
-
-<!-- Link definitions -->
-[unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-0.0.0...HEAD
+## [Unreleased](https://github.com/OWNER/REPO/compare/v0.0.0...HEAD)
 ```
 
-> Replace `TAG_PREFIX-0.0.0` with `TAG_PREFIX-` followed by the version in
-> `.release-please-manifest.json`. If the tag prefix is empty, use just `0.0.0`.
+Then, for each real release, use linked version headers:
 
-Commit everything:
-
-```bash
-git add .
-git commit -m "chore: set up automated release workflow"
-git push
+```markdown
+## [1.2.0](https://github.com/OWNER/REPO/compare/v1.1.0...v1.2.0) (2026-03-18)
 ```
+
+Rules:
+
+- `Unreleased` is always a linked header to `compare/<latest-tag>...HEAD`
+- Each release header links to `compare/<previous-tag>...<new-tag>`
+- Keep the section body under `Unreleased` empty between releases
 
 ---
 
 ## Step 7: Verify the Setup
 
-Walk the user through a dry run:
+Walk the user through a non-destructive verification:
 
-1. Make a test commit: `git commit --allow-empty -m "feat: test release workflow"`
-2. Push to main
-3. Check GitHub Actions → the release-please workflow should run
-4. A "Release PR" should appear in the repo's pull requests
-5. The PR title should be something like `chore(main): release 0.1.0`
+1. Confirm `commitlint` is wired locally or in CI
+2. Confirm `release.yml` exists and has the intended tag pattern
+3. Confirm `scripts/extract-release-notes.sh` is executable
+4. Confirm `CHANGELOG.md` uses linked headers:
+   - `## [Unreleased](compare-url)`
+   - `## [x.y.z](compare-url) (YYYY-MM-DD)`
+5. Dry-run the extract script against an existing changelog version if one exists:
 
-If the PR doesn't appear within 2 minutes, check:
+   ```bash
+   CHANGELOG_FILE=CHANGELOG.md ./scripts/extract-release-notes.sh v1.2.0
+   ```
 
-- Workflow permissions (Step 2)
-- The `release-please.yml` syntax (check Actions tab for errors)
-- That `.release-please-manifest.json` exists
+If the extract script fails, fix the changelog format before calling the setup done.
 
 ---
 
@@ -391,42 +269,44 @@ Explain the ongoing workflow to the user:
 ### Normal development
 
 ```bash
-# Commit with conventional format
 git commit -m "feat(auth): add magic link login"
 git push origin main
-# → release-please silently updates the Release PR
 ```
 
-### Editing the Release PR (before merging)
+What happens:
 
-The PR is created as a **draft** — edit the changelog before marking it ready.
+- normal CI runs
+- no release PR is created
+- `CHANGELOG.md` is not rewritten automatically
 
-1. Open the draft Release PR on GitHub
-2. Find the `CHANGELOG.md` change in the diff
-3. Click "..." → "Edit file" on the CHANGELOG.md
-4. Use the changelog style guide (`docs/changelog-style-guide.md`) as a reference:
-   - Feed the raw diff to Claude with the guide as context
-   - Review and adjust the AI output
-   - Paste the result back, keeping the `## [x.x.x] - YYYY-MM-DD` header unchanged
-   - The **first bold line** in the new section becomes the GitHub Release title
-     (e.g., `**Smarter Project Initialization**` → `1.1.0 - Smarter Project Initialization`)
-5. Update the `[unreleased]:` link definition at the very bottom of `CHANGELOG.md`
-   to compare from the new version's tag. For example, when releasing `1.2.0`:
+### Release day
 
-   ```
-   [unreleased]: https://github.com/OWNER/REPO/compare/TAG_PREFIX-1.2.0...HEAD
-   ```
+When ready to release:
 
-   The tag doesn't exist yet — it's created on merge. This is expected.
-6. Mark as ready: `gh pr ready <number>` (or click **"Ready for review"** on GitHub)
-7. Merge the PR when satisfied
+1. Edit `CHANGELOG.md`
+   - Add a new linked version header
+   - Rewrite the release notes in polished user-facing prose
+   - Update `Unreleased` to compare from the new tag to `HEAD`
+2. Bump the project's version file if the project uses one
+3. Commit the release changes
+4. Tag that exact commit
+5. Push the commit and tag
 
-### What happens after merge
+Example:
 
-- release-please creates a git tag
-- The tag-triggered workflow triggers automatically (`release.yml`)
-- It reads your edited `CHANGELOG.md` and creates the GitHub Release
-- Runs the publish step (if applicable)
+```bash
+git commit -m "chore(release): prepare 1.2.0"
+git tag v1.2.0
+git push origin main --follow-tags
+```
+
+What happens next:
+
+- `release.yml` runs on the tag
+- it validates the version metadata if configured
+- it extracts the `1.2.0` section from `CHANGELOG.md`
+- it creates or updates the GitHub Release
+- it runs the publish step if the project has one
 
 ---
 
@@ -434,70 +314,46 @@ The PR is created as a **draft** — edit the changelog before marking it ready.
 
 Read these when you need more detail:
 
-- `references/changelog-editing-workflow.md` — Human workflow for editing changelogs with AI
-- `references/changelog-style-guide.md` — Changelog style guide (deployed to target project as `docs/changelog-style-guide.md`)
-- `references/decisions.md` — Why each tool was chosen; useful when user asks about alternatives
+- `references/changelog-editing-workflow.md` — release-day changelog editing process
+- `references/changelog-style-guide.md` — writing standard for changelog prose
+- `references/decisions.md` — tradeoffs versus other release tools
 
 ---
 
 ## Project Type Quick Reference
 
-| Type | release-type | Version file | Notes |
-|------|-------------|--------------|-------|
-| Web app | `node` | `package.json` | Uses `release.yml`; platform handles deployment |
-| Node.js | `node` | `package.json` | Auto-bumps version field |
-| Python | `python` | `pyproject.toml` | Also updates `__version__` if present |
-| Go | `go` | `version.go` or tag only | Often tag-only is fine |
-| Rust | `rust` | `Cargo.toml` | Auto-bumps version field |
-| Other | `simple` | `version.txt` | Creates/updates `version.txt` |
+| Type | Version source | Notes |
+|------|----------------|-------|
+| Web app | `package.json` | `release.yml` publishes GitHub Release; hosting platform deploys separately |
+| Node.js | `package.json` | Validate `package.json` version against the tag |
+| Python | `pyproject.toml` / project convention | Validate the existing version file if one exists |
+| Go | Tag-only or project convention | Tag-only is fine when there is no stable version file |
+| Rust | `Cargo.toml` | Validate `Cargo.toml` version against the tag |
+| Other | Existing version file or tag-only | Prefer tag-only unless the project already has a version file convention |
 
 ---
 
 ## Common Issues
 
-**release-please PR never appears**
-→ Check workflow permissions in repo Settings → Actions → General
+**Tag pushed but release workflow does not run**
+→ Check the tag glob in `.github/workflows/release.yml`
 
-**Tag created but release.yml doesn't trigger**
-→ Verify the tag pattern in release.yml matches: `'[0-9]+.[0-9]+.[0-9]+'` catches `1.0.0`
+**Workflow fails with version mismatch**
+→ The tag version and the configured version file do not match
 
 **extract-release-notes.sh exits with "version not found"**
-→ The CHANGELOG.md section header doesn't match the tag. Ensure format is
-  `## [1.2.3] - YYYY-MM-DD` (no `v` prefix inside brackets)
+→ The matching `CHANGELOG.md` section is missing or the header does not match the tag version
 
-**release-please creates wrong version (e.g., 1.0.0 instead of 0.2.0)**
-→ Edit `.release-please-manifest.json` to set the current version correctly
+**Release title is just the tag**
+→ There is no bold headline at the top of the release section
 
 ---
 
 ## Step 9: Update AGENTS.md
 
-Add a release workflow pointer to `AGENTS.md` so AI coding assistants know the release
-keywords and where the workflow is documented.
+Add a contributor-conventions pointer so AI coding assistants know where the release
+workflow is documented.
 
-Check if `AGENTS.md` has a `## Contributor Conventions` section:
+Ensure `AGENTS.md` includes guidance equivalent to:
 
-- **If it doesn't exist**: create a minimal one:
-
-  ```markdown
-  # AGENTS.md
-
-  This file provides guidance to AI coding assistants (Claude Code, OpenAI Codex,
-  and others) when working with code in this repository.
-
-  ## Contributor Conventions
-
-  Follow [CONTRIBUTING.md](CONTRIBUTING.md) for all contribution conventions.
-  ```
-
-- **If it exists** but has no `## Contributor Conventions` section, append:
-
-  ```markdown
-  ## Contributor Conventions
-
-  Follow [CONTRIBUTING.md](CONTRIBUTING.md) for all contribution conventions.
-  ```
-
-- **If `## Contributor Conventions` already exists**, just add the following lines (if not already present):
-
-> `Release: when the user says "release", "ship", or "merge the release PR", follow the Release Workflow section in CONTRIBUTING.md. Use docs/changelog-style-guide.md for changelog rewriting.`
+> `Release: when the user says "release" or "ship", follow the Release Workflow section in CONTRIBUTING.md. Use docs/changelog-style-guide.md for changelog rewriting.`
