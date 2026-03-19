@@ -39,15 +39,15 @@ Tier 3 — Security
 
 ## Asset Layout
 
-All required files live inside this skill:
+All required files live inside this package:
 
-- `assets/project-scaffold/` — README, LICENSE, CONTRIBUTING, .gitignore, .editorconfig
-- `assets/code-quality/` — ESLint, Prettier, Ruff, markdownlint, pre-commit hook
-- `assets/ci-pipeline/` — GitHub Actions CI templates
-- `assets/release-workflow/` — commitlint config, release workflow, extract script, references
-- `assets/github-repo-setup/` — PR template, issue forms, CODEOWNERS, branch protection script
-- `assets/dependency-management/` — Dependabot templates and auto-merge workflow
-- `assets/security-scanning/` — CodeQL and dependency review workflows
+- `assets/foundation/` — README, LICENSE, CONTRIBUTING, .gitignore, .editorconfig
+- `assets/quality/` — ESLint, Prettier, Ruff, markdownlint, pre-commit hook
+- `assets/ci/` — GitHub Actions CI templates
+- `assets/release/` — commitlint config, release workflow, extract script, references
+- `assets/github/` — PR template, issue forms, CODEOWNERS, branch protection script
+- `assets/dependencies/` — Dependabot templates and auto-merge workflow
+- `assets/security/` — CodeQL and dependency review workflows
 
 ---
 
@@ -228,13 +228,13 @@ If git already exists, skip this step.
 
 ### 3.2 Create or Update the Foundation Files
 
-Use only the vendored assets in this skill:
+Use only the vendored assets in this package:
 
-- `assets/project-scaffold/templates/README.md.template`
-- `assets/project-scaffold/templates/LICENSE-MIT.template`
-- `assets/project-scaffold/templates/CONTRIBUTING.md.template`
-- `assets/project-scaffold/gitignore/`
-- `assets/project-scaffold/editorconfig/.editorconfig`
+- `assets/foundation/templates/README.md.template`
+- `assets/foundation/templates/LICENSE-MIT.template`
+- `assets/foundation/templates/CONTRIBUTING.md.template`
+- `assets/foundation/gitignore/`
+- `assets/foundation/editorconfig/.editorconfig`
 
 Apply these rules:
 
@@ -325,13 +325,13 @@ so husky can be shared cleanly.
 
 ### 4.1 Code Quality
 
-Use only the vendored assets in this skill:
+Use only the vendored assets in this package:
 
-- `assets/code-quality/config/eslint.config.js`
-- `assets/code-quality/config/prettier.config.js`
-- `assets/code-quality/config/ruff.toml`
-- `assets/code-quality/config/.markdownlint.json`
-- `assets/code-quality/hooks/pre-commit`
+- `assets/quality/config/eslint.config.js`
+- `assets/quality/config/prettier.config.js`
+- `assets/quality/config/ruff.toml`
+- `assets/quality/config/.markdownlint.json`
+- `assets/quality/hooks/pre-commit`
 
 #### Node or Web
 
@@ -358,8 +358,8 @@ npm install --save-dev \
 
 Then:
 
-- copy `assets/code-quality/config/eslint.config.js` to `eslint.config.js` if no flat config exists
-- copy `assets/code-quality/config/prettier.config.js` to `prettier.config.js` if missing
+- copy `assets/quality/config/eslint.config.js` to `eslint.config.js` if no flat config exists
+- copy `assets/quality/config/prettier.config.js` to `prettier.config.js` if missing
 - add a `lint-staged` block to `package.json`:
 
   ```json
@@ -390,8 +390,8 @@ pip install ruff pre-commit
 
 Then:
 
-- copy `assets/code-quality/config/ruff.toml` to `ruff.toml` if missing
-- copy `assets/code-quality/hooks/pre-commit` to `.pre-commit-config.yaml` if missing
+- copy `assets/quality/config/ruff.toml` to `ruff.toml` if missing
+- copy `assets/quality/hooks/pre-commit` to `.pre-commit-config.yaml` if missing
 - run `pre-commit install`
 
 #### Go
@@ -448,7 +448,7 @@ Configure markdown linting:
 npm install --save-dev markdownlint-cli2
 ```
 
-Copy `assets/code-quality/config/.markdownlint.json` to `.markdownlint.json` if missing.
+Copy `assets/quality/config/.markdownlint.json` to `.markdownlint.json` if missing.
 
 Add this line to `AGENTS.md` if it is not already present:
 
@@ -456,13 +456,13 @@ Add this line to `AGENTS.md` if it is not already present:
 
 ### 4.2 Release Workflow
 
-Use only the vendored assets in this skill:
+Use only the vendored assets in this package:
 
-- `assets/release-workflow/config/commitlint.config.js`
-- `assets/release-workflow/workflows/commitlint-check.yml`
-- `assets/release-workflow/workflows/release.yml`
-- `assets/release-workflow/scripts/extract-release-notes.sh`
-- `assets/release-workflow/references/changelog-style-guide.md`
+- `assets/release/config/commitlint.config.js`
+- `assets/release/workflows/commitlint-check.yml`
+- `assets/release/workflows/release.yml`
+- `assets/release/scripts/extract-release-notes.sh`
+- `assets/release/references/changelog-style-guide.md`
 
 #### Conventional Commits
 
@@ -475,7 +475,7 @@ npm install --save-dev \
   husky
 ```
 
-Copy `assets/release-workflow/config/commitlint.config.js` to `commitlint.config.js`.
+Copy `assets/release/config/commitlint.config.js` to `commitlint.config.js`.
 
 Ensure `.husky/commit-msg` exists and runs:
 
@@ -484,16 +484,16 @@ npx --no -- commitlint --edit $1
 ```
 
 For non-Node projects, copy
-`assets/release-workflow/workflows/commitlint-check.yml` to
+`assets/release/workflows/commitlint-check.yml` to
 `.github/workflows/commitlint-check.yml`.
 
 #### Release Workflow Files
 
 Copy these files:
 
-- `assets/release-workflow/workflows/release.yml` → `.github/workflows/release.yml`
-- `assets/release-workflow/scripts/extract-release-notes.sh` → `scripts/extract-release-notes.sh`
-- `assets/release-workflow/references/changelog-style-guide.md` → `docs/changelog-style-guide.md`
+- `assets/release/workflows/release.yml` → `.github/workflows/release.yml`
+- `assets/release/scripts/extract-release-notes.sh` → `scripts/extract-release-notes.sh`
+- `assets/release/references/changelog-style-guide.md` → `docs/changelog-style-guide.md`
 
 Then:
 
@@ -570,13 +570,13 @@ Run this section when the user selected CI pipeline, GitHub repository setup, or
 
 ### 5.1 CI Pipeline
 
-Use only the vendored assets in this skill:
+Use only the vendored assets in this package:
 
-- `assets/ci-pipeline/workflows/ci-node.yml`
-- `assets/ci-pipeline/workflows/ci-python.yml`
-- `assets/ci-pipeline/workflows/ci-go.yml`
-- `assets/ci-pipeline/workflows/ci-rust.yml`
-- `assets/ci-pipeline/workflows/ci-generic.yml`
+- `assets/ci/workflows/ci-node.yml`
+- `assets/ci/workflows/ci-python.yml`
+- `assets/ci/workflows/ci-go.yml`
+- `assets/ci/workflows/ci-rust.yml`
+- `assets/ci/workflows/ci-generic.yml`
 
 Create `.github/workflows/` if needed.
 
@@ -588,7 +588,7 @@ If `package.json` exists but no lockfile exists, generate one before writing CI:
 npm install
 ```
 
-Copy `assets/ci-pipeline/workflows/ci-node.yml` to `.github/workflows/ci.yml`.
+Copy `assets/ci/workflows/ci-node.yml` to `.github/workflows/ci.yml`.
 
 Then customize the workflow:
 
@@ -607,7 +607,7 @@ Then customize the workflow:
 
 #### Python
 
-Copy `assets/ci-pipeline/workflows/ci-python.yml` to `.github/workflows/ci.yml`.
+Copy `assets/ci/workflows/ci-python.yml` to `.github/workflows/ci.yml`.
 
 Then customize:
 
@@ -618,7 +618,7 @@ Then customize:
 
 #### Go
 
-Copy `assets/ci-pipeline/workflows/ci-go.yml` to `.github/workflows/ci.yml`.
+Copy `assets/ci/workflows/ci-go.yml` to `.github/workflows/ci.yml`.
 
 Then:
 
@@ -629,7 +629,7 @@ Then:
 
 #### Rust
 
-Copy `assets/ci-pipeline/workflows/ci-rust.yml` to `.github/workflows/ci.yml`.
+Copy `assets/ci/workflows/ci-rust.yml` to `.github/workflows/ci.yml`.
 
 Then:
 
@@ -639,7 +639,7 @@ Then:
 
 #### Other
 
-Copy `assets/ci-pipeline/workflows/ci-generic.yml` to `.github/workflows/ci.yml`.
+Copy `assets/ci/workflows/ci-generic.yml` to `.github/workflows/ci.yml`.
 
 Then replace the placeholder install, test, lint, and build commands with the real commands.
 If the repo does not reveal them, use the `AskUserQuestion`/`request_user_input` tool explicitly.
@@ -650,13 +650,13 @@ Add this line to `AGENTS.md` if missing:
 
 ### 5.2 GitHub Repository Setup
 
-Use only the vendored assets in this skill:
+Use only the vendored assets in this package:
 
-- `assets/github-repo-setup/templates/pull-request-template.md`
-- `assets/github-repo-setup/templates/bug-report.yml`
-- `assets/github-repo-setup/templates/feature-request.yml`
-- `assets/github-repo-setup/templates/CODEOWNERS.template`
-- `assets/github-repo-setup/scripts/configure-branch-protection.sh`
+- `assets/github/templates/pull-request-template.md`
+- `assets/github/templates/bug-report.yml`
+- `assets/github/templates/feature-request.yml`
+- `assets/github/templates/CODEOWNERS.template`
+- `assets/github/scripts/configure-branch-protection.sh`
 
 Before making GitHub API changes, confirm:
 
@@ -711,14 +711,14 @@ Run this section when the user selected dependency management, security scanning
 
 ### 6.1 Dependency Management
 
-Use only the vendored assets in this skill:
+Use only the vendored assets in this package:
 
-- `assets/dependency-management/config/dependabot-node.yml`
-- `assets/dependency-management/config/dependabot-python.yml`
-- `assets/dependency-management/config/dependabot-go.yml`
-- `assets/dependency-management/config/dependabot-rust.yml`
-- `assets/dependency-management/config/dependabot-generic.yml`
-- `assets/dependency-management/workflows/dependabot-auto-merge.yml`
+- `assets/dependencies/config/dependabot-node.yml`
+- `assets/dependencies/config/dependabot-python.yml`
+- `assets/dependencies/config/dependabot-go.yml`
+- `assets/dependencies/config/dependabot-rust.yml`
+- `assets/dependencies/config/dependabot-generic.yml`
+- `assets/dependencies/workflows/dependabot-auto-merge.yml`
 
 Determine every ecosystem present:
 
@@ -737,7 +737,7 @@ Use the default schedule:
 - weekly grouped updates
 - auto-merge only for patch and minor updates
 
-Copy `assets/dependency-management/workflows/dependabot-auto-merge.yml` to
+Copy `assets/dependencies/workflows/dependabot-auto-merge.yml` to
 `.github/workflows/dependabot-auto-merge.yml`.
 
 After the workflows are pushed, enable auto-merge if the repo supports it:
@@ -753,10 +753,10 @@ Add this line to `AGENTS.md` if missing:
 
 ### 6.2 Security Scanning
 
-Use only the vendored assets in this skill:
+Use only the vendored assets in this package:
 
-- `assets/security-scanning/workflows/codeql.yml`
-- `assets/security-scanning/workflows/dependency-review.yml`
+- `assets/security/workflows/codeql.yml`
+- `assets/security/workflows/dependency-review.yml`
 
 Determine the CodeQL language:
 
@@ -767,10 +767,10 @@ Determine the CodeQL language:
 
 If CodeQL is supported:
 
-- copy `assets/security-scanning/workflows/codeql.yml` to `.github/workflows/codeql.yml`
+- copy `assets/security/workflows/codeql.yml` to `.github/workflows/codeql.yml`
 - update the matrix language to the detected language
 
-Always copy `assets/security-scanning/workflows/dependency-review.yml` to
+Always copy `assets/security/workflows/dependency-review.yml` to
 `.github/workflows/dependency-review.yml`.
 
 For Rust projects, explain that CodeQL is not supported and recommend:

@@ -46,9 +46,10 @@ being committed — which keeps the hook fast regardless of project size.
 
 ## Why check if husky is already installed before running `husky init`?
 
-The `release-workflow` skill may have already installed husky for the `commit-msg`
-hook. Running `husky init` again would overwrite the existing `.husky/pre-commit`
-file. This skill checks first and appends to the existing hook if present.
+The release setup in this package may have already installed husky for the
+`commit-msg` hook. Running `husky init` again would overwrite the existing
+`.husky/pre-commit` file. This package checks first and appends to the existing
+hook if present.
 
 ---
 

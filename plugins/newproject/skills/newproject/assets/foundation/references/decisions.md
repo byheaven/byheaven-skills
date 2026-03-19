@@ -9,8 +9,8 @@ without plugins (VS Code, JetBrains, Vim, Emacs all support it natively). It han
 the baseline: indentation, line endings, and trailing whitespace.
 
 Per-tool configs (Prettier, gofmt, rustfmt) layer on top of .editorconfig for
-language-specific concerns. `project-scaffold` adds `.editorconfig`; `code-quality`
-adds the language-specific tools.
+language-specific concerns. The foundation step adds `.editorconfig`; the quality
+step adds the language-specific tools.
 
 ---
 
@@ -53,7 +53,7 @@ Teams with complex contribution workflows will customize it anyway — a 200-lin
 CONTRIBUTING.md template would just create noise to delete.
 
 The template intentionally points to conventional commits and a simple PR flow.
-It assumes the project will use `release-workflow` for versioning.
+It assumes the project will use the release setup in this package for versioning.
 
 ---
 

@@ -7,9 +7,9 @@ repository setup, dependency management, and security scanning.
 
 ## What It Does
 
-The canonical entrypoint is the standalone `newproject` skill.
-It vendors its own templates, workflows, and scripts, so it works even when no
-other `newproject` helper skills are installed.
+`newproject` is the only entrypoint in this plugin.
+It vendors its own templates, workflows, scripts, and references so the full
+setup flow lives in one place.
 
 ```text
 Tier 1 — Foundation
@@ -61,21 +61,6 @@ Set up my new project
 
 The skill detects the project type, inventories what already exists, presents a
 checklist, and applies the selected setup sections in dependency order.
-
-### Advanced compatibility skills
-
-The bundled helper skills remain available for users who want to apply one setup
-area in isolation:
-
-- `project-scaffold`
-- `code-quality`
-- `release-workflow`
-- `ci-pipeline`
-- `github-repo-setup`
-- `dependency-management`
-- `security-scanning`
-
-These are compatibility surfaces. The supported end-to-end workflow is `newproject`.
 
 ## Supported Project Types
 

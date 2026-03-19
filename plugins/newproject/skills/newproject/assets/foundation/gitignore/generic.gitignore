@@ -16,6 +16,7 @@ credentials/
 *.pem
 *.key
 *.cert
+*.local.*
 
 # Dependency directories
 vendor/

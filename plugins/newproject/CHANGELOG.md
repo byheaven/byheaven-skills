@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.4.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.0...HEAD)
+
+## [0.5.0](https://github.com/byheaven/byheaven-skills/compare/newproject-0.4.0...newproject-0.5.0) (2026-03-19)
+
+**Single-skill newproject** — The plugin now ships only the self-contained
+`newproject` entrypoint. Installation and discovery are simpler because the
+setup flow, templates, workflows, and references now live under one skill.
+
+### Improvements
+
+- **Docs** Removes references to the deleted helper skills from the plugin docs,
+  metadata, and packaged references
+- **Assets** Renames the internal asset groups to neutral module names so the
+  package no longer reads like a multi-skill bundle
 
 ## [0.4.0](https://github.com/byheaven/byheaven-skills/compare/newproject-0.3.0...newproject-0.4.0) (2026-03-18)
 

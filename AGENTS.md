@@ -46,7 +46,7 @@ All plugins must be registered in `.claude-plugin/marketplace.json`. Add an entr
 
 A user may invoke any skill without ever having run any other skill first. Skills must never:
 
-- Reference steps in another skill (e.g., "see project-scaffold Step 9")
+- Reference steps in another skill (for example, "see another skill's later step")
 - Assume that another skill has already created files, sections, or configurations
 - Delegate setup to a sibling skill
 

@@ -1,6 +1,6 @@
 {
   "name": "newproject",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Self-contained end-to-end project setup packaged as a plugin and standalone skill: scaffold, CI, linting, release automation, GitHub repo setup, dependency management, and security scanning.",
   "author": {
     "name": "Yubai",
