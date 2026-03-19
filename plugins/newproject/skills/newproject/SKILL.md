@@ -1,6 +1,6 @@
 ---
 name: newproject
-description: "End-to-end project setup for Codex, Claude Code, and other AI tools. Use this when the user wants to scaffold a new project, upgrade an existing repository to a production-ready baseline, or configure project foundation, code quality, release automation, CI, GitHub repository settings, dependency management, and security scanning in one run. It includes its own templates, workflows, and scripts under `assets/`."
+description: "Project bootstrap and repository baseline setup for new or existing codebases. Use when the user wants to scaffold a new project or upgrade a repository with foundation files, code quality tooling, release automation, CI, GitHub configuration, dependency management, and security scanning using the bundled templates, workflows, and scripts."
 ---
 
 # newproject
