@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.3...HEAD)
 
+- **Skill metadata** Tightens the `newproject` skill description and UI summary
+  so trigger text focuses on user intent and repository setup scope instead of
+  tool-name boilerplate
+
 ## [0.5.3](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.2...newproject-0.5.3) (2026-03-19)
 
 - **Release workflow** Documents non-blocking signed tag commands so global
