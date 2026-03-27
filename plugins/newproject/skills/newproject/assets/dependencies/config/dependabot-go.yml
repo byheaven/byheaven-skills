@@ -11,6 +11,11 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "UTC"
+    cooldown:
+      default-days: 7
+      semver-major-days: 7
+      semver-minor-days: 7
+      semver-patch-days: 7
     groups:
       dependencies:
         update-types:
@@ -30,6 +35,11 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "UTC"
+    cooldown:
+      default-days: 7
+      semver-major-days: 7
+      semver-minor-days: 7
+      semver-patch-days: 7
     groups:
       github-actions:
         patterns:

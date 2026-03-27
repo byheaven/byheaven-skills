@@ -5,6 +5,10 @@
 - **Skill metadata** Tightens the `newproject` skill description and UI summary
   so trigger text focuses on user intent and repository setup scope instead of
   tool-name boilerplate
+- **Dependency defaults** Adds a 7-day Dependabot cooldown for version updates,
+  including GitHub Actions, before PRs are opened
+- **Dependency guidance** Updates the generated AGENTS messaging and bundled
+  design notes to reflect the new delayed-adoption supply-chain posture
 
 ## [0.5.3](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.2...newproject-0.5.3) (2026-03-19)
 

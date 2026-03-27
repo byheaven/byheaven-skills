@@ -11,6 +11,13 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "UTC"
+    # Wait one week before opening version-update PRs so the ecosystem has
+    # time to surface yanks, advisories, or other supply-chain concerns.
+    cooldown:
+      default-days: 7
+      semver-major-days: 7
+      semver-minor-days: 7
+      semver-patch-days: 7
     # Group all non-major updates into a single PR to reduce noise
     groups:
       dependencies:
@@ -32,6 +39,11 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "UTC"
+    cooldown:
+      default-days: 7
+      semver-major-days: 7
+      semver-minor-days: 7
+      semver-patch-days: 7
     groups:
       github-actions:
         patterns:

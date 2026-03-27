@@ -30,15 +30,22 @@ they may have breaking changes that affect different parts of the codebase.
 
 ---
 
-## Why auto-merge minor updates, not just patch?
+## Why add a 7-day cooldown before auto-merging patch and minor updates?
 
-Semantic versioning guarantees that minor updates are backwards-compatible.
-A library bumping from `2.3.0` to `2.4.0` added features but did not break
-existing interfaces. If your CI is passing, auto-merging minor updates is safe.
+SemVer alone is not a supply-chain control. A compromised maintainer account,
+malicious publish, or poisoned package release can still ship as a patch or minor
+update and pass ordinary CI before the broader ecosystem notices.
 
-The risk is that libraries don't always follow semver perfectly. Mitigating this:
+A 7-day cooldown is a practical default: it gives package authors, ecosystem
+maintainers, GitHub advisories, and the wider community time to surface yanks,
+reverts, and incident reports before the repository adopts a fresh release.
+After that waiting period, patch and minor updates can still auto-merge to keep
+maintenance overhead low.
+
+The remaining safeguards are:
 
 - Required status checks must pass before auto-merge
+- Major updates still require manual review
 - Human review remains opt-in for teams that want stricter merge policy
 - Auto-merge only runs `--merge` (not `--squash` or `--rebase`), preserving history
 
