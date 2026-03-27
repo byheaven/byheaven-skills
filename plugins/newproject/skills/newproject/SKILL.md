@@ -752,6 +752,7 @@ relevant sections into a single file.
 Use the default schedule:
 
 - weekly grouped updates
+- open version-update PRs only after a 7-day cooldown for patch, minor, and major updates across every configured package ecosystem and `github-actions`
 - auto-merge only for patch and minor updates after required status checks pass
 - do not require human review by default; if the repo later opts into review requirements, bot approval is best-effort only and a human review may still be needed depending on repository policy
 
@@ -767,7 +768,7 @@ gh api --method PATCH "repos/${REPO}" --field allow_auto_merge=true
 
 Add this line to `AGENTS.md` if missing:
 
-> `Dependencies: Dependabot opens PRs for updates automatically. Patch and minor updates are auto-merged after required status checks pass; major updates require manual review.`
+> `Dependencies: Dependabot waits 7 days before opening version-update PRs. Patch and minor updates are auto-merged after required status checks pass once those PRs exist; major updates require manual review.`
 
 ### 6.2 Security Scanning
 
