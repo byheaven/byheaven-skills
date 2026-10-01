@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/xhs-publisher-0.2.1...HEAD)
 
+- **claude.ai sync** Adds a name-only `.claude-plugin/plugin.json` so the
+  marketplace syncs on claude.ai; version and description stay in the root
+  `marketplace.json`
+
 ## [0.2.1](https://github.com/byheaven/byheaven-skills/compare/xhs-publisher-0.2.0...xhs-publisher-0.2.1) (2026-03-19)
 
 **Marketplace-managed metadata** — plugin version and description management now
