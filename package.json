@@ -5,6 +5,7 @@
   "scripts": {
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\" \"#node_modules\"",
+    "check:manager": "bash scripts/check-manager-agent.sh",
     "prepare": "husky"
   },
   "repository": {
