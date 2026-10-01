@@ -1,16 +1,19 @@
 # manager
 
 `manager` packages a project-collaboration method as a Claude Code plugin. The
-`manager` skill discusses a request until the direction is settled, delivers
+`manager` agent discusses a request until the direction is settled, delivers
 only on an explicit request, and closes every Acceptance predicate through a
 qualified judge before it claims completion.
 
 ## What It Includes
 
 ```text
+agents/manager            Manager role: Discussion, Delivery, Coordination,
+                          Continuation, Completion, plus a verbatim copy of
+                          the principles (CI checks it matches)
 skills/principles         Human-Agent Principles P1-P3 and operational baseline
-skills/manager            Manager role: Discussion, Delivery, Coordination,
-                          Continuation, Completion
+skills/manager            Loader that points runtimes without the agent to
+                          agents/manager.md
   references/             direction (Grill), experience gates,
                           production topology, evidence, repository
                           integration, Claude Code runtime notes
@@ -52,12 +55,23 @@ codex plugin add manager@byheaven-skills
 npx skills add byheaven/byheaven-skills
 ```
 
-This installs the skills only. The `verifier`, `code-worker`, and
-`knowledge-worker` agents are not installed this way; Manager then
+This installs the skills only. The agents are not installed this way; the
+`manager` skill then loads the role from `agents/manager.md`, and Manager
 self-produces or uses the tool's own sub-agents.
 
 ## Usage
 
-Invoke the `manager` skill at the start of a project conversation, or make it
-the default for a repository by naming it in that repository's `CLAUDE.md` or
-`AGENTS.md`.
+In Claude Code, start sessions as the `manager:manager` agent so the role and
+principles are in the system prompt from the first turn:
+
+```json
+{ "agent": "manager:manager" }
+```
+
+Put that in `~/.claude/settings.json` for every session, or run
+`claude --agent manager:manager` for one session. A skill cannot be preloaded
+into a main-session agent, so the agent file carries the role text itself.
+
+Where the agent cannot be selected (Codex, or a hosted session that does not
+take an agent), invoke the `manager` skill at the start of a project
+conversation, or name it in the repository's `CLAUDE.md` or `AGENTS.md`.
