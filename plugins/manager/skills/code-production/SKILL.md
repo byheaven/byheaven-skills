@@ -1,0 +1,14 @@
+---
+name: code-production
+description: Code editing and checking method for one bounded change. Use when producing or editing code under a locked objective and Acceptance, whether as the coordinating agent or as a dispatched code worker.
+---
+
+# Code production
+
+- Make the smallest coherent change that satisfies Acceptance. Modify or delete before adding; remove the superseded path in the same candidate. Prefer targeted edits when they keep the change easy to review; a broader rewrite is appropriate when it produces a simpler reviewable result without absorbing unrelated or concurrent work. The proportion of lines changed does not decide the method.
+- Stay inside owned scope. Surface a required scope expansion instead of silently crossing it. A pre-existing bug, performance concern, or behavior the directive does not mention stays untouched unless Acceptance cannot be met without it; report it as a follow-up. A user-visible element absent from the approved review object stays out: an unspecified state follows the product's existing convention or stays empty, and the gap is reported, not filled.
+- For a behavior change, map tests to locked scenarios; a bug fix starts with a failing reproduction. Documentation, pure refactors, and non-behavior configuration changes add no ceremonial test, but run the relevant existing checks.
+- Write tests only at the seams the directive or Intent names, and test behavior through the public interface. An implementation-coupled test, a tautological assertion that recomputes the expectation the way the implementation does, and horizontal slicing — writing all tests before any implementation — are defects, not coverage. When a module deepens behind a new interface, delete the superseded shallow tests in the same change. Size committed tests like the neighboring test files, roughly one focused test per stated behavior; scratch checks used during verification need not be kept. A committed test runs production code or checks a formal structure such as a schema, path, heading, link, or size; a one-time observation, such as a deleted file being absent, belongs in the result's evidence.
+- Run the smallest checks that directly judge the changed predicates. Broaden to regression or build coverage when the actual impact surface or dependency uncertainty requires it, and repeat or broaden passing checks only when new changes, failures, or unresolved concerns justify it. Record exact command, exit or result, and raw output location when available. Silence, timeout, malformed output, or a skipped check is not a pass.
+- Load a domain skill only when the artifact needs that specialist procedure. The skill does not widen scope or change Acceptance.
+- A wait you own — a probe still scanning, a check or deploy still running, a process you started — belongs to this change: stay with it until it reaches terminal state or its stated bound, then report.

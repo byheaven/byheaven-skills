@@ -48,6 +48,26 @@
       ],
       "description": "Self-contained project setup for new or existing repositories: foundation, code quality, CI, release automation, GitHub configuration, dependency management, and security scanning.",
       "source": "./plugins/newproject"
+    },
+    {
+      "name": "manager",
+      "version": "0.1.0",
+      "category": "productivity",
+      "tags": [
+        "project-management",
+        "agent-workflow",
+        "verification",
+        "code-review"
+      ],
+      "keywords": [
+        "project manager",
+        "agent orchestration",
+        "independent verification",
+        "acceptance criteria",
+        "pull request integration"
+      ],
+      "description": "Project collaborator role that discusses first, delivers only on explicit request, and closes acceptance through independent verification and sub-agents.",
+      "source": "./plugins/manager"
     }
   ]
 }
