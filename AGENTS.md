@@ -17,6 +17,8 @@ Every plugin must have:
 
 ```
 plugins/<name>/
+├── .claude-plugin/
+│   └── plugin.json              # Name only; claude.ai marketplace sync requires it
 ├── skills/<skill-name>/
 │   ├── SKILL.md                 # Skill frontmatter: name, description, version
 │   ├── agents/                  # Codex app metadata

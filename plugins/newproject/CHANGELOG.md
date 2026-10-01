@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.3...HEAD)
 
+- **claude.ai sync** Adds a name-only `.claude-plugin/plugin.json` so the
+  marketplace syncs on claude.ai; version and description stay in the root
+  `marketplace.json`
 - **Skill metadata** Tightens the `newproject` skill description and UI summary
   so trigger text focuses on user intent and repository setup scope instead of
   tool-name boilerplate
