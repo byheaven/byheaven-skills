@@ -55,9 +55,10 @@ codex plugin add manager@byheaven-skills
 npx skills add byheaven/byheaven-skills
 ```
 
-This installs the skills only. The agents are not installed this way; the
-`manager` skill then loads the role from `agents/manager.md`, and Manager
-self-produces or uses the tool's own sub-agents.
+This installs the skills only, without the plugin's `agents/` directory, so
+the Manager role is not available this way: the `manager` skill reports an
+incomplete install instead of loading a role. Use the `principles` and
+`code-production` skills on their own, or install the full plugin.
 
 ## Usage
 
