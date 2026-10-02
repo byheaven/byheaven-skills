@@ -12,6 +12,7 @@ helps you ship faster.
 
 - **xhs-publisher** — Xiaohongshu (RedNote) auto publisher (browser automation)
 - **manager** — Project collaborator role: discuss first, deliver on explicit request, verify independently with sub-agents
+- **cache-timer** — Claude Code mod: prompt-cache countdown in the status line, and compaction of a large conversation just before its cache expires
 - **newproject** — Self-contained full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning
 
 ## Installation
