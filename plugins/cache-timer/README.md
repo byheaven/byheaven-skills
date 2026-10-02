@@ -18,12 +18,14 @@ plugin API). Other agent tools do not load it.
   it runs the same compaction `/compact` runs once the cache has the lead time
   left, at most once per idle period, and reports the result in a toast. A
   running turn keeps the cache warm on its own, so no compaction runs then.
-- **Cache lifetime inference**: plugins cannot read whether the cache lives 5
-  minutes or 1 hour. With `auto`, it starts from 1 hour and, after a gap of
-  5.5 to 58 minutes on the same model, a cache hit confirms 1 hour and a miss
-  switches to 5 minutes. A cache miss with another cause, such as an edited
-  system prompt or `CLAUDE.md`, also reads as 5 minutes until the next hit;
-  pin the lifetime when you know it.
+- **Cache lifetime inference**: Claude Code gives status-line scripts the exact
+  `prompt_cache.ttl` and `expires_at`, but the function-hook API does not
+  expose them. With `auto`, the mod starts from 1 hour and, after a gap of 5.5
+  to 58 minutes on the same model, a cache hit confirms 1 hour and a miss
+  switches to 5 minutes. A miss with another cause, such as a changed effort
+  level or a newly connected MCP server, also reads as 5 minutes until the
+  next hit; pin the lifetime when you know it. `/usage` shows the lifetime
+  Claude Code actually requested.
 
 ## Settings
 
