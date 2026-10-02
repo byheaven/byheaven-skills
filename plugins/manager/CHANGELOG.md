@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/commits/main/plugins/manager)
 
+- **Principles** Project foundations now state first-principles derivation
+  as the default: start from the foundations and current evidence, and judge
+  existing artifacts against them
 - **Manager agent** Adds a `manager` agent that carries the full role and the
   principles in its own text, so a session started as `manager:manager` has
   them from the first turn without loading a skill; reference links point to
