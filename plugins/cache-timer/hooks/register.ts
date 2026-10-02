@@ -17,7 +17,45 @@ const initial: CacheClock = {
   model: null,
   ttl: '1h',
   isTtlObserved: false,
+  isTtlExact: false,
   handledAt: null,
+}
+
+// The tail of the transcript read after each turn: enough to reach the
+// turn's last response, well under what one host command returns.
+const TRANSCRIPT_TAIL_BYTES = 512 * 1024
+
+/**
+ * The lifetime of the last main-conversation cache write recorded in the
+ * transcript tail, or null when none is found. The transcript format is
+ * Claude Code's own and may change; callers fall back to inference.
+ */
+export function ttlFromTranscriptTail(tail: string): CacheTtl | null {
+  const lines = tail.split('\n')
+
+  for (let i = lines.length - 1; i >= 0; i -= 1) {
+    let entry: unknown
+    try {
+      entry = JSON.parse(lines[i])
+    } catch {
+      continue
+    }
+    const row = entry as {
+      type?: string
+      isSidechain?: boolean
+      message?: { usage?: { cache_creation?: { ephemeral_1h_input_tokens?: number; ephemeral_5m_input_tokens?: number } } }
+    }
+    const written = row.type === 'assistant' && row.isSidechain !== true ? row.message?.usage?.cache_creation : undefined
+
+    if ((written?.ephemeral_1h_input_tokens ?? 0) > 0) {
+      return '1h'
+    }
+    if ((written?.ephemeral_5m_input_tokens ?? 0) > 0) {
+      return '5m'
+    }
+  }
+
+  return null
 }
 
 const clock = atom({ plugin: 'cache-timer', key: 'clock' } as const, initial)
@@ -96,6 +134,7 @@ export const register: Register = (on, options) => {
       let { ttl, isTtlObserved } = prev
       const gap = prev.lastAt === null ? 0 : sentAt - prev.lastAt
       const isComparable =
+        !prev.isTtlExact &&
         prev.lastAt !== null &&
         prev.model === usage.model &&
         prev.tokens >= INFER_MIN_TOKENS &&
@@ -134,10 +173,28 @@ export const register: Register = (on, options) => {
     return result
   })
 
+  // At the end of each main turn, take the exact lifetime from the transcript.
+  on('classic.Stop', async ($, e, next) => {
+    const result = await next(e)
+
+    try {
+      const ran = await $.process.run(['tail', '-c', String(TRANSCRIPT_TAIL_BYTES), e.transcript_path])
+      const ttl = ran.exitCode === 0 ? ttlFromTranscriptTail(ran.stdout) : null
+
+      if (ttl !== null) {
+        await update($, clock, prev => ({ ...prev, ttl, isTtlObserved: true, isTtlExact: true }))
+      }
+    } catch {
+      // No tail command or no transcript: inference keeps the estimate.
+    }
+
+    return result
+  })
+
   // A /clear or resume starts another conversation in the same process.
   on('session.end', async ($, e, next) => {
     if (e.reason === 'clear' || e.reason === 'resume') {
-      await update($, clock, prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved }))
+      await update($, clock, prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved, isTtlExact: prev.isTtlExact }))
     }
 
     return next(e)

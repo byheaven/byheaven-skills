@@ -2,6 +2,8 @@ import { expect, mock, test } from 'claude-code/testing'
 import type { Engine } from 'claude-code/testing'
 import type { On, TurnUsage } from 'claude-code'
 
+import { ttlFromTranscriptTail } from './register'
+
 const MIN = 60_000
 
 type World = {
@@ -13,10 +15,12 @@ type World = {
   skipWith: string | null
   /** When set, a model step waits for it before answering. */
   stepGate: Promise<void> | null
+  /** What `tail` prints for the transcript; null makes the command fail. */
+  transcriptTail: string | null
 }
 
 const world = (on: On): World => {
-  const w: World = { statuses: [], toasts: [], compactions: 0, setUsage: () => {}, skipWith: null, stepGate: null }
+  const w: World = { statuses: [], toasts: [], compactions: 0, setUsage: () => {}, skipWith: null, stepGate: null, transcriptTail: null }
   let usage: TurnUsage | null = null
   w.setUsage = u => {
     usage = u
@@ -24,6 +28,13 @@ const world = (on: On): World => {
 
   on('session.start', (_$, e) => ({ cwd: e.cwd }))
   on('session.end', (_$, e) => ({ sessionId: e.sessionId }))
+  on('classic.Stop', () => ({}))
+  on('process.run', () => ({
+    value:
+      w.transcriptTail === null
+        ? { exitCode: 1, stdout: '', stderr: 'no such file', isStdoutTruncated: false }
+        : { exitCode: 0, stdout: w.transcriptTail, stderr: '', isStdoutTruncated: false },
+  }))
   on('ui.status', (_$, e) => {
     w.statuses.push(e.text)
 
@@ -249,4 +260,47 @@ test('a /clear drops the old conversation and its countdown', async ($, on) => {
   expect(last(w)).toBeUndefined()
   await clock.advance(60 * MIN)
   expect(w.compactions).toBe(0)
+})
+
+const row = (o: object) => JSON.stringify(o)
+const write = (h1: number, m5: number, isSidechain = false) =>
+  row({ type: 'assistant', isSidechain, message: { usage: { cache_creation: { ephemeral_1h_input_tokens: h1, ephemeral_5m_input_tokens: m5 } } } })
+
+test('the transcript tail names the lifetime of the last main cache write', () => {
+  expect(ttlFromTranscriptTail([write(900, 0), write(0, 0), '{"type":"user"}'].join('\n'))).toBe('1h')
+  expect(ttlFromTranscriptTail([write(900, 0), write(0, 400)].join('\n'))).toBe('5m')
+  expect(ttlFromTranscriptTail([write(0, 400), write(900, 0, true)].join('\n'))).toBe('5m')
+  expect(ttlFromTranscriptTail('{"type":"assist')).toBeNull()
+  expect(ttlFromTranscriptTail([write(0, 0)].join('\n'))).toBeNull()
+})
+
+test('an exact 5m lifetime from the transcript is not overturned by inference', async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  w.transcriptTail = write(0, 2_000)
+  await start($)
+  w.setUsage(usageOf(300_000, 298_000))
+  await step($, 1)
+  await $.classic.Stop({ stop_hook_active: false, transcript_path: '/t.jsonl' })
+
+  await clock.advance(1_000)
+  expect(last(w)).toBe('cache 4:59 (5m) · 300k/500k')
+
+  // A hit after 10 minutes would read as 1h to inference; the transcript wins.
+  await clock.advance(10 * MIN)
+  await step($, 2)
+  await clock.advance(1_000)
+  expect(last(w)).toBe('cache 4:59 (5m) · 300k/500k')
+})
+
+test('without a readable transcript the lifetime stays an estimate', async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await start($)
+  w.setUsage(usageOf(300_000, 298_000))
+  await step($, 1)
+  await $.classic.Stop({ stop_hook_active: false, transcript_path: '/missing.jsonl' })
+
+  await clock.advance(1_000)
+  expect(last(w)).toBe('cache 59:59 (1h?) · 300k/500k')
 })
