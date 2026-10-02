@@ -10,7 +10,7 @@ plugin API). Other agent tools do not load it.
 
 ## What It Does
 
-- **Status line countdown**: `缓存 54:12 (1h?) · 612k/500k · 剩 5:00 时压缩`
+- **Status line countdown**: `cache 54:12 (1h?) · 612k/500k · compacts at 5:00 left`
   reads as the time left on the cache, the cache lifetime in use (`?` while it
   is assumed rather than observed), the tokens the next request re-sends
   against the threshold, and, above the threshold, when compaction will start.

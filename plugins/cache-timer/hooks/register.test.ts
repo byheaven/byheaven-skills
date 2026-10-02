@@ -82,17 +82,17 @@ test('assumed 1h cache: counts down and compacts 5 minutes before expiry', async
   await step($, 1)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 59:59 (1h?) · 600k/500k · 剩 5:00 时压缩')
+  expect(last(w)).toBe('cache 59:59 (1h?) · 600k/500k · compacts at 5:00 left')
 
   await clock.advance(55 * MIN - 3_000)
   expect(w.compactions).toBe(0)
 
   await clock.advance(3_000)
   expect(w.compactions).toBe(1)
-  expect(w.toasts).toContain('缓存过期前已自动压缩：600k → 40k')
+  expect(w.toasts).toContain('compacted before cache expiry: 600k → 40k')
 
   await clock.advance(2_000)
-  expect(last(w)).toBe('缓存 — · 40k')
+  expect(last(w)).toBe('cache — · 40k')
   expect(w.compactions).toBe(1)
 })
 
@@ -110,7 +110,7 @@ test('a miss after a 10-minute gap switches to a 5m cache and compacts 60s befor
   await step($, 2)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 4:59 (5m) · 600k/500k · 剩 1:00 时压缩')
+  expect(last(w)).toBe('cache 4:59 (5m) · 600k/500k · compacts at 1:00 left')
 
   await clock.advance(3 * MIN + 57_000)
   expect(w.compactions).toBe(0)
@@ -128,7 +128,7 @@ test('a hit after a 10-minute gap confirms a 1h cache', async ($, on) => {
   await step($, 2)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 59:59 (1h) · 300k/500k')
+  expect(last(w)).toBe('cache 59:59 (1h) · 300k/500k')
 })
 
 test('below the threshold nothing is compacted and expiry is shown', async ($, on) => {
@@ -140,7 +140,7 @@ test('below the threshold nothing is compacted and expiry is shown', async ($, o
 
   await clock.advance(61 * MIN)
   expect(w.compactions).toBe(0)
-  expect(last(w)).toBe('缓存已过期 (1h?) · 300k')
+  expect(last(w)).toBe('cache expired (1h?) · 300k')
 })
 
 test('the threshold option lowers the trigger', { options: { threshold_k: 200 } }, async ($, on) => {
@@ -162,7 +162,7 @@ test('a pinned 5m lifetime ignores inference', { options: { cache_ttl: '5m' } },
   await step($, 1)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 4:59 (5m) · 600k/500k · 剩 1:00 时压缩')
+  expect(last(w)).toBe('cache 4:59 (5m) · 600k/500k · compacts at 1:00 left')
   await clock.advance(4 * MIN)
   expect(w.compactions).toBe(1)
 })
@@ -183,7 +183,7 @@ test('the countdown starts when the request is sent, not when a long response en
   w.stepGate = null
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 3:29 (5m) · 600k/500k · 剩 1:00 时压缩')
+  expect(last(w)).toBe('cache 3:29 (5m) · 600k/500k · compacts at 1:00 left')
   await clock.advance(2 * MIN + 27_000)
   expect(w.compactions).toBe(0)
   await clock.advance(3_000)
@@ -201,7 +201,7 @@ test('a subagent step does not restart the main countdown', async ($, on) => {
   await step($, 2, 'agent-1')
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 49:59 (1h?) · 300k/500k')
+  expect(last(w)).toBe('cache 49:59 (1h?) · 300k/500k')
 })
 
 test('a vetoed compaction is not retried in the same idle period', async ($, on) => {
@@ -214,7 +214,7 @@ test('a vetoed compaction is not retried in the same idle period', async ($, on)
 
   await clock.advance(56 * MIN)
   expect(w.compactions).toBe(1)
-  expect(w.toasts).toContain('缓存计时：自动压缩被跳过（vetoed）')
+  expect(w.toasts).toContain('cache-timer: auto-compaction skipped (vetoed)')
   await clock.advance(3 * MIN)
   expect(w.compactions).toBe(1)
 })
@@ -228,11 +228,11 @@ test('a manual /compact resets the countdown; a precompute does not', async ($, 
 
   await $.session.compact({ trigger: 'precompute', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 59:59 (1h?) · 600k/500k · 剩 5:00 时压缩')
+  expect(last(w)).toBe('cache 59:59 (1h?) · 600k/500k · compacts at 5:00 left')
 
   await $.session.compact({ trigger: 'manual', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
   await clock.advance(1_000)
-  expect(last(w)).toBe('缓存 — · 40k')
+  expect(last(w)).toBe('cache — · 40k')
   await clock.advance(60 * MIN)
   expect(w.compactions).toBe(2)
 })

@@ -36,20 +36,20 @@ let isCompacting = false
 
 async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<void> {
   isCompacting = true
-  $.ui.status(`缓存即将过期 · 正在压缩 ${formatK(s.tokens)}…`)
+  $.ui.status(`cache expiring · compacting ${formatK(s.tokens)}…`)
 
   try {
     const result = await $.session.compact()
 
     if (result.skip !== undefined) {
       await update($, clock, prev => ({ ...prev, handledAt: s.lastAt }))
-      $.ui.toast(`缓存计时：自动压缩被跳过（${result.skip}）`)
+      $.ui.toast(`cache-timer: auto-compaction skipped (${result.skip})`)
     } else {
       // The engine skips the caller's own session.compact hook, so the reset
       // that hook does for other compactions happens here.
       await update($, clock, prev => ({ ...prev, lastAt: null, tokens: result.tokensAfter ?? 0, handledAt: null }))
       const after = result.tokensAfter === undefined ? '' : ` → ${formatK(result.tokensAfter)}`
-      $.ui.toast(`缓存过期前已自动压缩：${formatK(s.tokens)}${after}`)
+      $.ui.toast(`compacted before cache expiry: ${formatK(s.tokens)}${after}`)
     }
   } catch {
     // A turn is running: compact rejects until it ends, and handledAt stays
@@ -153,7 +153,7 @@ export const register: Register = (on, options) => {
       const { ttl, label } = effectiveTtl(s)
 
       if (s.lastAt === null) {
-        $.ui.status(s.tokens > 0 ? `缓存 — · ${formatK(s.tokens)}` : undefined)
+        $.ui.status(s.tokens > 0 ? `cache — · ${formatK(s.tokens)}` : undefined)
 
         return
       }
@@ -162,14 +162,14 @@ export const register: Register = (on, options) => {
       const isLarge = s.tokens >= thresholdTokens
 
       if (remaining <= 0) {
-        $.ui.status(`缓存已过期 (${label}) · ${formatK(s.tokens)}`)
+        $.ui.status(`cache expired (${label}) · ${formatK(s.tokens)}`)
 
         return
       }
 
-      const plan = isLarge && s.handledAt !== s.lastAt ? ` · 剩 ${formatRemaining(leadMs[ttl])} 时压缩` : ''
+      const plan = isLarge && s.handledAt !== s.lastAt ? ` · compacts at ${formatRemaining(leadMs[ttl])} left` : ''
       $.ui.status(
-        `缓存 ${formatRemaining(remaining)} (${label}) · ${formatK(s.tokens)}/${formatK(thresholdTokens)}${plan}`,
+        `cache ${formatRemaining(remaining)} (${label}) · ${formatK(s.tokens)}/${formatK(thresholdTokens)}${plan}`,
       )
 
       if (isLarge && remaining <= leadMs[ttl] && s.handledAt !== s.lastAt) {
