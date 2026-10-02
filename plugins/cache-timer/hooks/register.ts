@@ -36,13 +36,13 @@ let isCompacting = false
 
 async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<void> {
   isCompacting = true
-  await update($, clock, prev => ({ ...prev, handledAt: s.lastAt }))
   $.ui.status(`缓存即将过期 · 正在压缩 ${formatK(s.tokens)}…`)
 
   try {
     const result = await $.session.compact()
 
     if (result.skip !== undefined) {
+      await update($, clock, prev => ({ ...prev, handledAt: s.lastAt }))
       $.ui.toast(`缓存计时：自动压缩被跳过（${result.skip}）`)
     } else {
       // The engine skips the caller's own session.compact hook, so the reset
@@ -52,8 +52,8 @@ async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<v
       $.ui.toast(`缓存过期前已自动压缩：${formatK(s.tokens)}${after}`)
     }
   } catch {
-    // A turn is running: its own requests keep the cache warm, so the
-    // next idle period gets its own attempt.
+    // A turn is running: compact rejects until it ends, and handledAt stays
+    // unset so a later tick tries again if the turn ends without a response.
   } finally {
     isCompacting = false
   }
@@ -76,6 +76,9 @@ export const register: Register = (on, options) => {
   }
 
   on('turn.step', async function* ($, e, next) {
+    // The cache entry is refreshed when the request is processed, not when
+    // the response ends, so the countdown starts from the send time.
+    const sentAt = await $.clock.now()
     const result = yield* next(e)
     const usage = result.usage
 
@@ -83,7 +86,6 @@ export const register: Register = (on, options) => {
       return result
     }
 
-    const now = await $.clock.now()
     const tokens =
       usage.input_tokens +
       usage.cache_read_input_tokens +
@@ -92,7 +94,7 @@ export const register: Register = (on, options) => {
 
     await update($, clock, prev => {
       let { ttl, isTtlObserved } = prev
-      const gap = prev.lastAt === null ? 0 : now - prev.lastAt
+      const gap = prev.lastAt === null ? 0 : sentAt - prev.lastAt
       const isComparable =
         prev.lastAt !== null &&
         prev.model === usage.model &&
@@ -110,7 +112,7 @@ export const register: Register = (on, options) => {
         }
       }
 
-      return { ...prev, lastAt: now, tokens, model: usage.model, ttl, isTtlObserved }
+      return { ...prev, lastAt: sentAt, tokens, model: usage.model, ttl, isTtlObserved }
     })
 
     return result
@@ -130,6 +132,15 @@ export const register: Register = (on, options) => {
     }
 
     return result
+  })
+
+  // A /clear or resume starts another conversation in the same process.
+  on('session.end', async ($, e, next) => {
+    if (e.reason === 'clear' || e.reason === 'resume') {
+      await update($, clock, prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved }))
+    }
+
+    return next(e)
   })
 
   on('session.start', async ($, e, next) => {
