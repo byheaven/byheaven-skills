@@ -42,11 +42,11 @@ Each field is a row under `/config`; a change reloads the mod.
 ## Layout
 
 ```text
-.claude-plugin/plugin.json   Name, settings, and the state type contract
+.claude-plugin/plugin.json   Name and settings
 hooks/hooks.json             Names the hooks module
 hooks/register.ts            Countdown, inference, and compaction
 hooks/register.test.ts       Mock-clock tests: claude plugin test plugins/cache-timer
-types/index.d.ts             Type of the state the mod keeps per session
+types/index.d.ts             Type of the cache clock the module keeps
 ```
 
 ## License

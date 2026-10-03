@@ -30,9 +30,8 @@ plugins/<name>/
 ```
 
 A plugin that ships Claude Code function hooks (a mod) instead of skills has `hooks/hooks.json`
-naming its hooks module in place of `skills/`. Its `plugin.json` also carries the fields Claude Code
-reads from the manifest when it loads the module, `userConfig` and `types`; version and description
-still live in `marketplace.json`.
+naming its hooks module in place of `skills/`. Its `plugin.json` also carries `userConfig` when the
+mod has settings, and no other field; version and description still live in `marketplace.json`.
 
 No `AGENTS.md` inside individual plugins — this root file covers all of them.
 

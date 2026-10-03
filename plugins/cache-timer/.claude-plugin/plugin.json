@@ -1,6 +1,5 @@
 {
   "name": "cache-timer",
-  "types": "./types/index.d.ts",
   "userConfig": {
     "threshold_k": {
       "type": "number",
