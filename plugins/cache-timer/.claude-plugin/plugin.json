@@ -1,6 +1,12 @@
 {
   "name": "cache-timer",
   "userConfig": {
+    "auto_compact": {
+      "type": "boolean",
+      "title": "Auto-compact before expiry",
+      "description": "Compact a conversation above the threshold shortly before its cache expires.",
+      "default": true
+    },
     "threshold_k": {
       "type": "number",
       "title": "Auto-compact threshold (k tokens)",

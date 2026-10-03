@@ -10,11 +10,16 @@ plugin API). Other agent tools do not load it.
 
 ## What It Does
 
-- **Status line countdown**: `cache 54:12 (1h?) · 612k/500k · compacts at 5:00 left`
+- **Countdown band above the prompt**: `cache 54:12 (1h?) · 612k · compacts at 5:00 left [ on ] 500k ▾`
   reads as the time left on the cache, the cache lifetime in use (`?` while it
-  is assumed rather than observed), the tokens the next request re-sends
-  against the threshold, and, above the threshold, when compaction will start.
-- **Compaction before expiry**: when the context holds at least the threshold,
+  is assumed rather than observed), the tokens the next request re-sends, and,
+  above the threshold, when compaction will start. The `on`/`off` button turns
+  automatic compaction on or off, and the picker sets the threshold to 500k,
+  600k, 700k, or 800k; both write the same settings `/config` shows. In the
+  terminal, click them or press ctrl+x tab to focus the band. The band shows
+  in the terminal and in sessions the desktop app runs; viewers that attach
+  over Remote Control, including the iOS app, do not draw mod UI.
+- **Compaction before expiry**: when it is on and the context holds at least the threshold,
   it runs the same compaction `/compact` runs once the cache has the lead time
   left, at most once per idle period, and reports the result in a toast. A
   running turn keeps the cache warm on its own, so no compaction runs then.
@@ -30,10 +35,12 @@ plugin API). Other agent tools do not load it.
 
 ## Settings
 
-Each field is a row under `/config`; a change reloads the mod.
+Each field is a row under `/config`; a change there or in the band reloads the
+mod, and the countdown carries over the reload.
 
 | Field | Default | Meaning |
 | --- | --- | --- |
+| `auto_compact` | `true` | Compact before expiry at all |
 | `threshold_k` | `500` | Compact only when the context holds at least this many thousand tokens |
 | `cache_ttl` | `auto` | `auto` (transcript, then inference), `1h`, or `5m` |
 | `lead_seconds_1h` | `300` | Seconds before a 1-hour cache expires to start compacting |
@@ -44,8 +51,8 @@ Each field is a row under `/config`; a change reloads the mod.
 ```text
 .claude-plugin/plugin.json   Name and settings
 hooks/hooks.json             Names the hooks module
-hooks/register.ts            Countdown, inference, and compaction
-hooks/register.test.ts       Mock-clock tests: claude plugin test plugins/cache-timer
+hooks/register.tsx           Countdown, inference, compaction, and the band
+hooks/register.test.tsx      Mock-clock tests: claude plugin test plugins/cache-timer
 types/index.d.ts             Type of the cache clock the module keeps
 ```
 

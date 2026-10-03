@@ -10,5 +10,9 @@
 - **Exact cache lifetime** Reads whether the cache lasts 1 hour or 5 minutes
   from the session transcript after each turn, and infers it from cache hits
   and misses only when the transcript has no answer
+- **Band controls** Moves the countdown from the status line to a band above
+  the prompt with an on/off switch for automatic compaction and a threshold
+  picker (500k to 800k), and keeps the countdown across the reload a settings
+  change causes
 - **Desktop app** Drops the `types` manifest field, which the desktop app's
   plugin loader rejects, and keeps the cache clock in the module instead

@@ -57,13 +57,25 @@ export function ttlFromTranscriptTail(tail: string): CacheTtl | null {
   return null
 }
 
-// The session's cache clock. Module state: a reload (a /config change)
-// starts it over, and the next request sets it again.
+// The session's cache clock. Module state, saved to the plugin's store under
+// the session id on each change, so a reload (a /config change, a press in
+// the band) restores it in session.start instead of starting over.
 let clock: CacheClock = initial
 
-const update = (fn: (prev: CacheClock) => CacheClock): void => {
+const storeKey = (sessionId: string): string => `clock:${sessionId}`
+
+const update = ($: EngineInterface, fn: (prev: CacheClock) => CacheClock): void => {
   clock = fn(clock)
+  const saved = clock
+  void (async () => {
+    await $.store.set(storeKey(await $.session.id()), saved)
+  })().catch(() => {
+    // An unsaved clock only costs the countdown after a reload.
+  })
 }
+
+// The band's text, set by the clock's tick; undefined before anything is known.
+let line: string | undefined
 
 const formatRemaining = (ms: number): string => {
   const total = Math.max(0, Math.ceil(ms / 1000))
@@ -77,20 +89,45 @@ const formatK = (tokens: number): string => `${Math.round(tokens / 1000)}k`
 
 let isCompacting = false
 
+const setLine = ($: EngineInterface, next: string | undefined): void => {
+  if (next !== line) {
+    line = next
+    $.ui.invalidate('ui.render')
+  }
+}
+
+const THRESHOLD_PRESETS_K = [500, 600, 700, 800]
+
+/** The `/config` key of one of this plugin's fields, as the engine names it. */
+async function configKey($: EngineInterface, field: string): Promise<string | undefined> {
+  const rows = await $.config.list()
+
+  return rows.find(row => row.key.startsWith('cache-timer') && row.key.endsWith(`.${field}`))?.key
+}
+
+async function setOption($: EngineInterface, field: string, value: boolean | number): Promise<void> {
+  const key = await configKey($, field)
+  const result = key === undefined ? { deny: 'no such setting' } : await $.config.set({ key, value })
+
+  if ('deny' in result && result.deny !== undefined) {
+    $.ui.toast(`cache-timer: ${field} not changed (${result.deny})`)
+  }
+}
+
 async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<void> {
   isCompacting = true
-  $.ui.status(`cache expiring · compacting ${formatK(s.tokens)}…`)
+  setLine($, `cache expiring · compacting ${formatK(s.tokens)}…`)
 
   try {
     const result = await $.session.compact()
 
     if (result.skip !== undefined) {
-      update(prev => ({ ...prev, handledAt: s.lastAt }))
+      update($, prev => ({ ...prev, handledAt: s.lastAt }))
       $.ui.toast(`cache-timer: auto-compaction skipped (${result.skip})`)
     } else {
       // The engine skips the caller's own session.compact hook, so the reset
       // that hook does for other compactions happens here.
-      update(prev => ({ ...prev, lastAt: null, tokens: result.tokensAfter ?? 0, handledAt: null }))
+      update($, prev => ({ ...prev, lastAt: null, tokens: result.tokensAfter ?? 0, handledAt: null }))
       const after = result.tokensAfter === undefined ? '' : ` → ${formatK(result.tokensAfter)}`
       $.ui.toast(`compacted before cache expiry: ${formatK(s.tokens)}${after}`)
     }
@@ -103,7 +140,9 @@ async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<v
 }
 
 export const register: Register = (on, options) => {
-  const thresholdTokens = Number(options.threshold_k ?? 500) * 1000
+  const isAutoCompact = options.auto_compact !== false
+  const thresholdK = Number(options.threshold_k ?? 500)
+  const thresholdTokens = thresholdK * 1000
   const ttlMode = String(options.cache_ttl ?? 'auto')
   const leadMs: Record<CacheTtl, number> = {
     '1h': Number(options.lead_seconds_1h ?? 300) * 1000,
@@ -135,7 +174,7 @@ export const register: Register = (on, options) => {
       usage.cache_creation_input_tokens +
       usage.output_tokens
 
-    update(prev => {
+    update($, prev => {
       let { ttl, isTtlObserved } = prev
       const gap = prev.lastAt === null ? 0 : sentAt - prev.lastAt
       const isComparable =
@@ -167,7 +206,7 @@ export const register: Register = (on, options) => {
     const result = await next(e)
 
     if (e.trigger !== 'precompute' && result.messages !== undefined && e.agentId === undefined) {
-      update(prev => ({
+      update($, prev => ({
         ...prev,
         lastAt: null,
         tokens: result.tokensAfter ?? 0,
@@ -187,7 +226,7 @@ export const register: Register = (on, options) => {
       const ttl = ran.exitCode === 0 ? ttlFromTranscriptTail(ran.stdout) : null
 
       if (ttl !== null) {
-        update(prev => ({ ...prev, ttl, isTtlObserved: true, isTtlExact: true }))
+        update($, prev => ({ ...prev, ttl, isTtlObserved: true, isTtlExact: true }))
       }
     } catch {
       // No tail command or no transcript: inference keeps the estimate.
@@ -198,14 +237,30 @@ export const register: Register = (on, options) => {
 
   // A /clear or resume starts another conversation in the same process.
   on('session.end', async ($, e, next) => {
+    try {
+      await $.store.delete(storeKey(e.sessionId))
+    } catch {
+      // A leftover entry is only read back by a session with this id.
+    }
+
     if (e.reason === 'clear' || e.reason === 'resume') {
-      update(prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved, isTtlExact: prev.isTtlExact }))
+      update($, prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved, isTtlExact: prev.isTtlExact }))
     }
 
     return next(e)
   })
 
   on('session.start', async ($, e, next) => {
+    try {
+      const saved = (await $.store.get(storeKey(await $.session.id()))) as CacheClock | undefined
+
+      if (saved !== undefined) {
+        clock = { ...initial, ...saved }
+      }
+    } catch {
+      // Nothing saved: the next request sets the clock.
+    }
+
     $.clock.every(1000, async () => {
       if (isCompacting) {
         return
@@ -215,24 +270,22 @@ export const register: Register = (on, options) => {
       const { ttl, label } = effectiveTtl(s)
 
       if (s.lastAt === null) {
-        $.ui.status(s.tokens > 0 ? `cache — · ${formatK(s.tokens)}` : undefined)
+        setLine($, s.tokens > 0 ? `cache — · ${formatK(s.tokens)}` : undefined)
 
         return
       }
 
       const remaining = TTL_MS[ttl] - ((await $.clock.now()) - s.lastAt)
-      const isLarge = s.tokens >= thresholdTokens
+      const isLarge = isAutoCompact && s.tokens >= thresholdTokens
 
       if (remaining <= 0) {
-        $.ui.status(`cache expired (${label}) · ${formatK(s.tokens)}`)
+        setLine($, `cache expired (${label}) · ${formatK(s.tokens)}`)
 
         return
       }
 
       const plan = isLarge && s.handledAt !== s.lastAt ? ` · compacts at ${formatRemaining(leadMs[ttl])} left` : ''
-      $.ui.status(
-        `cache ${formatRemaining(remaining)} (${label}) · ${formatK(s.tokens)}/${formatK(thresholdTokens)}${plan}`,
-      )
+      setLine($, `cache ${formatRemaining(remaining)} (${label}) · ${formatK(s.tokens)}${plan}`)
 
       if (isLarge && remaining <= leadMs[ttl] && s.handledAt !== s.lastAt) {
         await compactBeforeExpiry($, s)
@@ -240,5 +293,36 @@ export const register: Register = (on, options) => {
     })
 
     return next(e)
+  })
+
+  // The band above the prompt: the countdown, the auto-compaction switch, and
+  // the threshold. A press writes the setting, which reloads the mod.
+  on('ui.render', { component: 'AbovePrompt' }, ($, e, next) => {
+    // The mobile app has no Select; it has not drawn mod UI so far either.
+    if (e.props.hasSurvey || e.surface === 'mobile') {
+      return next(e)
+    }
+
+    const { Box, Button, Select, Text } = $.ui.resolve(e)
+    const presets = THRESHOLD_PRESETS_K.includes(thresholdK) ? THRESHOLD_PRESETS_K : [...THRESHOLD_PRESETS_K, thresholdK]
+
+    return (
+      <Box flexDirection="row" gap={1}>
+        <Text dimColor>
+          {line ?? 'cache —'}
+        </Text>
+        <Button
+          key="auto"
+          label={isAutoCompact ? 'on' : 'off'}
+          onPress={() => setOption($, 'auto_compact', !isAutoCompact)}
+        />
+        <Select
+          key="threshold"
+          options={presets.map(k => ({ value: String(k), label: `${k}k` }))}
+          value={String(thresholdK)}
+          onSelect={(value: string) => setOption($, 'threshold_k', Number(value))}
+        />
+      </Box>
+    )
   })
 }
