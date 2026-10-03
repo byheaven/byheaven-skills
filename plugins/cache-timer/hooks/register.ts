@@ -1,4 +1,3 @@
-import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import type { CacheClock, CacheTtl } from '../types'
@@ -58,7 +57,13 @@ export function ttlFromTranscriptTail(tail: string): CacheTtl | null {
   return null
 }
 
-const clock = atom({ plugin: 'cache-timer', key: 'clock' } as const, initial)
+// The session's cache clock. Module state: a reload (a /config change)
+// starts it over, and the next request sets it again.
+let clock: CacheClock = initial
+
+const update = (fn: (prev: CacheClock) => CacheClock): void => {
+  clock = fn(clock)
+}
 
 const formatRemaining = (ms: number): string => {
   const total = Math.max(0, Math.ceil(ms / 1000))
@@ -80,12 +85,12 @@ async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<v
     const result = await $.session.compact()
 
     if (result.skip !== undefined) {
-      await update($, clock, prev => ({ ...prev, handledAt: s.lastAt }))
+      update(prev => ({ ...prev, handledAt: s.lastAt }))
       $.ui.toast(`cache-timer: auto-compaction skipped (${result.skip})`)
     } else {
       // The engine skips the caller's own session.compact hook, so the reset
       // that hook does for other compactions happens here.
-      await update($, clock, prev => ({ ...prev, lastAt: null, tokens: result.tokensAfter ?? 0, handledAt: null }))
+      update(prev => ({ ...prev, lastAt: null, tokens: result.tokensAfter ?? 0, handledAt: null }))
       const after = result.tokensAfter === undefined ? '' : ` → ${formatK(result.tokensAfter)}`
       $.ui.toast(`compacted before cache expiry: ${formatK(s.tokens)}${after}`)
     }
@@ -130,7 +135,7 @@ export const register: Register = (on, options) => {
       usage.cache_creation_input_tokens +
       usage.output_tokens
 
-    await update($, clock, prev => {
+    update(prev => {
       let { ttl, isTtlObserved } = prev
       const gap = prev.lastAt === null ? 0 : sentAt - prev.lastAt
       const isComparable =
@@ -162,7 +167,7 @@ export const register: Register = (on, options) => {
     const result = await next(e)
 
     if (e.trigger !== 'precompute' && result.messages !== undefined && e.agentId === undefined) {
-      await update($, clock, prev => ({
+      update(prev => ({
         ...prev,
         lastAt: null,
         tokens: result.tokensAfter ?? 0,
@@ -182,7 +187,7 @@ export const register: Register = (on, options) => {
       const ttl = ran.exitCode === 0 ? ttlFromTranscriptTail(ran.stdout) : null
 
       if (ttl !== null) {
-        await update($, clock, prev => ({ ...prev, ttl, isTtlObserved: true, isTtlExact: true }))
+        update(prev => ({ ...prev, ttl, isTtlObserved: true, isTtlExact: true }))
       }
     } catch {
       // No tail command or no transcript: inference keeps the estimate.
@@ -194,7 +199,7 @@ export const register: Register = (on, options) => {
   // A /clear or resume starts another conversation in the same process.
   on('session.end', async ($, e, next) => {
     if (e.reason === 'clear' || e.reason === 'resume') {
-      await update($, clock, prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved, isTtlExact: prev.isTtlExact }))
+      update(prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved, isTtlExact: prev.isTtlExact }))
     }
 
     return next(e)
@@ -206,7 +211,7 @@ export const register: Register = (on, options) => {
         return
       }
 
-      const s = await read($, clock)
+      const s = clock
       const { ttl, label } = effectiveTtl(s)
 
       if (s.lastAt === null) {

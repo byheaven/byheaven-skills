@@ -10,3 +10,5 @@
 - **Exact cache lifetime** Reads whether the cache lasts 1 hour or 5 minutes
   from the session transcript after each turn, and infers it from cache hits
   and misses only when the transcript has no answer
+- **Desktop app** Drops the `types` manifest field, which the desktop app's
+  plugin loader rejects, and keeps the cache clock in the module instead

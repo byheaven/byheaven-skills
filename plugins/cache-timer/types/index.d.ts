@@ -16,8 +16,3 @@ export type CacheClock = {
   handledAt: number | null
 }
 
-declare module 'claude-code' {
-  interface PluginState {
-    'cache-timer': { clock: CacheClock }
-  }
-}
