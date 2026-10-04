@@ -1,6 +1,6 @@
 # manager
 
-`manager` packages a project-collaboration method as a Claude Code plugin. The
+`manager` packages one project-collaboration method for Claude Code and Codex. The
 `manager` agent discusses a request until the direction is settled, delivers
 only on an explicit request, and closes every Acceptance predicate through a
 qualified judge before it claims completion.
@@ -49,6 +49,21 @@ codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
 codex plugin add manager@byheaven-skills
 ```
 
+The Codex manifest enables a `SessionStart` hook that points each new or
+resumed session at the installed `manager:manager` skill. Review and trust
+the hook through Codex's `/hooks` interface before it can run. Python 3 is
+required. The hook is declared only in `.codex-plugin/plugin.json`; there
+is no shared `hooks/hooks.json`, so Claude Code keeps its agent-based startup.
+
+The hook carries only the loading instruction. The role, principles, and
+references remain the same files used by Claude Code. It creates no task
+record and adds no task-store or machine-specific binding.
+
+Plugin hooks are not supported in cloud-orchestrated ChatGPT Work. A cloud
+host must make the complete plugin available and provide its own supported
+skill-loading entry. Installing the skills alone omits the Manager role.
+See [plugin support](https://learn.chatgpt.com/docs/plugins).
+
 ### Other skill-based tools
 
 ```bash
@@ -73,6 +88,7 @@ Put that in `~/.claude/settings.json` for every session, or run
 `claude --agent manager:manager` for one session. A skill cannot be preloaded
 into a main-session agent, so the agent file carries the role text itself.
 
-Where the agent cannot be selected (Codex, or a hosted session that does not
-take an agent), invoke the `manager` skill at the start of a project
-conversation, or name it in the repository's `CLAUDE.md` or `AGENTS.md`.
+Codex sessions use the trusted plugin hook to load the `manager` skill.
+Where neither an agent nor plugin hooks are available, invoke the `manager`
+skill at the start of a project conversation, or name its complete installed
+path in the repository's `CLAUDE.md` or `AGENTS.md`.
