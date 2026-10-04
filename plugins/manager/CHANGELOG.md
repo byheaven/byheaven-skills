@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/commits/main/plugins/manager)
 
+- **Codex startup** Loads the shared Manager role through a Codex-only
+  session hook, without changing Claude Code's agent-based startup
 - **Governed changes** Restores the review and exit conditions for temporary
   capability patches across projects
 - **Plugin page** Shows the plugin's description on Claude Code's plugin page
