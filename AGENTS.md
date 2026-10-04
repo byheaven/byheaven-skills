@@ -18,7 +18,7 @@ Every plugin must have:
 ```
 plugins/<name>/
 ├── .claude-plugin/
-│   └── plugin.json              # Name only (mods: see below); claude.ai marketplace sync requires it
+│   └── plugin.json              # Name and description (mods: see below); claude.ai marketplace sync requires it
 ├── skills/<skill-name>/
 │   ├── SKILL.md                 # Skill frontmatter: name, description, version
 │   ├── agents/                  # Codex app metadata
@@ -31,7 +31,11 @@ plugins/<name>/
 
 A plugin that ships Claude Code function hooks (a mod) instead of skills has `hooks/hooks.json`
 naming its hooks module in place of `skills/`. Its `plugin.json` also carries `userConfig` when the
-mod has settings, and no other field; version and description still live in `marketplace.json`.
+mod has settings, and no other field.
+
+`plugin.json` repeats the marketplace entry's `description` word for word: Claude Code's plugin page
+reads it there for a plugin installed from the marketplace on this machine. Change both together.
+Version and category live only in `marketplace.json`.
 
 No `AGENTS.md` inside individual plugins — this root file covers all of them.
 
