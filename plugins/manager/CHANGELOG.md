@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/commits/main/plugins/manager)
 
+- **Plugin page** Shows the plugin's description on Claude Code's plugin page
+  when it is installed from the marketplace
 - **Principles** Project foundations now state first-principles derivation
   as the default: start from the foundations and current evidence, and judge
   existing artifacts against them

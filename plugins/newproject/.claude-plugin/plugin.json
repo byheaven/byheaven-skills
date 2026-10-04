@@ -1,3 +1,4 @@
 {
-  "name": "newproject"
+  "name": "newproject",
+  "description": "Self-contained project setup for new or existing repositories: foundation, code quality, CI, release automation, GitHub configuration, dependency management, and security scanning."
 }

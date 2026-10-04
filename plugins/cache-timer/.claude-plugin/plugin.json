@@ -1,5 +1,6 @@
 {
   "name": "cache-timer",
+  "description": "Claude Code mod that counts down the prompt cache, compacts a large conversation just before it expires, and can push a reminder to your phone.",
   "userConfig": {
     "auto_compact": {
       "type": "boolean",

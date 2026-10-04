@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.3...HEAD)
 
+- **Plugin page** Shows the plugin's description on Claude Code's plugin page
+  when it is installed from the marketplace
 - **claude.ai sync** Adds a name-only `.claude-plugin/plugin.json` so the
   marketplace syncs on claude.ai; version and description stay in the root
   `marketplace.json`

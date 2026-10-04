@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.2.0...HEAD)
 
+- **Plugin page** Shows the plugin's description on Claude Code's plugin page
+  when it is installed from the marketplace
+
 ## [0.2.0](https://github.com/byheaven/byheaven-skills/compare/cea1807a2b2d41400effca6ca91f454065dd7c5e...cache-timer-0.2.0) (2026-10-04)
 
 - **Cache countdown** A band above the prompt shows how long the
