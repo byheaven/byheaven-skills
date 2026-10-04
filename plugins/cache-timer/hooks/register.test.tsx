@@ -5,9 +5,10 @@ import type { On, TurnUsage } from 'claude-code'
 import { ttlFromTranscriptTail } from './register'
 
 const MIN = 60_000
+const SESSION_ID = 's1'
 
 type World = {
-  statuses: (string | undefined)[]
+  configSets: { key: string; value: unknown }[]
   toasts: string[]
   compactions: number
   setUsage: (u: TurnUsage) => void
@@ -19,8 +20,8 @@ type World = {
   transcriptTail: string | null
 }
 
-const world = (on: On): World => {
-  const w: World = { statuses: [], toasts: [], compactions: 0, setUsage: () => {}, skipWith: null, stepGate: null, transcriptTail: null }
+const world = (on: On, stored: Record<string, unknown> = {}): World => {
+  const w: World = { configSets: [], toasts: [], compactions: 0, setUsage: () => {}, skipWith: null, stepGate: null, transcriptTail: null }
   let usage: TurnUsage | null = null
   w.setUsage = u => {
     usage = u
@@ -35,10 +36,16 @@ const world = (on: On): World => {
         ? { exitCode: 1, stdout: '', stderr: 'no such file', isStdoutTruncated: false }
         : { exitCode: 0, stdout: w.transcriptTail, stderr: '', isStdoutTruncated: false },
   }))
-  on('ui.status', (_$, e) => {
-    w.statuses.push(e.text)
+  mock.store(on, stored)
+  on('session.id', () => ({ value: SESSION_ID }))
+  // As an installed plugin's rows are named; another plugin's field of the same name is ignored.
+  on('config.list', () => ({
+    value: ['other.threshold_k', 'cache-timer@market.auto_compact', 'cache-timer@market.threshold_k'].map(key => ({ key }) as never),
+  }))
+  on('config.set', (_$, e) => {
+    w.configSets.push({ key: e.key, value: e.value })
 
-    return { value: undefined }
+    return { value: e.value }
   })
   on('ui.toast', (_$, e) => {
     w.toasts.push(e.text)
@@ -83,7 +90,19 @@ const step = async ($: Engine, n: number, agentId?: string) => {
 
 const start = ($: Engine) => $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
 
-const last = (w: World) => w.statuses[w.statuses.length - 1]
+const BAND = {
+  component: 'AbovePrompt' as const,
+  props: { hasSurvey: false, isWorking: false, maxRows: 10, bodyColumns: 100, scroll: { offset: 0, bodyRows: 10 }, view: {} },
+}
+
+/** The countdown text the band draws now. */
+const shown = async ($: Engine) => {
+  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
+  const text = (await ui.find({ type: 'Text' }))?.text
+  await ui.unmount()
+
+  return text
+}
 
 test('assumed 1h cache: counts down and compacts 5 minutes before expiry', async ($, on) => {
   const clock = mock.clock(on, { now: 1_000_000 })
@@ -93,7 +112,7 @@ test('assumed 1h cache: counts down and compacts 5 minutes before expiry', async
   await step($, 1)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 59:59 (1h?) · 600k/500k · compacts at 5:00 left')
+  expect(await shown($)).toBe('cache 59:59 (1h?) · 600k · compacts at 5:00 left')
 
   await clock.advance(55 * MIN - 3_000)
   expect(w.compactions).toBe(0)
@@ -103,7 +122,7 @@ test('assumed 1h cache: counts down and compacts 5 minutes before expiry', async
   expect(w.toasts).toContain('compacted before cache expiry: 600k → 40k')
 
   await clock.advance(2_000)
-  expect(last(w)).toBe('cache — · 40k')
+  expect(await shown($)).toBe('cache — · 40k')
   expect(w.compactions).toBe(1)
 })
 
@@ -121,7 +140,7 @@ test('a miss after a 10-minute gap switches to a 5m cache and compacts 60s befor
   await step($, 2)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 4:59 (5m) · 600k/500k · compacts at 1:00 left')
+  expect(await shown($)).toBe('cache 4:59 (5m) · 600k · compacts at 1:00 left')
 
   await clock.advance(3 * MIN + 57_000)
   expect(w.compactions).toBe(0)
@@ -139,7 +158,7 @@ test('a hit after a 10-minute gap confirms a 1h cache', async ($, on) => {
   await step($, 2)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 59:59 (1h) · 300k/500k')
+  expect(await shown($)).toBe('cache 59:59 (1h) · 300k')
 })
 
 test('below the threshold nothing is compacted and expiry is shown', async ($, on) => {
@@ -151,7 +170,7 @@ test('below the threshold nothing is compacted and expiry is shown', async ($, o
 
   await clock.advance(61 * MIN)
   expect(w.compactions).toBe(0)
-  expect(last(w)).toBe('cache expired (1h?) · 300k')
+  expect(await shown($)).toBe('cache expired (1h?) · 300k')
 })
 
 test('the threshold option lowers the trigger', { options: { threshold_k: 200 } }, async ($, on) => {
@@ -173,7 +192,7 @@ test('a pinned 5m lifetime ignores inference', { options: { cache_ttl: '5m' } },
   await step($, 1)
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 4:59 (5m) · 600k/500k · compacts at 1:00 left')
+  expect(await shown($)).toBe('cache 4:59 (5m) · 600k · compacts at 1:00 left')
   await clock.advance(4 * MIN)
   expect(w.compactions).toBe(1)
 })
@@ -194,7 +213,7 @@ test('the countdown starts when the request is sent, not when a long response en
   w.stepGate = null
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 3:29 (5m) · 600k/500k · compacts at 1:00 left')
+  expect(await shown($)).toBe('cache 3:29 (5m) · 600k · compacts at 1:00 left')
   await clock.advance(2 * MIN + 27_000)
   expect(w.compactions).toBe(0)
   await clock.advance(3_000)
@@ -212,7 +231,7 @@ test('a subagent step does not restart the main countdown', async ($, on) => {
   await step($, 2, 'agent-1')
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 49:59 (1h?) · 300k/500k')
+  expect(await shown($)).toBe('cache 49:59 (1h?) · 300k')
 })
 
 test('a vetoed compaction is not retried in the same idle period', async ($, on) => {
@@ -239,11 +258,11 @@ test('a manual /compact resets the countdown; a precompute does not', async ($, 
 
   await $.session.compact({ trigger: 'precompute', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 59:59 (1h?) · 600k/500k · compacts at 5:00 left')
+  expect(await shown($)).toBe('cache 59:59 (1h?) · 600k · compacts at 5:00 left')
 
   await $.session.compact({ trigger: 'manual', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache — · 40k')
+  expect(await shown($)).toBe('cache — · 40k')
   await clock.advance(60 * MIN)
   expect(w.compactions).toBe(2)
 })
@@ -257,7 +276,7 @@ test('a /clear drops the old conversation and its countdown', async ($, on) => {
 
   await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as never)
   await clock.advance(1_000)
-  expect(last(w)).toBeUndefined()
+  expect(await shown($)).toBe('cache —')
   await clock.advance(60 * MIN)
   expect(w.compactions).toBe(0)
 })
@@ -284,13 +303,13 @@ test('an exact 5m lifetime from the transcript is not overturned by inference', 
   await $.classic.Stop({ stop_hook_active: false, transcript_path: '/t.jsonl' })
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 4:59 (5m) · 300k/500k')
+  expect(await shown($)).toBe('cache 4:59 (5m) · 300k')
 
   // A hit after 10 minutes would read as 1h to inference; the transcript wins.
   await clock.advance(10 * MIN)
   await step($, 2)
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 4:59 (5m) · 300k/500k')
+  expect(await shown($)).toBe('cache 4:59 (5m) · 300k')
 })
 
 test('without a readable transcript the lifetime stays an estimate', async ($, on) => {
@@ -302,5 +321,49 @@ test('without a readable transcript the lifetime stays an estimate', async ($, o
   await $.classic.Stop({ stop_hook_active: false, transcript_path: '/missing.jsonl' })
 
   await clock.advance(1_000)
-  expect(last(w)).toBe('cache 59:59 (1h?) · 300k/500k')
+  expect(await shown($)).toBe('cache 59:59 (1h?) · 300k')
+})
+
+test('with auto-compaction off the countdown runs and nothing is compacted', { options: { auto_compact: false } }, async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await start($)
+  w.setUsage(usageOf(600_000, 598_000))
+  await step($, 1)
+
+  await clock.advance(1_000)
+  expect(await shown($)).toBe('cache 59:59 (1h?) · 600k')
+  await clock.advance(58 * MIN)
+  expect(w.compactions).toBe(0)
+})
+
+test('the band switch and threshold picker write the settings', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await start($)
+
+  for (const surface of ['terminal', 'desktop'] as const) {
+    const ui = await $.ui.mount({ plugin: 'cache-timer', surface, ...BAND })
+    expect((await ui.find({ key: 'auto' }))?.text).toBe('on')
+    await ui.press({ key: 'auto' })
+    await ui.select({ key: 'threshold', value: '700' })
+    await ui.unmount()
+  }
+
+  expect(w.configSets).toEqual([
+    { key: 'cache-timer@market.auto_compact', value: false },
+    { key: 'cache-timer@market.threshold_k', value: 700 },
+    { key: 'cache-timer@market.auto_compact', value: false },
+    { key: 'cache-timer@market.threshold_k', value: 700 },
+  ])
+})
+
+test('a reload picks the countdown up from the store', async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const saved = { lastAt: 1_000_000 - 10 * MIN, tokens: 600_000, model: 'm', ttl: '1h', isTtlObserved: true, isTtlExact: true, handledAt: null }
+  world(on, { [`clock:${SESSION_ID}`]: saved })
+  await start($)
+
+  await clock.advance(1_000)
+  expect(await shown($)).toBe('cache 49:59 (1h) · 600k · compacts at 5:00 left')
 })
