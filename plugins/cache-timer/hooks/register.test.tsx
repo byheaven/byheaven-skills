@@ -12,6 +12,8 @@ type World = {
   pushes: string[]
   toasts: string[]
   compactions: number
+  /** Commands the mod queued, by name. */
+  commands: string[]
   setUsage: (u: TurnUsage) => void
   /** When set, the next compaction is vetoed with this reason. */
   skipWith: string | null
@@ -22,7 +24,7 @@ type World = {
 }
 
 const world = (on: On, stored: Record<string, unknown> = {}, hasConfigRows = true): World => {
-  const w: World = { configSets: [], pushes: [], toasts: [], compactions: 0, setUsage: () => {}, skipWith: null, stepGate: null, transcriptTail: null }
+  const w: World = { configSets: [], pushes: [], toasts: [], compactions: 0, commands: [], setUsage: () => {}, skipWith: null, stepGate: null, transcriptTail: null }
   let usage: TurnUsage | null = null
   w.setUsage = u => {
     usage = u
@@ -65,6 +67,11 @@ const world = (on: On, stored: Record<string, unknown> = {}, hasConfigRows = tru
     }
 
     return { turnId: e.turnId, index: e.index, answer: '', toolUses: [], stopReason: 'end_turn' as const, usage }
+  })
+  on('command.run', { command: 'compact' }, (_$, e) => {
+    w.commands.push(e.command)
+
+    return { text: '' }
   })
   on('session.compact', () => {
     w.compactions += 1
@@ -474,4 +481,30 @@ test('saved band settings apply in the next session', async ($, on) => {
 
   await clock.advance(58 * MIN)
   expect(w.compactions).toBe(0)
+})
+
+test('a headless session runs /compact once per idle period instead', async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await $.session.start({ cwd: '/', surface: null, isInteractive: false })
+  w.setUsage(usageOf(600_000, 598_000))
+  await step($, 1)
+
+  await clock.advance(55 * MIN + 1_000)
+  expect(w.compactions).toBe(0)
+  expect(w.commands).toEqual(['compact'])
+  expect(w.toasts).toContain('cache-timer: ran /compact before cache expiry (600k)')
+  await clock.advance(3 * MIN)
+  expect(w.commands).toEqual(['compact'])
+
+  // The /compact runs as a manual compaction and resets the countdown.
+  await $.session.compact({ trigger: 'manual', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
+  await clock.advance(1_000)
+  expect(await shown($)).toBe('— 40k/500k')
+
+  // The next idle period runs /compact again.
+  w.setUsage(usageOf(600_000, 0))
+  await step($, 2)
+  await clock.advance(55 * MIN + 1_000)
+  expect(w.commands).toEqual(['compact', 'compact'])
 })

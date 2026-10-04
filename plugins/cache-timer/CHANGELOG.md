@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.2.0...HEAD)
 
+- **Compaction in the desktop app** Compaction before expiry now works in
+  desktop-app sessions, including Claude.ai project threads, by running
+  `/compact` there; before, those sessions refused it and nothing was
+  compacted
 - **Plugin page** Shows the plugin's description on Claude Code's plugin page
   when it is installed from the marketplace
 
