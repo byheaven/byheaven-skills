@@ -10,15 +10,24 @@ plugin API). Other agent tools do not load it.
 
 ## What It Does
 
-- **Countdown band above the prompt**: `cache 54:12 (1h?) · 612k · compacts at 5:00 left [ on ] 500k ▾`
-  reads as the time left on the cache, the cache lifetime in use (`?` while it
-  is assumed rather than observed), the tokens the next request re-sends, and,
-  above the threshold, when compaction will start. The `on`/`off` button turns
-  automatic compaction on or off, and the picker sets the threshold to 500k,
-  600k, 700k, or 800k; both write the same settings `/config` shows. In the
-  terminal, click them or press ctrl+x tab to focus the band. The band shows
-  in the terminal and in sessions the desktop app runs; viewers that attach
-  over Remote Control, including the iOS app, do not draw mod UI.
+- **Countdown band above the prompt**: `54:12 ━━━━━━──── 1h · 612k/500k`
+  reads as the time left on the cache, a bar of the lifetime left, the cache
+  lifetime, and the tokens the next request re-sends against the compaction
+  threshold (the threshold is left out while auto-compaction is off). Icons on
+  the right show whether auto-compaction and notifications are on; the gear
+  opens a row with a switch and threshold picker (500k to 800k) for
+  compaction, and a switch and lead-time picker (10, 15, or 20 minutes) for
+  notifications. In the terminal, click them or press ctrl+x tab to focus the
+  band. The band shows in the terminal and in sessions the desktop app runs;
+  viewers that attach over Remote Control, including the iOS app, do not draw
+  mod UI.
+- **Notification before expiry**: when a 1-hour cache has the notification
+  lead time left, it sends one push notification per idle period with the
+  session's name and the question its last reply asked, for example
+  `Mod check / 「Shall I release 0.2.0?」 / — cache expires in 10 min`. It goes
+  through Claude Code's own push notification, so it reaches the phone only
+  while the session has Remote Control on and you are not active in it. A
+  5-minute cache does not notify.
 - **Compaction before expiry**: when it is on and the context holds at least the threshold,
   it runs the same compaction `/compact` runs once the cache has the lead time
   left, at most once per idle period, and reports the result in a toast. A
@@ -30,18 +39,22 @@ plugin API). Other agent tools do not load it.
   that. The transcript format is Claude Code's own and may change; when no
   write is found there, the mod falls back to inference: it starts from 1 hour
   and, after a gap of 5.5 to 58 minutes on the same model, a cache hit confirms
-  1 hour and a miss switches to 5 minutes. A `?` after the lifetime marks it
-  as assumed. Pinning `cache_ttl` overrides both.
+  1 hour and a miss switches to 5 minutes. Pinning `cache_ttl` overrides both.
 
 ## Settings
 
 Each field is a row under `/config`; a change there or in the band reloads the
-mod, and the countdown carries over the reload.
+mod, and the countdown carries over the reload. Sessions the desktop app runs
+have no `/config` rows for plugins, so a change made in the band there is kept
+in the mod's own store and applies to later sessions too; a later `/config`
+change to the same field replaces it.
 
 | Field | Default | Meaning |
 | --- | --- | --- |
 | `auto_compact` | `true` | Compact before expiry at all |
 | `threshold_k` | `500` | Compact only when the context holds at least this many thousand tokens |
+| `notify` | `true` | Send a push notification before a 1-hour cache expires |
+| `notify_lead_minutes` | `10` | Minutes before a 1-hour cache expires to notify |
 | `cache_ttl` | `auto` | `auto` (transcript, then inference), `1h`, or `5m` |
 | `lead_seconds_1h` | `300` | Seconds before a 1-hour cache expires to start compacting |
 | `lead_seconds_5m` | `60` | Seconds before a 5-minute cache expires to start compacting |

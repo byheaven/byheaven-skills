@@ -14,5 +14,12 @@
   the prompt with an on/off switch for automatic compaction and a threshold
   picker (500k to 800k), and keeps the countdown across the reload a settings
   change causes
+- **Band redesign** Shows the countdown with a bar and the tokens against the
+  threshold, with state icons and a gear that opens the settings row
+- **Expiry notification** Sends a push notification with the session's last
+  question shortly before a 1-hour cache expires, with its own switch and
+  lead time
+- **Desktop settings** Keeps band changes in the mod's store in desktop-app
+  sessions, which have no `/config` rows for plugins
 - **Desktop app** Drops the `types` manifest field, which the desktop app's
   plugin loader rejects, and keeps the cache clock in the module instead
