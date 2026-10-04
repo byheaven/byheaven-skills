@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.2.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.0...HEAD)
+
+## [0.3.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.2.0...cache-timer-0.3.0) (2026-10-05)
 
 - **Compaction in the desktop app** Compaction before expiry now works in
   desktop-app sessions, including Claude.ai project threads, by running
