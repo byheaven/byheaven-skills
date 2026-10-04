@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/commits/main/plugins/manager)
 
+- **Governed changes** Restores the review and exit conditions for temporary
+  capability patches across projects
 - **Plugin page** Shows the plugin's description on Claude Code's plugin page
   when it is installed from the marketplace
 - **Principles** Project foundations now state first-principles derivation
