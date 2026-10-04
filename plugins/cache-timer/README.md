@@ -32,6 +32,9 @@ plugin API). Other agent tools do not load it.
   it runs the same compaction `/compact` runs once the cache has the lead time
   left, at most once per idle period, and reports the result in a toast. A
   running turn keeps the cache warm on its own, so no compaction runs then.
+  Sessions without a person at the prompt (the desktop app, the SDK, `-p`)
+  do not let a mod compact directly, so there the mod runs `/compact` as if
+  you typed it.
 - **Exact cache lifetime**: Claude Code gives status-line scripts the
   lifetime as `prompt_cache.ttl`, but the function-hook API does not expose it.
   After each turn the mod reads the tail of the session transcript, where each

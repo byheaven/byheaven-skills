@@ -192,11 +192,35 @@ async function setOption($: EngineInterface, field: string, value: boolean | num
   }
 }
 
+// A session with no person at the prompt (-p, the SDK, and so every
+// desktop-app session) refuses $.session.compact(): compaction there runs as
+// a /compact prompt, which $.command.run queues as if the person typed it.
+let isHeadless = false
+
+async function queueCompact($: EngineInterface, s: CacheClock): Promise<void> {
+  // One attempt per idle period: the /compact that runs resets the clock
+  // through the session.compact hook; one that never runs is not repeated.
+  update($, prev => ({ ...prev, handledAt: s.lastAt }))
+
+  try {
+    await $.command.run({ command: 'compact' })
+    $.ui.toast(`cache-timer: ran /compact before cache expiry (${formatK(s.tokens)})`)
+  } catch (err) {
+    $.ui.toast(`cache-timer: could not run /compact (${String(err)})`)
+  }
+}
+
 async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<void> {
   isCompacting = true
   setView($, { time: 'compacting…', detail: formatK(s.tokens), left: null })
 
   try {
+    if (isHeadless) {
+      await queueCompact($, s)
+
+      return
+    }
+
     const result = await $.session.compact()
 
     if (result.skip !== undefined) {
@@ -358,6 +382,8 @@ export const register: Register = (on, options) => {
   })
 
   on('session.start', async ($, e, next) => {
+    isHeadless = !e.isInteractive
+
     try {
       const saved = await $.store.get(OVERRIDES_KEY)
 
