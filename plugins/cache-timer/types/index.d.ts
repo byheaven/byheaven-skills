@@ -14,5 +14,11 @@ export type CacheClock = {
   isTtlExact: boolean
   /** The lastAt value an automatic compaction was already attempted for. */
   handledAt: number | null
+  /** The lastAt value an expiry notification was already sent for. */
+  notifiedAt: number | null
+  /** The session's name, as the last prompt reported it. */
+  title: string | null
+  /** What the last reply asked the user, for the notification. */
+  question: string | null
 }
 

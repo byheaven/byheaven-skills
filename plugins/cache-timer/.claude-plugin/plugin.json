@@ -13,6 +13,18 @@
       "description": "Compact before the cache expires only when the context holds at least this many thousand tokens.",
       "default": 500
     },
+    "notify": {
+      "type": "boolean",
+      "title": "Notify before expiry",
+      "description": "Send a push notification shortly before a 1-hour cache expires.",
+      "default": true
+    },
+    "notify_lead_minutes": {
+      "type": "number",
+      "title": "Notification lead time (minutes)",
+      "description": "How many minutes before a 1-hour cache expires to send the notification.",
+      "default": 10
+    },
     "cache_ttl": {
       "type": "string",
       "title": "Cache lifetime",
