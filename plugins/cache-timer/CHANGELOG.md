@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.1...HEAD)
+
+## [0.3.1](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.0...cache-timer-0.3.1) (2026-10-05)
 
 - **Threshold picker** The band's compaction threshold picker now offers
   300k, 500k, and 700k, so a conversation can be compacted from 300k tokens;
