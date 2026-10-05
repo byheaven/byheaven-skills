@@ -73,8 +73,13 @@ npx skills add byheaven/byheaven-skills
 
 This installs the skills only, without the plugin's `agents/` directory, so
 the Manager role is not available this way: the `manager` skill reports an
-incomplete install instead of loading a role. Use the `principles` and
-`code-production` skills on their own, or install the full plugin.
+incomplete install instead of loading a role. Use the `principles`,
+`code-production`, and `grilling` skills on their own, or install the full
+plugin.
+
+`skills/grilling` is adapted from
+[mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
+license; its notice is in `skills/grilling/LICENSE`.
 
 ## Usage
 
