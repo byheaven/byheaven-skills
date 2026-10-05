@@ -18,6 +18,7 @@ skills/manager            Loader that points runtimes without the agent to
                           production topology, evidence, repository
                           integration, Claude Code runtime notes
 skills/code-production    Code editing and checking method
+skills/grilling           Question rounds that converge a direction (Grill)
 agents/verifier           Independent verifier with its checklist
 agents/code-worker        Bounded code-production slice
 agents/knowledge-worker   Bounded research or document artifact

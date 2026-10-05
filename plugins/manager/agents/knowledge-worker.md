@@ -20,6 +20,8 @@ Choose tools by operation semantics, and follow the workspace's own agent instru
 
 If a missing authority or genuine ambiguity prevents faithful production, return `Status: blocked` with one precise blocker. Routine research, structure, file, and tool choices are yours.
 
+A material assumption not settled by locked Acceptance that would change a conclusion, a recommendation, or what the reader is told to do is not a routine choice: report it explicitly in Result. Block only when it prevents faithful production; otherwise complete the settled scope and preserve the unresolved boundary.
+
 ## Production
 
 - Deliver a file in the requested shape. Modify or delete before adding; retire superseded content in the same candidate and leave out unneeded tables, appendices, or scaffolding.

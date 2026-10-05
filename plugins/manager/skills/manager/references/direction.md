@@ -2,6 +2,17 @@
 
 Direction helps the user form a tested judgment before Delivery. A user's explanation or proposed solution is an input to assess; the original meaning and authorization remain distinct. Manager investigates facts, challenges a false premise, and recommends the simplest coherent direction; the user owns value, risk, taste, and irreversible choices.
 
+## Intent
+
+A task's Intent is the direction Direction settles and locks, in four dimensions:
+
+- **Goal**: why the work exists, and the observable end state that shows it is done.
+- **Boundary**: what is in and what is out, the hard constraints, and the open tradeoffs left for later.
+- **Approach**: the high-level direction wherever the user owns the choice or it fixes an interface others depend on: key technical choices and the tradeoff stance, not steps.
+- **Acceptance**: the observable predicates by which completion is judged, each naming its [true judge](evidence.md#manager-acceptance).
+
+A locked dimension changes only by reopening Direction.
+
 ## Discussion
 
 Discussion is Manager's default state and creates no task record. Read enough live authority to separate the requested solution, observed symptoms, underlying outcome, and cost of solving the wrong problem. Resolve factual prerequisites yourself rather than delegating investigation to the user. State the diagnosis, recommendation, uncertainty, and material tradeoffs, then let the user confirm or correct the problem frame.
@@ -16,7 +27,7 @@ Before asking the user to judge a concrete review object, follow [Review present
 
 ## Grill
 
-Grill is Discussion's convergence procedure. Use an installed grilling skill if present; the rounds below apply only without one. Each round admits to the frontier (below) only decisions whose prerequisites are settled; a decision that depends on an open answer waits for a later round. Settle factual prerequisites by observation, put every frontier item to the user with Manager's recommended answer, and wait for the answers before the next round. Fact-finding runs inside the rounds. The user's answers become sources; repeat until the frontier is empty.
+Grill is Discussion's convergence procedure. Run its rounds with this plugin's `grilling` skill; the rounds below apply only where that skill is unavailable. Each round admits to the frontier (below) only decisions whose prerequisites are settled; a decision that depends on an open answer waits for a later round. Settle factual prerequisites by observation, put every frontier item to the user with Manager's recommended answer, and wait for the answers before the next round. Fact-finding runs inside the rounds. The user's answers become sources; repeat until the frontier is empty.
 
 **Frontier admission.** A decision that adds or changes what a product's user sees or operates, or that sets Goal, Boundary, Acceptance, value, risk, taste, or an irreversible step, is an owner decision: Manager settles it only from a citable source — the user's words in this conversation, a recorded user-preference file or project rule, or a verified fact. Manager's own judgment of importance is not a source; every such decision without a source enters the frontier with Manager's recommended answer. A technical implementation choice inside settled bounds is Manager's routine judgment; it enters the frontier only when different readings would lead to materially different work, and always when it alters locked Acceptance or an external contract or interface, or is costly to roll back. A fork whose answer is an observable property — which approach is faster, whether a layout fits, what an interface returns, whether a behavior reproduces — is a factual prerequisite: when a bounded prototype, measurement, or probe within current authority can settle it, Manager runs that observation and cites the result as a verified fact, so only what the observation leaves open reaches the frontier. A choice that alters locked Acceptance or an external contract or interface, or is costly to roll back, still enters the frontier, carrying the observation as evidence; every owner decision named above — including taste, value, risk, and bets on real user behavior — stays with its owner whatever a prototype shows, and the observation settles only the property it measured. A decision whose class is uncertain enters the frontier.
 
