@@ -382,6 +382,32 @@ test('the gear opens the settings row, whose controls write the settings', async
   expect(w.configSets).toEqual([...once, ...once])
 })
 
+test('the threshold picker offers 300k, 500k, and 700k', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  world(on)
+  await start($)
+
+  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
+  await ui.press({ key: 'settings' })
+  const picker = (await ui.find({ key: 'threshold' })) as { props: { options: { value: string }[]; value: string } }
+  expect(picker.props.options.map(o => o.value)).toEqual(['300', '500', '700'])
+  expect(picker.props.value).toBe('500')
+  await ui.unmount()
+})
+
+test('a threshold outside the presets stays selectable', { options: { threshold_k: 800 } }, async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  world(on)
+  await start($)
+
+  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
+  await ui.press({ key: 'settings' })
+  const picker = (await ui.find({ key: 'threshold' })) as { props: { options: { value: string }[]; value: string } }
+  expect(picker.props.options.map(o => o.value)).toEqual(['300', '500', '700', '800'])
+  expect(picker.props.value).toBe('800')
+  await ui.unmount()
+})
+
 test('a 1h cache sends one push notification 10 minutes before it expires', async ($, on) => {
   const clock = mock.clock(on, { now: 1_000_000 })
   const w = world(on)

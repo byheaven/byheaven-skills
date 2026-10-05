@@ -137,7 +137,7 @@ const setView = ($: EngineInterface, next: View): void => {
   }
 }
 
-const THRESHOLD_PRESETS_K = [500, 600, 700, 800]
+const THRESHOLD_PRESETS_K = [300, 500, 700]
 const NOTIFY_LEAD_PRESETS_MIN = [10, 15, 20]
 
 const BAR_CELLS = 10
