@@ -2,6 +2,12 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.1.0...HEAD)
 
+- **Evidence** High-risk predicates (authentication, money, deletion,
+  privacy, irreversible actions, and changes to a Vision or a rule) always get
+  an independent verifier from another model family by default, with no
+  blind-spot reason required; terminal evidence names each predicate's judge
+  so a later audit can check the choice
+
 ## [0.1.0](https://github.com/byheaven/byheaven-skills/compare/a5b412ebb6d4e4c31be99fda1adb6165460347f7...manager-0.1.0) (2026-10-05)
 
 - **Manager role** A `manager` agent that discusses first, delivers only on
