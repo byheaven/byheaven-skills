@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/commits/main/plugins/manager)
 
+- **Claude worktree note** Updates the worktree command-guard description to
+  what Claude Code 2.1.289 actually refuses, and adds a review date and exit
+  condition
 - **Intent** Defines Goal, Boundary, Approach, and Acceptance, the four
   dimensions a settled direction locks; the rules used these names without
   saying what each holds
