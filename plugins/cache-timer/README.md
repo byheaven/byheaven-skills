@@ -15,7 +15,7 @@ plugin API). Other agent tools do not load it.
   lifetime, and the tokens the next request re-sends against the compaction
   threshold (the threshold is left out while auto-compaction is off). Icons on
   the right show whether auto-compaction and notifications are on; the gear
-  opens a row with a switch and threshold picker (500k to 800k) for
+  opens a row with a switch and threshold picker (300k, 500k, or 700k) for
   compaction, and a switch and lead-time picker (10, 15, or 20 minutes) for
   notifications. In the terminal, click them or press ctrl+x tab to focus the
   band. The band shows in the terminal and in sessions the desktop app runs;
