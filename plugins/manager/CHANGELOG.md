@@ -1,39 +1,33 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/commits/main/plugins/manager)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.1.0...HEAD)
 
-- **Claude worktree note** Updates the worktree command-guard description to
-  what Claude Code 2.1.289 actually refuses, and adds a review date and exit
-  condition
+## [0.1.0](https://github.com/byheaven/byheaven-skills/compare/a5b412ebb6d4e4c31be99fda1adb6165460347f7...manager-0.1.0) (2026-10-05)
+
+- **Manager role** A `manager` agent that discusses first, delivers only on
+  an explicit request, and closes every Acceptance predicate through a
+  qualified judge before claiming completion; it carries the full role and
+  the principles from the first turn, and a `manager` skill loads it in
+  runtimes that cannot select the agent
+- **Principles** The `principles` skill holds the Human-Agent Principles
+  P1-P3, project-foundation guidance with first-principles derivation as the
+  default, and the operational baseline; CI fails when the agent's copy
+  drifts from it
 - **Intent** Defines Goal, Boundary, Approach, and Acceptance, the four
-  dimensions a settled direction locks; the rules used these names without
-  saying what each holds
-- **Grill** Ships the `grilling` skill with the plugin, so question rounds
-  work the same on every machine instead of depending on a local install
+  dimensions a settled direction locks
+- **Grill** Ships the `grilling` skill, so question rounds work the same on
+  every machine
+- **Sub-agents** `verifier`, `code-worker`, and `knowledge-worker` agents plus
+  a shared `code-production` skill for bounded, independently judged work;
+  workers report a material assumption the Acceptance leaves open instead of
+  deciding it
 - **Evidence** Defines commitment identity: a repair inside the same locked
   Intent and Acceptance keeps it, a change to what is promised does not
-- **Knowledge worker** Reports a material assumption the Acceptance leaves
-  unsettled instead of deciding it silently, as the code worker already does
-- **Codex startup** Loads the shared Manager role through a Codex-only
-  session hook, without changing Claude Code's agent-based startup
-- **Governed changes** Restores the review and exit conditions for temporary
-  capability patches across projects
+- **Governed changes** A temporary capability patch carries its review date
+  and exit condition
+- **Codex startup** Loads the Manager role in Codex through a session hook,
+  without changing Claude Code's agent-based startup
+- **Claude worktree note** Describes what the worktree command guard in
+  Claude Code 2.1.289 actually refuses
 - **Plugin page** Shows the plugin's description on Claude Code's plugin page
   when it is installed from the marketplace
-- **Principles** Project foundations now state first-principles derivation
-  as the default: start from the foundations and current evidence, and judge
-  existing artifacts against them
-- **Manager agent** Adds a `manager` agent that carries the full role and the
-  principles in its own text, so a session started as `manager:manager` has
-  them from the first turn without loading a skill; reference links point to
-  files inside the plugin
-- **Manager skill** Turns the `manager` skill into a loader for runtimes that
-  cannot select the agent; it reads `agents/manager.md`
-- **CI** Fails when the agent's principles copy drifts from the `principles`
-  skill
-
-- **Manager role** Adds the `manager` skill: a project collaborator that
-  discusses first, delivers only on an explicit request, and closes every
-  Acceptance predicate through a qualified judge before claiming completion
-- **Sub-agents** Adds `verifier`, `code-worker`, and `knowledge-worker` agents
-  plus a shared `code-production` skill for bounded, independently judged work
