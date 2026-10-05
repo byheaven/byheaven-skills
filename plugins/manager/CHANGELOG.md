@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.1.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...HEAD)
+
+## [0.2.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.1.0...manager-0.2.0) (2026-10-05)
 
 - **Evidence** High-risk predicates (authentication, money, deletion,
   privacy, irreversible actions, and changes to a Vision or a rule) always get
