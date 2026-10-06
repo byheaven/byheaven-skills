@@ -6,6 +6,13 @@
   enabled now gets the same `SessionStart` reminder Codex uses, so Manager is
   the default role even where the host ignores the `agent` setting, such as
   Claude Code project threads on claude.ai
+- **Writing for agents, bundled** The `writing-for-agents` skill now ships
+  with the plugin in both Claude Code and Codex, and Manager loads it before
+  writing any skill, rule, agent instruction, sub-agent directive, or task
+  Acceptance another agent will execute
+- **Performance changes** Code production now measures a baseline before the
+  first edit, tries remedies cheapest first, keeps only those that move the
+  number, and reports baseline, result, delta, and conditions
 
 ## [0.3.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...manager-0.3.0) (2026-10-06)
 

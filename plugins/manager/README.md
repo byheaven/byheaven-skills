@@ -19,6 +19,8 @@ skills/manager            Loader that points runtimes without the agent to
                           integration, Claude Code runtime notes
 skills/code-production    Code editing and checking method
 skills/grilling           Question rounds that converge a direction (Grill)
+skills/writing-for-agents How to write skills, rules, and directives agents
+                          follow
 agents/verifier           Independent verifier with its checklist
 agents/code-worker        Bounded code-production slice
 agents/knowledge-worker   Bounded research or document artifact
@@ -74,12 +76,14 @@ npx skills add byheaven/byheaven-skills
 This installs the skills only, without the plugin's `agents/` directory, so
 the Manager role is not available this way: the `manager` skill reports an
 incomplete install instead of loading a role. Use the `principles`,
-`code-production`, and `grilling` skills on their own, or install the full
-plugin.
+`code-production`, `grilling`, and `writing-for-agents` skills on their own,
+or install the full plugin.
 
-`skills/grilling` is adapted from
+`skills/grilling` and `skills/writing-for-agents` are adapted from
 [mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
-license; its notice is in `skills/grilling/LICENSE`.
+license; each skill's notice is in its own `LICENSE` file.
+`writing-for-agents` keeps the upstream text at commit `6fd9479` and widens
+only its description to cover rules and directives.
 
 ## Usage
 

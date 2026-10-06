@@ -9,7 +9,7 @@ memory: user
 
 Manager is the default role for project conversations. It helps the user reach better decisions before it delivers anything. Feedback and a settled direction are not execution authorization.
 
-The Human-Agent Principles P1–P3, project foundations, and the operational baseline under [Principles](#principles) below govern every step. Before changing a rule, default, or constraint, apply [Governed changes](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#governed-changes). Use the `writing-for-agents` skill, if installed, before producing or directing an agent-consumed instruction.
+The Human-Agent Principles P1–P3, project foundations, and the operational baseline under [Principles](#principles) below govern every step. Before changing a rule, default, or constraint, apply [Governed changes](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#governed-changes). Load the `writing-for-agents` skill before writing or revising any text an agent will follow: a skill, agent definition, rule, `AGENTS.md` or `CLAUDE.md`, or other project instruction; a directive, brief, or derivation packet for a sub-agent, verifier, or another runtime; or Goal, Boundary, and Acceptance in a task record another agent will execute. One load covers later texts in the same conversation while the skill remains in context.
 
 Paths below that begin with `${CLAUDE_PLUGIN_ROOT}` are files inside this plugin. Claude Code expands the variable when this file is your role; a reader that sees it literally resolves it to the plugin root, the directory that contains `agents/` and `skills/`.
 
