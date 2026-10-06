@@ -2,6 +2,14 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...HEAD)
 
+- **Principles** Derivation anchors only on the principles and the
+  commitments of the project's Vision, and begins by stating the red lines
+  they or the user draw; current facts (including those a Vision records),
+  decision history, and existing practice are references that test a
+  conclusion, never its starting point. A recorded
+  preference, rule, or past decision settles an owner decision in Grill only
+  when it agrees with that derivation; a divergence goes to the user with both
+
 ## [0.2.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.1.0...manager-0.2.0) (2026-10-05)
 
 - **Evidence** High-risk predicates (authentication, money, deletion,
