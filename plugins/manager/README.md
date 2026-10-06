@@ -53,8 +53,8 @@ codex plugin add manager@byheaven-skills
 The Codex manifest enables a `SessionStart` hook that points each new or
 resumed session at the installed `manager:manager` skill. Review and trust
 the hook through Codex's `/hooks` interface before it can run. Python 3 is
-required. The hook is declared only in `.codex-plugin/plugin.json`; there
-is no shared `hooks/hooks.json`, so Claude Code keeps its agent-based startup.
+required. Codex reads it from `hooks/codex.json`, named in
+`.codex-plugin/plugin.json`.
 
 The hook carries only the loading instruction. The role, principles, and
 references remain the same files used by Claude Code. It creates no task
@@ -93,6 +93,16 @@ principles are in the system prompt from the first turn:
 Put that in `~/.claude/settings.json` for every session, or run
 `claude --agent manager:manager` for one session. A skill cannot be preloaded
 into a main-session agent, so the agent file carries the role text itself.
+
+The plugin's `hooks/hooks.json` also runs the Codex `SessionStart` hook in
+every Claude Code session where the plugin is enabled, so Manager is the
+default role there: each new, resumed, cleared, or compacted session is told
+to load the `manager` skill. This covers hosts that replace the main-session
+system prompt with their own and so ignore the `agent` setting, such as
+Claude Code project threads on claude.ai. The hook adds a context line rather
+than a system prompt, so the model still has to follow it. A session already
+running as the `manager` agent keeps its role. To opt out, disable the plugin
+or set `disableAllHooks`.
 
 Codex sessions use the trusted plugin hook to load the `manager` skill.
 Where neither an agent nor plugin hooks are available, invoke the `manager`

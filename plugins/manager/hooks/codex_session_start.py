@@ -1,4 +1,4 @@
-"""Point Codex sessions at this installed plugin's canonical Manager loader."""
+"""Point Claude Code and Codex sessions at this installed plugin's canonical Manager loader."""
 
 import json
 from pathlib import Path

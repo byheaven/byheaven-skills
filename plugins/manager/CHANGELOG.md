@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.3.0...HEAD)
 
+- **Startup hook for Claude Code** Every Claude Code session with the plugin
+  enabled now gets the same `SessionStart` reminder Codex uses, so Manager is
+  the default role even where the host ignores the `agent` setting, such as
+  Claude Code project threads on claude.ai
+
 ## [0.3.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...manager-0.3.0) (2026-10-06)
 
 - **Principles** Derivation anchors only on the principles and the
