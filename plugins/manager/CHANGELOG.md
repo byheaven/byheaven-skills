@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.3.0...HEAD)
+
+## [0.3.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...manager-0.3.0) (2026-10-06)
 
 - **Principles** Derivation anchors only on the principles and the
   commitments of the project's Vision, and begins by stating the red lines
