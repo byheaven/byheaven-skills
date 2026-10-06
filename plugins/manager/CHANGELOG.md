@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.3.0...HEAD)
 
+- **Startup hook for Claude Code** Sessions whose host overrides the
+  `agent` setting, such as Claude Code project threads on claude.ai, now get
+  the same `SessionStart` reminder Codex uses to load the Manager role
+
 ## [0.3.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...manager-0.3.0) (2026-10-06)
 
 - **Principles** Derivation anchors only on the principles and the
