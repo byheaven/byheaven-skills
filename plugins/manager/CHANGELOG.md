@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.3.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.4.0...HEAD)
+
+## [0.4.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.3.0...manager-0.4.0) (2026-10-07)
 
 - **Startup hook for Claude Code** Every Claude Code session with the plugin
   enabled now gets the same `SessionStart` reminder Codex uses, so Manager is
