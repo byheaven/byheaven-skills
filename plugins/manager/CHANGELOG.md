@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.5.0...HEAD)
 
+- **Codex startup only** Manager's loading reminder now runs only when a new
+  Codex session starts. Resuming, clearing, or compacting the session no longer
+  injects it again. Claude Code's startup behavior is unchanged.
+
 ## [0.5.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.4.0...manager-0.5.0) (2026-10-07)
 
 - **Performance numbers you can trust** Before reporting or acting on a
