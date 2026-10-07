@@ -11,7 +11,6 @@ helps you ship faster.
 ## Skills
 
 - **manager** — Project collaborator role: discuss first, deliver on explicit request, verify independently with sub-agents
-- **content-creator** — Draft any content with the user as the assumed author under a single mandatory voice system
 - **cache-timer** — Claude Code mod: prompt-cache countdown in a band above the prompt, and compaction of a large conversation just before its cache expires, switchable from the band
 - **newproject** — Self-contained full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning
 

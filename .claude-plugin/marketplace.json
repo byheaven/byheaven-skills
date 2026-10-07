@@ -69,29 +69,6 @@
       ],
       "description": "Claude Code mod that counts down the prompt cache, compacts a large conversation just before it expires, and can push a reminder to your phone.",
       "source": "./plugins/cache-timer"
-    },
-    {
-      "name": "content-creator",
-      "version": "0.1.0",
-      "category": "productivity",
-      "tags": [
-        "writing",
-        "voice",
-        "ghostwriting",
-        "social-media",
-        "essays"
-      ],
-      "keywords": [
-        "writing voice",
-        "ghostwriting",
-        "content creation",
-        "xiaohongshu",
-        "twitter",
-        "blog",
-        "essays"
-      ],
-      "description": "Draft any content with the user as the assumed author — public posts, essays, and governance documents — under a single mandatory voice system.",
-      "source": "./plugins/content-creator"
     }
   ]
 }

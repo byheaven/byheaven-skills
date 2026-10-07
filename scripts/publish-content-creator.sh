@@ -1,19 +1,15 @@
 #!/bin/bash
-# Publish the content-creator skill from the Obsidian vault to this repo.
-# The vault (claude/skills/content-creator) is the source of truth; this repo
-# carries a self-contained copy at plugins/content-creator/skills/content-creator
-# for vault-less consumers. The skill itself is portable (relative links only);
-# vault rule dependencies are vendored under references/_vault/ as mirrors —
-# never hand-edit them.
-#
-# The manager plugin does NOT bundle a copy: it references the skill by name
-# (see plugins/manager/skills/manager/references/production.md) and expects
-# the content-creator plugin installed alongside it.
+# Publish the content-creator skill from the Obsidian vault into the manager
+# plugin of this repo. The vault (claude/skills/content-creator) is the source
+# of truth; the manager plugin carries the published copy so every agent with
+# the manager plugin gets the single authoritative voice system.
+# The skill itself is portable (relative links only); vault rule dependencies
+# are vendored under references/_vault/ as mirrors — never hand-edit them.
 set -euo pipefail
 
 VAULT="${VAULT:-$HOME/workspace/obsidian-vaults/byheaven}"
 SKILL_SRC="$VAULT/claude/skills/content-creator"
-DEST="plugins/content-creator/skills/content-creator"
+DEST="plugins/manager/skills/content-creator"
 
 cd "$(dirname "$0")/.."
 
