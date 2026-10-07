@@ -52,8 +52,9 @@ codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
 codex plugin add manager@byheaven-skills
 ```
 
-The Codex manifest enables a `SessionStart` hook that points each new or
-resumed session at the installed `manager:manager` skill. Review and trust
+The Codex manifest enables a `SessionStart` hook only for `startup`, pointing
+each new session at the installed `manager:manager` skill. Resume, clear, and
+compaction do not run this loader again. Review and trust
 the hook through Codex's `/hooks` interface before it can run. Python 3 is
 required. Codex reads it from `hooks/codex.json`, named in
 `.codex-plugin/plugin.json`.
