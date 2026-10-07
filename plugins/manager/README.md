@@ -88,7 +88,8 @@ only its description to cover rules and directives.
 The performance method in `skills/code-production/references/performance.md`
 and the verifier's safety-fact check adapt ideas from the `benchmark-checklist`
 and `blast-radius` skills of Lauren Tan's
-[pstack](https://github.com/cursor/plugins/tree/main/pstack) (MIT).
+[pstack](https://github.com/cursor/plugins/tree/main/pstack) under the MIT
+license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 ## Usage
 

@@ -22,8 +22,8 @@ Check each number on these five points before you report it or act on it:
 - **Limits.** Do the arithmetic against bandwidth, cores, and the share of time the changed piece took. Removing a piece that takes 10% of a run makes it at most about 11% faster; a result past a limit measured something else.
 - **End to end.** Report a local speedup as its share of the end-to-end wait the user sees.
 
-A quick ballpark the user asks for may be one run when errors and the work happening are checked and the report says it is one run. A choice between options is never a ballpark.
+A quick ballpark the user asks for may be one run when errors and the work happening are checked and the report says it is one run; a one-run ballpark supports no claim of a difference. A choice between options is never a ballpark.
 
 ## Report
 
-Lead with the verdict: faster, slower, no measurable difference, or inconclusive. Then give baseline, result, and delta with units, the run count and range, the limiter, the conditions, and artifact paths. The verdict is inconclusive when the limiter is unnamed, a side ran untuned, errors or the work happening went unchecked, or the number came from another surface.
+Lead with the verdict: faster, slower, no measurable difference, or inconclusive. Then give baseline, result, and delta with units, the run count and range, the limiter, the conditions, and artifact paths. The verdict is inconclusive when the limiter is unnamed, a side ran untuned, errors or the work happening went unchecked, the gap rests on a single run, or the number came from another surface.
