@@ -2,6 +2,15 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.4.0...HEAD)
 
+- **Performance numbers you can trust** Before reporting or acting on a
+  performance number, code production now names what limits it, counts
+  errors, confirms the timed work actually ran, alternates at least five runs
+  per side, and states the share of the end-to-end wait; otherwise the result
+  is reported as inconclusive
+- **Safety fact** The verifier now names the one fact a code or configuration
+  change is safe because of, proves it by running real code, and looks for
+  breakage that a symbol search misses
+
 ## [0.4.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.3.0...manager-0.4.0) (2026-10-07)
 
 - **Startup hook for Claude Code** Every Claude Code session with the plugin
