@@ -8,26 +8,6 @@
   "description": "A collection of agent skills for code and productive work, built to help you set up faster, automate repetitive tasks, and get real work done with less friction.",
   "plugins": [
     {
-      "name": "xhs-publisher",
-      "version": "0.2.1",
-      "category": "social-media",
-      "tags": [
-        "xiaohongshu",
-        "rednote",
-        "browser-automation",
-        "publishing"
-      ],
-      "keywords": [
-        "xiaohongshu",
-        "rednote",
-        "social publishing",
-        "browser automation",
-        "content publishing"
-      ],
-      "description": "Browser-automated Xiaohongshu (RedNote) publishing for text-and-image posts and photo-note workflows.",
-      "source": "./plugins/xhs-publisher"
-    },
-    {
       "name": "newproject",
       "version": "0.5.3",
       "category": "developer-tools",
