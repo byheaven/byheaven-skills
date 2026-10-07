@@ -4,7 +4,7 @@ Vision, principles, rules, and decision records use a different register from pu
 
 ## Related standards (must load)
 
-This register covers voice. When drafting or revising governance documents, also load `claude/rules/document-architecture-rules` from the byheaven vault if you have access to it — it is the canonical rule file, not duplicated here:
+This register covers voice. When drafting or revising governance documents, also load the canonical document-architecture rules — from the byheaven vault at `claude/rules/document-architecture-rules`, or from the bundled mirror at `references/_vault/document-architecture-rules.md` when you cannot reach the vault. Do not duplicate its content here:
 
 - **Vision qualification (V01–V16)** — the semantic quality standard every Vision must meet.
 - **Placement and links** — where the document lives and how it links.

@@ -115,7 +115,7 @@ credential path, or output directory from a stale machine snapshot.
 
 ### Stage 7: Wrap-Up
 
-All drafts (text + images) are saved to the caller-specified output path. Then write the finalized platform posts as one publish draft in today's journal; that draft is marked `草稿`. Flow on MUSE publishes it after Yu confirms, so the skill ends once the draft is written. Manager then performs caller-specified post-completion actions (e.g., logging a completion record, recurrence reset).
+All drafts (text + images) are saved to the caller-specified output path. Then write the finalized platform posts as one publish draft in today's journal (marked `草稿`); if you cannot reach the user's journal/vault, return the publish draft to the caller instead. Flow on MUSE publishes it after Yu confirms, so the skill ends once the draft is written. Manager then performs caller-specified post-completion actions (e.g., logging a completion record, recurrence reset).
 
 **Output frontmatter must include `author` + `reader`** — this reusable public-content contract requires both (byheaven vault: `claude/rules/document-architecture-rules#Authority and lifecycle`). Set `author` to the ghostwritten human (e.g. `"Yu Bai"`); set `reader` to a **concrete** persona description (not a category like "投资人"/"读者"), as a YAML list when the piece serves multiple platforms/languages. Reuse the same Author×Reader that drove the Stage 4 drafting directives — the gate is that the saved artifact carries them, not just the directive.
 
