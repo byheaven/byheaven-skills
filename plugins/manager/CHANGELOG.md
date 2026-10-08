@@ -1,7 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.5.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.0...HEAD)
 
+## [0.6.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.5.0...manager-0.6.0) (2026-10-08)
+
+- **Content creator, bundled** The `content-creator` skill now ships with the
+  plugin in Claude Code, cloud sessions, and Codex. It drafts posts, essays,
+  and governance documents in the author's voice, and the knowledge worker
+  loads it for user-authored content. This plugin is now its only source
 - **Codex startup only** Manager's loading reminder now runs only when a new
   Codex session starts. Resuming, clearing, or compacting the session no longer
   injects it again. Claude Code's startup behavior is unchanged.
