@@ -1,11 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.1...HEAD)
+
+## [0.6.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.0...manager-0.6.1) (2026-10-08)
 
 - **Followups at every close** Manager now runs its closing steps before
   reporting any finished delivery, including work with no task record, and
-  ends that report with the followups awaiting your choice or "Followup:
-  none". Before, these steps were only reached when the agent opened a
+  ends that report with its followups, or a line saying there are none.
+  Before, these steps were only reached when the agent opened a
   separate reference file, and in practice they were skipped
 
 ## [0.6.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.5.0...manager-0.6.0) (2026-10-08)
