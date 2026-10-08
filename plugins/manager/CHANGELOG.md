@@ -1,11 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.3...HEAD)
+
+## [0.6.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.2...manager-0.6.3) (2026-10-08)
 
 - **New tests need a source outside the code** A producer now adds a test
   only for a bug reproduction, a decided requirement whose cases another
-  agent writes from the requirement (on trial), or a trust boundary; any other change runs the existing checks. Tests that restate
-  the implementation, such as copied counts, rosters, copy, or mock-call
+  agent writes from the requirement (on trial), or a trust boundary; any
+  other change runs the existing checks. Tests that restate the
+  implementation, such as copied counts, rosters, copy, or mock-call
   assertions, are deleted or rewritten when an intended change breaks them
 
 ## [0.6.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.1...manager-0.6.2) (2026-10-08)
