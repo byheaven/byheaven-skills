@@ -347,7 +347,7 @@ relevant content appears immediately without waiting for the full page.
 
 - [ ] Version number follows SemVer by default unless the release owner explicitly chose otherwise
 - [ ] `Unreleased` is a linked header to `compare/<new-tag>...HEAD`
-- [ ] During normal development, new user-facing changes are recorded under `Unreleased`
+- [ ] User-facing changes not yet released are recorded under `Unreleased`
 - [ ] Version header is a linked header to `compare/<previous-tag>...<new-tag>`
 - [ ] 1–3 headline features present (or none if all minor fixes)
 - [ ] Headlines written from the user's perspective

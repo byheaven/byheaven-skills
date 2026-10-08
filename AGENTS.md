@@ -98,7 +98,7 @@ The authoritative version lives in that plugin's entry inside `.claude-plugin/ma
 When adding a new plugin, also:
 
 1. Add the plugin entry to `.claude-plugin/marketplace.json` with `version` set to `0.1.0`, plus `category`, `tags`, and `keywords`
-2. Create `plugins/<name>/CHANGELOG.md` with a linked `## [Unreleased](compare-url)` header
+2. Create `plugins/<name>/CHANGELOG.md` with a linked `## [Unreleased](compare-url)` header and a `## [0.1.0]` section; merging the PR publishes `<name>-0.1.0`
 
 ## Contributor Conventions
 

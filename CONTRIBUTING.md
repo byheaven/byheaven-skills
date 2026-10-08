@@ -15,7 +15,7 @@ Thank you for your interest in contributing!
 1. Create `plugins/<name>/` with the required structure (see [CLAUDE.md](CLAUDE.md))
 2. Add an entry to `.claude-plugin/marketplace.json` with `name`, `version`, `category`, `tags`, `keywords`, `description`, and `source`
 3. Set the initial plugin version in that marketplace entry to `0.1.0`
-4. Create `plugins/<name>/CHANGELOG.md` with a linked `## [Unreleased](compare-url)` header
+4. Create `plugins/<name>/CHANGELOG.md` with a linked `## [Unreleased](compare-url)` header and a `## [0.1.0]` section describing the first release; merging the PR publishes `<name>-0.1.0`
 5. Include a `README.md` and `LICENSE` in the plugin directory
 
 ## Commit Convention
@@ -53,9 +53,10 @@ A plugin is released by the pull request that changes it: merging that PR to `ma
    - add a linked version section `## [x.y.z](compare-url) (YYYY-MM-DD)` to `plugins/<name>/CHANGELOG.md`, link it from the previous plugin tag to the new one, and point `## [Unreleased](compare-url)` from the new tag to `HEAD`;
    - bump the matching plugin `version` in `.claude-plugin/marketplace.json` to the same version.
 2. A PR that should not release yet (docs, CI, or a change to batch with later work) keeps its notes under `## [Unreleased]` and leaves the version alone.
-3. On every push to `main`, `.github/workflows/release.yml` finds each plugin whose marketplace version changed in that push and has no tag yet. For each one it validates the version and changelog section, tags the pushed commit `<plugin>-<version>`, and creates the GitHub Release from that changelog section. A push with no version change releases nothing.
-4. Two open PRs that pick the same version conflict in `marketplace.json` and `CHANGELOG.md`; the second rebases and takes the next version before it merges.
-5. Pushing a `<plugin>-<version>` tag by hand still publishes that tag's Release, for re-running a failed release.
+3. On every push to `main`, `.github/workflows/release.yml` checks each plugin's current marketplace version. A version with no tag is tagged at the commit that introduced it and gets a GitHub Release from its changelog section; a tag with no Release gets one. Every planned release is validated before any tag is created, and an existing Release is never edited. A push that changes no version releases nothing.
+4. Because the check reads the current state, a failed or skipped run is repaired by re-running the workflow (Actions → Release → Run workflow) or by the next push to `main`.
+5. Before merging, confirm the version is still the next one after the current `main`; two open PRs can pick the same number.
+6. Pushing a `<plugin>-<version>` tag by hand publishes that tag's Release if it has none.
 
 ### Release checklist (inside the PR)
 
@@ -75,7 +76,7 @@ Key principles:
 - **User benefit first**: describe what users *get*, not what developers *did*
 - **Bold headlines**: 1–3 punchy feature titles for the most significant changes
 - **Use linked headers**: `## [x.x.x](compare-url) (YYYY-MM-DD)` for every released version
-- **Maintain `Unreleased` continuously**: every merge to `main` should add a short note under `## [Unreleased]`
+- **Record every user-facing change**: a releasing PR writes its note under the new version section; any other PR adds it under `## [Unreleased]`
 - **Omit internal changes**: `chore`, `ci`, `refactor`, `docs` should usually stay out unless they matter to plugin users
 
 See [`docs/changelog-style-guide.md`](docs/changelog-style-guide.md) for the full guide with examples.
