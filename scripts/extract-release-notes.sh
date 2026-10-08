@@ -2,7 +2,7 @@
 # scripts/extract-release-notes.sh
 #
 # Extracts a single version's section from CHANGELOG.md.
-# Used by release.yml to publish GitHub Releases from manually curated changelog sections.
+# Used by release.yml to publish GitHub Releases from curated changelog sections.
 #
 # Usage: ./scripts/extract-release-notes.sh newproject-1.2.0
 #

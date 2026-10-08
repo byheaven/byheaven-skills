@@ -88,7 +88,7 @@ Ask the user for the project name.
 
 ## Versioning
 
-Each plugin is versioned independently through manually curated releases.
+Each plugin is versioned independently; the pull request that changes a plugin releases it.
 The authoritative version lives in that plugin's entry inside `.claude-plugin/marketplace.json`.
 
 - Each plugin has its own changelog at `plugins/<name>/CHANGELOG.md`
@@ -104,7 +104,7 @@ When adding a new plugin, also:
 
 Follow [CONTRIBUTING.md](CONTRIBUTING.md) for commit conventions, PR guidelines, and the release workflow.
 Use [docs/changelog-style-guide.md](docs/changelog-style-guide.md) when rewriting changelog sections.
-Every change merged to `main` must update the relevant plugin `CHANGELOG.md` under `## [Unreleased]`.
+Every change merged to `main` must update the relevant plugin `CHANGELOG.md`: under a new version section when the PR releases the plugin, otherwise under `## [Unreleased]`.
 
 When the user says "release", "ship", or "发版":
 follow the Release Workflow section in CONTRIBUTING.md.

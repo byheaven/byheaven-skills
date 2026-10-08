@@ -1,16 +1,24 @@
 # .github/workflows/release.yml
-# Responsibility: Publish a GitHub Release from a manually curated plugin changelog.
-# Triggered only by pushing a plugin release tag that points at a human-authored release commit.
+# Responsibility: Publish a GitHub Release for each plugin version that reaches main.
+# A push to main releases every plugin whose marketplace version changed in that push
+# and has no tag yet: it tags the pushed commit and creates the Release in this job
+# (tags pushed with GITHUB_TOKEN do not trigger other workflows).
+# Pushing a `<plugin>-<x.y.z>` tag by hand still publishes that tag's Release.
 
 name: Release
 
 on:
   push:
+    branches: [main]
     tags:
       - '*-*.*.*'
 
 permissions:
   contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -20,53 +28,97 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Parse tag
-        id: parse
+      - name: Determine tags to release
+        id: plan
         env:
+          REF_TYPE: ${{ github.ref_type }}
           REF_NAME: ${{ github.ref_name }}
+          BEFORE: ${{ github.event.before }}
         run: |
           set -euo pipefail
 
-          VERSION=$(echo "$REF_NAME" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$')
-          if [[ -z "$VERSION" ]]; then
-            echo "Tag must end with a semantic version: $REF_NAME" >&2
-            exit 1
+          if [[ "$REF_TYPE" == "tag" ]]; then
+            echo "tags=$REF_NAME" >> "$GITHUB_OUTPUT"
+            echo "create=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
-          COMPONENT="${REF_NAME%-$VERSION}"
-          PLUGIN_DIR="plugins/$COMPONENT"
-          MARKETPLACE_FILE=".claude-plugin/marketplace.json"
-          CHANGELOG_FILE="$PLUGIN_DIR/CHANGELOG.md"
-
-          if [[ ! -d "$PLUGIN_DIR" ]]; then
-            echo "Plugin directory not found for tag $REF_NAME: $PLUGIN_DIR" >&2
-            exit 1
+          if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]] || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            echo "No previous commit to compare; nothing to release."
+            echo "tags=" >> "$GITHUB_OUTPUT"
+            echo "create=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
-          if [[ ! -f "$MARKETPLACE_FILE" ]]; then
-            echo "Marketplace file not found: $MARKETPLACE_FILE" >&2
-            exit 1
-          fi
+          TAGS=$(python3 - "$BEFORE" <<'PY'
+          import json
+          import subprocess
+          import sys
 
-          if [[ ! -f "$CHANGELOG_FILE" ]]; then
-            echo "Plugin changelog not found: $CHANGELOG_FILE" >&2
-            exit 1
-          fi
+          before = sys.argv[1]
+          path = ".claude-plugin/marketplace.json"
 
-          echo "component=$COMPONENT" >> "$GITHUB_OUTPUT"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "marketplace_file=$MARKETPLACE_FILE" >> "$GITHUB_OUTPUT"
-          echo "changelog_file=$CHANGELOG_FILE" >> "$GITHUB_OUTPUT"
+          def versions(text):
+              return {p["name"]: p.get("version") for p in json.loads(text)["plugins"]}
 
-      - name: Validate marketplace version
+          old_text = subprocess.run(
+              ["git", "show", f"{before}:{path}"], capture_output=True, text=True
+          )
+          old = versions(old_text.stdout) if old_text.returncode == 0 else {}
+          new = versions(open(path, encoding="utf-8").read())
+
+          for name, version in new.items():
+              if not version or old.get(name) == version:
+                  continue
+              tag = f"{name}-{version}"
+              exists = subprocess.run(
+                  ["git", "rev-parse", "-q", "--verify", f"refs/tags/{tag}"],
+                  capture_output=True,
+              ).returncode == 0
+              if not exists:
+                  print(tag)
+          PY
+          )
+
+          TAGS=$(echo "$TAGS" | xargs)
+          echo "Tags to release: ${TAGS:-none}"
+          echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
+          echo "create=true" >> "$GITHUB_OUTPUT"
+
+      - name: Validate, tag, and publish
+        if: steps.plan.outputs.tags != ''
         env:
-          EXPECTED_VERSION: ${{ steps.parse.outputs.version }}
-          COMPONENT: ${{ steps.parse.outputs.component }}
-          MARKETPLACE_FILE: ${{ steps.parse.outputs.marketplace_file }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAGS: ${{ steps.plan.outputs.tags }}
+          CREATE_TAG: ${{ steps.plan.outputs.create }}
         run: |
           set -euo pipefail
 
-          ACTUAL_VERSION=$(python3 - "$MARKETPLACE_FILE" "$COMPONENT" <<'PY'
+          MARKETPLACE_FILE=".claude-plugin/marketplace.json"
+          chmod +x scripts/extract-release-notes.sh
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for TAG in $TAGS; do
+            VERSION=$(echo "$TAG" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$')
+            if [[ -z "$VERSION" ]]; then
+              echo "Tag must end with a semantic version: $TAG" >&2
+              exit 1
+            fi
+            COMPONENT="${TAG%-"$VERSION"}"
+            PLUGIN_DIR="plugins/$COMPONENT"
+            CHANGELOG_FILE="$PLUGIN_DIR/CHANGELOG.md"
+
+            if [[ ! -d "$PLUGIN_DIR" ]]; then
+              echo "Plugin directory not found for tag $TAG: $PLUGIN_DIR" >&2
+              exit 1
+            fi
+            if [[ ! -f "$CHANGELOG_FILE" ]]; then
+              echo "Plugin changelog not found: $CHANGELOG_FILE" >&2
+              exit 1
+            fi
+
+            ACTUAL_VERSION=$(python3 - "$MARKETPLACE_FILE" "$COMPONENT" <<'PY'
           import json
           import sys
 
@@ -76,55 +128,34 @@ jobs:
               if plugin["name"] == component:
                   version = plugin.get("version")
                   if not version:
-                      raise SystemExit(
-                          f"Plugin entry {component} has no version in {marketplace_file}"
-                      )
+                      raise SystemExit(f"Plugin entry {component} has no version in {marketplace_file}")
                   print(version)
                   raise SystemExit(0)
-
           raise SystemExit(f"Plugin entry {component} not found in {marketplace_file}")
           PY
-          )
+            )
+            if [[ "$ACTUAL_VERSION" != "$VERSION" ]]; then
+              echo "Tag version $VERSION does not match marketplace version $ACTUAL_VERSION" >&2
+              exit 1
+            fi
 
-          if [[ "$ACTUAL_VERSION" != "$EXPECTED_VERSION" ]]; then
-            echo "Tag version $EXPECTED_VERSION does not match marketplace version $ACTUAL_VERSION" >&2
-            exit 1
-          fi
+            # Fails when the changelog has no section for this version.
+            CHANGELOG_FILE="$CHANGELOG_FILE" ./scripts/extract-release-notes.sh "$TAG"
 
-      - name: Extract release notes from CHANGELOG.md
-        env:
-          REF_NAME: ${{ github.ref_name }}
-          CHANGELOG_FILE: ${{ steps.parse.outputs.changelog_file }}
-        run: |
-          chmod +x scripts/extract-release-notes.sh
-          ./scripts/extract-release-notes.sh "$REF_NAME"
+            if [[ "$CREATE_TAG" == "true" ]]; then
+              git tag -a -m "release $COMPONENT $VERSION" "$TAG" "$GITHUB_SHA"
+              git push origin "refs/tags/$TAG"
+            fi
 
-      - name: Read release title
-        id: title
-        env:
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          if [[ -s RELEASE_TITLE.txt ]]; then
-            TITLE="${REF_NAME} - $(cat RELEASE_TITLE.txt)"
-          else
-            TITLE="${REF_NAME}"
-          fi
-          echo "name=$TITLE" >> "$GITHUB_OUTPUT"
+            if [[ -s RELEASE_TITLE.txt ]]; then
+              TITLE="$TAG - $(cat RELEASE_TITLE.txt)"
+            else
+              TITLE="$TAG"
+            fi
 
-      - name: Create or update GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REF_NAME: ${{ github.ref_name }}
-          TITLE: ${{ steps.title.outputs.name }}
-        run: |
-          set -euo pipefail
-
-          if gh release view "$REF_NAME" >/dev/null 2>&1; then
-            gh release edit "$REF_NAME" \
-              --title "$TITLE" \
-              --notes-file RELEASE_NOTES.md
-          else
-            gh release create "$REF_NAME" \
-              --title "$TITLE" \
-              --notes-file RELEASE_NOTES.md
-          fi
+            if gh release view "$TAG" >/dev/null 2>&1; then
+              gh release edit "$TAG" --title "$TITLE" --notes-file RELEASE_NOTES.md
+            else
+              gh release create "$TAG" --verify-tag --title "$TITLE" --notes-file RELEASE_NOTES.md
+            fi
+          done
