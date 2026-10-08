@@ -1,10 +1,10 @@
 # Experience gates
 
-Work that adds or changes what a product's user sees or operates passes both gates below before implementation or dispatch. A project's own design-engineering standard may refine the tiers and artifacts and may not weaken the invariants; these gates are the fallback when a project has none, and their invariants hold across projects. Source-local rules map storage and tooling and may strengthen the artifact or evidence.
+Work that adds or changes what a person sees or operates, including the user's own tools such as a status line, pane, or other interface mod, passes both gates below before implementation or dispatch. A project's own design-engineering standard may refine the tiers and artifacts and may not weaken the invariants; these gates are the fallback when a project has none, and their invariants hold across projects. Source-local rules map storage and tooling and may strengthen the artifact or evidence.
 
 ## Review object gate
 
-For every product change a user can see or operate, produce the smallest real, durable, version-bound review object as soon as its direction is visible and before any implementation whose shape depends on that direction. Classify the delta once:
+For every such change, produce the smallest real, durable, version-bound review object as soon as its direction is visible and before any implementation whose shape depends on that direction. Classify the delta once:
 
 - interaction or mixed: a low-fidelity prototype with real copy and applicable states;
 - content-only: exact copy in its real UI context;

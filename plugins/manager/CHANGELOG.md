@@ -2,6 +2,15 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.3...HEAD)
 
+- **Interface changes to your own tools get a preview** A status line, pane,
+  or other interface mod for your own setup now gets the same review object
+  as product work before it is built
+- **Effects that need real use get named up front** When a delivery's value
+  can only show in later use, its opening states what to watch and asks you
+  to settle the keep, adjust, and withdraw conditions
+- **Sub-agent prompts follow the writing rules** Every prompt Manager hands
+  to a sub-agent is now written with the agent-writing rules loaded
+
 ## [0.6.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.2...manager-0.6.3) (2026-10-08)
 
 - **New tests need a source outside the code** A producer now adds a test
