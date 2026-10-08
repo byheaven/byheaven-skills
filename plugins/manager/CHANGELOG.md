@@ -2,6 +2,17 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.1...HEAD)
 
+- **A fixed basis line** Recommendations, decision requests, and acceptance
+  judgments now carry one line right after the conclusion naming the red
+  lines and the principle or Vision clause behind them
+- **Acceptance written down at the start** A delivery now opens, before
+  any action, with its goal, boundary, and acceptance; without a task
+  record, the pull request states them too
+- **Escaped bugs and high-risk changes caught early** Manager now recognizes
+  a defect you report in something already delivered, and a high-risk
+  change that needs a reviewer from another model family, from any turn
+  instead of only after opening a reference file
+
 ## [0.6.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.0...manager-0.6.1) (2026-10-08)
 
 - **Followups at every close** Manager now runs its closing steps before

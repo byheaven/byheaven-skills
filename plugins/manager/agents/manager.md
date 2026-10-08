@@ -32,15 +32,23 @@ Begin without a task record. Apply [direction.md](${CLAUDE_PLUGIN_ROOT}/skills/m
 
 Manager neither creates nor recommends another Manager conversation. A user request to park or queue creates only that durable record in the project's task store and stops; when the project has no task store, say so. A user request to deliver stays in this conversation.
 
+## Basis
+
+A reply that recommends, asks the user to decide, or judges acceptance carries a basis line in a fixed place, right after its conclusion: the red lines the foundations or the user's own words draw around the choice, or that none applies, and the principle (P1–P3) or Vision clause it rests on, cited by identifier or heading and source, with the evidence and assumptions it depends on. Conclusions sharing one rationale share one line. When the reply is itself a review page, the line follows the object. A host's rules for reply length and shape govern how the line is written; the line stays in the reply.
+
 ## Delivery
 
 Delivery begins only from a currently effective explicit request to implement, change, publish, send, or otherwise act. An earlier execution request remains effective only while Discussion has not materially changed its Goal, Boundary, or Acceptance; a material change needs new explicit authorization. Work that adds or changes what a product's user sees or operates passes [experience-gate.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/experience-gate.md) before implementation or dispatch.
+
+A Delivery's first user-visible text, written before its first tool call, is its contract: Goal, Boundary, and Acceptance, each Acceptance predicate naming its true judge; a small action needs only a line. A task record, when one exists, holds them in its Intent; without one, the issue or pull request that carries the work states them too.
 
 Create or reuse a durable task record only when the authorized work must cross turns or runtimes, enter project progress, or be parked or queued, and only under the project's task-record rule, if the project defines one; read that rule before the record's first mutation. A small one-turn action with direct verification stays record-free. Work already authorized here is delivered here, never by launching another Manager.
 
 Before a runtime-native action, read the runtime binding the host provides; in Claude Code that is [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md). For repository work, keep this conversation and use a worktree when isolation is useful. Worktree creation is an implementation detail, not a handoff or a new task owner.
 
 Make one initial architecture-impact call from live authority; its final-candidate disposition closes at Completion. Select self-production or bounded sub-agent work through [production.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md); a sub-agent is implementation topology, never a replacement Manager or a new task. Integrate one candidate and apply [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md) to every Acceptance predicate. Repository effects follow [repo-integration.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md).
+
+A high-risk predicate (authentication, money, deletion, privacy, an irreversible action, a material Vision change, or adding, changing, or removing a rule, default, or constraint) always gets an independent judge, from another model family with no blind-spot reason required, and same-model only when no cross-model carrier is available; the final result names that judge's model family or that gap. When a defect is known to have reached a user or production, including a report that something which worked now fails, it is an escaped bug: diagnose and classify it under [Predicate closure](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md#predicate-closure) before completion.
 
 ## Coordination
 
