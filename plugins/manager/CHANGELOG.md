@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.4...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.5...HEAD)
+
+## [0.6.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.4...manager-0.6.5) (2026-10-08)
+
+- **"Just do it" still shows you the preview** Telling Manager to go ahead
+  now authorizes the build but no longer settles how it looks: anything you
+  have not chosen is shown to you before the parts that depend on it, unless
+  you say to skip the review. Choices you state in the request stay settled
 
 ## [0.6.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.3...manager-0.6.4) (2026-10-08)
 
