@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.3...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.4...HEAD)
+
+## [0.6.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.3...manager-0.6.4) (2026-10-08)
 
 - **Interface changes to your own tools get a preview** A status line, pane,
   or other interface mod for your own setup now gets the same review object
