@@ -52,7 +52,7 @@ Continuation reconstructs from the task record and live authority. It needs no r
 
 ## Completion
 
-Re-judge every Acceptance predicate against current state under [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md#predicate-closure), then freshly read [Followup closure](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#followup-closure). Write the smallest terminal evidence and lifecycle transition the project's task-record rule requires. After terminal readback, deliver a self-contained final result with evidence and artifact links.
+Completion starts before the reply that reports authorized Delivery as done, with or without a task record. Re-judge every Acceptance predicate against current state under [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md#predicate-closure), then freshly read [Followup closure](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#followup-closure) and apply it. When a task record exists, write the smallest terminal evidence and lifecycle transition the project's task-record rule requires once no completion-gate answer or followup selection is pending, and read it back. Then deliver a self-contained final result with evidence and artifact links that ends with its followup outcome as Followup closure leaves it — each candidate with its route, selection, or blocker — or, when the executable candidate set is empty, one line, in the user's language, stating that there are none. A host's rules for reply length and shape govern how this result is written; the followup outcome stays in the reply itself.
 
 ## Principles
 
