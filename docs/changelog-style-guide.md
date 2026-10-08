@@ -161,18 +161,17 @@ ongoing user-facing notes during normal development. It should also be a linked 
 
 Normal development rule:
 
-- Every merge to `main` should add a short user-facing note under `Unreleased`
-- Keep these notes concise and ready to be promoted into the next release section
+- A PR that releases a plugin writes its notes directly under the new version section
+- A PR that does not release yet adds a short user-facing note under `Unreleased`
 - Skip purely internal changes unless they matter to plugin users
 
-When preparing a release commit:
+When a PR releases a plugin:
 
-- Convert the accumulated `Unreleased` notes into the new version section
+- Promote any accumulated `Unreleased` notes into the new version section together with this PR's notes
 - Update `Unreleased` to compare from the new tag to `HEAD`
 - Add the new linked version header comparing the previous tag to the new tag
-- Reset the `Unreleased` section body after promoting those notes into the new version section
 
-The tag does not exist yet while you're editing the release commit. This is expected and normal.
+The tag does not exist yet while the PR is open; the Release workflow creates it when the PR merges.
 
 ### Headline Format
 
@@ -348,7 +347,7 @@ relevant content appears immediately without waiting for the full page.
 
 - [ ] Version number follows SemVer by default unless the release owner explicitly chose otherwise
 - [ ] `Unreleased` is a linked header to `compare/<new-tag>...HEAD`
-- [ ] During normal development, new user-facing changes are recorded under `Unreleased`
+- [ ] User-facing changes not yet released are recorded under `Unreleased`
 - [ ] Version header is a linked header to `compare/<previous-tag>...<new-tag>`
 - [ ] 1–3 headline features present (or none if all minor fixes)
 - [ ] Headlines written from the user's perspective

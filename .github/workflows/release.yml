@@ -1,16 +1,26 @@
 # .github/workflows/release.yml
-# Responsibility: Publish a GitHub Release from a manually curated plugin changelog.
-# Triggered only by pushing a plugin release tag that points at a human-authored release commit.
+# Responsibility: Keep every plugin version on main published.
+# On each push to main, every plugin whose marketplace version has no tag is tagged at
+# the commit that introduced that version, and every such tag without a Release gets one.
+# The check reads the current state, not the push diff, so a skipped, cancelled, or
+# failed run is repaired by the next push or a re-run. Releases that exist are never edited.
+# Pushing a `<plugin>-<x.y.z>` tag by hand publishes that tag's Release if it has none.
 
 name: Release
 
 on:
   push:
+    branches: [main]
     tags:
       - '*-*.*.*'
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -20,111 +30,150 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Parse tag
-        id: parse
-        env:
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          set -euo pipefail
-
-          VERSION=$(echo "$REF_NAME" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$')
-          if [[ -z "$VERSION" ]]; then
-            echo "Tag must end with a semantic version: $REF_NAME" >&2
-            exit 1
-          fi
-
-          COMPONENT="${REF_NAME%-$VERSION}"
-          PLUGIN_DIR="plugins/$COMPONENT"
-          MARKETPLACE_FILE=".claude-plugin/marketplace.json"
-          CHANGELOG_FILE="$PLUGIN_DIR/CHANGELOG.md"
-
-          if [[ ! -d "$PLUGIN_DIR" ]]; then
-            echo "Plugin directory not found for tag $REF_NAME: $PLUGIN_DIR" >&2
-            exit 1
-          fi
-
-          if [[ ! -f "$MARKETPLACE_FILE" ]]; then
-            echo "Marketplace file not found: $MARKETPLACE_FILE" >&2
-            exit 1
-          fi
-
-          if [[ ! -f "$CHANGELOG_FILE" ]]; then
-            echo "Plugin changelog not found: $CHANGELOG_FILE" >&2
-            exit 1
-          fi
-
-          echo "component=$COMPONENT" >> "$GITHUB_OUTPUT"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "marketplace_file=$MARKETPLACE_FILE" >> "$GITHUB_OUTPUT"
-          echo "changelog_file=$CHANGELOG_FILE" >> "$GITHUB_OUTPUT"
-
-      - name: Validate marketplace version
-        env:
-          EXPECTED_VERSION: ${{ steps.parse.outputs.version }}
-          COMPONENT: ${{ steps.parse.outputs.component }}
-          MARKETPLACE_FILE: ${{ steps.parse.outputs.marketplace_file }}
-        run: |
-          set -euo pipefail
-
-          ACTUAL_VERSION=$(python3 - "$MARKETPLACE_FILE" "$COMPONENT" <<'PY'
-          import json
-          import sys
-
-          marketplace_file, component = sys.argv[1:]
-          plugins = json.load(open(marketplace_file, encoding="utf-8"))["plugins"]
-          for plugin in plugins:
-              if plugin["name"] == component:
-                  version = plugin.get("version")
-                  if not version:
-                      raise SystemExit(
-                          f"Plugin entry {component} has no version in {marketplace_file}"
-                      )
-                  print(version)
-                  raise SystemExit(0)
-
-          raise SystemExit(f"Plugin entry {component} not found in {marketplace_file}")
-          PY
-          )
-
-          if [[ "$ACTUAL_VERSION" != "$EXPECTED_VERSION" ]]; then
-            echo "Tag version $EXPECTED_VERSION does not match marketplace version $ACTUAL_VERSION" >&2
-            exit 1
-          fi
-
-      - name: Extract release notes from CHANGELOG.md
-        env:
-          REF_NAME: ${{ github.ref_name }}
-          CHANGELOG_FILE: ${{ steps.parse.outputs.changelog_file }}
-        run: |
-          chmod +x scripts/extract-release-notes.sh
-          ./scripts/extract-release-notes.sh "$REF_NAME"
-
-      - name: Read release title
-        id: title
-        env:
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          if [[ -s RELEASE_TITLE.txt ]]; then
-            TITLE="${REF_NAME} - $(cat RELEASE_TITLE.txt)"
-          else
-            TITLE="${REF_NAME}"
-          fi
-          echo "name=$TITLE" >> "$GITHUB_OUTPUT"
-
-      - name: Create or update GitHub Release
+      - name: Plan releases
+        id: plan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF_TYPE: ${{ github.ref_type }}
           REF_NAME: ${{ github.ref_name }}
-          TITLE: ${{ steps.title.outputs.name }}
         run: |
           set -euo pipefail
 
-          if gh release view "$REF_NAME" >/dev/null 2>&1; then
-            gh release edit "$REF_NAME" \
-              --title "$TITLE" \
-              --notes-file RELEASE_NOTES.md
+          # Each output line: <tag> <commit to tag, or "-" when the tag exists>
+          python3 - "$REF_TYPE" "$REF_NAME" > plan.txt <<'PY'
+          import json
+          import subprocess
+          import sys
+
+          ref_type, ref_name = sys.argv[1:]
+          path = ".claude-plugin/marketplace.json"
+
+          def run(*args):
+              return subprocess.run(args, capture_output=True, text=True)
+
+          def tag_exists(tag):
+              return run("git", "rev-parse", "-q", "--verify", f"refs/tags/{tag}").returncode == 0
+
+          def release_exists(tag):
+              return run("gh", "release", "view", tag).returncode == 0
+
+          def version_at(commit, name):
+              shown = run("git", "show", f"{commit}:{path}")
+              if shown.returncode != 0:
+                  return None
+              for plugin in json.loads(shown.stdout)["plugins"]:
+                  if plugin["name"] == name:
+                      return plugin.get("version")
+              return None
+
+          def introducing_commit(name, version):
+              commits = run("git", "log", "--format=%H", "--", path).stdout.split()
+              introduced = None
+              for commit in commits:  # newest first
+                  if version_at(commit, name) != version:
+                      break
+                  introduced = commit
+              return introduced
+
+          if ref_type == "tag":
+              if not release_exists(ref_name):
+                  print(ref_name, "-")
+              raise SystemExit(0)
+
+          for plugin in json.load(open(path, encoding="utf-8"))["plugins"]:
+              name, version = plugin["name"], plugin.get("version")
+              if not version:
+                  continue
+              tag = f"{name}-{version}"
+              if not tag_exists(tag):
+                  print(tag, introducing_commit(name, version))
+              elif not release_exists(tag):
+                  print(tag, "-")
+          PY
+
+          cat plan.txt
+          if [[ -s plan.txt ]]; then
+            echo "needed=true" >> "$GITHUB_OUTPUT"
           else
-            gh release create "$REF_NAME" \
-              --title "$TITLE" \
-              --notes-file RELEASE_NOTES.md
+            echo "Nothing to release."
+            echo "needed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Validate every planned release
+        if: steps.plan.outputs.needed == 'true'
+        run: |
+          set -euo pipefail
+
+          MARKETPLACE_FILE=".claude-plugin/marketplace.json"
+          chmod +x scripts/extract-release-notes.sh
+          mkdir -p notes
+
+          while read -r TAG TARGET; do
+            VERSION=$(echo "$TAG" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$')
+            if [[ -z "$VERSION" ]]; then
+              echo "Tag must end with a semantic version: $TAG" >&2
+              exit 1
+            fi
+            COMPONENT="${TAG%-"$VERSION"}"
+            if [[ "$TARGET" != "-" ]]; then
+              REF="$TARGET"
+            else
+              REF="refs/tags/$TAG"
+            fi
+            CHANGELOG_FILE="plugins/$COMPONENT/CHANGELOG.md"
+
+            if ! git cat-file -e "$REF:$CHANGELOG_FILE" 2>/dev/null; then
+              echo "Plugin changelog not found at $REF: $CHANGELOG_FILE" >&2
+              exit 1
+            fi
+
+            ACTUAL_VERSION=$(git show "$REF:$MARKETPLACE_FILE" | python3 -c '
+          import json, sys
+          name = sys.argv[1]
+          for plugin in json.load(sys.stdin)["plugins"]:
+              if plugin["name"] == name:
+                  print(plugin.get("version") or "")
+                  break
+          ' "$COMPONENT")
+            if [[ "$ACTUAL_VERSION" != "$VERSION" ]]; then
+              echo "Tag version $VERSION does not match marketplace version '$ACTUAL_VERSION' at $REF" >&2
+              exit 1
+            fi
+
+            # Fails when the changelog has no section for this version.
+            git show "$REF:$CHANGELOG_FILE" > "notes/$TAG.changelog"
+            CHANGELOG_FILE="notes/$TAG.changelog" OUTPUT_FILE="notes/$TAG.md" TITLE_FILE="notes/$TAG.title" \
+              ./scripts/extract-release-notes.sh "$TAG"
+          done < plan.txt
+
+      - name: Tag and publish
+        if: steps.plan.outputs.needed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          while read -r TAG TARGET; do
+            VERSION=$(echo "$TAG" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$')
+            COMPONENT="${TAG%-"$VERSION"}"
+
+            if [[ "$TARGET" != "-" ]]; then
+              git tag -a -m "release $COMPONENT $VERSION" "$TAG" "$TARGET"
+              git push origin "refs/tags/$TAG"
+            fi
+
+            if [[ -s "notes/$TAG.title" ]]; then
+              TITLE="$TAG - $(cat "notes/$TAG.title")"
+            else
+              TITLE="$TAG"
+            fi
+
+            if gh release view "$TAG" >/dev/null 2>&1; then
+              echo "Release $TAG already exists; left unchanged."
+            else
+              gh release create "$TAG" --verify-tag --title "$TITLE" --notes-file "notes/$TAG.md"
+            fi
+          done < plan.txt
