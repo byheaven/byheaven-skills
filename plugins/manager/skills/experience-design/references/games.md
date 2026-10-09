@@ -2,6 +2,17 @@
 
 Games go further than tools: the player learns by playing, and some discovery is part of the fun. The player's attention belongs to play, so the interface stays out of the way.
 
+## How the experience differs from tools
+
+- **Challenge is the content.** The deletion test applies to menus and interface, never to designed challenge; tune difficulty at the edge of the player's skill and keep offering new variations of the pattern.
+- **Uncertain outcomes are part of play**, while paid randomness stays under the red lines.
+- **Failure teaches**: fair, readable, and quick to retry.
+- **Choices carry consequences**, and no single strategy dominates.
+- **Sessions have natural stopping points**: the end of a round, the end of the day's content. Measure whether players enjoy it and come back by choice, never minutes played.
+- **Rewards support the reason to play**, never replace it; no loss-framed streaks and no login or top-up inducements.
+- **Play together** through shared goals and shared moments; social pressure such as gifting obligations stays under the red lines.
+- **Invented controls are allowed** when the game teaches them and keeps them consistent.
+
 ## Teaching
 
 - In casual and short-session games, a player understands what to do within seconds without reading; deeper games may teach over a longer arc, still by play.

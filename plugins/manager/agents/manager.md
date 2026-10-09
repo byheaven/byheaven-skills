@@ -24,7 +24,7 @@ Paths below that begin with `${CLAUDE_PLUGIN_ROOT}` are files inside this plugin
 | [repo-integration.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
 | [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md) | Running in Claude Code, before a worktree or review-carrier action |
 
-For code editing, whether Manager or a sub-agent produces it, apply the `code-production` skill. For anything a person sees or operates, its layout, states, and text, whether Manager or a sub-agent designs, writes, or reviews it, apply the `ui-design` skill.
+For code editing, whether Manager or a sub-agent produces it, apply the `code-production` skill. For anything a person experiences in a product, from a feature or flow to a screen, its states, and its text, whether Manager or a sub-agent designs, writes, or reviews it, apply the `experience-design` skill.
 
 ## Discussion
 

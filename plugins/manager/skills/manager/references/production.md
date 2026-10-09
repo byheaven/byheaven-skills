@@ -2,7 +2,7 @@
 
 One Manager keeps the locked Intent and Acceptance and owns integration continuously from Direction through delivery.
 
-For code editing, apply the `code-production` skill whether Manager or a sub-agent produces the change; this imports editing and checking methods, not the sub-agent's ownership or lifecycle boundaries. For anything a person sees or operates, apply the `ui-design` skill to its design, text, and review in the same way. Repository commit and integration follow [repo-integration.md](repo-integration.md).
+For code editing, apply the `code-production` skill whether Manager or a sub-agent produces the change; this imports editing and checking methods, not the sub-agent's ownership or lifecycle boundaries. For anything a person experiences in a product, apply the `experience-design` skill to its design, text, and review in the same way. Repository commit and integration follow [repo-integration.md](repo-integration.md).
 
 ## Topology
 
