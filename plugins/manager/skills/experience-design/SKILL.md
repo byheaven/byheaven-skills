@@ -36,7 +36,7 @@ Done when the job, the person, the scene, the current alternative, and the sessi
 - Remove the worst moment first. Where the experience has an emotional arc, make its peak the moment the job is done and end on completion rather than on a request.
 - Motivation comes from the person's own sense of choice, growing skill, and connection with others. Rewards inform; they never replace the reason to do the thing.
 - Let people leave when the job is done, and earn the return with value. Coming back after a gap is welcomed, never punished.
-- Hold the **red lines**: the person would make the same choice knowing everything the designer knows, and declining, cancelling, or leaving takes no more effort or prominence than accepting. The full list is in the red-lines reference.
+- Hold the **red lines**: the person would make the same choice knowing everything the designer knows, and declining, cancelling, or leaving is as easy to find and as prominent as accepting, with no friction beyond a proportionate protection. The full list is in the red-lines reference.
 
 Done when every step has a named contribution to the job or to the person's protection, or is removed; every request is either needed by its step or comes after first value; the branches are covered (first visit, return, interruption and resumption, each entry point, failure); and the journey passes the red-lines reference.
 
