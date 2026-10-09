@@ -1,6 +1,6 @@
 # States
 
-Each state shows the user one fact they need now and the next action. The deletion test and floor in SKILL.md apply to every state below.
+Each state shows the one fact the user needs now, and the next action when the user must act and the screen does not already show it. The deletion test and floor in SKILL.md apply to every state below.
 
 ## First use and onboarding
 
@@ -12,7 +12,7 @@ Each state shows the user one fact they need now and the next action. The deleti
 
 ## Empty
 
-- Say what will appear here only when the empty space alone does not show it, and offer the control that fills it.
+- Say what will appear here only when the empty space alone does not show it; offer the control that fills it when the user is expected to fill it.
 - Distinguish the kinds: first use (the next step), cleared by the user (a light touch, often nothing), no results (how to widen or clear the query), no permission (why, and how to get access).
 - Empty states disappear, so never put information the user needs later only there.
 
@@ -20,18 +20,17 @@ Each state shows the user one fact they need now and the next action. The deleti
 
 - Silent for anything that resolves within about half a second; a skeleton in place of the content for longer waits; determinate progress when the real progress is known.
 - Name a long operation by what it does for the user; never narrate internal steps and never invent progress.
-- Content and state survive a reload or a slow network without asking the user to wait again.
 
 ## Error
 
 - Show the error where it happened, say what failed and the next action, and keep the user's input.
 - Internal codes, service names, and stack details stay in logs; a support reference appears only when the user needs to quote it.
-- One failing part never blocks the rest of the surface.
-- Network failures offer retry; an expired session renews itself once before asking the user to sign in again.
+- A failure the user can retry offers the retry in place.
+- A frequent error is a design problem, not a copy problem.
 
 ## Confirmation and destructive actions
 
-- Recoverable actions happen immediately with undo; confirmation is for uncommon actions that cannot be undone.
+- Recoverable actions happen immediately with undo where the product supports it; confirmation is for actions that cannot be undone and are not the obvious result of what the user just chose.
 - A confirmation names the object and the consequence, and its button repeats the action ("Delete 3 photos", 「删除照片」), never Yes/No/OK.
 
 ## Success

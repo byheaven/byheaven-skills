@@ -4,8 +4,8 @@ Games go further than tools: the player learns by playing, and some discovery is
 
 ## Teaching
 
-- A player understands what to do within about five seconds without reading.
-- The first round is the tutorial: introduce one mechanic at a time in a safe space, let its consequence be obvious, then repeat and raise the difficulty.
+- In casual and short-session games, a player understands what to do within seconds without reading; deeper games may teach over a longer arc, still by play.
+- Where the mechanics are simple, the first round is the tutorial: introduce one mechanic at a time in a safe space, let its consequence be obvious, then repeat and raise the difficulty.
 - Show the rule in the world (a ghost hand, a highlighted target, a disabled control that lights up) before any sentence about it.
 - A hint appears when the player is stuck for a while, once, at the spot where they are stuck.
 - Tell only the rules a player cannot discover by playing; leave techniques and secrets for the player to find.
