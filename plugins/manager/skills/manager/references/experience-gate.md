@@ -4,7 +4,7 @@ Work that adds or changes what a person sees or operates, including the user's o
 
 ## Review object gate
 
-For every such change, produce the smallest real, durable, version-bound review object as soon as its direction is visible and before any implementation whose shape depends on that direction. Classify the delta once:
+Whoever produces or reviews such a change applies the `experience-design` skill. For every such change, produce the smallest real, durable, version-bound review object as soon as its direction is visible and before any implementation whose shape depends on that direction. Classify the delta once:
 
 - interaction or mixed: a low-fidelity prototype with real copy and applicable states;
 - content-only: exact copy in its real UI context;
