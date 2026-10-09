@@ -7,7 +7,7 @@ Each state shows the one fact the user needs now, and the next action when the u
 - First value fast: the user does the real thing in the first session, with sensible defaults and the minimum setup.
 - Teach the next needed concept at the moment it is needed, by letting the user perform it; one concept at a time.
 - A tip appears once, beside its control, dismissible, and never again after dismissal; a returning user never sees first-use teaching.
-- Any guided flow is optional and skippable, and permissions, ratings, sign-up, and purchase prompts wait until the user has experienced value.
+- Any guided flow is optional and skippable; requests follow the journey rule in SKILL.md step 2.
 - No welcome or self-praise text on the way in; the first screen is the product.
 
 ## Empty

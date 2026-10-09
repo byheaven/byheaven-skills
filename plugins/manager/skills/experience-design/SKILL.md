@@ -9,33 +9,36 @@ Every step, element, and word a person meets must **earn its place** in their ex
 
 The project's own authorities come first. Its Vision decides what counts as value and which tradeoffs win; its design system, tokens, glossary, and the surface's product document decide concrete values, names, and voice. This skill fills what they leave open and never weakens a floor they set.
 
+Product decisions belong to the product owner. Reuse the decisions the owner has settled; any new choice about the job, the primary person, the journey, or what ships is a proposal the owner decides before it shapes the product, through the project's own review process. This skill guides how to design and judge; it authorizes no change.
+
 Work in layers, from the job down to the words. A symptom on the surface often starts lower: trace it down (job, journey, screen, words) and fix the lowest layer where the wrong choice was made. Steps 1 and 2 apply whenever a feature or flow is created or changed; a change confined to one screen starts at step 3 after confirming the journey around it still holds.
 
 ## Steps
 
 ### 1. Name the job
 
+- Read the project authorities for this experience, then the current experience itself: the journey as people go through it today and every screen and state it reaches, rendered where possible.
 - Write the progress the person wants in their circumstance: what they get done, how they want to feel, and how they want to be seen. Write what they use today for it, including doing nothing.
 - Pick one primary person in one scene and resolve tradeoffs for them, without failing the others. The same person in another scene is another user.
 - The new way must beat the old by more than the cost of switching: learning, setup, migration, risk, and social cost. Lower the anxiety and the habit cost, not only add attraction.
 - Name the session shape: a quick visit that finishes and leaves, a long working session, or play. It sets density, pacing, and how much the product should hold attention.
 
-Done when the job, the person, the scene, the current alternative, and the session shape each fit in one sentence.
+Done when the job, the person, the scene, the current alternative, and the session shape each fit in one sentence, each marked as settled by the owner (with its source), supported by evidence, assumed, or open for the owner.
 
 ### 2. Shape the journey
 
-- Walk the journey step by step. Every step either moves the job forward or is overhead that serves the tool (navigation, setup, waiting, re-entering, confirming). Remove overhead; count decisions, waits, and re-entries, not taps.
-- Ask only for what this step needs, at the moment it is needed, with the reason; never ask twice. Value comes before any account, permission, share, or payment request.
+- Walk the journey step by step. Every step either moves the job forward, protects the person, or is overhead that serves the tool (navigation, setup, waiting, re-entering). Remove overhead; count decisions, waits, and re-entries, not taps.
+- Ask only for what this step needs, at the moment it is needed, with the reason; never ask twice. Postpone every account, permission, share, or payment request the current step does not need until the person has seen value; a request the step itself needs (the camera for a camera tool, identity before private data, a legal or safety requirement) comes at that moment.
 - Defaults are decisions made for the person: the safest, most common, reversible choice in their interest.
 - Forgive: undo for routine actions, confirmation only for irreversible ones naming the consequence, work saved and resumed where the person was interrupted.
 - At every point the person can tell where they are, what just happened, what they can do, and how to leave. Every entry (a shared link, a notification, a search result) is a valid start that orients them.
 - Organize by the person's tasks and words, never by the system's structure; reveal what is rare one level down, at most two.
-- Design the peak and the end: remove the worst moment first, make the peak the moment the job is done, and end on completion and relief.
+- Remove the worst moment first. Where the experience has an emotional arc, make its peak the moment the job is done and end on completion rather than on a request.
 - Motivation comes from the person's own sense of choice, growing skill, and connection with others. Rewards inform; they never replace the reason to do the thing.
 - Let people leave when the job is done, and earn the return with value. Coming back after a gap is welcomed, never punished.
 - Hold the **red lines**: the person would make the same choice knowing everything the designer knows, and declining, cancelling, or leaving takes no more effort or prominence than accepting. The full list is in the red-lines reference.
 
-Done when every step has a named contribution to the job or is removed, the first value arrives before the first request, the peak and end are named, and the journey passes the red-lines reference.
+Done when every step has a named contribution to the job or to the person's protection, or is removed; every request is either needed by its step or comes after first value; the branches are covered (first visit, return, interruption and resumption, each entry point, failure); and the journey passes the red-lines reference.
 
 ### 3. Subtract on each screen
 

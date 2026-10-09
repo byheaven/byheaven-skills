@@ -5,7 +5,7 @@ A design that works against the person's own considered interest never ships, wh
 ## Tests for any pattern
 
 - **Regret test.** Would the person make the same choice knowing everything the designer knows? If they would regret it, it does not ship.
-- **Symmetry test.** Declining, opting out, cancelling, deleting, and leaving take no more steps, effort, or visual prominence than accepting, joining, or buying.
+- **Symmetry test.** Declining, opting out, cancelling, deleting, and leaving are at least as easy to find and as prominent as accepting, joining, or buying, and carry no friction beyond a proportionate protection, such as confirming an irreversible deletion.
 - **Effect over intent.** Judge what the design does to the choice, whatever was intended.
 - **Stacking.** Several mild pressures on one choice count as one severe one.
 
@@ -15,7 +15,8 @@ A design that works against the person's own considered interest never ships, wh
 
 - Countdowns, "offer ends", or scarcity that is not real.
 - Invented social proof: made-up counts of people, activity, or reviews.
-- Ads or paid placements styled as content or as controls.
+- Ads or paid placements that hide that they are paid, or pose as ordinary content or controls.
+- A control that does something other than what it shows, such as a close button that starts a purchase.
 - Trick wording or double negatives around consent or choices.
 - Progress, odds, time, price, or state shown as other than it is; change the real pacing, never the indicator.
 
@@ -26,12 +27,12 @@ A design that works against the person's own considered interest never ships, wh
 - Subscriptions or trials that renew or convert without a clear reminder beforehand.
 - Virtual currency without its real-money price, bundles sized to leave a remainder, or several currencies mixed to blur cost.
 - Paid randomness without disclosed odds, and any paid randomness offered to minors.
-- Rewards for logging in daily, for a first top-up, or for consecutive top-ups.
+- Rewards for logging in daily, for a first top-up, or for consecutive top-ups. This is product policy drawn from a 2023 Chinese draft regulation, not a statement of current law.
 - Timers or energy limits that exist mainly to sell skipping them.
 
 ### Obstruction and asymmetry
 
-- Leaving, cancelling, or deleting that takes more than joining did.
+- Leaving, cancelling, or deleting made harder than joining, beyond a proportionate protection.
 - Hiding the information needed to compare or decide.
 - Requiring an account, a follow, a share, or contact access to reach value that does not need it.
 - Preselected options that serve the business, above all data sharing.
@@ -55,5 +56,5 @@ A design that works against the person's own considered interest never ships, wh
 
 ### Privacy
 
-- Asking for permissions or personal data before the person has seen value, without the reason, or beyond what the step needs.
+- Asking for permissions or personal data that the current step does not need, without the reason, or before the person has seen value when the step could work without it.
 - Privacy controls that are hidden, unclear, or harder to use than the sharing they control.
