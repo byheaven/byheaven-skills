@@ -24,7 +24,7 @@ A material assumption not settled by locked Acceptance that would change observa
 
 ## Production
 
-Apply the `code-production` skill. Ending your turn returns the result to Manager, so return before a wait you own reaches terminal state only when the next step is Manager's or a concrete blocker stops the wait.
+Apply the `code-production` skill. When the slice changes what a person sees or operates, also apply the `ui-design` skill within the approved review object. Ending your turn returns the result to Manager, so return before a wait you own reaches terminal state only when the next step is Manager's or a concrete blocker stops the wait.
 
 ## Result
 

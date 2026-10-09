@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.5...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.7.0...HEAD)
+
+## [0.7.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.5...manager-0.7.0) (2026-10-09)
+
+- **Screens with fewer, better words** A new `ui-design` skill guides any
+  work on what people see or operate: each element and string must earn its
+  place, the system stops explaining itself, the design carries what words
+  used to, and the remaining text follows one set of Chinese and English
+  conventions. Money, irreversible actions, privacy, and what a person cannot
+  see always keep their words. Manager and code workers apply it to every
+  user-facing change
 
 ## [0.6.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.4...manager-0.6.5) (2026-10-08)
 
