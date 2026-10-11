@@ -5,6 +5,15 @@
 -
 -
 
+## Judge
+
+<!-- Required when this PR changes rule text: plugins/*/skills, plugins/*/agents,
+plugins/manager/hooks, or the root AGENTS.md / CLAUDE.md (CI checks it).
+Name the independent judge's model family, e.g. "Judge: GPT (Codex, GPT-6)".
+Without a cross-model judge: "Judge: same-family (Claude), reason: <why>". -->
+
+Judge:
+
 ## Type of change
 
 - [ ] New plugin
