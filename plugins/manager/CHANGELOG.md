@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.7.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.8.0...HEAD)
+
+## [0.8.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.7.0...manager-0.8.0) (2026-10-13)
+
+- **Independent followups can run in parallel** When a project's standing
+  delivery mandate allows parallel sessions, a followup that depends neither
+  on the finished delivery nor on the rest of the continuation becomes its
+  own queued record for a new session, within the mandate's concurrency
+  limit. Dependent followups still continue in the same conversation
 
 ## [0.7.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.5...manager-0.7.0) (2026-10-09)
 
