@@ -1,6 +1,17 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.9.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.10.0...HEAD)
+
+## [0.10.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.9.0...manager-0.10.0) (2026-10-16)
+
+- **A third fix waits until the premise is tested** After two fixes built on
+  the same assumption fail the same check, agents write the assumption down
+  and test it directly before trying again
+- **Scripts for repeated edits** A batch of similar edits, or a check repeated
+  across many units, gets a small script a reviewer can rerun
+- **Easier code to follow, one checked step at a time** The structure
+  reference now asks for fewer layers and less hidden state, and for checking
+  each unit of a sweep before the next
 
 ## [0.9.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.8.0...manager-0.9.0) (2026-10-16)
 
