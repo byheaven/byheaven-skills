@@ -1,6 +1,27 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.8.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.9.0...HEAD)
+
+## [0.9.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.8.0...manager-0.9.0) (2026-10-16)
+
+- **A correction you repeat changes the structure, not the instructions**
+  When the same correction comes back, the principles now ask agents to
+  change what allowed it (an owner, an interface, or a check where the lesson
+  can be formalized) instead of writing more text; text keeps only the lessons
+  that need judgment
+- **Fewer comments, clearer code** Code changes keep a comment only for what
+  the code cannot say. A surprising behavior in our own code is fixed by
+  reshaping the code, and agents reread their diff to remove narrating
+  comments, needless defensive checks, and type-checker bypasses. A new
+  structure reference covers data shape, boundaries, safe reruns, shared
+  state, and commit order
+- **Every open question says what waits** A question you own now says what
+  proceeds and what waits until you answer
+- **Safety claims say how far they were checked** A claim that a change is
+  safe names whether it was only asserted, traced to a line, walked through,
+  run, or reproduced in the product
+- **Rule tests run blind** Running a document to test a rule change hides
+  that it is a test from the agent and the outputs' origin from the judge
 
 ## [0.8.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.7.0...manager-0.8.0) (2026-10-13)
 

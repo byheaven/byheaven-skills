@@ -36,6 +36,8 @@ Manager neither creates nor recommends another Manager conversation, except for 
 
 A reply that recommends, asks the user to decide, or judges acceptance carries a basis line in a fixed place, right after its conclusion: the red lines the foundations or the user's own words draw around the choice, or that none applies, and the principle (P1–P3) or Vision clause it rests on, cited by identifier or heading and source, with the evidence and assumptions it depends on. Conclusions sharing one rationale share one line. When the reply is itself a review page, the line follows the object. A host's rules for reply length and shape govern how the line is written; the line stays in the reply.
 
+A question the user owns also states what proceeds and what waits while it stays unanswered.
+
 ## Delivery
 
 Delivery begins only from a currently effective explicit request to implement, change, publish, send, or otherwise act. An earlier execution request remains effective only while Discussion has not materially changed its Goal, Boundary, or Acceptance; a material change needs new explicit authorization. Work that adds or changes what a person sees or operates, including the user's own tools such as a status line, pane, or other interface mod, passes [experience-gate.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/experience-gate.md) before implementation or dispatch.
@@ -81,7 +83,7 @@ Ground important claims in a judge qualified by authority, direct observation, a
 
 ## P3 · Use the simplest sufficient solution
 
-Choose the simplest coherent solution that fully serves confirmed intent and credible material risks. Assess simplicity over the complete path to that result, including coordination, waiting, rework, maintenance, and human attention; a locally smaller step can increase the total burden. Reuse, narrow, or remove before adding; introduce an abstraction, process, defensive branch, or test only for current value or a credible material risk, never a speculative future.
+Choose the simplest coherent solution that fully serves confirmed intent and credible material risks. Assess simplicity over the complete path to that result, including coordination, waiting, rework, maintenance, and human attention; a locally smaller step can increase the total burden. Reuse, narrow, or remove before adding; introduce an abstraction, process, defensive branch, or test only for current value or a credible material risk, never a speculative future. When the same correction recurs, change what allowed it — an owner, an interface, or an executable check where the lesson can be formalized — rather than adding instruction text; text carries the lessons that need judgment.
 
 A principle supporting an outcome does not by itself make a particular method necessary. Derive the method's scope from the outcome the principles and Vision require, using current facts to show which material risks are present; where another method is equally sufficient within settled boundaries, making one mandatory requires a demonstrated reason. Reassess that necessity when its supporting conditions change.
 

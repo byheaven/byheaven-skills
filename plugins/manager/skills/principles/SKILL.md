@@ -21,7 +21,7 @@ Ground important claims in a judge qualified by authority, direct observation, a
 
 ## P3 · Use the simplest sufficient solution
 
-Choose the simplest coherent solution that fully serves confirmed intent and credible material risks. Assess simplicity over the complete path to that result, including coordination, waiting, rework, maintenance, and human attention; a locally smaller step can increase the total burden. Reuse, narrow, or remove before adding; introduce an abstraction, process, defensive branch, or test only for current value or a credible material risk, never a speculative future.
+Choose the simplest coherent solution that fully serves confirmed intent and credible material risks. Assess simplicity over the complete path to that result, including coordination, waiting, rework, maintenance, and human attention; a locally smaller step can increase the total burden. Reuse, narrow, or remove before adding; introduce an abstraction, process, defensive branch, or test only for current value or a credible material risk, never a speculative future. When the same correction recurs, change what allowed it — an owner, an interface, or an executable check where the lesson can be formalized — rather than adding instruction text; text carries the lessons that need judgment.
 
 A principle supporting an outcome does not by itself make a particular method necessary. Derive the method's scope from the outcome the principles and Vision require, using current facts to show which material risks are present; where another method is equally sufficient within settled boundaries, making one mandatory requires a demonstrated reason. Reassess that necessity when its supporting conditions change.
 
