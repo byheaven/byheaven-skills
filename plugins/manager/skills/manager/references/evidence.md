@@ -16,7 +16,7 @@ Assign evidence per locked Acceptance predicate, never per file, batch, phase, c
 4. Identify the locked commitment being judged and the exact artifact state that realizes it. The judge named in step 2 decides dispatch: a deterministic machine or live authority closes the predicate with no further verifier; an irreducibly user-owned predicate returns to the user once every objective predicate is closed; independent judgment means one fresh verifier, or a parallel wave, is the judge, and Manager's own reading never closes that predicate.
 5. Missing, empty, malformed, refused, timed out, non-zero, pending, stale, or wrong-state evidence is unknown and blocks completion until it is settled or closes under [Predicate closure](#predicate-closure).
 
-Terminal evidence names each predicate's judge and, for independent judgment, the verifier's model family, so a later audit can check the assignment. User judgment and irreversible authorization are never delegated, and neither substitutes for Manager acceptance. File paths do not decide semantic adequacy, true-judge assignment, or verifier need.
+Terminal evidence names each predicate's judge and, for independent judgment, the verifier's model family, so a later audit can check the assignment. A claim that a change is safe, or leaves something unaffected, states the strongest level its deciding fact reached: asserted, located at a cited line, failure path walked through, shown by running the real code, or reproduced in the running product. User judgment and irreversible authorization are never delegated, and neither substitutes for Manager acceptance. File paths do not decide semantic adequacy, true-judge assignment, or verifier need.
 
 ## Predicate closure
 
