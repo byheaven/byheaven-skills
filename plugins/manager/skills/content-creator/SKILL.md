@@ -1,42 +1,53 @@
 ---
 name: content-creator
-version: 0.3.0
-description: "MANDATORY — read and follow before drafting any content with the user as the assumed author: public posts (X, Xiaohongshu, blog, essays, Telegram), platform adaptations, and governance documents (Vision, principles, rules, decision records). This Skill is the single home for all such writing rules; invocation is required every time, and drafts must never be produced from memory or habit."
+version: 0.4.0
+description: "Writing brief and drafting method for any writing task: product and interface copy, posts (X, Xiaohongshu, blog, Telegram), articles, introductions, documents written to be read such as a Vision or a PRD, and messages sent on the user's behalf. Use before drafting or revising any of them."
 ---
 
 # Content Creator
 
-The single authoritative voice and drafting system for all content with the user as the assumed author. This skill covers writing only — how to sound like him and how to draft. Invoke before drafting begins — never draft from memory or habit.
+Every writing task starts with a **writing brief** that the user approves, and the draft follows that brief. Style is chosen for each piece from its reader and purpose.
 
-## When to invoke
+## 1. Writing brief
 
-Any time an agent drafts text that will go out as Yu Bai: social posts, essays, blog articles, governance documents — or transforms his raw captures into publishable form.
+Show the user the brief before drafting or revising, and draft only after the user approves it.
 
-## Voice and Writing Craft
+- **Author**: who is speaking, as a specific person or voice (Yu Bai; the AMIO companion; the AMIO team).
+- **Reader**: one specific person in a specific moment, described by what they already know, what they care about, and what would convince them. A platform or a category ("players", "investors") is too broad.
+- **Purpose**: what the piece should achieve, and what the reader takes away: the value (what they now know, can do, or can decide) and the feeling (how they feel about the subject and the author).
+- **Style**: the style that best serves this reader and purpose (tone, register, rhythm, length, structure, how vivid or plain), with two or three concrete references that model it well: published works, writers, products, or pieces the user already approved, each with what to take from it.
 
-`references/writing-craft.md` is the single voice authority: voice target, Author × Reader, public voice gate, Chinese hard rules, English long-form rules. Read it before drafting; carry the Chinese rules verbatim into Chinese drafting directives. For governance documents, use `references/governance-docs.md` instead of the public-voice register.
+Reuse what the project has settled, such as a product's brand voice, a document's agreed structure, or an approved brief for the same series, and name it in the brief. Done when the user approves the brief as written or as changed. One approved brief covers the task's drafts and revisions until its author, reader, or purpose changes.
 
-## Drafting principles
+## When the author is Yu Bai
 
-- **Native conception**: each language is thought and written in from the start — never draft in one language and translate into another. Chinese and English versions are produced independently from the same argument skeleton; the skeleton carries thesis points only, never language-specific imagery.
-- **Author × Reader**: declare both before drafting — a concrete reader persona, never a category. Write in the relevant facet of his voice, not an agent's explainer register.
-- **Don't invent**: transform what he gave; never add claims, examples, or positions beyond his words.
-- **Platform writing formats**: `references/platform-x.md`, `references/platform-xhs.md`, `references/platform-blog.md`, `references/platform-telegram.md`.
-- **External claims**: ground them via `references/freshness.md`.
-- **Revisions**: bounded per `references/anti-perfectionism.md`.
+His own writing is the voice source. Before writing the brief, read:
+
+1. what he has already written on this topic (notes, journal entries, and the vault pages on it), for his positions and his sentences;
+2. the voice samples he chose, listed in the byheaven vault at `pages/projects/output/voice-samples.md`;
+3. `USER.md` in the vault, for his background and stance.
+
+In the brief, the style references are the samples closest to this reader and purpose, each with one or two of his lines quoted as the target; an outside writer is added only for what his samples do not cover.
+
+For a piece whose value is his own thinking (an essay, a blog post, an opinion post), he supplies the core: the argument and its key sentences. The draft keeps his sentences and writes what connects and completes them.
+
+Yu's reading decides whether a draft sounds like him. When a second judge is needed, use a reviewer from another model family and give it the samples.
+
+## 2. Draft
+
+- Write to the approved brief. Where another style rule differs, the brief decides.
+- Conceive each language in that language from the shared argument; a version in a second language is written from the argument by a writer who has not read the first version.
+- Platform limits: `references/platforms.md`. Vision and governance documents: `references/governance-docs.md`. Revision rounds: `references/anti-perfectionism.md`.
+
+## Floor
+
+These hold whatever the brief says:
+
+- When the user is the author, use his own claims, positions, and examples; organize and phrase them, and add none.
+- Ground external claims per `references/freshness.md`; soften an unconfirmed claim to what is known, or cut it.
+- The title and opening promise what the body delivers. Present motives you infer as your reading of them.
+- Product copy also holds the `experience-design` skill's red lines.
 
 ## Boundaries
 
-- This skill defines voice and draft quality. It does not operate publishing pipelines.
-- Whether to publish stays with Yu unless a standing authorization exists for the specific path.
-
-## Cross-References
-
-- `references/writing-craft.md` — voice target, Author × Reader, public voice gate, Chinese/English rules (single voice authority)
-- `references/governance-docs.md` — governance document register
-- `references/platform-x.md` — X (Twitter) writing format
-- `references/platform-xhs.md` — Xiaohongshu writing format
-- `references/platform-blog.md` — blog/long-form writing format
-- `references/platform-telegram.md` — Telegram writing format
-- `references/freshness.md` — grounding for external claims
-- `references/anti-perfectionism.md` — revision bounds, skip protocol
+Whether to publish stays with the user unless a standing authorization covers the specific path.

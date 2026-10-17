@@ -1,6 +1,6 @@
 # Freshness and External Claims
 
-Read in Stage 1 or Stage 4 whenever the framing depends on current external reality. Freshness is part of content value.
+Read while writing the brief or drafting whenever the framing depends on current external reality. Freshness is part of content value.
 
 ## Trigger
 
@@ -13,7 +13,7 @@ Ground the claim with fresh web evidence when the piece:
 
 ## Procedure
 
-1. Use the active runtime's supported web-search surface to inspect the current state. Search in Stage 1 for an external-comparison direction and again before a Stage 4 drafting directive relies on the claim.
+1. Use the active runtime's supported web-search surface to inspect the current state. Search when the brief proposes an external comparison, and again before a draft or drafting directive relies on the claim.
 2. Feed verified facts and their actual current status into the drafting directive.
 3. When search cannot confirm a claim, soften it to what is known or cut it.
 

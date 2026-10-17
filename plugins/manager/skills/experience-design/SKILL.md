@@ -76,13 +76,13 @@ Done when each sentence removed in step 3 has either a design replacement or a r
 
 ### 5. Write what remains
 
+- Write to the writing brief the user approved for this copy (`content-creator`).
 - Use the person's words for things they recognize, never the system's names for how it is built.
 - One term per concept across the whole product; the button's verb is the next screen's title.
 - Put the key word first; one idea per screen or message.
 - Buttons name the result with a specific verb ("Save draft", "再来一局"), never a bare OK/Yes/No for a consequential choice.
 - Voice stays constant; tone follows the moment. Playfulness belongs to success and idle moments, plain words to failure, money, privacy, and loss.
 - Positive and specific: say what to do, in active voice, with real numbers.
-- Avoid stock phrases, slogans that would fit any product, and machine-sounding cadence such as stacked em-dashes or "not X, but Y" contrasts.
 
 Done when every string passes the language reference for its language and reads naturally aloud.
 
