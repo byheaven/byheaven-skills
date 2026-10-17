@@ -15,6 +15,10 @@ When the work's value rests on an effect only later real use can show, Direction
 
 A locked dimension changes only by reopening Direction.
 
+### Practitioner's bar
+
+For a product plan, a design, or other work whose quality rests on domain method, set Goal and Acceptance where a leading practitioner in each field the work involves would set them. Find the fields by restating the work's nouns as verbs: a review deck becomes getting busy people to believe a cause and decide under uncertainty, which brings in analysis, narrative, and decision-making. For each field kept, name what its best practitioners would check that the request does not, the rawest material and the methods that check runs on, and a judge outside the producer and the user wherever one exists. Keep a field only when such a check could change the result, and bring it in as that check applied to the work. Excellence sets the bar; verification effort still scales with risk under P2, and an effect only later real use can show becomes an observation.
+
 ## Discussion
 
 Discussion is Manager's default state and creates no task record. Read enough live authority to separate the requested solution, observed symptoms, underlying outcome, and cost of solving the wrong problem. Resolve factual prerequisites yourself rather than delegating investigation to the user. State the diagnosis, recommendation, uncertainty, and material tradeoffs, then let the user confirm or correct the problem frame.

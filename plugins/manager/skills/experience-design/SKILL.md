@@ -21,9 +21,10 @@ Work in layers, from the job down to the words. A symptom on the surface often s
 - Write the progress the person wants in their circumstance: what they get done, how they want to feel, and how they want to be seen. Write what they use today for it, including doing nothing.
 - Pick one primary person in one scene and resolve tradeoffs for them, without failing the others. The same person in another scene is another user.
 - The new way must beat the old by more than the cost of switching: learning, setup, migration, risk, and social cost. Lower the anxiety and the habit cost, not only add attraction.
+- Name what excellent looks like: the best experience anywhere for this job and scene, and the qualities ours must match or beat. Step 6 judges against them.
 - Name the session shape: a quick visit that finishes and leaves, a long working session, or play. It sets density, pacing, and how much the product should hold attention.
 
-Done when the job, the person, the scene, the current alternative, and the session shape each fit in one sentence, each marked as settled by the owner (with its source), supported by evidence, assumed, or open for the owner.
+Done when the job, the person, the scene, the current alternative, the benchmark, and the session shape each fit in one sentence, each marked as settled by the owner (with its source), supported by evidence, assumed, or open for the owner.
 
 ### 2. Shape the journey
 
@@ -90,6 +91,7 @@ Done when every string passes the language reference for its language and reads 
 - Render the changed screens at their real viewports and themes, with real copy and every state. A source read does not show overflow, truncation, or contrast.
 - Walk the journey as the primary person: at each step, would they try the right thing, notice the control, connect it to their goal, and see that it worked? Run the trunk test (where am I, what is this, what can I do) on any deep screen.
 - Floor check: contrast, minimum text size, touch target size, and reduced-motion behavior meet the platform's floor and the project's.
+- Compare the rendered result with the benchmark from step 1, quality by quality.
 - Count what changed: steps, requests, elements, and characters before and after, and every floor item still present.
 - An agent's walkthrough predicts problems; first impressions, comprehension, feelings, and whether people come back are judged by real people. When the decision rests on one of these, say so and name the smallest test that would settle it (see the research reference).
 
