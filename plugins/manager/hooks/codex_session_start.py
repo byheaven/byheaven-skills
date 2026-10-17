@@ -37,7 +37,7 @@ def currency_notice(cwd):
     branch, upstream, _ = tracking
     commits = "1 commit" if behind[1] == "1" else f"{behind[1]} commits"
     return (
-        f"This checkout's {branch} lacks {commits} that are on {upstream} as of the last fetch. "
+        f"As of the last fetch, {upstream} has {commits} that this checkout's {branch} lacks. "
         f"For whether something exists or how it behaves now, read {upstream} "
         f"(`git show {upstream}:<path>`, `git grep <pattern> {upstream}`) or update the checkout first."
     )
