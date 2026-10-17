@@ -8,6 +8,8 @@ description: "Writing brief and drafting method for any writing task: product an
 
 Every writing task starts with a **writing brief** that the user approves, and the draft follows that brief. Style is chosen for each piece from its reader and purpose.
 
+A **writing task** is text whose value lies in how a human reader receives it: product and interface copy, posts, articles, introductions, documents written to be read such as a Vision, principles, or a PRD, and messages sent on the user's behalf. Conversation replies, status updates, code, commit and PR text, instructions for agents (skills, rules, charters, directives), and documents that record facts for reference (decision records, product behavior documents, architecture, runbooks, reviews) are not writing tasks. The user's global instructions carry the same definition.
+
 ## 1. Writing brief
 
 Show the user the brief before drafting or revising, and draft only after the user approves it.

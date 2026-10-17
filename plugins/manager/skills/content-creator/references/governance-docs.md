@@ -1,6 +1,6 @@
 # Governance Documents
 
-Vision, principles, rules, and decision records. Also load the canonical document-architecture rules, from the byheaven vault at `claude/rules/document-architecture-rules`, or from the bundled mirror at `references/_vault/document-architecture-rules.md` when you cannot reach the vault. They own Vision qualification, placement and links, and body and change discipline.
+Vision and principles documents. Also load the canonical document-architecture rules, from the byheaven vault at `claude/rules/document-architecture-rules`, or from the bundled mirror at `references/_vault/document-architecture-rules.md` when you cannot reach the vault. They own Vision qualification, placement and links, and body and change discipline.
 
 The user settled this structure for the main text:
 
