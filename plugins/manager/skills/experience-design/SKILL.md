@@ -11,7 +11,7 @@ The project's own authorities come first. Its Vision decides what counts as valu
 
 Product decisions belong to the product owner. Reuse the decisions the owner has settled; any new choice about the job, the primary person, the journey, or what ships is a proposal the owner decides before it shapes the product, through the project's own review process. This skill guides how to design and judge; it authorizes no change.
 
-Work in layers, from the job down to the words. A symptom on the surface often starts lower: trace it down (job, journey, screen, words) and fix the lowest layer where the wrong choice was made. Steps 1 and 2 apply whenever a feature or flow is created or changed; a change confined to one screen starts at step 3 after confirming the journey around it still holds.
+Work in layers, from the job down to the words. A symptom on the surface often starts lower: trace it down (job, journey, screen, words) and fix the lowest layer where the wrong choice was made. Steps 1 and 2 apply whenever a feature or flow is created or changed; a change confined to one screen starts at step 3 after confirming the journey around it still holds and naming the benchmark for the qualities it changes.
 
 ## Steps
 
