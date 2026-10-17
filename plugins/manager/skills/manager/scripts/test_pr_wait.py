@@ -351,3 +351,41 @@ class MainTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BoundaryRegressionTests(unittest.TestCase):
+    def test_no_query_after_the_deadline(self):
+        clock = FakeClock()
+        fetch = Mock(side_effect=[make_pr(mergeable="UNKNOWN"), make_pr()])
+        verdict = pr_wait.wait(
+            fetch, timeout_s=1, interval_s=30,
+            sleep=clock.sleep, monotonic=clock.monotonic,
+        )
+        self.assertEqual((verdict.name, verdict.exit_code), ("TIMEOUT", 5))
+        fetch.assert_called_once()
+
+    def test_non_finite_or_negative_bounds_are_rejected(self):
+        for flags in (["--timeout", "nan"], ["--timeout", "inf"], ["--interval", "-1"], ["--interval", "0"]):
+            with self.subTest(flags=flags), patch("pr_wait.fetch_pr") as fetch, \
+                    patch("sys.stderr", new_callable=io.StringIO), self.assertRaises(SystemExit):
+                pr_wait.main(["o/r#1", *flags])
+                fetch.assert_not_called()
+
+    def test_non_ascii_digit_reference_is_query_failed(self):
+        with patch("sys.stdout", new_callable=io.StringIO) as stdout:
+            exit_code = pr_wait.main(["²", "--repo", "o/r", "--once"])
+        self.assertEqual(exit_code, 7)
+        self.assertEqual(json.loads(stdout.getvalue())["verdict"], "QUERY_FAILED")
+
+    def test_malformed_pull_request_raises_query_error(self):
+        partial = {"state": "OPEN", "reviewThreads": {"pageInfo": {"hasNextPage": False}, "nodes": []}}
+        for pull_request in (partial, []):
+            raw = json.dumps({"data": {"repository": {"pullRequest": pull_request}}})
+            with self.subTest(pull_request=pull_request), patch("pr_wait._gh", return_value=raw):
+                with self.assertRaises(pr_wait.QueryError):
+                    pr_wait.fetch_pr(pr_wait.PrRef("o", "r", 1))
+
+    def test_complete_pull_request_passes_the_boundary(self):
+        raw = json.dumps({"data": {"repository": {"pullRequest": make_pr(check_runs=({},))}}})
+        with patch("pr_wait._gh", return_value=raw):
+            self.assertEqual(pr_wait.classify(pr_wait.fetch_pr(pr_wait.PrRef("o", "r", 1))).name, "READY")

@@ -9,12 +9,16 @@ PR is a pull request URL, OWNER/NAME#N, or a bare number. Prints one JSON line:
 
 Exit codes: 0 READY or MERGED, 2 CONFLICT, 3 REVIEW, 4 CHECKS_FAILED, 5 TIMEOUT,
 6 GATED, 7 QUERY_FAILED, 8 CLOSED, 9 PENDING (only with --once).
+
+Only PENDING keeps polling; every other verdict returns at once. Defaults: --timeout 1800,
+--interval 30 (seconds). --ignore-check NAME leaves a non-gating check out; it may repeat.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import subprocess
 import sys
@@ -172,9 +176,12 @@ def wait(
         else:
             if last.name != "PENDING":
                 return last
+        remaining = timeout_s - (monotonic() - start)
+        if remaining <= 0:
+            return Verdict("TIMEOUT", [f"still not terminal after {timeout_s:g}s", *last.reasons], last.head)
+        sleep(min(interval_s, remaining))
         if monotonic() - start >= timeout_s:
             return Verdict("TIMEOUT", [f"still not terminal after {timeout_s:g}s", *last.reasons], last.head)
-        sleep(interval_s)
 
 
 def parse_pr(text: str, repo: str | None) -> PrRef:
@@ -184,7 +191,7 @@ def parse_pr(text: str, repo: str | None) -> PrRef:
     short = re.fullmatch(r"([^/\s]+)/([^/#\s]+)#(\d+)", text)
     if short:
         return PrRef(short[1], short[2], int(short[3]))
-    if text.isdigit():
+    if re.fullmatch(r"[0-9]+", text):
         repo = repo or _current_repo()
         owner, _, name = repo.partition("/")
         if owner and name:
@@ -220,15 +227,59 @@ def fetch_pr(ref: PrRef) -> dict:
         raise QueryError(f"unexpected GraphQL response: {raw[:300]}") from error
     if pr is None:
         raise QueryError(f"pull request {ref} not found")
+    _require_shape(pr)
     return pr
 
 
+def _require_shape(pr: object) -> None:
+    def need(condition: bool, what: str) -> None:
+        if not condition:
+            raise QueryError(f"unexpected GraphQL response: {what}")
+
+    need(isinstance(pr, dict), "pullRequest is not an object")
+    for key in ("state", "mergeable", "mergeStateStatus", "headRefOid"):
+        need(isinstance(pr.get(key), str), f"{key} missing")
+    need(isinstance(pr.get("isDraft"), bool), "isDraft missing")
+    need(pr.get("reviewDecision") is None or isinstance(pr["reviewDecision"], str), "reviewDecision malformed")
+    threads = pr.get("reviewThreads")
+    need(isinstance(threads, dict) and isinstance(threads.get("nodes"), list), "reviewThreads missing")
+    need(isinstance(threads.get("pageInfo", {}).get("hasNextPage"), bool), "reviewThreads pageInfo missing")
+    need(all(isinstance(t, dict) and isinstance(t.get("isResolved"), bool) for t in threads["nodes"]),
+         "review thread malformed")
+    commits = pr.get("commits")
+    need(isinstance(commits, dict) and isinstance(commits.get("nodes"), list), "commits missing")
+    for node in commits["nodes"]:
+        need(isinstance(node, dict) and isinstance(node.get("commit"), dict), "commit malformed")
+        rollup = node["commit"].get("statusCheckRollup")
+        if rollup is None:
+            continue
+        contexts = rollup.get("contexts") if isinstance(rollup, dict) else None
+        need(isinstance(contexts, dict) and isinstance(contexts.get("nodes"), list), "check contexts missing")
+        need(isinstance(contexts.get("pageInfo", {}).get("hasNextPage"), bool), "check contexts pageInfo missing")
+        for check in contexts["nodes"]:
+            kind = check.get("__typename") if isinstance(check, dict) else None
+            if kind == "CheckRun":
+                need(isinstance(check.get("status"), str), "CheckRun status missing")
+            else:
+                need(kind == "StatusContext" and isinstance(check.get("state"), str), "check context malformed")
+
+
+def _seconds(allow_zero: bool) -> Callable[[str], float]:
+    def parse(text: str) -> float:
+        value = float(text)
+        if not math.isfinite(value) or value < 0 or (value == 0 and not allow_zero):
+            raise argparse.ArgumentTypeError(f"expected a finite {'non-negative' if allow_zero else 'positive'} number of seconds")
+        return value
+
+    return parse
+
+
 def main(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(description="Wait on a GitHub pull request and report one verdict.")
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("pr")
     parser.add_argument("--repo")
-    parser.add_argument("--timeout", type=float, default=1800)
-    parser.add_argument("--interval", type=float, default=30)
+    parser.add_argument("--timeout", type=_seconds(allow_zero=True), default=1800)
+    parser.add_argument("--interval", type=_seconds(allow_zero=False), default=30)
     parser.add_argument("--once", action="store_true")
     parser.add_argument("--ignore-check", action="append", default=[], metavar="NAME",
                         help="leave a non-gating check out of the verdict; may repeat")
