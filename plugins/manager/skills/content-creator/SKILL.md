@@ -1,7 +1,7 @@
 ---
 name: content-creator
 version: 0.4.0
-description: "Writing brief and drafting method for any writing task: product and interface copy, posts (X, Xiaohongshu, blog, Telegram), articles, introductions, documents written to be read such as a Vision or a PRD, and messages sent on the user's behalf. Use before drafting or revising any of them."
+description: "Writing brief and drafting method for any writing task (product and interface copy, articles, introductions, documents written to be read such as a Vision or a PRD, messages sent on the user's behalf), and how to assist the user's own posts, articles, and books without drafting them. Use before drafting or revising any of them, and whenever the user writes something to publish under his name."
 ---
 
 # Content Creator
@@ -12,9 +12,9 @@ A **writing task** is text whose value lies in how a human reader receives it: p
 
 ## 1. Writing brief
 
-Show the user the brief before drafting or revising, and draft only after the user approves it.
+Show the user the brief before drafting or revising, and draft only after the user approves it. For a piece published under Yu Bai's name, follow the next section instead of drafting.
 
-- **Author**: who is speaking, as a specific person or voice (Yu Bai; the AMIO companion; the AMIO team).
+- **Author**: who is speaking, as a specific person or voice (the AMIO team; the AMIO companion; Yu Bai as AMIO's founder in a Vision).
 - **Reader**: one specific person in a specific moment, described by what they already know, what they care about, and what would convince them. A platform or a category ("players", "investors") is too broad.
 - **Purpose**: what the piece should achieve, and what the reader takes away: the value (what they now know, can do, or can decide) and the feeling (how they feel about the subject and the author).
 - **Style**: the style that best serves this reader and purpose (tone, register, rhythm, length, structure, how vivid or plain), with two or three concrete references that model it well: published works, writers, products, or pieces the user already approved, each with what to take from it.
@@ -23,17 +23,14 @@ Reuse what the project has settled, such as a product's brand voice, a document'
 
 ## When the author is Yu Bai
 
-His own writing is the voice source. Before writing the brief, read:
+Posts, articles, and books published under his name are written by him. Assist his writing; produce no draft, passage, or full text meant for publication, in any language. The writing brief is worked out with him as part of the help.
 
-1. what he has already written on this topic (notes, journal entries, and the vault pages on it), for his positions and his sentences;
-2. the voice samples he chose, listed in the byheaven vault at `pages/projects/output/voice-samples.md`;
-3. `USER.md` in the vault, for his background and stance.
-
-In the brief, the style references are the samples closest to this reader and purpose, each with one or two of his lines quoted as the target; an outside writer is added only for what his samples do not cover.
-
-For a piece whose value is his own thinking (an essay, a blog post, an opinion post), he supplies the core: the argument and its key sentences. The draft keeps his sentences and writes what connects and completes them.
-
-Yu's reading decides whether a draft sounds like him. When a second judge is needed, use a reviewer from another model family and give it the samples.
+- **Before he writes**: ask the questions that draw out his view: what he actually thinks, why, the strongest objection, who it is for. Record his answers verbatim, spoken or typed. Gather what he has already written on the topic (vault notes, journal entries, Readwise highlights) and the outside sources he needs, grouped by theme.
+- **Outline**: he writes it. Point out claims without evidence, steps the argument skips, and the strongest counterargument.
+- **While he writes**: check facts, find examples and sources, and ask questions when he is stuck. Offer no sentences meant to be pasted in.
+- **After he writes**: read as his intended reader and report where they would get lost, doubt him, or lose interest, without rewriting. Check facts and platform limits. Fix typos and punctuation directly; flag everything else.
+- **Another language**: he writes that version too; review it the same way.
+- **A book**: keep a workspace for it in the vault: his thesis, the chapter map, his own material for each chapter, sources, and the terms and examples to keep consistent. Maintain it, give reader feedback chapter by chapter, and check for contradictions; every chapter is his.
 
 ## 2. Draft
 
@@ -45,7 +42,7 @@ Yu's reading decides whether a draft sounds like him. When a second judge is nee
 
 These hold whatever the brief says:
 
-- When the user is the author, use his own claims, positions, and examples; organize and phrase them, and add none.
+- When a draft speaks for the user, use his own claims, positions, and examples; organize and phrase them, and add none.
 - Ground external claims per `references/freshness.md`; soften an unconfirmed claim to what is known, or cut it.
 - The title and opening promise what the body delivers. Present motives you infer as your reading of them.
 - Product copy also holds the `experience-design` skill's red lines.
