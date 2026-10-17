@@ -10,10 +10,14 @@
   is run on a real case. Reviews of the text, passing linters, and a merge no
   longer stand in for that
 - **The session-start notice looks at the remote** When a session starts in a
-  git checkout, Manager now fetches the default branch (and the branch's
-  upstream) once, within two seconds, and says when your checkout lacks
-  commits either has, even on a branch with no upstream. When the fetch fails
-  or times out, the notice says so instead of staying silent
+  git checkout, Manager now fetches the remote default branch and the branch's
+  upstream, within two seconds per remote, and says when your checkout lacks
+  commits either has, even on a branch with no upstream. Each line says whether
+  it was refreshed just now or why refreshing failed. The fetch never prompts
+  for credentials, runs no repository hooks, and writes only remote-tracking
+  refs
+- **Acceptance wording for later effects** An effect that only later real use
+  can show stays an observation outside Acceptance
 
 ## [0.14.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.13.0...manager-0.14.0) (2026-10-17)
 
