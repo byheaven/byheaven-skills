@@ -1,6 +1,23 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.13.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.14.0...HEAD)
+
+## [0.14.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.13.0...manager-0.14.0) (2026-10-17)
+
+- **A writing brief before every draft** Before drafting or revising product
+  copy, a post, an article, or a document written to be read, Claude shows you
+  who the author and the reader are, what the piece is for, what the reader
+  should take away and feel, and the style it recommends with concrete
+  references. It drafts only after you approve
+- **Your posts, articles, and books stay yours** For anything published under
+  your name, Claude assists and writes none of the text: it asks questions that
+  draw out your view, gathers what you have already written and read, points
+  out gaps in your outline, reads your draft as your reader would, and fixes
+  only typos and punctuation. A book gets a workspace with your chapter map,
+  material, and a consistency check
+- The fixed voice rules are gone: the Paul Graham voice target, the Chinese
+  hard rules, the banned-phrase lists, and the fixed lengths and structures per
+  platform. Platform notes now carry only each platform's hard limits
 
 ## [0.13.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.1...manager-0.13.0) (2026-10-17)
 

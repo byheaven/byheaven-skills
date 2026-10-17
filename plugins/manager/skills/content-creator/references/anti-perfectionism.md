@@ -1,12 +1,12 @@
 # Anti-Perfectionism
 
-Read for Stage 5 onward, a user-initiated skip, or a recovery branch. The objective is to finish a usable version every run while leaving topic and outline direction with the user.
+Read when revising a draft, when the user skips, or when recovering. The objective is to finish a usable version every run while leaving the writing brief with the user.
 
 ## Revision boundary
 
-Anti-perfectionism applies only to Stage 5+ quality compromises and user-initiated skips. Stage 2 topic and Stage 3 outline always require user confirmation.
+Anti-perfectionism applies only to revisions after the writing brief is approved and to user-initiated skips. The writing brief always requires user approval.
 
-Stages 5 and 6 each allow at most two revision rounds. After round two, present today's usable version and proceed to the next stage. If the user remains unsatisfied, "today's ugly version" is valid completion.
+A draft allows at most two revision rounds. After round two, present today's usable version and move on. If the user remains unsatisfied, "today's ugly version" is valid completion.
 
 ## Skip Protocol
 
@@ -22,4 +22,4 @@ Accept the skip immediately. Asking for justification, proposing a smaller subst
 
 - **Vault dry**: try recent `readwise/` highlights. If still empty, skip and record the missing source material.
 - **User unavailable**: follow the caller's bounded wait and then skip for today.
-- **Skill invocation fails**: read writing-craft.md and the relevant platform references directly, execute drafting manually, and record the bypass.
+- **Skill invocation fails**: read this skill's `SKILL.md` and references directly, draft by them, and record the bypass.
