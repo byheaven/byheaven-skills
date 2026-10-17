@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.1...HEAD)
+
+## [0.12.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.0...manager-0.12.1) (2026-10-17)
+
+- `pr_wait.py` no longer reports a failed check when a run was cancelled and
+  replaced by a later run of the same check; only the latest run of each check
+  counts
 
 ## [0.12.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.11.0...manager-0.12.0) (2026-10-17)
 

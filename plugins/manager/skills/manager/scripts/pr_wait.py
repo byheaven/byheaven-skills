@@ -36,7 +36,7 @@ query($owner: String!, $name: String!, $number: Int!) {
         pageInfo { hasNextPage }
         nodes {
           __typename
-          ... on CheckRun { name status conclusion isRequired(pullRequestNumber: $number) }
+          ... on CheckRun { name status conclusion startedAt isRequired(pullRequestNumber: $number) }
           ... on StatusContext { context state isRequired(pullRequestNumber: $number) }
         }
       } } } } }
@@ -102,6 +102,23 @@ def _check_name(check: dict) -> str:
     return check.get("name") or check.get("context") or "unnamed check"
 
 
+def _latest_runs(checks: list[dict]) -> list[dict]:
+    latest: dict[str, dict] = {}
+    statuses = []
+    for check in checks:
+        if check["__typename"] != "CheckRun":
+            statuses.append(check)
+            continue
+        current = latest.get(check["name"])
+        if current is None or _start_key(check) >= _start_key(current):
+            latest[check["name"]] = check
+    return [*latest.values(), *statuses]
+
+
+def _start_key(run: dict) -> str:
+    return run.get("startedAt") or "~not started"
+
+
 def _is_failed(check: dict) -> bool:
     if check["__typename"] == "CheckRun":
         return check["status"] == "COMPLETED" and check.get("conclusion") in FAILED_CHECK_RUN
@@ -122,7 +139,7 @@ def classify(pr: dict, ignored_checks: frozenset[str] = frozenset()) -> Verdict:
         return Verdict("CLOSED", ["closed without merging"], head)
 
     all_checks, checks_truncated = _check_contexts(pr)
-    checks = [c for c in all_checks if _check_name(c) not in ignored_checks]
+    checks = _latest_runs([c for c in all_checks if _check_name(c) not in ignored_checks])
     threads = pr["reviewThreads"]
     if checks_truncated or threads["pageInfo"]["hasNextPage"]:
         return Verdict("QUERY_FAILED", ["more than 100 checks or review threads; cannot judge the rest"], head)

@@ -389,3 +389,26 @@ class BoundaryRegressionTests(unittest.TestCase):
         raw = json.dumps({"data": {"repository": {"pullRequest": make_pr(check_runs=({},))}}})
         with patch("pr_wait._gh", return_value=raw):
             self.assertEqual(pr_wait.classify(pr_wait.fetch_pr(pr_wait.PrRef("o", "r", 1))).name, "READY")
+
+
+class SupersededRunTests(unittest.TestCase):
+    def test_a_cancelled_run_superseded_by_a_later_success_is_not_a_failure(self):
+        pr = make_pr(check_runs=(
+            {"name": "Judge line", "conclusion": "CANCELLED", "startedAt": "2026-10-17T02:37:48Z"},
+            {"name": "Judge line", "conclusion": "SUCCESS", "startedAt": "2026-10-17T02:37:51Z"},
+        ))
+        self.assertEqual(pr_wait.classify(pr).name, "READY")
+
+    def test_a_later_failure_still_fails(self):
+        pr = make_pr(check_runs=(
+            {"name": "Judge line", "conclusion": "SUCCESS", "startedAt": "2026-10-17T02:37:48Z"},
+            {"name": "Judge line", "conclusion": "FAILURE", "startedAt": "2026-10-17T02:37:51Z"},
+        ))
+        self.assertEqual(pr_wait.classify(pr).name, "CHECKS_FAILED")
+
+    def test_a_queued_rerun_without_start_time_keeps_the_pr_pending(self):
+        pr = make_pr(check_runs=(
+            {"name": "build", "conclusion": "FAILURE", "startedAt": "2026-10-17T02:37:48Z"},
+            {"name": "build", "status": "QUEUED", "conclusion": None, "startedAt": None},
+        ))
+        self.assertEqual(pr_wait.classify(pr).name, "PENDING")
