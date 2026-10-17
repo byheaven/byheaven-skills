@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.10.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.11.0...HEAD)
+
+## [0.11.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.10.0...manager-0.11.0) (2026-10-17)
+
+- **One command tells you where a PR stands** `scripts/pr_wait.py` polls a
+  GitHub pull request within a time bound and reports a single verdict with
+  its own exit code: ready, merged, conflict, review threads open, checks
+  failed, waiting on a merge gate, timed out, or query failed. Checks that do
+  not gate the change can be left out with `--ignore-check`
 
 ## [0.10.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.9.0...manager-0.10.0) (2026-10-16)
 

@@ -1,5 +1,5 @@
 # .github/workflows/ci.yml
-# Plugin monorepo CI — markdown linting and the manager agent copy check (no tests, no build)
+# Plugin monorepo CI — markdown linting, the manager agent copy check, and script tests (no build)
 
 name: CI
 
@@ -36,3 +36,6 @@ jobs:
 
       - name: Check manager agent principles copy
         run: npm run check:manager
+
+      - name: Test manager scripts
+        run: python3 -m unittest discover -s plugins/manager/skills/manager/scripts
