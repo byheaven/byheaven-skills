@@ -12,7 +12,7 @@ A **writing task** is text whose value lies in how a human reader receives it: p
 
 ## 1. Writing brief
 
-Show the user the brief before drafting or revising, and draft only after the user approves it. For a piece published under Yu Bai's name, follow the next section instead of drafting.
+Show the user the brief before drafting or revising, and draft only after the user approves it. For Yu Bai's own posts, articles, and books, follow the next section instead of drafting. A Vision, other project documents, and product copy go through this brief and an agent draft even when he signs them.
 
 - **Author**: who is speaking, as a specific person or voice (the AMIO team; the AMIO companion; Yu Bai as AMIO's founder in a Vision).
 - **Reader**: one specific person in a specific moment, described by what they already know, what they care about, and what would convince them. A platform or a category ("players", "investors") is too broad.
@@ -21,9 +21,9 @@ Show the user the brief before drafting or revising, and draft only after the us
 
 Reuse what the project has settled, such as a product's brand voice, a document's agreed structure, or an approved brief for the same series, and name it in the brief. Done when the user approves the brief as written or as changed. One approved brief covers the task's drafts and revisions until its author, reader, or purpose changes.
 
-## When the author is Yu Bai
+## Yu Bai's own posts, articles, and books
 
-Posts, articles, and books published under his name are written by him. Assist his writing; produce no draft, passage, or full text meant for publication, in any language. The writing brief is worked out with him as part of the help.
+His personal posts, articles, and books are written by him. Assist his writing; produce no draft, passage, or full text meant for publication, in any language. The writing brief is worked out with him as part of the help.
 
 - **Before he writes**: ask the questions that draw out his view: what he actually thinks, why, the strongest objection, who it is for. Record his answers verbatim, spoken or typed. Gather what he has already written on the topic (vault notes, journal entries, Readwise highlights) and the outside sources he needs, grouped by theme.
 - **Outline**: he writes it. Point out claims without evidence, steps the argument skips, and the strongest counterargument.
@@ -42,8 +42,8 @@ Posts, articles, and books published under his name are written by him. Assist h
 
 These hold whatever the brief says:
 
-- When a draft speaks for the user, use his own claims, positions, and examples; organize and phrase them, and add none.
-- Ground external claims per `references/freshness.md`; soften an unconfirmed claim to what is known, or cut it.
+- When a draft you write speaks for the user, use his own claims, positions, and examples; organize and phrase them, and add none.
+- Ground external claims per `references/freshness.md`. In a draft you write, soften an unconfirmed claim to what is known, or cut it; in his own writing, report it to him with what you found.
 - The title and opening promise what the body delivers. Present motives you infer as your reading of them.
 - Product copy also holds the `experience-design` skill's red lines.
 

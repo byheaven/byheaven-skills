@@ -15,6 +15,6 @@ Ground the claim with fresh web evidence when the piece:
 
 1. Use the active runtime's supported web-search surface to inspect the current state. Search when the brief proposes an external comparison, and again before a draft or drafting directive relies on the claim.
 2. Feed verified facts and their actual current status into the drafting directive.
-3. When search cannot confirm a claim, soften it to what is known or cut it.
+3. When search cannot confirm a claim: in a draft you write, soften it to what is known or cut it; in the user's own writing, report it to him with what you found.
 
 Training-cutoff assumptions are not evidence for current external claims. A drafting directive must not turn an imagined baseline into a published contrast.
