@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.11.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.0...HEAD)
+
+## [0.12.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.11.0...manager-0.12.0) (2026-10-17)
+
+- **A stale checkout says so at session start** When a session opens in a git
+  checkout whose branch trails its upstream, Manager is told how many commits
+  behind it is and to read the upstream before saying whether something exists
 
 ## [0.11.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.10.0...manager-0.11.0) (2026-10-17)
 
