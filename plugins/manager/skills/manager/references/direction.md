@@ -9,7 +9,7 @@ A task's Intent is the direction Direction settles and locks, in four dimensions
 - **Goal**: why the work exists, and the observable end state that shows it is done.
 - **Boundary**: what is in and what is out, the hard constraints, and the open tradeoffs left for later.
 - **Approach**: the high-level direction wherever the user owns the choice or it fixes an interface others depend on: key technical choices and the tradeoff stance, not steps.
-- **Acceptance**: the observable predicates by which completion is judged, each naming its [true judge](evidence.md#manager-acceptance).
+- **Acceptance**: the observable predicates by which completion is judged, each naming its [true judge](evidence.md#manager-acceptance), and at least one observing the effect the work exists to produce rather than the artifact alone, where the delivery itself can show that effect; an effect only later real use can show is the observation below.
 
 When the work's value rests on an effect only later real use can show, Direction also names that **observation** outside Acceptance: the effect, the observation that would refute it, the earliest date that observation can exist, and the keep, adjust, and withdraw conditions, which are owner decisions settled with the user. Completion carries it under [Predicate closure](evidence.md#predicate-closure).
 

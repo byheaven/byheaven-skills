@@ -39,3 +39,6 @@ jobs:
 
       - name: Test manager scripts
         run: python3 -m unittest discover -s plugins/manager/skills/manager/scripts
+
+      - name: Test manager hooks
+        run: python3 -m unittest discover -s plugins/manager/hooks
