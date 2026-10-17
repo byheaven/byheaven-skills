@@ -6,31 +6,40 @@ so claims about what exists now are read from the upstream rather than the stale
 
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 
 
-def git(cwd, *args):
+def current_branch_tracking(cwd):
     try:
         result = subprocess.run(
-            ["git", "-C", cwd, *args], capture_output=True, text=True, timeout=2
+            ["git", "-C", cwd, "for-each-ref", "refs/heads",
+             "--format=%(HEAD)%00%(refname:short)%00%(upstream:short)%00%(upstream:track,nobracket)"],
+            capture_output=True, text=True, timeout=1.5,
         )
     except (OSError, subprocess.TimeoutExpired):
         return None
-    return result.stdout.strip() if result.returncode == 0 else None
+    if result.returncode != 0:
+        return None
+    for line in result.stdout.splitlines():
+        marker, branch, upstream, track = line.split("\0")
+        if marker == "*":
+            return branch, upstream, track
+    return None
 
 
 def currency_notice(cwd):
-    upstream = git(cwd, "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}")
-    behind = git(cwd, "rev-list", "--count", "HEAD..@{upstream}") if upstream else None
-    if not behind or not behind.isdigit() or int(behind) == 0:
+    tracking = current_branch_tracking(cwd)
+    behind = re.search(r"behind (\d+)", tracking[2]) if tracking and tracking[1] else None
+    if not behind:
         return None
-    branch = git(cwd, "rev-parse", "--abbrev-ref", "HEAD")
+    branch, upstream, _ = tracking
+    commits = "1 commit" if behind[1] == "1" else f"{behind[1]} commits"
     return (
-        f"This checkout's {branch} is {behind} commits behind {upstream} as of the last fetch. "
+        f"This checkout's {branch} lacks {commits} that are on {upstream} as of the last fetch. "
         f"For whether something exists or how it behaves now, read {upstream} "
-        f"(`git show {upstream}:<path>`, `git grep <pattern> {upstream}`) or update the "
-        "checkout first; the working tree shows an older state."
+        f"(`git show {upstream}:<path>`, `git grep <pattern> {upstream}`) or update the checkout first."
     )
 
 
