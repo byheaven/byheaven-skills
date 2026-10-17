@@ -1,6 +1,20 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.13.0...HEAD)
+
+## [0.13.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.1...manager-0.13.0) (2026-10-17)
+
+- **Goals and acceptance criteria set at an expert's bar** For a product plan,
+  a design, or other method-heavy work, Manager finds the fields involved by
+  restating the work as verbs, then writes the goal and acceptance criteria
+  the way the best practitioner in each field would: the checks they would
+  insist on, the raw material and methods those checks use, and a judge other
+  than the producer and you where one exists. A field counts only when one of
+  its checks could change the result. How hard each criterion is verified
+  still follows its risk
+- **Designs name the experience to beat** Experience design now names the
+  best existing experience for the job and scene and judges the rendered
+  result against it quality by quality
 
 ## [0.12.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.0...manager-0.12.1) (2026-10-17)
 
