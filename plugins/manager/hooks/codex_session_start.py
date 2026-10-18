@@ -32,26 +32,29 @@ GIT_ENV = {
     "GCM_INTERACTIVE": "never",
 }
 GIT_ENV["GIT_SSH_COMMAND"] = (os.environ.get("GIT_SSH_COMMAND") or "ssh") + " -o BatchMode=yes"
+# Only standard transports, whatever any config says; no lazy object fetches from
+# rev-list in a partial clone; and the config scan reads the same files git fetch reads.
+GIT_ENV["GIT_ALLOW_PROTOCOL"] = "https:http:ssh:git:file"
+GIT_ENV["GIT_NO_LAZY_FETCH"] = "1"
+GIT_ENV.pop("GIT_CONFIG", None)
 
 # The session may open in a repository nobody has vetted, so the fetch runs nothing the
-# repository's own config names: hooks, fsmonitor and the git:// proxy stay off, only the
-# standard transports are allowed (no ext::, fd:: or remote helpers), and upload-pack is
+# repository's own config names: hook directories, fsmonitor and automatic maintenance
+# stay off, GIT_ALLOW_PROTOCOL above admits only standard transports, and upload-pack is
 # the stock binary. Command-line -c beats repository config. Only the explicit refspec is
 # written, so a fetch touches nothing but the named remote-tracking refs and FETCH_HEAD.
 FETCH_ARGS = ["-c", "core.hooksPath=/dev/null", "-c", "core.fsmonitor=false",
-              "-c", "core.gitProxy=", "-c", "protocol.allow=never",
-              "-c", "protocol.https.allow=always", "-c", "protocol.http.allow=always",
-              "-c", "protocol.ssh.allow=always", "-c", "protocol.git.allow=always",
-              "-c", "protocol.file.allow=always",
-              "fetch", "--quiet", "--no-tags", "--no-recurse-submodules",
+              "-c", "maintenance.auto=false", "-c", "gc.auto=0",
+              "fetch", "--quiet", "--no-tags", "--no-recurse-submodules", "--no-auto-maintenance",
               "--upload-pack=git-upload-pack", "--refmap="]
 
 # Keys in the repository's own config (local or worktree scope) that can make a fetch run
 # a program the command line above cannot switch off. A repository that sets any of them
 # is not fetched; the notice falls back to its last fetch and says why.
-EXEC_KEY = re.compile(r"^(credential\..*helper|include\.path|includeif\..*"
-                      r"|core\.(sshcommand|gitproxy|fsmonitor|askpass)"
-                      r"|remote\..*\.(uploadpack|receivepack|vcs)|protocol\..*)$")
+EXEC_KEY = re.compile(r"^(credential\..*helper|include\.path|includeif\..*|hook\..*"
+                      r"|core\.(sshcommand|gitproxy|fsmonitor|askpass|alternaterefscommand)"
+                      r"|gc\.recentobjectshook|remote\..*\.(uploadpack|receivepack|vcs|promisor)"
+                      r"|extensions\.partialclone|protocol\.(.*\.)?allow)$", re.DOTALL)
 
 
 class Git:
@@ -121,7 +124,9 @@ def risky_repo_key(git):
     ok, out = git.run("config", "--show-scope", "--name-only", "--list")
     if not ok:
         return "an unreadable config"
-    for line in out.splitlines():
+    # Split on newlines only: git allows other line-separator characters (such as
+    # U+2028) inside subsection names, and splitlines() would cut a key in two.
+    for line in out.split("\n"):
         scope, _, key = line.partition("\t")
         if scope in ("local", "worktree") and EXEC_KEY.match(key.lower()):
             return key
@@ -134,7 +139,8 @@ def currency_notice(cwd):
     if not info or info.splitlines()[0] != "false":
         return None
     head = info.splitlines()[1]
-    remotes = (git.value("remote") or "").split()
+    # A remote name that starts with "-" would read as an option on the fetch line.
+    remotes = [name for name in (git.value("remote") or "").split() if not name.startswith("-")]
     if not remotes:
         return None
 
@@ -165,7 +171,7 @@ def currency_notice(cwd):
         by_remote = {}
     for remote, items in by_remote.items():
         specs = [f"+refs/heads/{branch}:refs/remotes/{ref}" for ref, branch in items]
-        ok, out = git.run(*FETCH_ARGS, remote, *specs, limit=FETCH_S)
+        ok, out = git.run(*FETCH_ARGS, "--", remote, *specs, limit=FETCH_S)
         for ref, _ in items:
             status[ref] = None if ok else out
 

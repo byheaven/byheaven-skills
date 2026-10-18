@@ -145,6 +145,31 @@ class CheckoutTest(unittest.TestCase):
                          .replace("MARKER", str(self.tmp / "pwned")))
         self.assert_untrusted_config_runs_nothing(("include.path", str(extra)))
 
+    def test_configured_hook_command_is_skipped(self):
+        self.assert_untrusted_config_runs_nothing(("hook.audit.command", "touch MARKER"),
+                                                  ("hook.audit.event", "reference-transaction"))
+
+    def test_line_separator_inside_a_key_does_not_hide_a_credential_helper(self):
+        git(self.clone, "remote", "set-url", "origin", "https://example.invalid/repo.git")
+        self.assert_untrusted_config_runs_nothing(
+            ("credential.https://example.invalid/a\u2028b.helper", "!touch MARKER"))
+
+    def test_user_wide_ext_permission_does_not_reopen_the_ext_transport(self):
+        marker = self.tmp / "pwned"
+        user_config = self.tmp / "user.gitconfig"
+        user_config.write_text("[protocol \"ext\"]\n\tallow = always\n")
+        git(self.clone, "config", f"url.ext::sh -c touch% {marker}.insteadOf", str(self.remote))
+        env = dict(hook.GIT_ENV, GIT_CONFIG_GLOBAL=str(user_config))
+        with mock.patch.object(hook, "GIT_ENV", env):
+            self.notice()
+        self.assertFalse(marker.exists())
+
+    def test_inherited_git_config_cannot_blind_the_scan(self):
+        self.assertNotIn("GIT_CONFIG", hook.GIT_ENV)
+        self.assertEqual("1", hook.GIT_ENV["GIT_NO_LAZY_FETCH"])
+        self.assertEqual("https:http:ssh:git:file", hook.GIT_ENV["GIT_ALLOW_PROTOCOL"])
+        self.assertIn("--no-auto-maintenance", hook.FETCH_ARGS)
+
     def test_hung_transport_is_killed_with_its_children_inside_the_budget(self):
         pidfile = self.tmp / "ssh.pid"
         fake_ssh = self.tmp / "fake-ssh"
