@@ -99,6 +99,52 @@ class CheckoutTest(unittest.TestCase):
         self.assertEqual(local_main, git(self.clone, "rev-parse", "refs/heads/main"))
         self.assertEqual("", git(self.clone, "status", "--porcelain"))
 
+    def assert_untrusted_config_runs_nothing(self, *settings, skipped=True):
+        """Set hostile repository config and check the hook neither runs it nor claims a
+        fresh fetch."""
+        marker = self.tmp / "pwned"
+        payload = f"sh -c 'touch {marker}'"
+        for key, value in settings:
+            git(self.clone, "config", key, value.replace("PAYLOAD", payload).replace("MARKER", str(marker)))
+        text = self.notice() or ""
+        self.assertFalse(marker.exists(), "repository config ran a program")
+        self.assertNotIn("fetched just now", text)
+        if skipped:
+            self.assertIn("skipped, this repository's own config sets", text)
+        return text
+
+    def test_repository_upload_pack_is_never_run(self):
+        self.assert_untrusted_config_runs_nothing(("remote.origin.uploadpack", "PAYLOAD"))
+
+    def test_repository_credential_helper_is_never_run(self):
+        git(self.clone, "remote", "set-url", "origin", "https://example.invalid/repo.git")
+        self.assert_untrusted_config_runs_nothing(("credential.helper", "!touch MARKER"))
+
+    def test_repository_url_specific_credential_helper_is_never_run(self):
+        git(self.clone, "remote", "set-url", "origin", "https://example.invalid/repo.git")
+        self.assert_untrusted_config_runs_nothing(
+            ("credential.https://example.invalid.helper", "!touch MARKER"))
+
+    def test_repository_ssh_command_and_proxy_are_never_run(self):
+        git(self.clone, "remote", "set-url", "origin", "ssh://example.invalid/repo.git")
+        self.assert_untrusted_config_runs_nothing(("core.sshCommand", "PAYLOAD"))
+
+    def test_repository_enabling_the_ext_transport_is_skipped(self):
+        self.assert_untrusted_config_runs_nothing(("protocol.ext.allow", "always"),
+                                                  ("remote.origin.url", "ext::PAYLOAD"))
+
+    def test_rewrite_to_the_ext_transport_is_refused_by_the_command_line(self):
+        # No risky key, so the fetch runs; the command-line protocol allowlist refuses ext::.
+        git(self.clone, "config", f"url.ext::sh -c touch% {self.tmp / 'pwned'}.insteadOf", str(self.remote))
+        text = self.assert_untrusted_config_runs_nothing(skipped=False)
+        self.assertIn("refreshing failed", text)
+
+    def test_included_config_file_is_skipped(self):
+        extra = self.tmp / "extra.config"
+        extra.write_text("[remote \"origin\"]\n\tuploadpack = sh -c 'touch MARKER'\n"
+                         .replace("MARKER", str(self.tmp / "pwned")))
+        self.assert_untrusted_config_runs_nothing(("include.path", str(extra)))
+
     def test_hung_transport_is_killed_with_its_children_inside_the_budget(self):
         pidfile = self.tmp / "ssh.pid"
         fake_ssh = self.tmp / "fake-ssh"
