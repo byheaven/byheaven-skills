@@ -1,6 +1,20 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.0...HEAD)
+
+## [0.19.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.1...manager-0.19.0) (2026-10-18)
+
+- **Plans settle only after routes, tests, and a failure question** A
+  consequential product or technical plan now lays out two or three routes
+  that differ in mechanism, runs the smallest test of each assumption that
+  would change the route before choosing (an untested one keeps its
+  dependent commitments provisional), and its review asks how the plan could
+  meet its criteria and still fail its purpose
+- **Polishing loop for designs and plans** After a candidate is chosen, a
+  fresh judge from another model family compares it with the benchmark each
+  round and names the largest gaps; the producer fixes those. It stops at
+  benchmark level, after two rounds without gain, or after five rounds.
+  Correctness review still runs once
 
 ## [0.18.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.0...manager-0.18.1) (2026-10-18)
 
