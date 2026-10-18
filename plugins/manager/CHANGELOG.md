@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.20.0...HEAD)
+
+## [0.20.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.1...manager-0.20.0) (2026-10-18)
+
+- **Reviews judge decisions against your own words** When a reviewer checks
+  what a record says you decided, it now gets your verbatim words as the
+  standard, and any agent-written proposal you replied to arrives labelled as
+  agent-written. A detail inside a proposal you agreed to as a whole is no
+  longer read as your own decision
 
 ## [0.19.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.0...manager-0.19.1) (2026-10-18)
 
