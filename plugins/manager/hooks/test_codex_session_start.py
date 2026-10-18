@@ -154,6 +154,12 @@ class CheckoutTest(unittest.TestCase):
         self.assert_untrusted_config_runs_nothing(
             ("credential.https://example.invalid/a\u2028b.helper", "!touch MARKER"))
 
+    def test_carriage_return_inside_a_key_does_not_hide_a_credential_helper(self):
+        git(self.clone, "remote", "set-url", "origin", "https://example.invalid/a%0Db")
+        self.assert_untrusted_config_runs_nothing(
+            ("credential.https://example.invalid/a\rb.helper", "!touch MARKER"),
+            ("http.proactiveAuth", "basic"))
+
     def test_user_wide_ext_permission_does_not_reopen_the_ext_transport(self):
         marker = self.tmp / "pwned"
         user_config = self.tmp / "user.gitconfig"

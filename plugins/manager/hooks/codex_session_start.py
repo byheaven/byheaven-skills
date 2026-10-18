@@ -121,15 +121,15 @@ def default_ref(git, remote):
 def risky_repo_key(git):
     """Return the first program-running key the repository's own config sets, or None.
     An unreadable config counts as risky, so the fetch is skipped rather than trusted."""
-    ok, out = git.run("config", "--show-scope", "--name-only", "--list")
+    # NUL-separated records: subsection names may contain CR, LF or U+2028, and any
+    # line-based split (including text-mode newline translation) would cut a key in two.
+    ok, out = git.run("config", "--show-scope", "--name-only", "--list", "-z")
     if not ok:
         return "an unreadable config"
-    # Split on newlines only: git allows other line-separator characters (such as
-    # U+2028) inside subsection names, and splitlines() would cut a key in two.
-    for line in out.split("\n"):
-        scope, _, key = line.partition("\t")
+    fields = out.split("\0")
+    for scope, key in zip(fields[0::2], fields[1::2]):
         if scope in ("local", "worktree") and EXEC_KEY.match(key.lower()):
-            return key
+            return key.replace("\r", "\\r").replace("\n", "\\n")
     return None
 
 
