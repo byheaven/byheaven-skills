@@ -19,6 +19,10 @@ A locked dimension changes only by reopening Direction.
 
 For a product plan, a design, or other work whose quality rests on domain method, set Goal and Acceptance where a leading practitioner in each field the work involves would set them. Find the fields by restating the work's nouns as verbs: a review deck becomes getting busy people to believe a cause and decide under uncertainty, which brings in analysis, narrative, and decision-making. For each field kept, name what its best practitioners would check that the request does not, the rawest material and the methods that check runs on, and a judge outside the producer and the user wherever one exists. Keep a field only when such a check could change the result, and bring it in as that check applied to the work. Excellence sets the bar; verification effort still scales with risk under P2, and an effect only later real use can show becomes an observation.
 
+### Before a plan settles
+
+A product or technical plan whose choice is consequential or costly to reverse settles only after three steps. Lay out two or three viable routes that differ in mechanism, inside the owner's constraints and including the current approach while it is still admissible, each with the observation that would separate it from the others. Name the assumptions that would change the route, run the smallest authorized probe for each before choosing, and bind the choice to the result; an assumption still untested keeps the commitments that depend on it provisional, and the plan says which. The plan's review asks how it could meet its written Acceptance and still fail its purpose, judged with the methods of the field that owns its dominant risk.
+
 ## Discussion
 
 Discussion is Manager's default state and creates no task record. Read enough live authority to separate the requested solution, observed symptoms, underlying outcome, and cost of solving the wrong problem. Resolve factual prerequisites yourself rather than delegating investigation to the user. State the diagnosis, recommendation, uncertainty, and material tradeoffs, then let the user confirm or correct the problem frame.
