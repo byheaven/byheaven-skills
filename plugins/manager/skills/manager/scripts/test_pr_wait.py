@@ -153,6 +153,13 @@ class ClassifyTests(unittest.TestCase):
                 verdict = pr_wait.classify(make_pr(**fields))
                 self.assertEqual((verdict.name, verdict.exit_code), ("GATED", 6))
 
+    def test_blocked_without_any_check_is_marked_unregistered(self):
+        self.assertTrue(pr_wait.classify(make_pr(mergeStateStatus="BLOCKED")).no_checks_yet)
+        self.assertTrue(pr_wait.classify(make_pr(mergeStateStatus="BLOCKED", no_rollup=True)).no_checks_yet)
+        self.assertFalse(pr_wait.classify(make_pr(mergeStateStatus="BLOCKED", check_runs=[{}])).no_checks_yet)
+        self.assertFalse(pr_wait.classify(make_pr(isDraft=True)).no_checks_yet)
+        self.assertFalse(pr_wait.classify(make_pr(mergeStateStatus="BEHIND")).no_checks_yet)
+
     def test_ready(self):
         for state in ("CLEAN", "HAS_HOOKS", "UNSTABLE"):
             with self.subTest(state=state):
@@ -270,6 +277,38 @@ class WaitTests(unittest.TestCase):
             sleep=self.clock.sleep, monotonic=self.clock.monotonic,
         )
         self.assertEqual((verdict.name, verdict.exit_code), ("READY", 0))
+
+    def test_blocked_before_checks_register_keeps_waiting(self):
+        fetch = Mock(side_effect=[
+            make_pr(mergeStateStatus="BLOCKED"),
+            make_pr(mergeStateStatus="BLOCKED", check_runs=[{"status": "IN_PROGRESS", "conclusion": None}]),
+            make_pr(check_runs=[{}]),
+        ])
+        verdict = pr_wait.wait(
+            fetch, timeout_s=600, interval_s=15,
+            sleep=self.clock.sleep, monotonic=self.clock.monotonic,
+        )
+        self.assertEqual((verdict.name, verdict.exit_code), ("READY", 0))
+
+    def test_blocked_with_no_checks_past_the_grace_is_gated(self):
+        fetch = Mock(return_value=make_pr(mergeStateStatus="BLOCKED"))
+        started = self.clock.monotonic()
+        verdict = pr_wait.wait(
+            fetch, timeout_s=1800, interval_s=15,
+            sleep=self.clock.sleep, monotonic=self.clock.monotonic,
+        )
+        self.assertEqual((verdict.name, verdict.exit_code), ("GATED", 6))
+        self.assertGreaterEqual(self.clock.monotonic() - started, pr_wait.NO_CHECKS_GRACE_S)
+        self.assertLess(self.clock.monotonic() - started, pr_wait.NO_CHECKS_GRACE_S + 30)
+
+    def test_blocked_with_checks_is_gated_at_once(self):
+        fetch = Mock(return_value=make_pr(mergeStateStatus="BLOCKED", check_runs=[{}]))
+        verdict = pr_wait.wait(
+            fetch, timeout_s=1800, interval_s=15,
+            sleep=self.clock.sleep, monotonic=self.clock.monotonic,
+        )
+        self.assertEqual(verdict.name, "GATED")
+        self.assertEqual(fetch.call_count, 1)
 
     def test_pending_past_timeout(self):
         fetch = Mock(return_value=make_pr(mergeable="UNKNOWN"))

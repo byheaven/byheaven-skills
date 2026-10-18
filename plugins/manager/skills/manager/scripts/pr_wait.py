@@ -61,6 +61,9 @@ FAILED_CHECK_RUN = {"FAILURE", "TIMED_OUT", "CANCELLED", "ACTION_REQUIRED", "STA
 FAILED_STATUS = {"FAILURE", "ERROR"}
 PENDING_STATUS = {"PENDING", "EXPECTED"}
 GATE_STATES = {"BLOCKED", "BEHIND", "DRAFT"}
+# Right after a push GitHub can report BLOCKED before any check has registered, so a
+# BLOCKED PR with no checks yet is polled for this long before the block is trusted.
+NO_CHECKS_GRACE_S = 120
 MAX_CONSECUTIVE_QUERY_FAILURES = 3
 
 
@@ -73,6 +76,7 @@ class Verdict:
     name: str
     reasons: list[str] = field(default_factory=list)
     head: str | None = None
+    no_checks_yet: bool = False
 
     @property
     def exit_code(self) -> int:
@@ -165,7 +169,8 @@ def classify(pr: dict, ignored_checks: frozenset[str] = frozenset()) -> Verdict:
 
     if pr.get("isDraft") or pr.get("mergeStateStatus") in GATE_STATES:
         reason = "draft" if pr.get("isDraft") else f"merge state {pr['mergeStateStatus']}"
-        return Verdict("GATED", [reason], head)
+        unregistered = not pr.get("isDraft") and pr.get("mergeStateStatus") == "BLOCKED" and not checks
+        return Verdict("GATED", [reason], head, no_checks_yet=unregistered)
 
     return Verdict("READY", head=head)
 
@@ -191,7 +196,8 @@ def wait(
             if failures >= MAX_CONSECUTIVE_QUERY_FAILURES:
                 return last
         else:
-            if last.name != "PENDING":
+            settling = last.no_checks_yet and monotonic() - start < NO_CHECKS_GRACE_S
+            if last.name != "PENDING" and not settling:
                 return last
         remaining = timeout_s - (monotonic() - start)
         if remaining <= 0:
