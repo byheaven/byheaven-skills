@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.16.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.17.0...HEAD)
+
+## [0.17.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.16.0...manager-0.17.0) (2026-10-18)
+
+- **An approved draft sets direction, not the ceiling** The draft you approve
+  fixes the journey, its steps, states, actions, entry points, information
+  priority, and what the copy says. Within that direction, implementation goes
+  past the draft's fidelity: visual polish, every viewport, motion and
+  feedback, and the states that follow by convention. A new step, action,
+  setting, or sentence still comes back to you
+- **Designs are judged on the experience, not only on matching the draft** A
+  heavy or medium user-visible change names a benchmark and the two or three
+  experience scenarios a leading team would not ship without, such as finding
+  a remembered moment. A fresh reviewer renders the result and walks those
+  scenarios; a candidate that fails one is fixed even if it matches the draft
+  and passes every test
 
 ## [0.16.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.15.0...manager-0.16.0) (2026-10-18)
 
