@@ -1,6 +1,20 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.17.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.0...HEAD)
+
+## [0.18.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.17.0...manager-0.18.0) (2026-10-18)
+
+- **You judge quality at the design stage** A heavy or medium change now
+  reaches you as two or three clickable high-fidelity versions with real
+  copy, realistic data, and every state, each beside the benchmark and
+  carrying its experience scenarios. A fresh reviewer renders, compares, and
+  walks each version first, so only versions that pass reach you. There is no
+  separate wireframe review; when versions differ in flow, a one-page overview
+  shows each route and you decide flow and look together. The build is then
+  compared, rendered, against the version you approved
+- **Games and 3D get playable prototypes** A game mechanic or 3D scene is
+  reviewed as a playable graybox on the target device, a visual target, and a
+  frame rate measured on a real device
 
 ## [0.17.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.16.0...manager-0.17.0) (2026-10-18)
 
