@@ -1,6 +1,23 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.15.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.16.0...HEAD)
+
+## [0.16.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.15.0...manager-0.16.0) (2026-10-18)
+
+- **Escaped bugs become review replay cases** When an escaped bug is one a
+  reviewer of the change that introduced it could have reported, Manager
+  records it as a fixed case: the reviewed state, what the review was given,
+  and the defect it should have reported. Changing the verifier, a review
+  checklist, or the verifier-dispatch rules now replays every case under the
+  old and the new text, and a case the new text misses blocks the change
+  until it is caught again or you accept the loss
+- **Every verifier finding gets a recorded resolution** After each verifier
+  report, Manager marks every finding fixed, wrong, intentional, or
+  immaterial, adds one row per finding to the finding ledger, and reports the
+  counts with the delivery, so the false-alarm share can be measured
+- **You choose where the records live** Both records go where your own or the
+  project's instructions say; without a location, the delivery reply carries
+  them instead
 
 ## [0.15.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.14.0...manager-0.15.0) (2026-10-17)
 
