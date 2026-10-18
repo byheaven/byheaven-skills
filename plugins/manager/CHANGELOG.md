@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.1...HEAD)
+
+## [0.19.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.0...manager-0.19.1) (2026-10-18)
+
+- `pr_wait.py` keeps waiting, for up to two minutes, when GitHub reports a PR
+  as blocked before any check has registered, instead of returning a gated
+  verdict right after a push
 
 ## [0.19.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.1...manager-0.19.0) (2026-10-18)
 
