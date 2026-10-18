@@ -11,8 +11,8 @@
   checklist, or the verifier-dispatch rules now replays every case under the
   old and the new text, and a case the new text misses blocks the change
   until it is caught again or you accept the loss
-- **Every verifier finding gets a recorded resolution** After each verifier
-  report, Manager marks every finding fixed, wrong, intentional, or
+- **Every verifier finding gets a recorded resolution** Once each verifier
+  finding is settled, Manager marks it fixed, wrong, intentional, or
   immaterial, adds one row per finding to the finding ledger, and reports the
   counts with the delivery, so the false-alarm share can be measured
 - **You choose where the records live** Both records go where your own or the
