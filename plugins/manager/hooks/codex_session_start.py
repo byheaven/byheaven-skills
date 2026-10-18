@@ -10,6 +10,7 @@ inside the hook's 5 s limit, and any failure still leaves the loader line.
 
 import json
 import os
+import re
 from pathlib import Path
 import signal
 import subprocess
@@ -31,11 +32,29 @@ GIT_ENV = {
     "GCM_INTERACTIVE": "never",
 }
 GIT_ENV["GIT_SSH_COMMAND"] = (os.environ.get("GIT_SSH_COMMAND") or "ssh") + " -o BatchMode=yes"
+# Only standard transports, whatever any config says; no lazy object fetches from
+# rev-list in a partial clone; and the config scan reads the same files git fetch reads.
+GIT_ENV["GIT_ALLOW_PROTOCOL"] = "https:http:ssh:git:file"
+GIT_ENV["GIT_NO_LAZY_FETCH"] = "1"
+GIT_ENV.pop("GIT_CONFIG", None)
 
-# Repository hooks stay off and only the explicit refspec is written, so a fetch can
-# touch nothing but the named remote-tracking refs and FETCH_HEAD.
-FETCH_ARGS = ["-c", "core.hooksPath=/dev/null",
-              "fetch", "--quiet", "--no-tags", "--no-recurse-submodules", "--refmap="]
+# The session may open in a repository nobody has vetted, so the fetch runs nothing the
+# repository's own config names: hook directories, fsmonitor and automatic maintenance
+# stay off, GIT_ALLOW_PROTOCOL above admits only standard transports, and upload-pack is
+# the stock binary. Command-line -c beats repository config. Only the explicit refspec is
+# written, so a fetch touches nothing but the named remote-tracking refs and FETCH_HEAD.
+FETCH_ARGS = ["-c", "core.hooksPath=/dev/null", "-c", "core.fsmonitor=false",
+              "-c", "maintenance.auto=false", "-c", "gc.auto=0",
+              "fetch", "--quiet", "--no-tags", "--no-recurse-submodules", "--no-auto-maintenance",
+              "--upload-pack=git-upload-pack", "--refmap="]
+
+# Keys in the repository's own config (local or worktree scope) that can make a fetch run
+# a program the command line above cannot switch off. A repository that sets any of them
+# is not fetched; the notice falls back to its last fetch and says why.
+EXEC_KEY = re.compile(r"^(credential\..*helper|include\.path|includeif\..*|hook\..*"
+                      r"|core\.(sshcommand|gitproxy|fsmonitor|askpass|alternaterefscommand)"
+                      r"|gc\.recentobjectshook|remote\..*\.(uploadpack|receivepack|vcs|promisor)"
+                      r"|extensions\.partialclone|protocol\.(.*\.)?allow)$", re.DOTALL)
 
 
 class Git:
@@ -99,13 +118,29 @@ def default_ref(git, remote):
     return None
 
 
+def risky_repo_key(git):
+    """Return the first program-running key the repository's own config sets, or None.
+    An unreadable config counts as risky, so the fetch is skipped rather than trusted."""
+    # NUL-separated records: subsection names may contain CR, LF or U+2028, and any
+    # line-based split (including text-mode newline translation) would cut a key in two.
+    ok, out = git.run("config", "--show-scope", "--name-only", "--list", "-z")
+    if not ok:
+        return "an unreadable config"
+    fields = out.split("\0")
+    for scope, key in zip(fields[0::2], fields[1::2]):
+        if scope in ("local", "worktree") and EXEC_KEY.match(key.lower()):
+            return key.replace("\r", "\\r").replace("\n", "\\n")
+    return None
+
+
 def currency_notice(cwd):
     git = Git(cwd)
     info = git.value("rev-parse", "--is-bare-repository", "--abbrev-ref", "HEAD")
     if not info or info.splitlines()[0] != "false":
         return None
     head = info.splitlines()[1]
-    remotes = (git.value("remote") or "").split()
+    # A remote name that starts with "-" would read as an option on the fetch line.
+    remotes = [name for name in (git.value("remote") or "").split() if not name.startswith("-")]
     if not remotes:
         return None
 
@@ -129,9 +164,14 @@ def currency_notice(cwd):
     for ref in refs:
         remote, branch = remote_of(ref, remotes)
         by_remote.setdefault(remote, []).append((ref, branch))
+    risky = risky_repo_key(git)
+    if risky:
+        for ref in refs:
+            status[ref] = f"skipped, this repository's own config sets {risky}"
+        by_remote = {}
     for remote, items in by_remote.items():
         specs = [f"+refs/heads/{branch}:refs/remotes/{ref}" for ref, branch in items]
-        ok, out = git.run(*FETCH_ARGS, remote, *specs, limit=FETCH_S)
+        ok, out = git.run(*FETCH_ARGS, "--", remote, *specs, limit=FETCH_S)
         for ref, _ in items:
             status[ref] = None if ok else out
 

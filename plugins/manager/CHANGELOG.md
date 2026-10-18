@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.1...HEAD)
+
+## [0.18.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.0...manager-0.18.1) (2026-10-18)
+
+- The session-start remote refresh no longer runs programs a checkout's own
+  config names. The fetch allows only standard transports and the stock
+  upload-pack, with automatic maintenance and lazy object fetches off, and a
+  repository whose config sets a credential helper, an ssh command, a
+  configured hook, an include, a custom upload-pack, a partial-clone promisor,
+  or transport permissions is not fetched; the notice falls back to the last
+  fetch and says why
 
 ## [0.18.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.17.0...manager-0.18.0) (2026-10-18)
 
