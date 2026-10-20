@@ -8,7 +8,7 @@ set -euo pipefail
 
 VAULT="${VAULT:-$HOME/Obsidian/byheaven}"
 DEST="plugins/manager/skills/content-creator/references/_vault"
-RULE="claude/rules/document-architecture-rules.md"
+RULE="AI/rules/document-architecture-rules.md"
 
 cd "$(dirname "$0")/.."
 
