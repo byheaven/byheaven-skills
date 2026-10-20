@@ -51,4 +51,4 @@ Operational Constraints: <language, read-only, search surface, reporting>
 
 ## Failure
 
-A selected Seat that cannot be reached is recorded as failed with the reason, and the Host stops and reports it. For a default room, the host's user-question tool asks whether to continue with the Seats that answered; a Seat the user named as required stops the run unless the user accepts a smaller room. A room needs at least two real model families. Credentials, logins, captchas, paywalls, and usage limits stay with the user: report the block and offer manual paste.
+A selected Seat that cannot be reached is recorded as failed with the reason, and the Host stops and reports it. For a default room, the host's user-question tool asks whether to continue with the Seats that answered; a Seat the user named as required stops the run unless the user accepts a smaller room. A room needs at least two real model families. Credentials, logins, captchas, paywalls, and usage limits stay with the user: report the block, and offer manual paste through the user-question tool.
