@@ -25,9 +25,11 @@ Every Seat contributes independently and is weighed by its evidence, not its fam
 
 ## Steps
 
+Every question to the user in this skill uses the host's native user-question tool: `AskUserQuestion` in Claude Code, `request_user_input` in Codex, a question card in Grok Bot. Plain-text questions are only for a host without one.
+
 1. **Open the session file.** Name the question, the Host runtime, the selected Seats with their source modes, and the output path. Create the file before any Seat runs, at `~/tmp/roundtable/<YYYYMMDD-HHmm>-<slug>.md`, or at a project path only when the user asks for one. Structure: [session-file.md](references/session-file.md). Done when the file holds the Brief and one Seat Status row per selected Seat.
 2. **Build the shared packet** (below). Done when the three substantive fields are fixed and identical for every Seat.
-3. **Collect independent first turns.** Run each Seat once, from the packet alone, before any Seat sees another's answer. Check each route first; a selected Seat whose route fails is recorded as failed and reported, and the user decides whether to continue with the Seats that answered. Done when every selected Seat has an answer or a recorded failure.
+3. **Collect independent first turns.** Run each Seat once, from the packet alone, before any Seat sees another's answer. Check each route first; a selected Seat whose route fails is recorded as failed, and the user-question tool asks whether to continue with the Seats that answered. Done when every selected Seat has an answer or a recorded failure.
 4. **Render the group chat.** Show each answer under its Seat label as the Seat wrote it. Host remarks carry the `Host` label.
 5. **Let the user steer.** A response round starts only on the user's explicit request or verbatim interjection, carries only the first-turn answers the user names, and runs at most once unless the user asks for more.
 6. **Synthesize.** Write a labelled Host synthesis after the independent turns: agreements, real disagreements with each side's evidence, and what would settle them. Collect every valuable reference with its Seat and why it matters. Follow-up ideas stay candidates in the file; task creation belongs to the project's own workflow.
@@ -43,9 +45,9 @@ Every Seat receives exactly these four fields:
 3. **Original Sources**: one list of links or paths to the original material, the same for every Seat. Seats read the originals themselves.
 4. **Operational Constraints**: Seat label, source mode, reply language, read-only limits, allowed search surface, and how to report sources.
 
-User Question, Objective Context, and Original Sources are identical across Seats; Operational Constraints differ only by Seat label, source mode, and search surface. The Host's own goals, criteria, suspicions, preferred lenses, or summaries of the sources stay out of the packet: they anchor the answers before the Seats have reasoned. When choosing the source list could change the answer, confirm it with the user before any Seat runs.
+User Question, Objective Context, and Original Sources are identical across Seats; Operational Constraints differ only by Seat label, source mode, and search surface. The Host's own goals, criteria, suspicions, preferred lenses, or summaries of the sources stay out of the packet: they anchor the answers before the Seats have reasoned. When choosing the source list could change the answer, confirm it through the user-question tool before any Seat runs.
 
-Private material stays out of public search queries unless the user approves sending it. When the question itself cannot safely reach a search Seat, ask the user, or mark that Seat disabled for the run; the User Question is never edited to make it safe.
+Private material stays out of public search queries unless the user approves sending it. When the question itself cannot safely reach a search Seat, use the user-question tool to ask whether to disable that Seat for the run; the User Question is never edited to make it safe.
 
 ## Defaults
 
