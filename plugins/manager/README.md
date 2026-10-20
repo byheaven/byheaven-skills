@@ -22,6 +22,8 @@ skills/code-production    Code editing and checking method
 skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
 skills/grilling           Question rounds that converge a direction (Grill)
+skills/roundtable         One question to several model families, compared
+                          in one saved file (user-invoked)
 skills/writing-for-agents How to write skills, rules, and directives agents
                           follow
 agents/verifier           Independent verifier with its checklist
@@ -80,7 +82,8 @@ npx skills add byheaven/byheaven-skills
 This installs the skills only, without the plugin's `agents/` directory, so
 the Manager role is not available this way: the `manager` skill reports an
 incomplete install instead of loading a role. Use the `principles`,
-`code-production`, `experience-design`, `grilling`, and `writing-for-agents` skills on their own,
+`code-production`, `experience-design`, `grilling`, `roundtable`, and `writing-for-agents` skills
+on their own,
 or install the full plugin.
 
 `skills/grilling` and `skills/writing-for-agents` are adapted from

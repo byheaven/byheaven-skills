@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.3...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.22.0...HEAD)
+
+## [0.22.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.3...manager-0.22.0) (2026-10-20)
+
+- **Roundtable** A new user-invoked `roundtable` skill asks one question of
+  several real model families, each answering independently from the same
+  packet, then compares them in one saved session file. The default room is
+  every family the session can reach: Codex, Grok with X search, and Gemini
+  with web search; Claude is paused and joins only when you name it. A
+  conclusion you adopt applies to all models, so it lands in shared rules,
+  not one model's private setup
+- The document-architecture rules bundled with content-creator are
+  regenerated from the vault, so their principles links point at the
+  `manager:principles` skill sections
 
 ## [0.21.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.2...manager-0.21.3) (2026-10-20)
 
