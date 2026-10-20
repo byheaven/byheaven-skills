@@ -17,7 +17,7 @@ Durable documents exist to give one real reader a discoverable current authority
 
 ## Authority and lifecycle
 
-Apply the authority requirement in [[AI/CLAUDE-global#Operational Baseline]] through document lifecycle and provenance. Use `current` for a presently authoritative version, `evergreen` for a continuously maintained authority without a version chain, `draft` for non-authoritative work, and `archived` for history. When authority moves, the new owner states current truth and the predecessor becomes archived with `superseded_by`; a derived file names its true upstream with `source` and yields on conflict.
+Apply the authority requirement in [[AI/AGENTS-global#Operational Baseline]] through document lifecycle and provenance. Use `current` for a presently authoritative version, `evergreen` for a continuously maintained authority without a version chain, `draft` for non-authoritative work, and `archived` for history. When authority moves, the new owner states current truth and the predecessor becomes archived with `superseded_by`; a derived file names its true upstream with `source` and yields on conflict.
 
 Project-scoped documents carry a vault-absolute project wikilink. New or substantively edited typed documents declare their actual author and concrete reader when a real consumer needs those fields; path-specific runtime contracts may define their own frontmatter. Do not invent a closed vault-wide type catalog that current consumers do not enforce.
 
@@ -66,7 +66,7 @@ Machines may validate the single `l1_entry`, local entry section order, target/l
 
 ### Vision qualification
 
-This is the single document-quality standard for every project's Vision, including an inline Vision or one owned by an external repository. It operationalizes [[AI/CLAUDE-global#Human-Agent Principles]] and [[AI/CLAUDE-global#Project Vision]]; it adds no project values or execution authority. Templates, project reviews, improvement loops, and document/verifier consumers use this standard. A qualifying Vision lets a first reader understand the project and lets an agent derive supported choices from it, testing them against current facts, without inventing missing values. It need not predetermine every future decision.
+This is the single document-quality standard for every project's Vision, including an inline Vision or one owned by an external repository. It operationalizes [[AI/AGENTS-global#Human-Agent Principles]] and [[AI/AGENTS-global#Project Vision]]; it adds no project values or execution authority. Templates, project reviews, improvement loops, and document/verifier consumers use this standard. A qualifying Vision lets a first reader understand the project and lets an agent derive supported choices from it, testing them against current facts, without inventing missing values. It need not predetermine every future decision.
 
 Apply every criterion to the selected Vision's actual scope and maturity; state a reason when a conditional concern does not apply. These are semantic dimensions, not required extra headings, fixed-length answers, scores, or an obligation to re-run all probes on every task. A clearly labeled, decision-relevant hypothesis can qualify before it is proven; presenting it as established fact cannot. Existing documents are evaluated at the current decision without bulk rewriting unrelated content.
 
