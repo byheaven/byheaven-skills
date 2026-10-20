@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.2...HEAD)
+
+## [0.21.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.1...manager-0.21.2) (2026-10-20)
+
+- The document-architecture rules bundled with content-creator now link the
+  vault's global guidance at its new home, `AI/AGENTS-global`, so their
+  Operational Baseline, Human-Agent Principles, and Project Vision links
+  resolve again
 
 ## [0.21.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.0...manager-0.21.1) (2026-10-20)
 
