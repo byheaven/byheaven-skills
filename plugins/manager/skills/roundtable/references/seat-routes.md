@@ -6,7 +6,7 @@ How the Host reaches each selected Seat. Read before running any Seat other than
 
 - **Native**: the Host's own model family. The Host writes that Seat's answer directly, separately from its Host synthesis.
 - **CLI one-shot**: a logged-in model CLI run once in print or exec mode, read-only, with no persistent session and no sub-agents, from a working directory that holds the packet's sources. The Host may run it on any machine the session can reach where that CLI is installed and logged in, or through the host's configured cross-model launcher when one exists.
-- **Manual paste**: the Host prints one exact prompt per Seat; the user runs it in that model's product and pastes the visible answer back. A valid route that needs no API key.
+- **Manual paste**: the Host prints one exact prompt per Seat, the user runs it in that model's product, and the host's user-question tool collects the visible answer the user pastes back. A valid route that needs no API key.
 - **Browser**: only when the user prefers it or nothing else exists. Use a fresh chat, enable only the Seat's source surface, and copy back only the visible answer and references.
 
 Check a CLI before use: `command -v <cli>`, its live `--help` for the one-shot and read-only flags, and a tiny harmless probe when the CLI is migrating or plan-gated. Install or update a CLI only when the user asks. Each Seat run is one-shot and ends with the roundtable: no resumed session, persistent chat bridge, or task-owning agent.
