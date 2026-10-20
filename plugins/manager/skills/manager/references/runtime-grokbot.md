@@ -16,17 +16,17 @@ For [Review presentation](production.md#review-presentation), put the exact obje
 
 ## Code production
 
-Send each bounded code slice to the persistent Code Worker bot as an agent-to-agent message. That bot is shared across projects and keeps its own conversation. It launches one Cursor cloud coding agent for the slice, on one branch with one pull request. The cloud branch is the isolation surface and replaces a local worktree. The worker does not clone the repository locally. The directive names that branch as its write boundary and carries this paragraph. The result brings back the pull request URL, the changed files, the worker's checks, and the observed state: branch and HEAD sha.
+Send each bounded code slice to the persistent Code Worker bot as an agent-to-agent message. That bot is shared across projects, keeps its own conversation and long-term memory, and generalizable lessons return to the Manager as findings; shared rules change only through the reviewed path. It launches one Cursor cloud agent for the slice on the repository's self-hosted My Machines worker on the user's Mac mini (Yus-M6.local), never on a Cursor-managed VM. Before launching, it calls the Cloud Agents `workers` action and selects the worker whose workspace is that repository (for example `~/amio` or `~/byheaven-skills`); when none is listed, it stops and reports to the Manager. A named worker runs on its own checkout, so the cloud agent checks out or creates the branch for the slice. Keep one branch and one draft pull request per slice. The directive names that branch as its write boundary, may name a model, and carries this paragraph; the Code Worker passes a named model through. The result brings back the pull request URL, the changed files, the worker's checks, and the observed state: branch and HEAD sha.
 
 ## Knowledge production
 
-Send each bounded knowledge slice to the persistent Knowledge Worker bot as an agent-to-agent message. That bot is shared across projects and keeps its own conversation. It writes the documents the directive names and returns their paths and the observed state.
+Send each bounded knowledge slice to the persistent Knowledge Worker bot as an agent-to-agent message. That bot is shared across projects, keeps its own conversation and long-term memory, and generalizable lessons return to the Manager as findings; shared rules change only through the reviewed path. It writes the documents the directive names and returns their paths, the sha256 of every file it creates or changes, and the observed state.
 
 ## Verification
 
-Same-family verification is a fresh background subagent spawned for that verification alone. Give it the [verifier](../../../agents/verifier.md) charter and the directive only.
+Each verification is a fresh isolated run. Same-family verification is a fresh background subagent spawned for that verification alone. Give it the [verifier](../../../agents/verifier.md) charter and the directive only.
 
-Cross-family verification runs through the store's cross-model carrier, which invokes the configured external CLI counterpart read-only. The receipt is that counterpart's session id and the observed state. A later turn resumes that session through the same carrier. When the carrier's host asks before running a command, that ask is the platform gate for the command.
+Cross-family verification runs on the Mac mini through the vault's cross-model launcher, directing the Codex CLI read-only (Claude is temporarily paused; Grok and Codex verify each other). For code, fetch the pull request head into the persistent Mac mini clone, create a detached worktree at the pull request head sha, run Codex read-only verification there, confirm HEAD equals the sha, then remove the worktree. For non-code product plans and documents, Codex reads the Mac mini copy of the vault after confirming each file's sha256 hash matches the Grok Bot box copy; P1 product-direction items are marked for the user to judge and are never scored. The receipt is that counterpart's session id and the observed state. A later turn resumes that session through the same launcher. When the launcher's host asks before running a command, that ask is the platform gate for the command.
 
 ## Waits
 
