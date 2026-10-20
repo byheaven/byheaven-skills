@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.1...HEAD)
+
+## [0.21.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.0...manager-0.21.1) (2026-10-20)
+
+- A Grok Bot Manager merges an authorized pull request itself, with a squash
+  merge through the GitHub connector and the repository's required `Judge:`
+  line in the pull request body, instead of sending a cloud agent to merge.
+  A platform safety check may still ask you to confirm; that confirmation is
+  a platform gate and leaves the recorded authorization unchanged
 
 ## [0.21.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.20.1...manager-0.21.0) (2026-10-20)
 

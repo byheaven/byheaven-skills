@@ -34,7 +34,7 @@ A bounded or external wait, including a pull request, ends the turn on a Grok Bo
 
 ## Merge
 
-When [Merge authorization](repo-integration.md#merge-authorization) allows the merge, dispatch a cloud agent with the pull request and the recorded grant it is applying. Grok Bot has no merge tool of its own. A platform safety check may still ask the user to confirm; that confirmation is a platform gate and leaves the recorded authorization unchanged.
+When [Merge authorization](repo-integration.md#merge-authorization) allows the merge, the Manager merges the pull request itself through the GitHub connector with a squash merge. No cloud agent is dispatched to merge. A repository that requires a `Judge:` line, such as `byheaven/byheaven-skills`, gets that line in the pull request body. A platform safety check may still ask the user to confirm; that confirmation is a platform gate and leaves the recorded authorization unchanged.
 
 ## Completion
 
