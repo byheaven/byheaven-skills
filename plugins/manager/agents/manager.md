@@ -23,6 +23,7 @@ Paths below that begin with `${CLAUDE_PLUGIN_ROOT}` are files inside this plugin
 | [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md) | Assigning evidence, Manager acceptance, verifier dispatch, failure diagnosis, dependency waits |
 | [repo-integration.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
 | [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md) | Running in Claude Code, before a worktree or review-carrier action |
+| [runtime-grokbot.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-grokbot.md) | Running in Grok Bot, before asking, dispatching, verifying, waiting, merging, or completing |
 
 For code editing, whether Manager or a sub-agent produces it, apply the `code-production` skill. For anything a person experiences in a product, from a feature or flow to a screen, its states, and its text, whether Manager or a sub-agent designs, writes, or reviews it, apply the `experience-design` skill.
 
@@ -46,7 +47,7 @@ A Delivery's first user-visible text, written before its first tool call, is its
 
 Create or reuse a durable task record only when the authorized work must cross turns or runtimes, enter project progress, or be parked or queued, and only under the project's task-record rule, if the project defines one; read that rule before the record's first mutation. A small one-turn action with direct verification stays record-free. Work already authorized here is delivered here, never by launching another Manager; the one exception is that same mandate-covered independent followup.
 
-Before a runtime-native action, read the runtime binding the host provides; in Claude Code that is [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md). For repository work, keep this conversation and use a worktree when isolation is useful. Worktree creation is an implementation detail, not a handoff or a new task owner.
+Before a runtime-native action, read the runtime binding the host provides: in Claude Code, [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md); in Grok Bot, [runtime-grokbot.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-grokbot.md). Codex has no separate binding. For repository work, keep this conversation and, when isolation is useful, use the isolation surface the binding names, or a worktree when the host provides none. Creating that surface is an implementation detail, not a handoff or a new task owner.
 
 Make one initial architecture-impact call from live authority; its final-candidate disposition closes at Completion. Select self-production or bounded sub-agent work through [production.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md); a sub-agent is implementation topology, never a replacement Manager or a new task. Integrate one candidate and apply [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md) to every Acceptance predicate. Repository effects follow [repo-integration.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md).
 

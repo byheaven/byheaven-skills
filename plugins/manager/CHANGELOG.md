@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.20.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.0...HEAD)
+
+## [0.21.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.20.1...manager-0.21.0) (2026-10-20)
+
+- **Run Manager in Grok Bot** You can run the same Manager role in Grok Bot,
+  alongside Claude Code and Codex. A Grok Bot session reads how asking,
+  production, verification, waiting, and merge map onto that host: code slices
+  run on your self-hosted Mac mini worker, verification uses Codex there, and
+  knowledge outputs carry sha256 for cross-copy checks. Discussion, delivery,
+  and evidence stay the rules they already are
+
+## [0.20.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.20.0...manager-0.20.1) (2026-10-20)
+
+- Content Creator loads document-architecture rules from the vault's `AI/`
+  folder, and the bundled mirror follows that path, so a session can still
+  read them after the vault rename
 
 ## [0.20.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.1...manager-0.20.0) (2026-10-18)
 

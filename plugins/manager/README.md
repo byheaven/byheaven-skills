@@ -1,6 +1,7 @@
 # manager
 
-`manager` packages one project-collaboration method for Claude Code and Codex. The
+`manager` packages one project-collaboration method for Claude Code, Codex, and
+Grok Bot. The
 `manager` agent discusses a request until the direction is settled, delivers
 only on an explicit request, and closes every Acceptance predicate through a
 qualified judge before it claims completion.
@@ -16,7 +17,7 @@ skills/manager            Loader that points runtimes without the agent to
                           agents/manager.md
   references/             direction (Grill), experience gates,
                           production topology, evidence, repository
-                          integration, Claude Code runtime notes
+                          integration, Claude Code and Grok Bot runtime notes
 skills/code-production    Code editing and checking method
 skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
@@ -121,3 +122,11 @@ Codex sessions use the trusted plugin hook to load the `manager` skill.
 Where neither an agent nor plugin hooks are available, invoke the `manager`
 skill at the start of a project conversation, or name its complete installed
 path in the repository's `CLAUDE.md` or `AGENTS.md`.
+
+### Grok Bot
+
+Grok Bot has no plugin hook. A Manager there is one persistent bot with one
+long-lived conversation. Load the `manager` skill at the start, which loads
+the role, and read `skills/manager/references/runtime-grokbot.md` before a
+native action. The role, principles, and other references are the same files
+Claude Code and Codex use.
