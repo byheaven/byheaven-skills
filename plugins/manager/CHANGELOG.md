@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.3...HEAD)
+
+## [0.21.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.2...manager-0.21.3) (2026-10-20)
+
+- The principles skill now says where P1–P3 come from: they are a synced
+  copy of the Human-Agent Principles in your global rules file
+  (`AI/AGENTS-global.md` in the byheaven vault), so a change to them starts
+  there and is then mirrored into the plugin
 
 ## [0.21.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.1...manager-0.21.2) (2026-10-20)
 
