@@ -6,7 +6,7 @@ description: Ask several real model families the same question independently, th
 
 # Roundtable
 
-The current session is the **Host**. It asks one question of several real model families (**Seats**), collects each Seat's independent visible answer, shows them like a group chat, lets the user steer at most one response round, and writes everything to one **session file**.
+The current session is the **Host**. It asks one question of several real model families (**Seats**), collects each Seat's independent visible answer, shows them like a group chat, lets the user steer an optional response round, and writes everything to one **session file**.
 
 A roundtable is user-steered model contrast. Manager verification, CI review, and artifact approval stay with the verifier workflow.
 
