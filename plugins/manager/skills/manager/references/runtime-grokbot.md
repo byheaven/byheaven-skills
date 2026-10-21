@@ -32,9 +32,13 @@ Send each bounded design slice (a flow, screen, its states, or its interface cop
 
 ## Verification
 
-Each verification is a fresh isolated run. Same-family verification is a fresh background subagent spawned for that verification alone. Give it the [verifier](../../../agents/verifier.md) charter and the directive only.
+Each verification is a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive.
 
-Cross-family verification runs on the Mac mini through the vault's cross-model launcher, directing the Codex CLI read-only (Claude is temporarily paused; Grok and Codex verify each other). For code, follow [Shared checkout](repo-integration.md#applicability-and-boundary) and confirm HEAD equals the pull request head sha. For non-code product plans and documents, Codex reads the Mac mini copy of the vault after confirming each file's sha256 hash matches the Grok Bot box copy; P1 product-direction items are marked for the user to judge and are never scored, and that judgment follows [Asking](#asking). The receipt is that counterpart's session id and the observed state. A later turn resumes that session through the same launcher. When the launcher's host asks before running a command, that ask is the platform gate for the command.
+For code, the Manager runs the verifier on the Mac mini, on the CLI whose model did not write the code. The Codex CLI, read-only through the vault's cross-model launcher, verifies Cursor-written code. The Cursor CLI, in its read-only ask mode and with the user's CLI permissions denying writes to verification worktrees, verifies Codex-written code. The Code Worker never dispatches the verifier. The verifier works in its own detached worktree at the exact pull request head per [Applicability and boundary](repo-integration.md#applicability-and-boundary). Confirm HEAD equals the pull request head sha, and `git status --porcelain` in that worktree is empty before and after the run.
+
+For non-code product plans and documents, same-family verification is a fresh background subagent spawned for that verification alone. Cross-family verification runs the Codex CLI read-only through the vault's cross-model launcher against the Mac mini copy of the vault after confirming each file's sha256 hash matches the Grok Bot box copy; P1 product-direction items are marked for the user to judge and are never scored, and that judgment follows [Asking](#asking).
+
+The receipt is the counterpart's session id and the observed state. A later turn resumes that session with the same CLI. When the launcher's host asks before running a command, that ask is the platform gate for the command.
 
 ## Waits
 
