@@ -9,15 +9,13 @@ Sets up a new or existing project end-to-end.
 It includes the templates, workflows, and scripts it needs under its own `assets/`
 directory.
 
-When this setup needs structured user input, first detect which question tool is
-available in the current host environment:
+When this setup needs structured user input, use the first matching question
+route and keep it for the rest of the run:
 
-- if `AskUserQuestion` is available, use `AskUserQuestion`
+- on Grok Bot, follow [Asking](https://github.com/byheaven/byheaven-skills/blob/cca7be7fb0da658997067003b4e14cc60d04a4ec/plugins/manager/skills/manager/references/runtime-grokbot.md#asking)
+- otherwise, if `AskUserQuestion` is available, use `AskUserQuestion`
 - otherwise, if `request_user_input` is available, use `request_user_input`
-- if neither structured question tool is available, ask the user directly in plain text
-
-Do this detection before the first question and keep using the same question tool
-for the rest of the run.
+- otherwise, ask the user directly in plain text
 
 ## What This Skill Sets Up
 
@@ -122,7 +120,7 @@ Determine:
 
 For a brand-new directory, collect the basic project context before recommending a stack.
 
-Use the `AskUserQuestion`/`request_user_input` tool explicitly:
+Use the question route explicitly:
 
 - if the project name is not obvious from the directory name:
   - "What is the project name?"
@@ -135,7 +133,7 @@ Then use the project name and description to suggest the best default stack, for
 > ESLint, and Prettier. That gives you a fast default for libraries and apps.
 > Confirm this stack or tell me what you prefer."
 
-Use the `AskUserQuestion`/`request_user_input` tool explicitly to confirm or override the stack.
+Use the question route explicitly to confirm or override the stack.
 
 Then show the checklist:
 
@@ -156,7 +154,7 @@ Tier 3 — Security
   [x] security scanning
 ```
 
-Use the `AskUserQuestion`/`request_user_input` tool explicitly:
+Use the question route explicitly:
 
 - "Press Enter to run everything, or tell me what to skip: for example `skip security`, `tier1 only`, or `code quality only`."
 
@@ -203,7 +201,7 @@ Tier 3 — Security
   [done or empty] security scanning
 ```
 
-Use the `AskUserQuestion`/`request_user_input` tool explicitly:
+Use the question route explicitly:
 
 - "Which parts should I run? Press Enter to run unchecked Tier 1 items, or say `all`, `tier2`, or specific parts."
 
@@ -246,7 +244,7 @@ Apply these rules:
   - default to MIT when missing
   - replace `{{YEAR}}` with the current year
   - replace `{{AUTHOR}}` with the user's name
-  - if the name is unknown, use the `AskUserQuestion`/`request_user_input` tool explicitly
+  - if the name is unknown, use the question route explicitly
 - `.gitignore`
   - if missing, copy the language-appropriate template
   - if present, append only clearly missing language-specific sections
@@ -306,7 +304,7 @@ Handle each state:
 - **Only `AGENTS.md` exists**
   - create the symlink with `ln -s AGENTS.md CLAUDE.md`
 - **Both exist as regular files**
-  - use the `AskUserQuestion`/`request_user_input` tool explicitly before merging
+  - use the question route explicitly before merging
   - keep `AGENTS.md` as the base
   - append only the sections from `CLAUDE.md` that are not already present
   - normalize the title to `# AGENTS.md`
@@ -608,7 +606,7 @@ Then customize the workflow:
 - remove or comment out the lint step if there is no `lint` script
 - remove or comment out the test step if there is no `test` script
 - remove or comment out the build step if there is no `build` script
-- if the test command cannot be inferred from `package.json`, use the `AskUserQuestion`/`request_user_input` tool explicitly
+- if the test command cannot be inferred from `package.json`, use the question route explicitly
 
 #### Python
 
@@ -647,7 +645,7 @@ Then:
 Copy `assets/ci/workflows/ci-generic.yml` to `.github/workflows/ci.yml`.
 
 Then replace the placeholder install, test, lint, and build commands with the real commands.
-If the repo does not reveal them, use the `AskUserQuestion`/`request_user_input` tool explicitly.
+If the repo does not reveal them, use the question route explicitly.
 
 Add this line to `AGENTS.md` if missing:
 
@@ -688,7 +686,7 @@ Then:
   - if the user explicitly wants automatic review requests, copy the customized template to `.github/CODEOWNERS` instead
   - use `* @username` for solo repos
   - use directory or file-type ownership only when the repo layout clearly supports it
-  - if ownership is ambiguous, use the `AskUserQuestion`/`request_user_input` tool explicitly
+  - if ownership is ambiguous, use the question route explicitly
 - apply branch protection to the primary branch
   - require 0 approvals by default
   - disable force pushes and deletions

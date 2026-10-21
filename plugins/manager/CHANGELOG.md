@@ -4,15 +4,10 @@
 
 ## [0.24.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.2...manager-0.24.3) (2026-10-21)
 
-**Questions go to the direction owner** — In Grok Bot, a question or
-decision that needs you goes to the direction owner. It answers within the
-direction owner's delegated decision authority, or escalates to you with a
-recommendation. A question card in that chat appears only when you asked or
-tasked that Manager directly. A review object goes to the direction owner in
-a form your client can open, and a P1 product-direction item is marked for
-you to judge and routed through the direction owner; it is never scored.
-Roundtable in Grok Bot sends its question to the direction owner, or uses a
-question card only when you started that request directly.
+**Questions follow Asking** — In Grok Bot, a question or decision that
+needs you follows the runtime Asking rule. A review object stays in a form
+your client can open, and a P1 product-direction item stays marked for you
+to judge and is never scored. Roundtable and newproject follow that rule.
 
 ## [0.24.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.1...manager-0.24.2) (2026-10-21)
 

@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "newproject",
-      "version": "0.5.3",
+      "version": "0.5.4",
       "category": "developer-tools",
       "tags": [
         "project-setup",
