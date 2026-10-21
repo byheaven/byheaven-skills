@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.4...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.0...HEAD)
+
+## [0.25.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.4...manager-0.25.0) (2026-10-21)
+
+**Code written on your Mac** — On Grok Bot, the Codex CLI or the Cursor CLI
+on your Mac mini writes the code instead of Cursor cloud agents. Manager
+verifies that code on the other model.
 
 ## [0.24.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.3...manager-0.24.4) (2026-10-21)
 
