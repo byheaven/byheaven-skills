@@ -73,7 +73,7 @@ Every report to the user on Delivery state, whether done, partially done, or blo
 2. **Links** the user can open directly: the pull request, document, or deliverable.
 3. **Decisions**, only when the user has a real choice: numbered, one line each, asked through the runtime's native user-question tool. Omit this section when there is none.
 
-Add at most these lines, each only when it applies: for a high-risk predicate, "independently verified by <model family>" or "could not get cross-model verification"; for unfinished work, one line saying what is not done. Acceptance is still judged predicate by predicate before the conclusion says done, but that judging, verification details, and evidence go where the report links, the pull request or task record, and stay out of the report. When the delivery has neither, they follow the report under a separate Details heading.
+Add at most these lines, each only when it applies: for a high-risk predicate, "independently verified by <model family>" or "could not get cross-model verification"; for unfinished work, one line saying what is not done. Acceptance is still judged predicate by predicate before the conclusion says done, but that judging, verification details, and evidence go where the report links, the pull request or task record, and stay out of the report. When the delivery has neither, they and anything another rule sends to the linked evidence stay out of the report and are given only when the user asks for them.
 
 ## Principles
 
