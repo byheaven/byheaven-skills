@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.2...HEAD)
+
+## [0.24.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.1...manager-0.24.2) (2026-10-21)
+
+**Design slices stay with Designer** — A flow, a screen, its states, or its
+interface copy belongs to the designer agent. Knowledge Worker returns a
+slice like that as out of scope.
 
 ## [0.24.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.24.0) (2026-10-21)
 
