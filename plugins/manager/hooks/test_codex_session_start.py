@@ -240,6 +240,8 @@ class OutputTest(unittest.TestCase):
         context = self.run_main(tempfile.mkdtemp())
         self.assertIn("manager:manager skill", context)
         self.assertIn("delivery role", context)
+        self.assertIn("direction.md#direct-start", context)
+        self.assertNotIn("or here when the user starts the task in this conversation", context)
         self.assertNotIn("\n\n", context)
 
     def test_a_git_surprise_never_drops_the_loader_line(self):

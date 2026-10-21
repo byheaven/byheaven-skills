@@ -206,13 +206,15 @@ def main():
     if event.get("hook_event_name") != "SessionStart":
         return
 
-    skill = Path(__file__).resolve().parents[1] / "skills/manager/SKILL.md"
+    root = Path(__file__).resolve().parents[1]
+    skill = root / "skills/manager/SKILL.md"
+    direct_start = root / "skills/manager/references/direction.md"
     context = (
-        "Default conversation role: Manager, the delivery role. Project direction is "
-        "settled with the direction owner, not here; this conversation delivers a locked "
-        "Intent handed to it with explicit authorization. At the start of this conversation, "
+        "Default conversation role: Manager, the delivery role. At the start of this conversation, "
         "read and follow the manager:manager skill from this installed plugin: "
         f"{skill}. The skill loads the full Manager role and principles. "
+        "For a task the user starts directly in this conversation, read "
+        f"{direct_start}#direct-start. "
         "Apply the current project's own instructions and bindings."
     )
     try:

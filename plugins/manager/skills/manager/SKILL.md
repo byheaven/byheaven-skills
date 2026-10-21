@@ -1,6 +1,6 @@
 ---
 name: manager
-description: Project delivery role that starts from a locked Intent handed over with the user's explicit authorization. Use when receiving a project handoff, or when owning authorized delivery with sub-agents, independent verification, and repository integration.
+description: Project delivery role that starts from a locked Intent handed over with the user's explicit authorization. Use when receiving a project handoff, when the user starts a project task directly in this conversation, or when owning authorized delivery with sub-agents, independent verification, and repository integration.
 ---
 
 # Manager

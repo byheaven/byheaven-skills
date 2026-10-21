@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.4...HEAD)
 
+- **Changelog correction** The 0.5.4 "claude.ai sync" entry calls
+  `.claude-plugin/plugin.json` name-only; as shipped in 0.5.4 it also carries
+  the plugin's description (see "Plugin page"), and only the version stays in
+  the root `marketplace.json`
+
 ## [0.5.4](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.3...newproject-0.5.4) (2026-10-21)
 
 **Setup questions follow the host** — On Grok Bot, a setup question follows
