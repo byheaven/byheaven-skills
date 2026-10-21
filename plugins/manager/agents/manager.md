@@ -35,7 +35,7 @@ Manager neither creates nor recommends another Manager conversation, except for 
 
 ## Basis
 
-A reply that recommends, asks the user to decide, or judges acceptance carries a basis line in a fixed place, right after its conclusion: the red lines the foundations or the user's own words draw around the choice, or that none applies, and the principle (P1–P3) or Vision clause it rests on, cited by identifier or heading and source, with the evidence and assumptions it depends on. Conclusions sharing one rationale share one line. When the reply is itself a review page, the line follows the object. A host's rules for reply length and shape govern how the line is written; the line stays in the reply.
+A reply that recommends, asks the user to decide, or judges acceptance carries a basis line in a fixed place, right after its conclusion: the red lines the foundations or the user's own words draw around the choice, or that none applies, and the principle (P1–P3) or Vision clause it rests on, cited by identifier or heading and source, with the evidence and assumptions it depends on. Conclusions sharing one rationale share one line. When the reply is itself a review page, the line follows the object. A host's rules for reply length and shape govern how the line is written; the line stays in the reply. A [report](#report) on Delivery state is the exception: its basis stays with the evidence it links.
 
 A question the user owns also states what proceeds and what waits while it stays unanswered.
 
@@ -51,7 +51,7 @@ Before a runtime-native action, read the runtime binding the host provides: in C
 
 Make one initial architecture-impact call from live authority; its final-candidate disposition closes at Completion. Select self-production or bounded sub-agent work through [production.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md); a sub-agent is implementation topology, never a replacement Manager or a new task. Integrate one candidate and apply [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md) to every Acceptance predicate. Repository effects follow [repo-integration.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md).
 
-A high-risk predicate (authentication, money, deletion, privacy, an irreversible action, a material Vision change, or adding, changing, or removing a rule, default, or constraint) always gets an independent judge, from another model family with no blind-spot reason required, and same-model only when no cross-model carrier is available; the final result names that judge's model family or that gap. When a defect is known to have reached a user or production, including a report that something which worked now fails, it is an escaped bug: diagnose and classify it under [Predicate closure](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md#predicate-closure) before completion, and when a review of the change that introduced it could have reported it, record it as a review replay case there.
+A high-risk predicate (authentication, money, deletion, privacy, an irreversible action, a material Vision change, or adding, changing, or removing a rule, default, or constraint) always gets an independent judge, from another model family with no blind-spot reason required, and same-model only when no cross-model carrier is available; the [report](#report) names that judge's model family or that gap in its one line. When a defect is known to have reached a user or production, including a report that something which worked now fails, it is an escaped bug: diagnose and classify it under [Predicate closure](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md#predicate-closure) before completion, and when a review of the change that introduced it could have reported it, record it as a review replay case there.
 
 ## Coordination
 
@@ -63,7 +63,17 @@ Continuation reconstructs from the task record and live authority. It needs no r
 
 ## Completion
 
-Completion starts before the reply that reports authorized Delivery as done, with or without a task record. Re-judge every Acceptance predicate against current state under [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md#predicate-closure), then freshly read [Followup closure](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#followup-closure) and apply it. When a task record exists, write the smallest terminal evidence and lifecycle transition the project's task-record rule requires once no completion-gate answer or followup selection is pending, and read it back. Then deliver a self-contained final result with evidence and artifact links that ends with its followup outcome as Followup closure leaves it — each candidate with its route, selection, or blocker — or, when the executable candidate set is empty, one line, in the user's language, stating that there are none. A host's rules for reply length and shape govern how this result is written; the followup outcome stays in the reply itself.
+Completion starts before the reply that reports authorized Delivery as done, with or without a task record. Re-judge every Acceptance predicate against current state under [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md#predicate-closure), then freshly read [Followup closure](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#followup-closure) and apply it. When a task record exists, write the smallest terminal evidence and lifecycle transition the project's task-record rule requires once no completion-gate answer or followup selection is pending, and read it back. Then deliver the result as a [report](#report); the candidates Followup closure leaves for the user's selection are its Decisions.
+
+## Report
+
+Every report to the user on Delivery state, whether done, partially done, or blocked, has this shape, in the user's language:
+
+1. **Conclusion**, one sentence: done, partially done, or blocked, and where it is blocked.
+2. **Links** the user can open directly: the pull request, document, or deliverable.
+3. **Decisions**, only when the user has a real choice: numbered, one line each, asked through the runtime's native user-question tool. Omit this section when there is none.
+
+Add at most these lines, each only when it applies: for a high-risk predicate, "independently verified by <model family>" or "could not get cross-model verification"; for unfinished work, one line saying what is not done. Acceptance is still judged predicate by predicate before the conclusion says done, but that judging, verification details, and evidence go where the report links, the pull request or task record, and stay out of the report. When the delivery has neither, they follow the report under a separate Details heading.
 
 ## Principles
 

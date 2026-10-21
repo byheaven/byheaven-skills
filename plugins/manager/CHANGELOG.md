@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.22.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...HEAD)
+
+## [0.23.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.22.0...manager-0.23.0) (2026-10-21)
+
+- **Short delivery reports** Manager now reports done, partially done, or
+  blocked work in a few lines: a one-sentence conclusion, links you can
+  open, and numbered one-line decisions with a question card only when you
+  have a real choice. A high-risk change adds one line naming the model
+  family that verified it, and unfinished work gets one line. Verification
+  details and evidence stay in the pull request or task record the report
+  links, and the fixed "Followup: none" line is gone
 
 ## [0.22.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.3...manager-0.22.0) (2026-10-20)
 
