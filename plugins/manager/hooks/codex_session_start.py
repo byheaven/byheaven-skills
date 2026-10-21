@@ -189,7 +189,7 @@ def currency_notice(cwd):
             plural = "" if count == 1 else "s"
             if ref == upstream:
                 lines.append(f"{ref} ({source}) has {count} commit{plural} that {where} lacks; "
-                             f"pull before relying on this tree.")
+                             f"work from a fresh worktree off `{ref}`, per repo-integration.md's Shared checkout rule.")
             else:
                 lines.append(
                     f"{ref} ({source}) has {count} commit{plural} that {where} lacks. For whether "

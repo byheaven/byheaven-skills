@@ -4,7 +4,7 @@ Read only when running in Claude Code. This file maps Manager requirements to Cl
 
 ## Worktree
 
-Use the native `EnterWorktree` tool in this conversation when isolation is useful; its base follows the `worktree.baseRef` setting. Check exact remote currency explicitly only when the delivery itself requires it.
+Use the native `EnterWorktree` tool in this conversation when isolation is useful; a shared checkout always takes its own worktree, per [Shared checkout](repo-integration.md#applicability-and-boundary). Its base follows the `worktree.baseRef` setting. Check exact remote currency explicitly only when the delivery itself requires it.
 
 Inside an isolated worktree, Claude Code checks each Bash call's command text with a guard compiled into the CLI (observed in Claude Code 2.1.289). Literal commands, `;` lists, pipelines, loops, `if`, subshells, heredocs, and arithmetic pass. It refuses three shapes: an interpreter (`python3`, `node`, `sed`, `awk`) whose program text contains a runtime value such as `$f`, `$HOME`, or `$((…))`, even in a plain command; `awk` with a non-literal program inside a loop or other compound command; and `git` inside `$(…)`. Pass a runtime value as an argument instead of inside the program text (`python3 -c '…' "$HOME"`), or put the logic in a script in the session scratchpad through Write and run it as `sh <file>` or `python3 <file>`. Its true refusals, `git -C <shared checkout>` and `cd <shared checkout> && git …`, stay refused; rewrite them to run inside the worktree. A sub-agent directive for work inside the worktree carries this paragraph.
 

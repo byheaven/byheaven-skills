@@ -7,6 +7,13 @@
 **Shared checkout stays put** — A checkout other sessions also use keeps
 the branch and commit where a session found it. Coding and verification,
 including sub-agents and cloud agents, run in that session's own worktree.
+When the branch is behind, the session-start notice tells you to work from
+a fresh worktree off the remote branch. The verifier runs its checks only
+in a worktree of its own, and cross-family verification follows that same
+rule. Permission to work on the current branch applies only to a checkout
+this session alone uses. The code-production skill points at the rule by
+its published URL, so the link still resolves when that skill is installed
+on its own.
 
 ## [0.24.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.24.0) (2026-10-21)
 

@@ -12,7 +12,7 @@ A shared checkout always requires an isolated worktree. On any other checkout, u
 
 For a shared `main` failure, query the open PR set and related task records, then apply [Dependency waits](evidence.md#dependency-waits) using live repair execution evidence. An active repair receives an automatic dependency wait; an unclaimed or stopped repair receives diagnosis and a concrete repair plan under the ordinary authorization boundary. Preserve existing work and avoid duplicate repair.
 
-When an isolated worktree is active, it is the only writable code surface. Run builds, tests, IDEs, and GUI developer tools there; treat the source checkout as a read-only control surface for repository identity and synchronization. Leave the source checkout untouched — no stash, reset, or clean — to satisfy a dispatch or integration precondition. A dirty source remains a separately reported blocker unless the user explicitly authorizes current-branch or local-checkout work.
+When an isolated worktree is active, it is the only writable code surface. Run builds, tests, IDEs, and GUI developer tools there; treat the source checkout as a read-only control surface for repository identity and synchronization. Leave the source checkout untouched — no stash, reset, or clean — to satisfy a dispatch or integration precondition. A dirty source remains a separately reported blocker unless the user explicitly authorizes current-branch or local-checkout work on a checkout that isn't shared.
 
 ## Merge authorization
 
