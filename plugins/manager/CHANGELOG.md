@@ -8,6 +8,19 @@
 interface copy belongs to the designer agent. Knowledge Worker returns a
 slice like that as out of scope.
 
+## [0.24.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.0...manager-0.24.1) (2026-10-21)
+
+**Shared checkout stays put** — A checkout other sessions also use keeps
+the branch and commit where a session found it. Coding and verification,
+including sub-agents and cloud agents, run in that session's own worktree.
+When the branch is behind, the session-start notice tells you to work from
+a fresh worktree off the remote branch. The verifier runs its checks only
+in a worktree of its own, and cross-family verification follows that same
+rule. Permission to work on the current branch applies only to a checkout
+this session alone uses. The code-production skill follows that rule before any repository action,
+including an install, build, test, or check, and the link is pinned to the
+commit that contains the rule so a standalone install does not read an older copy.
+
 ## [0.24.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.24.0) (2026-10-21)
 
 **Manager delivers; direction is settled elsewhere** — Manager is now the
