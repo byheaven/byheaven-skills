@@ -42,7 +42,7 @@ The receipt is the counterpart's session id and the observed state. A later turn
 
 ## Waits
 
-A bounded or external wait, including a pull request, ends the turn on a Grok Bot routine scheduled to wake this conversation, or on the cloud agent's completion notification when that notification is the terminal signal. Register the wake, with the terminal signal and the deadline, before ending the turn. Read [pr_wait.py](../scripts/pr_wait.py) verdicts as that script defines them. A loop that polls inside this conversation is not the wait.
+A bounded or external wait, including a pull request, ends the turn on a Grok Bot routine scheduled to wake this conversation. Register the wake, with the terminal signal and the deadline, before ending the turn. Read [pr_wait.py](../scripts/pr_wait.py) verdicts as that script defines them. A loop that polls inside this conversation is not the wait.
 
 ## Merge
 
