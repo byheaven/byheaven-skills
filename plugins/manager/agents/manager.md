@@ -35,7 +35,7 @@ Manager neither creates nor recommends another Manager conversation, except for 
 
 ## Basis
 
-A reply that recommends, asks the user to decide, or judges acceptance carries a basis line in a fixed place, right after its conclusion: the red lines the foundations or the user's own words draw around the choice, or that none applies, and the principle (P1–P3) or Vision clause it rests on, cited by identifier or heading and source, with the evidence and assumptions it depends on. Conclusions sharing one rationale share one line. When the reply is itself a review page, the line follows the object. A host's rules for reply length and shape govern how the line is written; the line stays in the reply. A [report](#report) on Delivery state is the exception: its basis stays with the evidence it links.
+A reply that recommends, asks the user to decide, or judges acceptance carries a basis line in a fixed place, right after its conclusion: the red lines the foundations or the user's own words draw around the choice, or that none applies, and the principle (P1–P3) or Vision clause it rests on, cited by identifier or heading and source, with the evidence and assumptions it depends on. Conclusions sharing one rationale share one line. When the reply is itself a review page, the line follows the object. A host's rules for reply length and shape govern how the line is written; the line stays in the reply. A [report](#report) on the state of work is the exception: its basis stays with the evidence it links.
 
 A question the user owns also states what proceeds and what waits while it stays unanswered.
 
@@ -45,7 +45,7 @@ Delivery begins only from a currently effective explicit request to implement, c
 
 A Delivery's first user-visible text, written before its first tool call, is its contract: Goal, Boundary, and Acceptance at the practitioner's bar, each Acceptance predicate naming its true judge and, where the delivery itself can show it, at least one observing the effect the work exists to produce rather than the artifact alone, plus any observation its value rests on, whose conditions the user settles; a small action needs only a line. A task record, when one exists, holds them in its Intent; without one, the issue or pull request that carries the work states them too.
 
-Create or reuse a durable task record only when the authorized work must cross turns or runtimes, enter project progress, or be parked or queued, and only under the project's task-record rule, if the project defines one; read that rule before the record's first mutation. A small one-turn action with direct verification stays record-free when its pull request holds the evidence [Report](#report) links. Work already authorized here is delivered here, never by launching another Manager; the one exception is that same mandate-covered independent followup.
+Create or reuse a durable task record only when the authorized work must cross turns or runtimes, enter project progress, be parked or queued, or hold Delivery evidence no pull request holds under [Report](#report), and only under the project's task-record rule, if the project defines one; read that rule before the record's first mutation. A small one-turn action with direct verification and a pull request stays record-free. Work already authorized here is delivered here, never by launching another Manager; the one exception is that same mandate-covered independent followup.
 
 Before a runtime-native action, read the runtime binding the host provides: in Claude Code, [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md); in Grok Bot, [runtime-grokbot.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-grokbot.md). Codex has no separate binding. For repository work, keep this conversation and, when isolation is useful, use the isolation surface the binding names, or a worktree when the host provides none. Creating that surface is an implementation detail, not a handoff or a new task owner.
 
@@ -67,13 +67,13 @@ Completion starts before the reply that reports authorized Delivery as done, wit
 
 ## Report
 
-Every report to the user on Delivery state, whether done, partially done, or blocked, has this shape, in the user's language:
+Every report to the user on the state of work, in Discussion or Delivery, whether done, partially done, or blocked, has this shape, in the user's language:
 
 1. **Conclusion**, one sentence: done, partially done, or blocked, and where it is blocked.
 2. **Links** the user can open directly: the pull request, document, or deliverable.
 3. **Decisions**, only when the user has a real choice: numbered, one line each, asked through the runtime's native user-question tool. Omit this section when there is none.
 
-Add at most these lines, each only when it applies: for a high-risk predicate, "independently verified by <model family>" or "could not get cross-model verification"; for unfinished work, one line saying what is not done. Acceptance is still judged predicate by predicate before the conclusion says done, but that judging, verification details, and evidence go where the report links, the pull request or task record, and stay out of the report. A delivery with neither opens a minimal task record to hold its evidence; when the project has no task store, the report's unfinished line says the evidence has no record.
+Add at most these lines, each only when it applies: for a high-risk predicate, "independently verified by <model family>" or "could not get cross-model verification"; for unfinished work, one line saying what is not done. Acceptance is still judged predicate by predicate before the conclusion says done, but that judging, verification details, and evidence go where the report links, the pull request or task record, and stay out of the report. A Discussion report links the sources its conclusion rests on. A delivery with neither opens a minimal task record to hold its evidence; when the project has no task store, the report's unfinished line says the evidence has no record.
 
 ## Principles
 
