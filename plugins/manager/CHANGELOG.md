@@ -11,9 +11,9 @@ When the branch is behind, the session-start notice tells you to work from
 a fresh worktree off the remote branch. The verifier runs its checks only
 in a worktree of its own, and cross-family verification follows that same
 rule. Permission to work on the current branch applies only to a checkout
-this session alone uses. The code-production skill points at the rule by
-its published URL, so the link still resolves when that skill is installed
-on its own.
+this session alone uses. The code-production skill follows that rule before any repository action,
+including an install, build, test, or check, and the link is pinned to the
+commit that contains the rule so a standalone install does not read an older copy.
 
 ## [0.24.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.24.0) (2026-10-21)
 
