@@ -6,8 +6,9 @@
 
 **Tasks you start with Manager are discussed there** — A task you start
 directly with Manager is discussed and locked in that conversation with the
-same direction method, then delivered there. Once delivery starts, questions
-for you follow the runtime's asking route.
+same direction method, then delivered there. Once delivery starts, a decision
+that needs you uses the runtime's external ask route when it has one, and
+otherwise asks you in that session.
 
 ## [0.24.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.2...manager-0.24.3) (2026-10-21)
 

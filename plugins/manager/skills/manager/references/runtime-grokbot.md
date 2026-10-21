@@ -12,7 +12,7 @@ The direction owner is the user's personal-assistant bot (Flow), except for a ta
 
 ## Asking
 
-When the user asks or tasks this bot directly, this bot answers the user in this chat, and a question card in this chat is used only then. Every other question or decision that needs the user goes to Flow (agent id `cefe2a76-1627-423e-95d9-9c68ff768c5a`) as an agent-to-agent message. Flow answers within the delegated decision authority in vault `AI/agents/flow.md`, or escalates to the user with a recommendation. That mapping is the native user-question tool.
+Asking is this binding's external ask route. When the user asks or tasks this bot directly, this bot answers the user in this chat, and a question card in this chat is used only then. Every other question or decision that needs the user goes to Flow (agent id `cefe2a76-1627-423e-95d9-9c68ff768c5a`) as an agent-to-agent message. Flow answers within the delegated decision authority in vault `AI/agents/flow.md`, or escalates to the user with a recommendation. That mapping is the native user-question tool.
 
 ## Review carrier
 

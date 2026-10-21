@@ -69,11 +69,15 @@ Independent derivation can expose materially different options before a user-own
 
 A handoff is the direction owner's message to the project's Manager once Grill has completed and the user has explicitly asked for the work. It carries the locked Intent (Goal, Boundary, Approach where any, Acceptance, and any observation), the Defaults ledger, the independent-derivation line when derivation ran, the sources Manager must read, and the user's authorization quoted with its date. A request to park or queue rides the same message; Manager, not the direction owner, creates any task record.
 
-Manager does not re-confirm a complete handoff with the user; it checks the handoff against live state and opens Delivery at the gate below. A gap, a contradiction with live state, or an owner decision still open goes back to the direction owner as one precise question. **Reopen Direction** works the same way: a delta that would change Goal, Boundary, Approach, or Acceptance returns to the direction owner with its evidence, which reruns Direction with the user and hands back a revised Intent; only work it affects waits.
+Manager does not re-confirm a complete handoff with the user; it checks the handoff against live state and opens Delivery at the gate below. A gap, a contradiction with live state, or an owner decision still open is one precise question under [Asks](#asks). **Reopen Direction** is a delta that would change Goal, Boundary, Approach, or Acceptance. Send the delta and its evidence under [Asks](#asks). Only the work it affects waits, and that work resumes when a revised Intent returns.
+
+## Asks
+
+A decision that needs the user during Delivery, including a Reopen Direction delta, and a question sent back from an incomplete handoff use the runtime binding's external ask route when that binding has one. Otherwise ask the user in the current session with the native question tool.
 
 ## Direct start
 
-When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above, locks Goal, Boundary, Approach where any, and Acceptance, and opens Delivery only at the [Delivery gate](#delivery-gate). Delivery then proceeds unchanged in that conversation. Once Delivery opens, a question or decision that needs the user follows the runtime binding's asking route, and a Reopen Direction delta goes to the direction owner the project or runtime binding names.
+When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above, locks Goal, Boundary, Approach where any, and Acceptance, and opens Delivery only at the [Delivery gate](#delivery-gate). Delivery then proceeds unchanged in that conversation. Once Delivery opens, a decision that needs the user follows [Asks](#asks).
 
 ## Delivery gate
 
