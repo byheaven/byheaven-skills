@@ -6,9 +6,13 @@ Read only when running in Grok Bot. This file maps Manager requirements to Grok 
 
 Each Manager is one persistent Grok Bot agent and one long-lived conversation. Record the runtime as `grokbot` (`WORKFLOW_RUNTIME`) and the session id as that bot's Grok Bot agent id.
 
+## Direction owner
+
+The direction owner is the user's personal-assistant bot (Flow). It sends each [Handoff](direction.md#handoff) to the project's Manager bot as an agent-to-agent message. A returned handoff question, a Reopen Direction delta, and a project-loop finding that needs direction go back to that bot the same way.
+
 ## Asking
 
-Ask the user with a question card in this chat. That card is the native user-question tool.
+Ask the user with a question card in this chat. That card is the native user-question tool, used only for the in-Intent choices the Manager role allows.
 
 ## Review carrier
 
@@ -21,6 +25,10 @@ Send each bounded code slice to the persistent Code Worker bot as an agent-to-ag
 ## Knowledge production
 
 Send each bounded knowledge slice to the persistent Knowledge Worker bot as an agent-to-agent message. That bot is shared across projects, keeps its own conversation and long-term memory, and generalizable lessons return to the Manager as findings; shared rules change only through the reviewed path. It writes the documents the directive names and returns their paths, the sha256 of every file it creates or changes, and the observed state.
+
+## Design production
+
+Send each bounded design slice (a flow, screen, its states, or its interface copy) to the persistent Designer bot as an agent-to-agent message. That bot is shared across projects and works as the plugin's [designer](../../../agents/designer.md) agent; it keeps its own conversation and long-term memory, and generalizable lessons return to the Manager as findings; shared rules change only through the reviewed path. It returns the review object in a form the user's client can open, the paths and sha256 of every file it creates or changes, and the observed state.
 
 ## Verification
 
