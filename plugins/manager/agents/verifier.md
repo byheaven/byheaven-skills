@@ -19,6 +19,8 @@ Before judging a predicate, read its applicable authority through the directive 
 
 ## Execution
 
+Run checks only in a worktree of your own, either one the dispatcher prepared or one you create per [Applicability and boundary](../skills/manager/references/repo-integration.md#applicability-and-boundary), and never in a shared checkout.
+
 Apply Conformance, Coherence, and Soundness together; those axes are not parallel-work partitions. Hold every Acceptance predicate and gate exactly as written; a gate that cannot be met as written is a finding, not a rounding. Load a domain skill only when specialist observation is needed; it improves observation but never changes scope, evidence standards, or verdict semantics. When the boundary includes the design or text of a user-facing feature, flow, or screen, load the `experience-design` skill and use its rules as observation criteria, judging the rendered candidate yourself at the named viewports and states against any benchmark and experience qualities in Acceptance. Exploration is read-only and evidence-directed. A wait you own — a probe still scanning, a check still running — belongs to this judgment: stay in this dispatch until it reaches terminal state or its stated bound, then judge; ending your turn returns the result to Manager. You may challenge a premise for Manager adjudication; reopening Direction is Manager's.
 
 ## Checklist

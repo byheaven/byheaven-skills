@@ -52,7 +52,12 @@ class CheckoutTest(unittest.TestCase):
 
     def test_tracked_branch_behind_its_upstream(self):
         text = self.notice()
-        self.assertIn("origin/main (fetched just now) has 1 commit that main lacks; pull", text)
+        self.assertIn(
+            "origin/main (fetched just now) has 1 commit that main lacks; "
+            "work from a fresh worktree off `origin/main`, per repo-integration.md's Shared checkout rule.",
+            text,
+        )
+        self.assertNotIn("pull before relying on this tree", text)
 
     def test_up_to_date_checkout_is_silent(self):
         git(self.clone, "pull", "-q")

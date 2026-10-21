@@ -6,11 +6,13 @@ Load before the first repository-affecting action — commit, push, PR, merge, w
 
 This applies to source changes in a Git repository, not to non-repository knowledge work. Before edits, identify the source checkout, active branch or worktree, unrelated changes, open overlapping work, and the authorized integration target. Keep unrelated diffs out of the task.
 
-Use an isolated worktree when the task or later scope expansion requires one. Record the source and worktree relationship so receipts and completion evidence bind to the correct checkout.
+**Shared checkout.** A checkout other sessions also use — on Yu's Mac mini, each repository's persistent clone such as `~/amio` or `~/byheaven-skills` — is a read-only control surface: leave its branch and HEAD where you found them. Every coding or verification session, in every runtime, including sub-agents and cloud agents, works in its own linked worktree: `git -C <checkout> fetch origin`, then `git -C <checkout> worktree add --detach <task-owned path> origin/<branch>` (a task-owned path looks like `~/tmp/<runtime>/<slice>`; a new branch: `worktree add -b <branch> <path> origin/main`; a verification: the PR head sha). Run installs and checks there, push with `git push origin HEAD:<branch>`, and finish with `git worktree remove <path>`. A host-provided isolated worktree satisfies this.
+
+A shared checkout always requires an isolated worktree. On any other checkout, use an isolated worktree when the task or later scope expansion requires one. Record the source and worktree relationship so receipts and completion evidence bind to the correct checkout.
 
 For a shared `main` failure, query the open PR set and related task records, then apply [Dependency waits](evidence.md#dependency-waits) using live repair execution evidence. An active repair receives an automatic dependency wait; an unclaimed or stopped repair receives diagnosis and a concrete repair plan under the ordinary authorization boundary. Preserve existing work and avoid duplicate repair.
 
-When an isolated worktree is active, it is the only writable code surface. Run builds, tests, IDEs, and GUI developer tools there; treat the source checkout as a read-only control surface for repository identity and synchronization. Leave the source checkout untouched — no stash, reset, or clean — to satisfy a dispatch or integration precondition. A dirty source remains a separately reported blocker unless the user explicitly authorizes current-branch or local-checkout work.
+When an isolated worktree is active, it is the only writable code surface. Run builds, tests, IDEs, and GUI developer tools there; treat the source checkout as a read-only control surface for repository identity and synchronization. Leave the source checkout untouched — no stash, reset, or clean — to satisfy a dispatch or integration precondition. A dirty source remains a separately reported blocker unless the user explicitly authorizes current-branch or local-checkout work on a checkout that isn't shared.
 
 ## Merge authorization
 
