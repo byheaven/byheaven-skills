@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.1...HEAD)
+
+## [0.23.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.23.1) (2026-10-21)
+
+**Shared checkout stays put** — A checkout other sessions also use keeps
+the branch and commit where a session found it. Coding and verification,
+including sub-agents and cloud agents, run in that session's own worktree.
 
 ## [0.23.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.22.0...manager-0.23.0) (2026-10-21)
 
