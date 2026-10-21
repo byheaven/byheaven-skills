@@ -25,7 +25,7 @@ Every Seat contributes independently and is weighed by its evidence, not its fam
 
 ## Steps
 
-Every question to the user in this skill uses the host's native user-question tool: `AskUserQuestion` in Claude Code, `request_user_input` in Codex, a question card in Grok Bot. Plain-text questions are only for a host without one.
+Every question to the user in this skill uses the host's native user-question tool: `AskUserQuestion` in Claude Code, `request_user_input` in Codex; in Grok Bot, an agent-to-agent message to the direction owner, or a question card only when the user started this request directly. Plain-text questions are only for a host without one.
 
 1. **Open the session file.** Name the question, the Host runtime, the selected Seats with their source modes, and the output path. Create the file before any Seat runs, at `~/tmp/roundtable/<YYYYMMDD-HHmm>-<slug>.md`, or at a project path only when the user asks for one. Structure: [session-file.md](references/session-file.md). Done when the file holds the Brief and one Seat Status row per selected Seat.
 2. **Build the shared packet** (below). Done when the three substantive fields are fixed and identical for every Seat.
