@@ -26,4 +26,4 @@ A quick ballpark the user asks for may be one run when errors and the work happe
 
 ## Report
 
-Lead with the verdict: faster, slower, no measurable difference, or inconclusive. Then give baseline, result, and delta with units, the run count and range, the limiter, the conditions, and artifact paths. The verdict is inconclusive when the limiter is unnamed, a side ran untuned, errors or the work happening went unchecked, the gap rests on a single run, or the number came from another surface.
+Lead with the verdict: faster, slower, no measurable difference, or inconclusive. Then give baseline, result, and delta with units, the run count and range, the limiter, the conditions, and artifact paths. When the result reaches the user in a short report that links its evidence, the verdict is that report's conclusion and the rest goes in the linked evidence. The verdict is inconclusive when the limiter is unnamed, a side ran untuned, errors or the work happening went unchecked, the gap rests on a single run, or the number came from another surface.
