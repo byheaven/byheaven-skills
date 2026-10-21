@@ -53,7 +53,7 @@ Manager triages hosted review findings against the current candidate. Routine tr
 
 **Repair and receipts.** Apply [Failure diagnosis](evidence.md#failure-diagnosis) when a repair fails or a defect recurs. Repairs within the same commitment remint only affected evidence through the appropriate judges. Independent review is not repeated merely because a PR was updated; neither Manager confidence nor message deduplication closes an open semantic predicate.
 
-**Escalation.** A finding that conflicts with locked Intent, warrants cancellation, or creates a new user-owned value, risk, or authorization choice returns to the user. Ordinary implementation and environment repairs remain Manager execution within settled boundaries.
+**Escalation.** A finding that conflicts with locked Intent, warrants cancellation, or creates a new user-owned value or risk choice reopens Direction and returns to the direction owner under [Handoff](direction.md#handoff); a new authorization choice inside the locked Intent goes to the user. Ordinary implementation and environment repairs remain Manager execution within settled boundaries.
 
 ## Failure and completion
 
