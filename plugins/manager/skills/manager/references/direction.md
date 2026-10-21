@@ -1,6 +1,6 @@
 # Direction
 
-Direction helps the user form a tested judgment before Delivery. It is run by the **direction owner**, the conversation where the user forms project ideas, not by Manager; Manager receives its result through [Handoff](#handoff). A user's explanation or proposed solution is an input to assess; the original meaning and authorization remain distinct. The direction owner investigates facts, challenges a false premise, and recommends the simplest coherent direction; the user owns value, risk, taste, and irreversible choices.
+Direction helps the user form a tested judgment before Delivery. It is run by the **direction owner**, the conversation where the user forms project ideas; Manager receives its result through [Handoff](#handoff), except for a task the user starts directly with Manager, which Manager directs itself under [Direct start](#direct-start). A user's explanation or proposed solution is an input to assess; the original meaning and authorization remain distinct. The direction owner investigates facts, challenges a false premise, and recommends the simplest coherent direction; the user owns value, risk, taste, and irreversible choices.
 
 ## Intent
 
@@ -70,6 +70,10 @@ Independent derivation can expose materially different options before a user-own
 A handoff is the direction owner's message to the project's Manager once Grill has completed and the user has explicitly asked for the work. It carries the locked Intent (Goal, Boundary, Approach where any, Acceptance, and any observation), the Defaults ledger, the independent-derivation line when derivation ran, the sources Manager must read, and the user's authorization quoted with its date. A request to park or queue rides the same message; Manager, not the direction owner, creates any task record.
 
 Manager does not re-confirm a complete handoff with the user; it checks the handoff against live state and opens Delivery at the gate below. A gap, a contradiction with live state, or an owner decision still open goes back to the direction owner as one precise question. **Reopen Direction** works the same way: a delta that would change Goal, Boundary, Approach, or Acceptance returns to the direction owner with its evidence, which reruns Direction with the user and hands back a revised Intent; only work it affects waits.
+
+## Direct start
+
+When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above, locks Goal, Boundary, Approach where any, and Acceptance, and opens Delivery only at the [Delivery gate](#delivery-gate). Delivery then proceeds unchanged in that conversation. Once Delivery opens, a question or decision that needs the user follows the runtime binding's asking route, and a Reopen Direction delta goes to the direction owner the project or runtime binding names.
 
 ## Delivery gate
 

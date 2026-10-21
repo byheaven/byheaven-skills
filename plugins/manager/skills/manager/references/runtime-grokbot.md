@@ -8,7 +8,7 @@ Each Manager is one persistent Grok Bot agent and one long-lived conversation. R
 
 ## Direction owner
 
-The direction owner is the user's personal-assistant bot (Flow). It sends each [Handoff](direction.md#handoff) to the project's Manager bot as an agent-to-agent message. A returned handoff question, a Reopen Direction delta, and a project-loop finding that needs direction go back to that bot the same way. A question or decision that needs the user follows [Asking](#asking).
+The direction owner is the user's personal-assistant bot (Flow), except for a task the user starts directly in this bot, which this bot directs under [Direct start](direction.md#direct-start). Flow sends each [Handoff](direction.md#handoff) to the project's Manager bot as an agent-to-agent message. A returned handoff question, a Reopen Direction delta, including one from a directly started task, and a project-loop finding that needs direction go back to Flow the same way. A question or decision that needs the user follows [Asking](#asking).
 
 ## Asking
 

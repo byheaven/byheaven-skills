@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.3...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.4...HEAD)
+
+## [0.24.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.3...manager-0.24.4) (2026-10-21)
+
+**Tasks you start with Manager are discussed there** — A task you start
+directly with Manager is discussed and locked in that conversation with the
+same direction method, then delivered there. Once delivery starts, questions
+for you follow the runtime's asking route.
 
 ## [0.24.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.2...manager-0.24.3) (2026-10-21)
 
