@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "newproject",
-      "version": "0.5.3",
+      "version": "0.5.4",
       "category": "developer-tools",
       "tags": [
         "project-setup",
@@ -31,7 +31,7 @@
     },
     {
       "name": "manager",
-      "version": "0.24.2",
+      "version": "0.24.3",
       "category": "productivity",
       "tags": [
         "project-management",

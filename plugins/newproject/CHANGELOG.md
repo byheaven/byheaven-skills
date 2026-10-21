@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.3...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.4...HEAD)
+
+## [0.5.4](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.3...newproject-0.5.4) (2026-10-21)
+
+**Setup questions follow the host** — On Grok Bot, a setup question follows
+the Manager runtime's Asking rule. Claude Code and Codex still use their own
+question tools. Plain text remains only when a host has no question routing
+and neither tool.
 
 - **Plugin page** Shows the plugin's description on Claude Code's plugin page
   when it is installed from the marketplace

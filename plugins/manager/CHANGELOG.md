@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.3...HEAD)
+
+## [0.24.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.2...manager-0.24.3) (2026-10-21)
+
+**Questions follow Asking** — In Grok Bot, a question or decision that
+needs you follows the runtime Asking rule. A review object stays in a form
+your client can open, and a P1 product-direction item stays marked for you
+to judge and is never scored. Roundtable and newproject follow that rule.
 
 ## [0.24.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.1...manager-0.24.2) (2026-10-21)
 
