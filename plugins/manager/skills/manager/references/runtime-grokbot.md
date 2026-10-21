@@ -8,15 +8,15 @@ Each Manager is one persistent Grok Bot agent and one long-lived conversation. R
 
 ## Direction owner
 
-The direction owner is the user's personal-assistant bot (Flow). It sends each [Handoff](direction.md#handoff) to the project's Manager bot as an agent-to-agent message. A returned handoff question, a Reopen Direction delta, and a project-loop finding that needs direction go back to that bot the same way. Every other question or decision that needs the user goes back the same way, unless the user asked this Manager directly ([Asking](#asking)).
+The direction owner is the user's personal-assistant bot (Flow). It sends each [Handoff](direction.md#handoff) to the project's Manager bot as an agent-to-agent message. A returned handoff question, a Reopen Direction delta, and a project-loop finding that needs direction go back to that bot the same way. A question or decision that needs the user follows [Asking](#asking).
 
 ## Asking
 
-The native user-question tool is an agent-to-agent message to the direction owner (Flow), which answers within the direction owner's delegated decision authority or escalates to the user with a recommendation. A question card in this chat is used only when the user asked or tasked this Manager directly.
+When the user asks or tasks this bot directly, this bot answers the user in this chat, and a question card in this chat is used only then. Every other question or decision that needs the user goes to Flow (agent id `cefe2a76-1627-423e-95d9-9c68ff768c5a`) as an agent-to-agent message. Flow answers within the delegated decision authority in vault `AI/agents/flow.md`, or escalates to the user with a recommendation. That mapping is the native user-question tool.
 
 ## Review carrier
 
-For [Review presentation](production.md#review-presentation), send the exact object to the direction owner, in a form the user's client can open. This chat and a question card are used only when the user asked this Manager directly. Preserve the exact object and version. If this chat cannot carry the object, use another sufficient authorized carrier; only the absence of any suitable carrier leaves the review gate open. This mapping grants no new publishing or sharing authority.
+For [Review presentation](production.md#review-presentation), follow [Asking](#asking) and put the exact object in a form the user's client can open. Preserve the exact object and version. If this chat cannot carry the object, use another sufficient authorized carrier; only the absence of any suitable carrier leaves the review gate open. This mapping grants no new publishing or sharing authority.
 
 ## Code production
 
@@ -34,7 +34,7 @@ Send each bounded design slice (a flow, screen, its states, or its interface cop
 
 Each verification is a fresh isolated run. Same-family verification is a fresh background subagent spawned for that verification alone. Give it the [verifier](../../../agents/verifier.md) charter and the directive only.
 
-Cross-family verification runs on the Mac mini through the vault's cross-model launcher, directing the Codex CLI read-only (Claude is temporarily paused; Grok and Codex verify each other). For code, follow [Shared checkout](repo-integration.md#applicability-and-boundary) and confirm HEAD equals the pull request head sha. For non-code product plans and documents, Codex reads the Mac mini copy of the vault after confirming each file's sha256 hash matches the Grok Bot box copy; P1 product-direction items are marked for the user to judge and routed through the direction owner; they are never scored. The receipt is that counterpart's session id and the observed state. A later turn resumes that session through the same launcher. When the launcher's host asks before running a command, that ask is the platform gate for the command.
+Cross-family verification runs on the Mac mini through the vault's cross-model launcher, directing the Codex CLI read-only (Claude is temporarily paused; Grok and Codex verify each other). For code, follow [Shared checkout](repo-integration.md#applicability-and-boundary) and confirm HEAD equals the pull request head sha. For non-code product plans and documents, Codex reads the Mac mini copy of the vault after confirming each file's sha256 hash matches the Grok Bot box copy; P1 product-direction items are marked for the user to judge and are never scored, and that judgment follows [Asking](#asking). The receipt is that counterpart's session id and the observed state. A later turn resumes that session through the same launcher. When the launcher's host asks before running a command, that ask is the platform gate for the command.
 
 ## Waits
 
