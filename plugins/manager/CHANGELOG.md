@@ -1,12 +1,31 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.1...HEAD)
 
-## [0.23.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.23.1) (2026-10-21)
+## [0.24.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.0...manager-0.24.1) (2026-10-21)
 
 **Shared checkout stays put** — A checkout other sessions also use keeps
 the branch and commit where a session found it. Coding and verification,
 including sub-agents and cloud agents, run in that session's own worktree.
+
+## [0.24.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.24.0) (2026-10-21)
+
+**Manager delivers; direction is settled elsewhere** — Manager is now the
+delivery role of a project, not the place where you discuss ideas. You settle
+direction (Discussion, Grill, independent derivation) with a separate
+direction owner, which hands Manager the locked Intent (Goal, Boundary,
+Approach, Acceptance, and any observation) together with your quoted go-ahead.
+Manager does not ask you to confirm it again: it starts Delivery, creates any
+task record, dispatches, verifies, and integrates. It still asks you directly
+for small choices inside that Intent, such as approving a review object, a
+completion gate, or which followups to take; anything that would change the
+direction goes back to the direction owner.
+
+- New `designer` agent: one bounded flow, screen, state set, or interface-copy
+  slice from a Manager directive, built with `experience-design`, with
+  `content-creator` for interface copy only
+- The session-start line in Claude Code and Codex now calls Manager the
+  delivery role and says direction is settled with the direction owner
 
 ## [0.23.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.22.0...manager-0.23.0) (2026-10-21)
 

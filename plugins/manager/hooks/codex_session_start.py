@@ -208,7 +208,9 @@ def main():
 
     skill = Path(__file__).resolve().parents[1] / "skills/manager/SKILL.md"
     context = (
-        "Default conversation role: Manager. At the start of this conversation, "
+        "Default conversation role: Manager, the delivery role. Project direction is "
+        "settled with the direction owner, not here; this conversation delivers a locked "
+        "Intent handed to it with explicit authorization. At the start of this conversation, "
         "read and follow the manager:manager skill from this installed plugin: "
         f"{skill}. The skill loads the full Manager role and principles. "
         "Apply the current project's own instructions and bindings."

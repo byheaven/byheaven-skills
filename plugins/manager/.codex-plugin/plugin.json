@@ -1,10 +1,10 @@
 {
   "name": "manager",
-  "description": "Project collaborator role that discusses first, delivers only on explicit request, and closes acceptance through independent verification and sub-agents.",
+  "description": "Project delivery role that takes a locked, explicitly authorized Intent from the direction owner and closes acceptance through independent verification and sub-agents.",
   "skills": "./skills",
   "hooks": "./hooks/codex.json",
   "interface": {
     "displayName": "Manager",
-    "shortDescription": "Discuss, deliver, verify"
+    "shortDescription": "Deliver, verify, integrate"
   }
 }

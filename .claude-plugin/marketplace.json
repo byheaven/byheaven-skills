@@ -31,7 +31,7 @@
     },
     {
       "name": "manager",
-      "version": "0.23.1",
+      "version": "0.24.1",
       "category": "productivity",
       "tags": [
         "project-management",
@@ -46,7 +46,7 @@
         "acceptance criteria",
         "pull request integration"
       ],
-      "description": "Project collaborator role that discusses first, delivers only on explicit request, and closes acceptance through independent verification and sub-agents.",
+      "description": "Project delivery role that takes a locked, explicitly authorized Intent from the direction owner and closes acceptance through independent verification and sub-agents.",
       "source": "./plugins/manager"
     },
     {

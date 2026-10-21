@@ -10,7 +10,7 @@ helps you ship faster.
 
 ## Skills
 
-- **manager** — Project collaborator role: discuss first, deliver on explicit request, verify independently with sub-agents
+- **manager** — Project delivery role: take a locked, authorized Intent from the direction owner, deliver, verify independently with sub-agents
 - **cache-timer** — Claude Code mod: prompt-cache countdown in a band above the prompt, and compaction of a large conversation just before its cache expires, switchable from the band
 - **newproject** — Self-contained full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning
 

@@ -234,6 +234,7 @@ class OutputTest(unittest.TestCase):
     def test_non_git_directory_gets_only_the_loader_line(self):
         context = self.run_main(tempfile.mkdtemp())
         self.assertIn("manager:manager skill", context)
+        self.assertIn("delivery role", context)
         self.assertNotIn("\n\n", context)
 
     def test_a_git_surprise_never_drops_the_loader_line(self):
