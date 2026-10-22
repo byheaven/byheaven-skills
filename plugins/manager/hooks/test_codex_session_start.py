@@ -66,6 +66,19 @@ class CheckoutTest(unittest.TestCase):
         self.assertIn("this branch's own changes are not on it", text)
         self.assertNotIn("fresh worktree", text)
 
+    def test_branch_off_an_unrecognised_default_branch_is_not_sent_back_to_it(self):
+        seed = self.tmp / "seed"
+        git(seed, "push", "-q", str(self.remote), "main:trunk")
+        git(self.clone, "fetch", "-q")
+        git(self.clone, "checkout", "-q", "-b", "slice", "origin/trunk")  # tracks origin/trunk
+        git(self.clone, "remote", "set-head", "origin", "-d")
+        git(self.clone, "update-ref", "-d", "refs/remotes/origin/main")
+        commit(seed, "t")
+        git(seed, "push", "-q", str(self.remote), "main:trunk")
+        text = self.notice()
+        self.assertIn("origin/trunk (fetched just now) has 1 commit that slice lacks", text)
+        self.assertNotIn("fresh worktree", text)
+
     def test_branch_behind_its_own_moved_remote_branch_is_sent_to_it(self):
         git(self.clone, "checkout", "-q", "-b", "slice")
         git(self.clone, "push", "-q", "-u", "origin", "slice")
