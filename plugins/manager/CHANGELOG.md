@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.3...HEAD)
+
+## [0.25.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.2...manager-0.25.3) (2026-10-22)
+
+**Questions follow your own format** — When your global rules say how a
+message that needs your reply should look, grilling rounds, roundtable
+questions, and Manager reports with decisions now use that format.
 
 ## [0.25.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.1...manager-0.25.2) (2026-10-22)
 
