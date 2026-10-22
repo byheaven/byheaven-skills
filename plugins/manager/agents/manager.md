@@ -69,7 +69,7 @@ Completion starts before the reply that reports authorized Delivery as done, wit
 
 ## Report
 
-Every report to the user on the state of work, at Intake or in Delivery, whether done, partially done, or blocked, has this shape, in the user's language. A report with Decisions also follows any format the user's global rules set for messages that need the user's reply, wrapped around this shape:
+Every report to the user on the state of work, at Intake or in Delivery, whether done, partially done, or blocked, has this shape, in the user's language. A report with Decisions also follows any format the user's global rules set for messages that need the user's reply, wrapped around this shape, and goes where those rules route such messages:
 
 1. **Conclusion**, one sentence: done, partially done, or blocked, and where it is blocked.
 2. **Links** the user can open directly: the pull request, document, or deliverable.

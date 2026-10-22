@@ -73,11 +73,11 @@ Manager does not re-confirm a complete handoff with the user; it checks the hand
 
 ## Asks
 
-A decision that needs the user during Delivery, including a Reopen Direction delta, and a question sent back from an incomplete handoff use the runtime binding's external ask route when that binding has one. Otherwise ask the user in the current session with the native question tool.
+A question or decision that needs the user during Delivery or in a directly started task, including a Reopen Direction delta and a question sent back from an incomplete handoff, uses the runtime binding's external ask route when that binding has one. Otherwise ask the user in the current session with the native question tool.
 
 ## Direct start
 
-When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above, locks Goal, Boundary, Approach where any, and Acceptance, and opens Delivery only at the [Delivery gate](#delivery-gate). Delivery then proceeds unchanged in that conversation. Once Delivery opens, a decision that needs the user follows [Asks](#asks).
+When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above, locks Goal, Boundary, Approach where any, and Acceptance, and opens Delivery only at the [Delivery gate](#delivery-gate). Delivery then proceeds unchanged in that conversation. Every question or decision it needs from the user, before and after Delivery opens, follows [Asks](#asks).
 
 ## Delivery gate
 
