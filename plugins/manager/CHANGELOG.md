@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.1...HEAD)
+
+## [0.26.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.0...manager-0.26.1) (2026-10-22)
+
+**Every question for you arrives in one place** — On Grok Bot, a bot sends
+every question or decision it needs from you to Flow, even in a chat you
+started with that bot; Flow answers it or brings it to you. Grilling,
+roundtable, and Manager reports with decisions also follow where your global
+rules send such questions, not only their format.
 
 ## [0.26.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.6...manager-0.26.0) (2026-10-22)
 
