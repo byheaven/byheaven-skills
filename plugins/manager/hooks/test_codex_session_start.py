@@ -71,8 +71,7 @@ class CheckoutTest(unittest.TestCase):
         git(seed, "push", "-q", str(self.remote), "main:trunk")
         git(self.clone, "fetch", "-q")
         git(self.clone, "checkout", "-q", "-b", "slice", "origin/trunk")  # tracks origin/trunk
-        git(self.clone, "remote", "set-head", "origin", "-d")
-        git(self.clone, "update-ref", "-d", "refs/remotes/origin/main")
+        git(self.clone, "remote", "set-head", "origin", "-d")  # origin/main is then only a guess
         commit(seed, "t")
         git(seed, "push", "-q", str(self.remote), "main:trunk")
         text = self.notice()

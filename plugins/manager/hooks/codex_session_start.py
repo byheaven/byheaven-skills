@@ -155,9 +155,8 @@ def currency_notice(cwd):
     default = default_ref(git, main_remote) if main_remote else None
 
     # `git worktree add -b <branch> <path> origin/main` makes the new branch track the
-    # default branch; only a same-named or known non-default upstream is the branch's own.
-    own_upstream = upstream if upstream and (
-        (default and upstream != default) or remote_of(upstream, remotes)[1] == head) else None
+    # default branch; only a same-named upstream is the branch's own.
+    own_upstream = upstream if upstream and remote_of(upstream, remotes)[1] == head else None
 
     refs = list(dict.fromkeys(ref for ref in (upstream, default) if ref))
     if not refs:
