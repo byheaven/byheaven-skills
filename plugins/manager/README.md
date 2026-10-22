@@ -92,8 +92,9 @@ or install the full plugin.
 `skills/grilling` and `skills/writing-for-agents` are adapted from
 [mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
 license; each skill's notice is in its own `LICENSE` file.
-`writing-for-agents` keeps the upstream text at commit `6fd9479` and widens
-only its description to cover rules and directives.
+`writing-for-agents` keeps the upstream text at commit `6fd9479`, widens its
+description to cover rules and directives, and adds one sentence on blinding
+the no-op test run.
 
 The performance method in `skills/code-production/references/performance.md`
 and the verifier's safety-fact check adapt ideas from the `benchmark-checklist`
