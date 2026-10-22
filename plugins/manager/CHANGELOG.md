@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.2...HEAD)
+
+## [0.25.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.1...manager-0.25.2) (2026-10-22)
+
+**More models can check your code** — Grok Bot uses your runtime binding to
+choose writers and read-only verifiers from different model families.
 
 ## [0.25.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.0...manager-0.25.1) (2026-10-22)
 
