@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.5...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.6...HEAD)
+
+## [0.25.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.5...manager-0.25.6) (2026-10-22)
+
+**Problems get fixed at their cause** — P3 now asks agents to find what
+produces a problem and fix it there before picking the simplest solution. A
+probe, periodic check, monitor, or workaround that leaves the cause in place
+counts only as a labeled interim step.
 
 ## [0.25.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.4...manager-0.25.5) (2026-10-22)
 
