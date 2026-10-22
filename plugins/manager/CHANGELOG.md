@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.3...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.4...HEAD)
+
+## [0.26.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.3...manager-0.26.4) (2026-10-23)
+
+**Scripted Codex runs keep their own role** — A `codex exec` run, such as a
+writer or judge another agent launches, no longer receives the Manager
+loader line or the branch-currency notice, so it works under the charter its
+directive names. Interactive Codex sessions still start as Manager.
 
 ## [0.26.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.2...manager-0.26.3) (2026-10-22)
 
