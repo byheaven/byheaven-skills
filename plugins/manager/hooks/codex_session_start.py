@@ -145,10 +145,18 @@ def currency_notice(cwd):
         return None
 
     upstream = None
+    own_upstream = None
     if head != "HEAD":
         full = git.value("rev-parse", "--symbolic-full-name", "@{upstream}") or ""
         if full.startswith("refs/remotes/"):
             upstream = full[len("refs/remotes/"):]
+            # `git worktree add -b <branch> <path> origin/main` makes the new branch track
+            # the default branch; only a same-named upstream is the branch's own. Names come
+            # from full refs: --abbrev-ref gives "heads/<name>" when a tag shares the name.
+            local = git.value("symbolic-ref", "--quiet", "HEAD") or ""
+            if local.startswith("refs/heads/") and \
+                    remote_of(upstream, remotes)[1] == local[len("refs/heads/"):]:
+                own_upstream = upstream
     up_remote = remote_of(upstream, remotes)[0] if upstream else None
     main_remote = up_remote or ("origin" if "origin" in remotes else
                                 remotes[0] if len(remotes) == 1 else None)
@@ -187,7 +195,7 @@ def currency_notice(cwd):
         source = "fetched just now" if failure is None else f"as of an earlier fetch; refreshing failed: {failure}"
         if count:
             plural = "" if count == 1 else "s"
-            if ref == upstream:
+            if ref == own_upstream:
                 lines.append(f"{ref} ({source}) has {count} commit{plural} that {where} lacks; "
                              f"work from a fresh worktree off `{ref}`, per repo-integration.md's Shared checkout rule.")
             else:

@@ -1,6 +1,15 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.3...HEAD)
+
+## [0.26.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.2...manager-0.26.3) (2026-10-22)
+
+**Follow-up rounds stay on the pull request** — A Codex session is told to
+move to a fresh worktree only when the branch's own same-named remote branch
+has commits it lacks. A branch that merely tracks `main` or another branch now
+only hears that that branch has newer commits.
+New slice branches are created without tracking `main`, and a follow-up round
+on an open pull request works at that pull request's head.
 
 ## [0.26.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.1...manager-0.26.2) (2026-10-22)
 

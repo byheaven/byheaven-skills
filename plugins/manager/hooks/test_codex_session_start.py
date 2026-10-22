@@ -59,6 +59,48 @@ class CheckoutTest(unittest.TestCase):
         )
         self.assertNotIn("pull before relying on this tree", text)
 
+    def test_branch_created_off_the_default_branch_is_not_sent_back_to_it(self):
+        git(self.clone, "checkout", "-q", "-b", "slice", "origin/main")  # tracks origin/main
+        text = self.notice()
+        self.assertIn("origin/main (fetched just now) has 1 commit that slice lacks", text)
+        self.assertIn("this branch's own changes are not on it", text)
+        self.assertNotIn("fresh worktree", text)
+
+    def test_branch_off_an_unrecognised_default_branch_is_not_sent_back_to_it(self):
+        seed = self.tmp / "seed"
+        git(seed, "push", "-q", str(self.remote), "main:trunk")
+        git(self.clone, "fetch", "-q")
+        git(self.clone, "checkout", "-q", "-b", "slice", "origin/trunk")  # tracks origin/trunk
+        git(self.clone, "remote", "set-head", "origin", "-d")  # origin/main is then only a guess
+        commit(seed, "t")
+        git(seed, "push", "-q", str(self.remote), "main:trunk")
+        text = self.notice()
+        self.assertIn("origin/trunk (fetched just now) has 1 commit that slice lacks", text)
+        self.assertNotIn("fresh worktree", text)
+
+    def test_branch_behind_its_own_moved_remote_branch_is_sent_to_it(self):
+        git(self.clone, "checkout", "-q", "-b", "slice")
+        git(self.clone, "push", "-q", "-u", "origin", "slice")
+        other = self.tmp / "other"
+        git(self.tmp, "clone", "-q", "-b", "slice", str(self.remote), str(other))
+        commit(other, "s")
+        git(other, "push", "-q", "origin", "slice")
+        self.assertIn(
+            "origin/slice (fetched just now) has 1 commit that slice lacks; "
+            "work from a fresh worktree off `origin/slice`",
+            self.notice(),
+        )
+
+    def test_branch_named_like_a_tag_is_still_sent_to_its_own_moved_remote_branch(self):
+        git(self.clone, "checkout", "-q", "-b", "release")
+        git(self.clone, "push", "-q", "-u", "origin", "release")
+        git(self.clone, "tag", "release")  # HEAD now abbreviates to heads/release
+        other = self.tmp / "other"
+        git(self.tmp, "clone", "-q", "-b", "release", str(self.remote), str(other))
+        commit(other, "r")
+        git(other, "push", "-q", "origin", "release")
+        self.assertIn("work from a fresh worktree off `origin/release`", self.notice())
+
     def test_up_to_date_checkout_is_silent(self):
         git(self.clone, "pull", "-q")
         self.assertIsNone(self.notice())
