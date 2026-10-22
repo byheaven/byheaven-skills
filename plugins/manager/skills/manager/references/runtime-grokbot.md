@@ -32,13 +32,13 @@ Send each bounded design slice (a flow, screen, its states, or its interface cop
 
 ## Verification
 
-Each verification is a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive.
+The Manager decides when to verify. Who runs the verification loop, and what the Manager hands over and gets back, is the project's runtime binding: where it names a shared verifier bot, the Manager sends the artifact there as an agent-to-agent message and keeps every decision on acceptance, blocking findings, and merging. Each judging run is a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive.
 
-For code, the Manager runs the verifier on the Mac mini on an available model whose family did not write the code. It chooses and invokes that model as the project's runtime binding says, using the read-only means that binding names. The Code Worker never dispatches the verifier. The verifier works in its own detached worktree at the exact pull request head per [Applicability and boundary](repo-integration.md#applicability-and-boundary). Confirm HEAD equals the pull request head sha, and `git status --porcelain` in that worktree is empty before and after the run.
+For code, the verification runs on the Mac mini on an available model whose family did not write the code, chosen and invoked as the runtime binding says, with the read-only means that binding names. The Code Worker never dispatches the verifier. The verifier works in its own detached worktree at the exact pull request head per [Applicability and boundary](repo-integration.md#applicability-and-boundary), removed once the verdict is recorded. Confirm HEAD equals the pull request head sha, and `git status --porcelain` in that worktree is empty before and after the run.
 
-For non-code product plans and documents, same-family verification is a fresh background subagent spawned for that verification alone. Cross-family verification runs a model of another family read-only, as the runtime binding names. It runs against the Mac mini copy of the vault after confirming each file's sha256 hash matches the Grok Bot box copy. P1 product-direction items are marked for the user to judge and are never scored, and that judgment follows [Asking](#asking).
+For non-code product plans and documents, the verification runs a model of another family read-only, as the runtime binding names. It runs against the Mac mini copy of the vault after confirming each file's sha256 hash matches the Grok Bot box copy, and the hashes are unchanged after the run. When no model of another family is available, report that cross-model verification could not run. P1 product-direction items are marked for the user to judge and are never scored, and that judgment follows [Asking](#asking).
 
-The receipt is the counterpart's session id and the observed state. A later turn resumes that session with the same CLI. When the launcher's host asks before running a command, that ask is the platform gate for the command.
+The receipt is the counterpart's session id and the observed state. A later turn resumes that session with the same CLI. When the host asks before running a command, that ask is the platform gate for the command.
 
 ## Waits
 

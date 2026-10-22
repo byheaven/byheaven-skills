@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.3...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.4...HEAD)
+
+## [0.25.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.3...manager-0.25.4) (2026-10-22)
+
+**A verifier bot can check your work** — On Grok Bot, your runtime binding can
+name a shared verifier bot that runs each check on another model family, while
+Manager still decides acceptance and merging.
 
 ## [0.25.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.2...manager-0.25.3) (2026-10-22)
 
