@@ -91,6 +91,16 @@ class CheckoutTest(unittest.TestCase):
             self.notice(),
         )
 
+    def test_branch_named_like_a_tag_is_still_sent_to_its_own_moved_remote_branch(self):
+        git(self.clone, "checkout", "-q", "-b", "release")
+        git(self.clone, "push", "-q", "-u", "origin", "release")
+        git(self.clone, "tag", "release")  # HEAD now abbreviates to heads/release
+        other = self.tmp / "other"
+        git(self.tmp, "clone", "-q", "-b", "release", str(self.remote), str(other))
+        commit(other, "r")
+        git(other, "push", "-q", "origin", "release")
+        self.assertIn("work from a fresh worktree off `origin/release`", self.notice())
+
     def test_up_to_date_checkout_is_silent(self):
         git(self.clone, "pull", "-q")
         self.assertIsNone(self.notice())

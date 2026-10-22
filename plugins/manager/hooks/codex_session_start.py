@@ -145,18 +145,22 @@ def currency_notice(cwd):
         return None
 
     upstream = None
+    own_upstream = None
     if head != "HEAD":
         full = git.value("rev-parse", "--symbolic-full-name", "@{upstream}") or ""
         if full.startswith("refs/remotes/"):
             upstream = full[len("refs/remotes/"):]
+            # `git worktree add -b <branch> <path> origin/main` makes the new branch track
+            # the default branch; only a same-named upstream is the branch's own. Names come
+            # from full refs: --abbrev-ref gives "heads/<name>" when a tag shares the name.
+            local = git.value("symbolic-ref", "--quiet", "HEAD") or ""
+            if local.startswith("refs/heads/") and \
+                    remote_of(upstream, remotes)[1] == local[len("refs/heads/"):]:
+                own_upstream = upstream
     up_remote = remote_of(upstream, remotes)[0] if upstream else None
     main_remote = up_remote or ("origin" if "origin" in remotes else
                                 remotes[0] if len(remotes) == 1 else None)
     default = default_ref(git, main_remote) if main_remote else None
-
-    # `git worktree add -b <branch> <path> origin/main` makes the new branch track the
-    # default branch; only a same-named upstream is the branch's own.
-    own_upstream = upstream if upstream and remote_of(upstream, remotes)[1] == head else None
 
     refs = list(dict.fromkeys(ref for ref in (upstream, default) if ref))
     if not refs:
