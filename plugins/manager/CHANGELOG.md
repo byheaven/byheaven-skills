@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.1...HEAD)
+
+## [0.25.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.0...manager-0.25.1) (2026-10-22)
+
+**Writer choice stays yours** — On Grok Bot, only a writer you name overrides
+the selection rule, and directives leave both CLI models unchanged.
 
 ## [0.25.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.4...manager-0.25.0) (2026-10-21)
 
