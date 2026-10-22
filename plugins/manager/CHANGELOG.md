@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.1...HEAD)
+
+## [0.26.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.0...manager-0.26.1) (2026-10-22)
+
+**Your project's own checks come first** — When a project names its own
+decisive check for the screens a change touches, Manager follows it instead of
+rerunning every registered end-to-end check before acceptance. When a
+repository has a written testing standard, code workers follow it instead of
+the plugin's own testing rules.
 
 ## [0.26.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.6...manager-0.26.0) (2026-10-22)
 
