@@ -270,16 +270,34 @@ class CheckoutTest(unittest.TestCase):
 
 
 class OutputTest(unittest.TestCase):
-    def run_main(self, cwd):
-        event = {"hook_event_name": "SessionStart", "cwd": cwd}
+    def run_main(self, cwd, **event):
+        event = {"hook_event_name": "SessionStart", "cwd": cwd, **event}
         out = io.StringIO()
         with mock.patch.object(sys, "stdin", io.StringIO(json.dumps(event))), \
                 mock.patch.object(sys, "stdout", out):
             hook.main()
-        return json.loads(out.getvalue())["hookSpecificOutput"]["additionalContext"]
+        return out.getvalue()
+
+    def context(self, cwd, **event):
+        return json.loads(self.run_main(cwd, **event))["hookSpecificOutput"]["additionalContext"]
+
+    def transcript(self, originator):
+        """A Codex rollout as it stands when SessionStart runs: its session_meta line."""
+        path = Path(tempfile.mkdtemp(), "rollout.jsonl")
+        meta = {"type": "session_meta", "payload": {"originator": originator, "source": "exec"}}
+        path.write_text(json.dumps(meta) + "\n")
+        return str(path)
+
+    def test_codex_exec_run_gets_no_context(self):
+        out = self.run_main(tempfile.mkdtemp(), transcript_path=self.transcript("codex_exec"))
+        self.assertEqual("", out)
+
+    def test_interactive_codex_session_still_gets_the_loader_line(self):
+        context = self.context(tempfile.mkdtemp(), transcript_path=self.transcript("Codex Desktop"))
+        self.assertIn("manager:manager skill", context)
 
     def test_non_git_directory_gets_only_the_loader_line(self):
-        context = self.run_main(tempfile.mkdtemp())
+        context = self.context(tempfile.mkdtemp())
         self.assertIn("manager:manager skill", context)
         self.assertIn("delivery role", context)
         self.assertIn("direction.md#direct-start", context)
@@ -288,7 +306,7 @@ class OutputTest(unittest.TestCase):
 
     def test_a_git_surprise_never_drops_the_loader_line(self):
         with mock.patch.object(hook, "currency_notice", side_effect=RuntimeError("boom")):
-            context = self.run_main(tempfile.mkdtemp())
+            context = self.context(tempfile.mkdtemp())
         self.assertIn("manager:manager skill", context)
 
 

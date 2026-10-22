@@ -209,9 +209,20 @@ def currency_notice(cwd):
     return "\n".join(lines) or None
 
 
+def started_by_codex_exec(event):
+    """A `codex exec` run (a scripted writer or judge, or its subagent) records originator
+    codex_exec in its rollout's first line, which exists when SessionStart runs. The event
+    itself carries no such field; an unreadable transcript counts as interactive."""
+    try:
+        with open(event.get("transcript_path") or "", encoding="utf-8") as transcript:
+            return json.loads(transcript.readline())["payload"]["originator"] == "codex_exec"
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+
+
 def main():
     event = json.load(sys.stdin)
-    if event.get("hook_event_name") != "SessionStart":
+    if event.get("hook_event_name") != "SessionStart" or started_by_codex_exec(event):
         return
 
     root = Path(__file__).resolve().parents[1]
