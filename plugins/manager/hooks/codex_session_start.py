@@ -154,6 +154,11 @@ def currency_notice(cwd):
                                 remotes[0] if len(remotes) == 1 else None)
     default = default_ref(git, main_remote) if main_remote else None
 
+    # `git worktree add -b <branch> <path> origin/main` makes the new branch track the
+    # default branch; only a same-named or non-default upstream is the branch's own.
+    own_upstream = upstream if upstream and (
+        upstream != default or remote_of(upstream, remotes)[1] == head) else None
+
     refs = list(dict.fromkeys(ref for ref in (upstream, default) if ref))
     if not refs:
         return None
@@ -187,7 +192,7 @@ def currency_notice(cwd):
         source = "fetched just now" if failure is None else f"as of an earlier fetch; refreshing failed: {failure}"
         if count:
             plural = "" if count == 1 else "s"
-            if ref == upstream:
+            if ref == own_upstream:
                 lines.append(f"{ref} ({source}) has {count} commit{plural} that {where} lacks; "
                              f"work from a fresh worktree off `{ref}`, per repo-integration.md's Shared checkout rule.")
             else:
