@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.6...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.0...HEAD)
+
+## [0.26.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.6...manager-0.26.0) (2026-10-22)
+
+**Verifiers judge by the producer's standards** — A verifier now loads the
+same standard skill the producer applied to that kind of work (code, writing
+for people, agent-facing rules, or user-facing design) and cites the rule
+behind each finding. Its directive carries the approved writing brief, the
+approved review object, and the governed-change excerpt where they apply.
 
 ## [0.25.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.5...manager-0.25.6) (2026-10-22)
 
