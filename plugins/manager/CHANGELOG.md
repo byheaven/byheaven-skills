@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.4...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.5...HEAD)
+
+## [0.25.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.4...manager-0.25.5) (2026-10-22)
+
+**Your writer choice takes precedence** — On Grok Bot, Manager passes your named
+writer to Code Worker, overriding the routing rule. Without a named writer,
+Code Worker follows your runtime binding's writer-selection rule.
 
 ## [0.25.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.3...manager-0.25.4) (2026-10-22)
 
