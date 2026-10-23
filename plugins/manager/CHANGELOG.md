@@ -11,6 +11,11 @@ agents no longer pin a model or effort, so they run on the host's default
 unless you choose one. The roundtable seats `@Claude` whenever a logged-in
 route exists, like the other families.
 
+**Scripted Claude runs leave the repository alone** — A `claude -p` or Agent
+SDK run, such as a writer or judge another agent launches, no longer gets the
+Manager loader line or runs the branch-currency fetch, so the hook writes
+nothing into that run's repository. `codex exec` runs already worked this way.
+
 ## [0.26.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.4...manager-0.26.5) (2026-10-23)
 
 **Typed answers on your terms** — When your global rules require option

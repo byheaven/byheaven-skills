@@ -5,7 +5,9 @@ remote default branch and the branch's upstream with one bounded, non-interactiv
 per remote, and say when HEAD lacks commits either has, so claims about what exists now
 are read from the remote rather than the stale tree. Each ref in the notice says whether
 it was refreshed now or is only as current as an earlier fetch. The whole check stays
-inside the hook's 5 s limit, and any failure still leaves the loader line.
+inside the hook's 5 s limit, and any failure still leaves the loader line. A scripted
+one-shot run (`claude -p`, the Agent SDK, `codex exec`) gets neither: no context line and
+no fetch, so the hook writes nothing into its repository.
 """
 
 import json
@@ -209,10 +211,19 @@ def currency_notice(cwd):
     return "\n".join(lines) or None
 
 
-def started_by_codex_exec(event):
-    """A `codex exec` run (a scripted writer or judge, or its subagent) records originator
-    codex_exec in its rollout's first line, which exists when SessionStart runs. The event
-    itself carries no such field; an unreadable transcript counts as interactive."""
+# Claude Code sets CLAUDE_CODE_ENTRYPOINT for its hook commands: "sdk-cli" in a `claude -p`
+# run, "sdk-ts" or "sdk-py" under the Agent SDK, "cli" in an interactive terminal session.
+CLAUDE_ONE_SHOT_ENTRYPOINTS = {"sdk-cli", "sdk-ts", "sdk-py"}
+
+
+def one_shot_run(event):
+    """A scripted one-shot run (a writer or judge another agent launches, or its subagent)
+    works under its directive's charter and leaves the repository untouched, so the hook adds
+    nothing and fetches nothing. `claude -p` and the Agent SDK are named by the entrypoint;
+    a `codex exec` run records originator codex_exec in its rollout's first line, which
+    exists when SessionStart runs. Anything unrecognised counts as interactive."""
+    if os.environ.get("CLAUDE_CODE_ENTRYPOINT") in CLAUDE_ONE_SHOT_ENTRYPOINTS:
+        return True
     try:
         with open(event.get("transcript_path") or "", encoding="utf-8") as transcript:
             return json.loads(transcript.readline())["payload"]["originator"] == "codex_exec"
@@ -222,7 +233,7 @@ def started_by_codex_exec(event):
 
 def main():
     event = json.load(sys.stdin)
-    if event.get("hook_event_name") != "SessionStart" or started_by_codex_exec(event):
+    if event.get("hook_event_name") != "SessionStart" or one_shot_run(event):
         return
 
     root = Path(__file__).resolve().parents[1]
