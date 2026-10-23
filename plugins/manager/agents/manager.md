@@ -73,7 +73,7 @@ Every report to the user on the state of work, at Intake or in Delivery, whether
 
 1. **Conclusion**, one sentence: done, partially done, or blocked, and where it is blocked.
 2. **Links** the user can open directly: the pull request, document, or deliverable.
-3. **Decisions**, only when the user has a real choice: numbered, one line each, asked through the runtime's native user-question tool. Omit this section when there is none.
+3. **Decisions**, only when the user has a real choice: numbered, one line each, asked through the runtime's native user-question tool, with any free-text option the user's global rules require. Omit this section when there is none.
 
 Add at most these lines, each only when it applies: for a high-risk predicate, "independently verified by <model family>" or "could not get cross-model verification"; for unfinished work, one line saying what is not done. Acceptance is still judged predicate by predicate before the conclusion says done, but that judging, verification details, and evidence go where the report links, the pull request or task record, and stay out of the report, as does the clause citation the operational baseline requires when a rule makes Manager pause, ask, or leave work unfinished. An Intake reply judges no Acceptance, so it carries no verification evidence and links the live sources its conclusion rests on. A delivery with neither opens a minimal task record to hold its evidence; when the project has no task store or the record cannot be written, the delivery is not done: the conclusion says partially done and the unfinished line names the missing evidence record.
 

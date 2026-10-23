@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.4...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...HEAD)
+
+## [0.26.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.4...manager-0.26.5) (2026-10-23)
+
+**Typed answers on your terms** — When your global rules require option
+cards to end with a free-text option, Manager report Decisions and roundtable
+questions now include it, so you can type your own answer.
 
 ## [0.26.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.3...manager-0.26.4) (2026-10-23)
 
