@@ -231,26 +231,32 @@ def codex_originator(event):
         return None
 
 
-def run_kind(event):
+def run_kind(event, host):
     """Return "one-shot" for a scripted run (a writer or judge another agent launches, or its
     subagent), which works under its directive's charter; "interactive" for a session a person
-    drives; "unknown" otherwise. Only an interactive session may write to the repository."""
-    originator = codex_originator(event)
-    if originator == "codex_exec":
-        return "one-shot"
-    if originator is not None:
+    drives; "unknown" otherwise. Only an interactive session may write to the repository.
+    The host comes from the hook command line, so each host is read only by its own signal:
+    a Codex run can inherit a Claude parent's environment."""
+    if host == "codex":
+        originator = codex_originator(event)
+        if originator == "codex_exec":
+            return "one-shot"
         return "interactive" if originator in CODEX_INTERACTIVE else "unknown"
     entrypoint = os.environ.get("CLAUDE_CODE_ENTRYPOINT")
-    if entrypoint in CLAUDE_ONE_SHOT:
+    if host == "claude":
+        if entrypoint in CLAUDE_ONE_SHOT:
+            return "one-shot"
+        return "interactive" if entrypoint in CLAUDE_INTERACTIVE else "unknown"
+    if codex_originator(event) == "codex_exec" or entrypoint in CLAUDE_ONE_SHOT:
         return "one-shot"
-    return "interactive" if entrypoint in CLAUDE_INTERACTIVE else "unknown"
+    return "unknown"
 
 
 def main():
     event = json.load(sys.stdin)
     if event.get("hook_event_name") != "SessionStart":
         return
-    kind = run_kind(event)
+    kind = run_kind(event, sys.argv[1] if len(sys.argv) > 1 else None)
     if kind == "one-shot":
         return
 
