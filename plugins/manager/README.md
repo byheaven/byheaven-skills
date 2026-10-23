@@ -39,8 +39,9 @@ merge grants are used only when the project or the user has defined them.
 Pull requests are merged without asking only under a standing grant the user
 has recorded in their own instructions.
 
-The `verifier` and `code-worker` agents pin `model: opus`; change the agent
-frontmatter if you prefer another model.
+The `verifier` and `code-worker` agents pin no model or effort, so they run on
+the host's default; add `model` or `effort` to the agent frontmatter to choose
+another.
 
 ## Installation
 
@@ -123,8 +124,12 @@ to load the `manager` skill. This covers hosts that replace the main-session
 system prompt with their own and so ignore the `agent` setting, such as
 Claude Code project threads on claude.ai. The hook adds a context line rather
 than a system prompt, so the model still has to follow it. A session already
-running as the `manager` agent keeps its role. To opt out, disable the plugin
-or set `disableAllHooks`.
+running as the `manager` agent keeps its role. A `claude -p` or Agent SDK run,
+such as a scripted writer or judge, gets nothing from the hook. The hook's
+branch-currency fetch runs only in a session it recognises as interactive
+(the terminal, VS Code, or the desktop app); any other session gets the
+loading line without it. To opt out, disable the plugin or set
+`disableAllHooks`.
 
 Codex sessions use the trusted plugin hook to load the `manager` skill.
 Where neither an agent nor plugin hooks are available, invoke the `manager`

@@ -20,7 +20,7 @@ Shapes to confirm against `--help`, not a claim about any machine:
 | `@Codex` | Codex | `codex exec --sandbox read-only --skip-git-repo-check --ephemeral -` |
 | `@Grok` | Grok Bot or Grok CLI | `grok -p "<prompt>" --output-format plain --permission-mode plan --no-subagents` (keep web and X search enabled) |
 | `@Gemini` | (none) | `agy --print "<prompt>" --sandbox` |
-| `@Claude` | Claude Code | `claude -p` with edit tools disabled and no session persistence; paused, so seat it only on the user's request |
+| `@Claude` | Claude Code | `claude -p` with edit tools disabled and no session persistence |
 
 A Grok Bot Host answering as `@Grok` uses its own X search tool for the required X search.
 

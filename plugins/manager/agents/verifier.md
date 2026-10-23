@@ -1,8 +1,6 @@
 ---
 name: verifier
 description: Independent verifier judging one complete assigned boundary against a Manager directive.
-model: opus
-effort: high
 skills:
   - principles
 ---

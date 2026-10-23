@@ -19,7 +19,7 @@ A Seat is one real model family, labelled `@<Family>`. The Host writes its own f
 | `@Codex` | packet-only | Active |
 | `@Grok` | X search, required on every run | Active |
 | `@Gemini` | web search, required on every run | Active when a logged-in route exists |
-| `@Claude` | packet-only | Paused: seat it only when the user names it and its route works |
+| `@Claude` | packet-only | Active when a logged-in route exists |
 
 Every Seat contributes independently and is weighed by its evidence, not its family: the Host's own Seat gets no extra weight. A conclusion the user adopts applies to all models alike. When it changes a rule, skill, or prompt, the change goes to the shared, runtime-neutral source that every model loads, never to one model's private configuration.
 

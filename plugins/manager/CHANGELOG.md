@@ -1,6 +1,22 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...HEAD)
+
+## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
+
+**Your runtime binding picks the machine and model** — On Grok Bot, the
+writer and verifier CLIs run on whichever machine your runtime binding names
+for each one, instead of one fixed machine. The `code-worker` and `verifier`
+agents no longer pin a model or effort, so they run on the host's default
+unless you choose one. The roundtable seats `@Claude` whenever a logged-in
+route exists, like the other families.
+
+**Scripted Claude runs leave the repository alone** — A `claude -p` or Agent
+SDK run, such as a writer or judge another agent launches, no longer gets the
+Manager loader line or runs the branch-currency fetch, so the hook writes
+nothing into that run's repository. `codex exec` runs already worked this way.
+The fetch now runs only in a session the hook recognises as interactive; a
+session it cannot place still gets the loader line, without the fetch.
 
 ## [0.26.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.4...manager-0.26.5) (2026-10-23)
 
