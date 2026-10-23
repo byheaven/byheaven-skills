@@ -26,6 +26,20 @@ def commit(cwd, name):
     return git(cwd, "rev-parse", "HEAD")
 
 
+def run_hook(cwd, entrypoint=None, **event):
+    """Run the hook as Claude Code would, with CLAUDE_CODE_ENTRYPOINT set or unset."""
+    event = {"hook_event_name": "SessionStart", "cwd": str(cwd), **event}
+    env = {k: v for k, v in os.environ.items() if k != "CLAUDE_CODE_ENTRYPOINT"}
+    if entrypoint is not None:
+        env["CLAUDE_CODE_ENTRYPOINT"] = entrypoint
+    out = io.StringIO()
+    with mock.patch.dict(os.environ, env, clear=True), \
+            mock.patch.object(sys, "stdin", io.StringIO(json.dumps(event))), \
+            mock.patch.object(sys, "stdout", out):
+        hook.main()
+    return out.getvalue()
+
+
 class CheckoutTest(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -101,17 +115,31 @@ class CheckoutTest(unittest.TestCase):
         git(other, "push", "-q", "origin", "release")
         self.assertIn("work from a fresh worktree off `origin/release`", self.notice())
 
-    def test_claude_print_run_gets_no_context_and_leaves_the_repository_untouched(self):
+    def assert_untouched(self, entrypoint, **event):
         before = git(self.clone, "for-each-ref")
-        event = {"hook_event_name": "SessionStart", "cwd": str(self.clone), "source": "startup"}
-        out = io.StringIO()
-        with mock.patch.dict(os.environ, {"CLAUDE_CODE_ENTRYPOINT": "sdk-cli"}), \
-                mock.patch.object(sys, "stdin", io.StringIO(json.dumps(event))), \
-                mock.patch.object(sys, "stdout", out):
-            hook.main()
-        self.assertEqual("", out.getvalue())
+        out = run_hook(self.clone, entrypoint, source="startup", **event)
         self.assertEqual(before, git(self.clone, "for-each-ref"))
         self.assertFalse((self.clone / ".git" / "FETCH_HEAD").exists())
+        return out
+
+    def test_claude_print_run_gets_no_context_and_leaves_the_repository_untouched(self):
+        self.assertEqual("", self.assert_untouched("sdk-cli"))
+
+    def test_unplaced_session_gets_the_loader_line_but_leaves_the_repository_untouched(self):
+        for entrypoint in (None, "claude-code-github-action"):
+            with self.subTest(entrypoint=entrypoint):
+                out = json.loads(self.assert_untouched(entrypoint))
+                self.assertEqual("SessionStart", out["hookSpecificOutput"]["hookEventName"])
+
+    def test_unplaced_codex_originator_leaves_the_repository_untouched(self):
+        rollout = Path(tempfile.mkdtemp(), "rollout.jsonl")
+        rollout.write_text(json.dumps({"type": "session_meta", "payload": {"originator": "codex_sdk_ts"}}) + "\n")
+        json.loads(self.assert_untouched(None, transcript_path=str(rollout)))
+
+    def test_interactive_claude_session_refreshes_the_remote_tracking_ref(self):
+        run_hook(self.clone, "cli", source="startup")
+        self.assertEqual(git(self.remote, "rev-parse", "main"),
+                         git(self.clone, "rev-parse", "origin/main"))
 
     def test_up_to_date_checkout_is_silent(self):
         git(self.clone, "pull", "-q")
@@ -283,12 +311,7 @@ class CheckoutTest(unittest.TestCase):
 
 class OutputTest(unittest.TestCase):
     def run_main(self, cwd, **event):
-        event = {"hook_event_name": "SessionStart", "cwd": cwd, **event}
-        out = io.StringIO()
-        with mock.patch.object(sys, "stdin", io.StringIO(json.dumps(event))), \
-                mock.patch.object(sys, "stdout", out):
-            hook.main()
-        return out.getvalue()
+        return run_hook(cwd, "cli", **event)
 
     def context(self, cwd, **event):
         return json.loads(self.run_main(cwd, **event))["hookSpecificOutput"]["additionalContext"]
@@ -303,11 +326,6 @@ class OutputTest(unittest.TestCase):
     def test_codex_exec_run_gets_no_context(self):
         out = self.run_main(tempfile.mkdtemp(), transcript_path=self.transcript("codex_exec"))
         self.assertEqual("", out)
-
-    def test_interactive_claude_session_still_gets_the_loader_line(self):
-        with mock.patch.dict(os.environ, {"CLAUDE_CODE_ENTRYPOINT": "cli"}):
-            context = self.context(tempfile.mkdtemp())
-        self.assertIn("manager:manager skill", context)
 
     def test_interactive_codex_session_still_gets_the_loader_line(self):
         context = self.context(tempfile.mkdtemp(), transcript_path=self.transcript("Codex Desktop"))

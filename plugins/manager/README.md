@@ -125,8 +125,10 @@ system prompt with their own and so ignore the `agent` setting, such as
 Claude Code project threads on claude.ai. The hook adds a context line rather
 than a system prompt, so the model still has to follow it. A session already
 running as the `manager` agent keeps its role. A `claude -p` or Agent SDK run,
-such as a scripted writer or judge, gets nothing from the hook, and the hook
-runs no fetch in its repository. To opt out, disable the plugin or set
+such as a scripted writer or judge, gets nothing from the hook. The hook's
+branch-currency fetch runs only in a session it recognises as interactive
+(the terminal, VS Code, or the desktop app); any other session gets the
+loading line without it. To opt out, disable the plugin or set
 `disableAllHooks`.
 
 Codex sessions use the trusted plugin hook to load the `manager` skill.

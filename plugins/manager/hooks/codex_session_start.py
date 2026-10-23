@@ -5,9 +5,11 @@ remote default branch and the branch's upstream with one bounded, non-interactiv
 per remote, and say when HEAD lacks commits either has, so claims about what exists now
 are read from the remote rather than the stale tree. Each ref in the notice says whether
 it was refreshed now or is only as current as an earlier fetch. The whole check stays
-inside the hook's 5 s limit, and any failure still leaves the loader line. A scripted
-one-shot run (`claude -p`, the Agent SDK, `codex exec`) gets neither: no context line and
-no fetch, so the hook writes nothing into its repository.
+inside the hook's 5 s limit, and any failure still leaves the loader line. The fetch runs
+only in a session confirmed interactive. A scripted one-shot run (`claude -p`, the Agent
+SDK, `codex exec`) gets neither the loader line nor the fetch, and a session the hook cannot
+place gets the loader line without the fetch, so the hook writes nothing into the repository
+of a run nobody is driving.
 """
 
 import json
@@ -213,27 +215,43 @@ def currency_notice(cwd):
 
 # Claude Code sets CLAUDE_CODE_ENTRYPOINT for its hook commands: "sdk-cli" in a `claude -p`
 # run, "sdk-ts" or "sdk-py" under the Agent SDK, "cli" in an interactive terminal session.
-CLAUDE_ONE_SHOT_ENTRYPOINTS = {"sdk-cli", "sdk-ts", "sdk-py"}
+CLAUDE_ONE_SHOT = {"sdk-cli", "sdk-ts", "sdk-py"}
+CLAUDE_INTERACTIVE = {"cli", "claude-vscode", "claude-desktop"}
+# Codex rollout originators: the terminal, VS Code, and desktop app; `codex exec` is codex_exec.
+CODEX_INTERACTIVE = {"codex_cli_rs", "codex_vscode", "Codex Desktop"}
 
 
-def one_shot_run(event):
-    """A scripted one-shot run (a writer or judge another agent launches, or its subagent)
-    works under its directive's charter and leaves the repository untouched, so the hook adds
-    nothing and fetches nothing. `claude -p` and the Agent SDK are named by the entrypoint;
-    a `codex exec` run records originator codex_exec in its rollout's first line, which
-    exists when SessionStart runs. Anything unrecognised counts as interactive."""
-    if os.environ.get("CLAUDE_CODE_ENTRYPOINT") in CLAUDE_ONE_SHOT_ENTRYPOINTS:
-        return True
+def codex_originator(event):
+    """A Codex rollout's first line, which exists when SessionStart runs, names its
+    originator: codex_exec for a `codex exec` run. None when there is no readable rollout."""
     try:
         with open(event.get("transcript_path") or "", encoding="utf-8") as transcript:
-            return json.loads(transcript.readline())["payload"]["originator"] == "codex_exec"
+            return json.loads(transcript.readline())["payload"]["originator"]
     except (OSError, ValueError, KeyError, TypeError):
-        return False
+        return None
+
+
+def run_kind(event):
+    """Return "one-shot" for a scripted run (a writer or judge another agent launches, or its
+    subagent), which works under its directive's charter; "interactive" for a session a person
+    drives; "unknown" otherwise. Only an interactive session may write to the repository."""
+    originator = codex_originator(event)
+    if originator == "codex_exec":
+        return "one-shot"
+    if originator is not None:
+        return "interactive" if originator in CODEX_INTERACTIVE else "unknown"
+    entrypoint = os.environ.get("CLAUDE_CODE_ENTRYPOINT")
+    if entrypoint in CLAUDE_ONE_SHOT:
+        return "one-shot"
+    return "interactive" if entrypoint in CLAUDE_INTERACTIVE else "unknown"
 
 
 def main():
     event = json.load(sys.stdin)
-    if event.get("hook_event_name") != "SessionStart" or one_shot_run(event):
+    if event.get("hook_event_name") != "SessionStart":
+        return
+    kind = run_kind(event)
+    if kind == "one-shot":
         return
 
     root = Path(__file__).resolve().parents[1]
@@ -247,10 +265,12 @@ def main():
         f"{direct_start}#direct-start. "
         "Apply the current project's own instructions and bindings."
     )
-    try:
-        notice = currency_notice(event.get("cwd") or ".")
-    except Exception:  # the loader line must survive any git surprise
-        notice = None
+    notice = None
+    if kind == "interactive":
+        try:
+            notice = currency_notice(event.get("cwd") or ".")
+        except Exception:  # the loader line must survive any git surprise
+            pass
     if notice:
         context += "\n\n" + notice
     print(json.dumps({

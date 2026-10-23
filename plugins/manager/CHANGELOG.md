@@ -15,6 +15,8 @@ route exists, like the other families.
 SDK run, such as a writer or judge another agent launches, no longer gets the
 Manager loader line or runs the branch-currency fetch, so the hook writes
 nothing into that run's repository. `codex exec` runs already worked this way.
+The fetch now runs only in a session the hook recognises as interactive; a
+session it cannot place still gets the loader line, without the fetch.
 
 ## [0.26.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.4...manager-0.26.5) (2026-10-23)
 
