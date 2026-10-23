@@ -1,8 +1,6 @@
 ---
 name: code-worker
 description: Executes one bounded code-production slice from a Manager directive.
-model: opus
-effort: low
 skills:
   - principles
   - code-production

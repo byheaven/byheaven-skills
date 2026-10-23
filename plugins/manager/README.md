@@ -39,8 +39,9 @@ merge grants are used only when the project or the user has defined them.
 Pull requests are merged without asking only under a standing grant the user
 has recorded in their own instructions.
 
-The `verifier` and `code-worker` agents pin `model: opus`; change the agent
-frontmatter if you prefer another model.
+The `verifier` and `code-worker` agents pin no model or effort, so they run on
+the host's default; add `model` or `effort` to the agent frontmatter to choose
+another.
 
 ## Installation
 
