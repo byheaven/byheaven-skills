@@ -4,7 +4,9 @@
 Fails when a shared file names a host, a host tool or variable, a model, or a model CLI, and when
 any plugin file carries deployment data such as an agent id, a private path, an email address, or a
 notes-vault link. Shared files are everything under plugins/*/skills and plugins/*/agents except the
-adapter files in ADAPTER and license texts. It catches known patterns only; review judges meaning.
+adapter files in ADAPTER, license texts, and the frontmatter of agent role files, which hosts that
+register agents read. Deployment data is checked everywhere. It catches known patterns only; review
+judges meaning.
 Usage: check-portability.py [repo root].
 """
 
@@ -31,7 +33,8 @@ HOST = re.compile(
     r"(?i:\bclaude\b(?!\.md)|\bcodex\b|\bgrok\b|\bgemini\b|chatgpt|\bgpt\b|openai(?!\.yaml)|deepseek"
     r"|\b(?:claude|gpt|grok|gemini|deepseek|o\d)-\w*\d)"
     r"|\bCursor\b|\b(?:Opus|Sonnet|Haiku)\b"
-    r"|AskUserQuestion|request_user_input|EnterWorktree|ExitWorktree|TodoWrite|TaskCreate"
+    r"|AskUserQuestion|request_user_input|EnterWorktree|ExitWorktree|TodoWrite"
+    r"|\bTask(?:Create|Update|List|Get|Output|Stop)\b|ScheduleWakeup|CronCreate"
     r"|SendMessage|spawn_agent|fork_turns|\bAgent tool\b|\bfunctions\.\w+|\bcollaboration\.\w+|\bmcp__\w+"
     r"|(?<!\$\{)CLAUDE_\w+|CLAUDE_(?!PLUGIN_ROOT\})\w+|(?<!CLAUDE_)\bPLUGIN_ROOT\b"
     r"|\bclaude -p\b|\bcodex exec\b|\bgrok -p\b|\bcursor-agent\b"
@@ -50,15 +53,22 @@ def scan(root):
     adapter = {p for pattern in ADAPTER for p in root.glob(pattern)}
     hits = []
     for path in sorted(root.glob("plugins/**/*")):
-        if not path.is_file() or LICENSE.match(path.name):
+        if not path.is_file():
             continue
         data = path.read_bytes()
         if b"\0" in data:
             continue  # binary asset
         rel = path.relative_to(root)
-        shared = rel.parts[2] in ("skills", "agents") and path not in adapter
-        for number, line in enumerate(data.decode("utf-8", "replace").splitlines(), 1):
-            for kind, pattern in (("deployment", DEPLOY), ("host", HOST if shared else None)):
+        shared = (rel.parts[2] in ("skills", "agents") and path not in adapter
+                  and not LICENSE.match(path.name))
+        role = rel.parts[2] == "agents" and len(rel.parts) == 4
+        lines = data.decode("utf-8", "replace").splitlines()
+        frontmatter = 0
+        if role and lines and lines[0] == "---":
+            frontmatter = next((i for i, line in enumerate(lines[1:], 2) if line == "---"), 0)
+        for number, line in enumerate(lines, 1):
+            host = HOST if shared and number > frontmatter else None
+            for kind, pattern in (("deployment", DEPLOY), ("host", host)):
                 match = pattern.search(line) if pattern else None
                 if match:
                     hits.append(f"{rel}:{number}: {kind} `{match.group(0)}`")

@@ -25,10 +25,10 @@ own document rules load with that workspace.
 
 - The roundtable stays user-invoked in Codex too, keeps its seat roster next
   to its routes, and asks you exact questions through your host's question
-  route.
-- `writing-for-agents` names the user-invoked metadata of each host.
+  route
+- `writing-for-agents` names the user-invoked metadata of each host
 - The `content-creator` skill no longer shows a stale version of its own, so
-  the manager plugin's version is the only one to compare when updating.
+  the manager plugin's version is the only one to compare when updating
 
 ## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
 

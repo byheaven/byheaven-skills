@@ -38,9 +38,9 @@ Every Seat receives exactly these four fields:
 3. **Original Sources**: one list of links or paths to the original material, the same for every Seat. Seats read the originals themselves.
 4. **Operational Constraints**: Seat label, source mode, reply language, read-only limits, allowed search surface, and how to report sources.
 
-User Question, Objective Context, and Original Sources are identical across Seats; Operational Constraints differ only by Seat label, source mode, and search surface. The Host's own goals, criteria, suspicions, preferred lenses, or summaries of the sources stay out of the packet: they anchor the answers before the Seats have reasoned. When choosing the source list could change the answer, confirm it through the user-question tool before any Seat runs.
+User Question, Objective Context, and Original Sources are identical across Seats; Operational Constraints differ only by Seat label, source mode, and search surface. The Host's own goals, criteria, suspicions, preferred lenses, or summaries of the sources stay out of the packet: they anchor the answers before the Seats have reasoned. When choosing the source list could change the answer, the user-question tool asks before any Seat runs: "These are the sources every Seat will read: <list>. Use them as they are?"
 
-Private material stays out of public search queries unless the user approves sending it. When the question itself cannot safely reach a search Seat, use the user-question tool to ask whether to disable that Seat for the run; the User Question is never edited to make it safe.
+Private material stays out of public search queries unless the user approves sending it. When the question itself cannot safely reach a search Seat, the user-question tool asks: "The question would reach public search through @<Seat>. Disable @<Seat> for this run?"; the User Question is never edited to make it safe.
 
 ## Defaults
 

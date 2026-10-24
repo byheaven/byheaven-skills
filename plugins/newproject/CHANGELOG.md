@@ -11,7 +11,7 @@ newproject no longer names hosts or depends on the manager plugin's files.
 ### Improvements
 
 - A new project's `AGENTS.md` addresses any AI coding agent instead of naming
-  particular tools.
+  particular tools
 
 ### Bug Fixes
 

@@ -26,7 +26,8 @@ class CheckPortabilityTest(unittest.TestCase):
     def test_flags_host_coupling_in_shared_files(self):
         for line in ("Use codex for every task.", "Ask with AskUserQuestion.",
                      'root = os.environ["CLAUDE_PLUGIN_ROOT"]', "Call functions.exec_command.",
-                     "Run claude -p here.", "Pick gpt-6 for this.", "Read $PLUGIN_ROOT/x."):
+                     "Run claude -p here.", "Pick gpt-6 for this.", "Read $PLUGIN_ROOT/x.",
+                     "Use TaskOutput to wait."):
             with self.subTest(line=line):
                 self.assertTrue(scan({SHARED: line}))
 
@@ -39,6 +40,12 @@ class CheckPortabilityTest(unittest.TestCase):
     def test_flags_shared_files_with_any_extension_or_license_like_name(self):
         self.assertTrue(scan({"plugins/demo/skills/demo/run.mjs": "codex"}))
         self.assertTrue(scan({"plugins/demo/skills/demo/LICENSE-routing.md": "codex"}))
+        self.assertTrue(scan({"plugins/demo/skills/demo/LICENSE-routing": "4fe92719-bf44-4dfd-8423-4e78476761f0"}))
+
+    def test_role_frontmatter_is_adapter_but_body_is_shared(self):
+        role = "plugins/demo/agents/worker.md"
+        self.assertEqual(scan({role: "---\nname: worker\nmodel: claude-sonnet-4-6\n---\n\nWork.\n"}), [])
+        self.assertTrue(scan({role: "---\nname: worker\n---\n\nUse spawn_agent.\n"}))
 
     def test_accepts_capabilities_placeholder_and_adapters(self):
         self.assertEqual(scan({

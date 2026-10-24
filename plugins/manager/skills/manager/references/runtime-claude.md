@@ -12,7 +12,7 @@ The plugin's agents register as `manager:<role>`: dispatch a worker or verifier 
 
 ## Waits
 
-A wait resumes this conversation through a background command that exits on the terminal signal or the deadline: run [pr_wait.py](../scripts/pr_wait.py) with Bash `run_in_background`, or a `Monitor` whose command ends on that signal. Its exit notification wakes this conversation. Polling in the foreground is not the wait.
+A wait resumes this conversation through a background command that exits on the terminal signal or the deadline: run [pr_wait.py](../scripts/pr_wait.py) with Bash `run_in_background`, or, for a wait under its 30-minute cap, a `Monitor` whose command ends on that signal. The exit notification wakes this conversation. Polling in the foreground is not the wait.
 
 ## Worktree
 
