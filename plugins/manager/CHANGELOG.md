@@ -24,13 +24,14 @@ covers designs, not plans.
 
 ### Improvements
 
-- **Competing candidates** Selection fixes three to six criteria before
-  fan-out, has Manager and a judge from another family score independently
-  and compare, and reframes the task when candidates diverge widely
+- **Competing candidates** Selection fixes its criteria before fan-out, has
+  Manager and a judge from another family score independently and compare,
+  and reframes the task instead of averaging when candidates diverge too far
+  to pick
 - **Experience gate** Heavy and medium versions are drafted by producers from
   different model families where available
-- **Code production** Structure starts from the README-style usage and real
-  call sites, then derives the types from them
+- **Code production** A new or reshaped interface starts from its README-style
+  usage and real call sites, then derives the types from them
 - **Basis line** Names only the principles that changed the choice and what
   each ruled in or out
 - **Independent derivation** An unavailable or out-of-quota family falls back

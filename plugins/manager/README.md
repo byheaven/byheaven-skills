@@ -37,7 +37,8 @@ Pull requests are merged without asking only under a standing grant the user
 has recorded in their own instructions.
 
 The `verifier` and `code-worker` agents pin no model or effort, so they run on
-the host's default; add `model` or `effort` to the agent frontmatter to choose
+the model your deployment's model routing names, or else the host's default;
+add `model` or `effort` to the agent frontmatter to choose
 another.
 
 ## Installation
