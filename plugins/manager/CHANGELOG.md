@@ -1,6 +1,15 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.29.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.0...HEAD)
+
+## [0.30.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.29.0...manager-0.30.0) (2026-10-24)
+
+**Restatements cite what you decided before** — Before restating your
+request, Manager looks up the decisions, experiments, and records it touches
+and cites them as the evidence for the intent it infers and for or against
+each of your assumptions. In a blind replay of three real cases this raised
+intent capture on both ambiguous requests and left clear questions answered
+directly.
 
 ## [0.29.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.28.0...manager-0.29.0) (2026-10-24)
 
