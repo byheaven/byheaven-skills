@@ -2,8 +2,9 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...HEAD)
 
-The `content-creator` skill no longer carries its own `version` field; the
-plugin version in the marketplace is the only one.
+**One version number to check** — The `content-creator` skill no longer
+shows a stale version of its own, so the manager plugin's version is the
+only one you need to compare when updating.
 
 ## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
 

@@ -12,7 +12,7 @@
   - **grilling** — 一轮轮追问，压力测试计划或想法直到收敛
   - **writing-for-agents** — 如何编写供 Agent 遵循的 skill、规则与指令
   - **experience-design** — 设计用户的体验：从任务与旅程，到界面及其文字
-  - **content-creator** — 文案、文章与文档的写作简报与起草方法
+  - **content-creator** — 文案、文章与文档的写作简报与起草方法；对你本人的帖子、文章与书籍只做辅助，不代写
   - **code-production** — 单个有界改动的代码编写与检查方法
   - **roundtable** — 向多个模型家族提出同一问题并对比回答（仅由你手动调用）
   - **principles** — 人机协作原则 P1–P3 与操作基线
@@ -34,6 +34,10 @@
 ```bash
 npx skills add byheaven/byheaven-skills
 ```
+
+## 参与贡献
+
+新增 skill、提交规范与 PR 流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 许可证
 
