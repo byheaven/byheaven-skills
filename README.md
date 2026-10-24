@@ -18,7 +18,7 @@ helps you ship faster.
   - **code-production** — Code editing and checking method for one bounded change
   - **roundtable** — Ask several model families the same question and compare their answers (invoked by you only)
   - **principles** — Human-Agent Principles P1–P3 and the operational baseline
-- **cache-timer** — Claude Code mod: prompt-cache countdown in a band above the prompt, and compaction of a large conversation just before its cache expires, switchable from the band
+- **cache-timer** — Claude Code mod: prompt-cache countdown in a band above the prompt, with Claude Code's own idle compaction shown and its switch and threshold set from the band
 - **newproject** — Self-contained full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning
 
 ## Installation

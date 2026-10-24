@@ -12,8 +12,6 @@ export type CacheClock = {
   isTtlObserved: boolean
   /** True once the transcript reported the lifetime of a cache write; inference then stands aside. */
   isTtlExact: boolean
-  /** The lastAt value an automatic compaction was already attempted for. */
-  handledAt: number | null
   /** The lastAt value an expiry notification was already sent for. */
   notifiedAt: number | null
   /** The session's name, as the last prompt reported it. */

@@ -17,7 +17,6 @@ const initial: CacheClock = {
   ttl: '1h',
   isTtlObserved: false,
   isTtlExact: false,
-  handledAt: null,
   notifiedAt: null,
   title: null,
   question: null,
@@ -38,7 +37,7 @@ export function ttlFromTranscriptTail(tail: string): CacheTtl | null {
   for (let i = lines.length - 1; i >= 0; i -= 1) {
     let entry: unknown
     try {
-      entry = JSON.parse(lines[i])
+      entry = JSON.parse(lines[i] ?? '')
     } catch {
       continue
     }
@@ -105,7 +104,7 @@ export function questionOf(reply: string): string | null {
 
 /** What the band shows, set by the clock's tick. */
 type View = {
-  /** Time left (`54:12`), `expired`, `compacting…`, or `—` before a request. */
+  /** Time left (`54:12`), `expired`, or `—` before a request. */
   time: string
   /** Lifetime and tokens against the threshold: `1h · 612k/500k`. */
   detail: string
@@ -127,8 +126,6 @@ const formatRemaining = (ms: number): string => {
 }
 
 const formatK = (tokens: number): string => `${Math.round(tokens / 1000)}k`
-
-let isCompacting = false
 
 const setView = ($: EngineInterface, next: View): void => {
   if (next.time !== view.time || next.detail !== view.detail || next.left !== view.left) {
@@ -181,80 +178,112 @@ async function setOption($: EngineInterface, field: string, value: boolean | num
     overrides = { ...overrides, [field]: value }
     $.ui.invalidate('ui.render')
     await saveOverrides($)
+  } else {
+    const result = await $.config.set({ key, value })
 
-    return
-  }
-
-  const result = await $.config.set({ key, value })
-
-  if ('deny' in result && result.deny !== undefined) {
-    $.ui.toast(`cache-timer: ${field} not changed (${result.deny})`)
-  }
-}
-
-// A session with no person at the prompt (-p, the SDK, and so every
-// desktop-app session) refuses $.session.compact(): compaction there runs as
-// a /compact prompt, which $.command.run queues as if the person typed it.
-let isHeadless = false
-
-async function queueCompact($: EngineInterface, s: CacheClock): Promise<void> {
-  // One attempt per idle period: the /compact that runs resets the clock
-  // through the session.compact hook; one that never runs is not repeated.
-  update($, prev => ({ ...prev, handledAt: s.lastAt }))
-
-  try {
-    await $.command.run({ command: 'compact' })
-    $.ui.toast(`cache-timer: ran /compact before cache expiry (${formatK(s.tokens)})`)
-  } catch (err) {
-    $.ui.toast(`cache-timer: could not run /compact (${String(err)})`)
-  }
-}
-
-async function compactBeforeExpiry($: EngineInterface, s: CacheClock): Promise<void> {
-  isCompacting = true
-  setView($, { time: 'compacting…', detail: formatK(s.tokens), left: null })
-
-  try {
-    if (isHeadless) {
-      await queueCompact($, s)
+    if ('deny' in result && result.deny !== undefined) {
+      $.ui.toast(`cache-timer: ${field} not changed (${result.deny})`)
 
       return
     }
+  }
 
-    const result = await $.session.compact()
+  if (field === 'threshold_k') {
+    await applyThreshold($, Number(value))
+  }
+}
 
-    if (result.skip !== undefined) {
-      update($, prev => ({ ...prev, handledAt: s.lastAt }))
-      $.ui.toast(`cache-timer: auto-compaction skipped (${result.skip})`)
-    } else {
-      // The engine skips the caller's own session.compact hook, so the reset
-      // that hook does for other compactions happens here.
-      update($, prev => ({ ...prev, lastAt: null, tokens: result.tokensAfter ?? 0, handledAt: null }))
-      const after = result.tokensAfter === undefined ? '' : ` → ${formatK(result.tokensAfter)}`
-      $.ui.toast(`compacted before cache expiry: ${formatK(s.tokens)}${after}`)
+// Claude Code's own idle compaction compacts a long conversation shortly
+// before its 1-hour cache expires. Its /config row exists only where the
+// engine runs it; the row's value is the person's switch.
+type IdleCompaction = 'on' | 'off' | 'unavailable'
+
+const IDLE_ROW = 'idleCompaction'
+
+// Claude Code raises a lower idle-compaction minimum to this floor, and uses
+// its default when the variable is unset or not a positive whole number.
+const IDLE_FLOOR_K = 100
+const IDLE_DEFAULT_K = 200
+
+// The minimum Claude Code reads now, in thousands of tokens: what the band
+// shows, whether or not the mod's own write went through.
+let appliedK = IDLE_DEFAULT_K
+
+let idle: IdleCompaction = 'unavailable'
+
+const setIdleState = ($: EngineInterface, next: IdleCompaction): void => {
+  if (next !== idle) {
+    idle = next
+    $.ui.invalidate('ui.render')
+  }
+}
+
+async function readIdle($: EngineInterface): Promise<void> {
+  try {
+    const row = (await $.config.list()).find(r => r.key === IDLE_ROW)
+    setIdleState($, row === undefined ? 'unavailable' : row.value === false ? 'off' : 'on')
+  } catch {
+    // An unreadable menu leaves the last state shown.
+  }
+}
+
+async function setIdle($: EngineInterface, value: boolean): Promise<void> {
+  try {
+    const result = await $.config.set({ key: IDLE_ROW, value })
+
+    if ('deny' in result && result.deny !== undefined) {
+      $.ui.toast(`cache-timer: idle compaction not changed (${result.deny})`)
+
+      return
+    }
+    setIdleState($, value ? 'on' : 'off')
+  } catch (err) {
+    $.ui.toast(`cache-timer: idle compaction not changed (${String(err)})`)
+  }
+}
+
+async function readThreshold($: EngineInterface): Promise<void> {
+  try {
+    const raw = await $.env.get('CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS')
+    const tokens = raw !== undefined && /^\d+$/.test(raw) && Number(raw) >= 1 ? Number(raw) : IDLE_DEFAULT_K * 1000
+    const next = Math.max(IDLE_FLOOR_K, Math.round(tokens / 1000))
+
+    if (next !== appliedK) {
+      appliedK = next
+      $.ui.invalidate('ui.render')
     }
   } catch {
-    // A turn is running: compact rejects until it ends, and handledAt stays
-    // unset so a later tick tries again if the turn ends without a response.
-  } finally {
-    isCompacting = false
+    // An unreadable environment leaves the last value shown.
   }
+}
+
+// Claude Code reads its idle-compaction minimum from this process's
+// environment on every check, so setting it takes effect at once.
+async function applyThreshold($: EngineInterface, k: number): Promise<void> {
+  try {
+    const result = await $.env.set('CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS', String(Math.round(Math.max(IDLE_FLOOR_K, k) * 1000)))
+
+    if (result.deny !== undefined) {
+      $.ui.toast(`cache-timer: idle-compaction threshold not set (${result.deny})`)
+    }
+  } catch (err) {
+    $.ui.toast(`cache-timer: idle-compaction threshold not set (${String(err)})`)
+  }
+
+  await readThreshold($)
 }
 
 export const register: Register = (on, options) => {
   const option = (field: string, fallback: boolean | number) => overrides[field] ?? options[field] ?? fallback
-  const isAutoCompact = () => option('auto_compact', true) !== false
   const isNotify = () => option('notify', true) !== false
   const notifyLeadMin = () => Number(option('notify_lead_minutes', 10))
   const thresholdK = () => Number(option('threshold_k', 500))
   const ttlMode = String(options.cache_ttl ?? 'auto')
-  const leadMs: Record<CacheTtl, number> = {
-    '1h': Number(options.lead_seconds_1h ?? 300) * 1000,
-    '5m': Number(options.lead_seconds_5m ?? 60) * 1000,
-  }
 
-  // Tokens against the compaction threshold while auto-compaction is on.
-  const tokensOf = (tokens: number): string => (isAutoCompact() ? `${formatK(tokens)}/${thresholdK()}k` : formatK(tokens))
+  // Tokens against the idle-compaction threshold where idle compaction can
+  // run: it is on and the cache lasts 1 hour.
+  const tokensOf = (tokens: number, ttl: CacheTtl): string =>
+    idle === 'on' && ttl === '1h' ? `${formatK(tokens)}/${appliedK}k` : formatK(tokens)
 
   const effectiveTtl = (s: CacheClock): { ttl: CacheTtl; label: string } => {
     if (ttlMode === '1h' || ttlMode === '5m') {
@@ -308,7 +337,7 @@ export const register: Register = (on, options) => {
     return result
   })
 
-  // Any compaction (manual, automatic, ours) replaces the cached prefix.
+  // Any compaction (manual, automatic, idle) replaces the cached prefix.
   on('session.compact', async ($, e, next) => {
     const result = await next(e)
 
@@ -317,14 +346,12 @@ export const register: Register = (on, options) => {
         ...prev,
         lastAt: null,
         tokens: result.tokensAfter ?? 0,
-        handledAt: null,
       }))
     }
 
     return result
   })
 
-  // At the end of each main turn, take the exact lifetime from the transcript.
   // The session's name, for the notification.
   on('classic.UserPromptSubmit', async ($, e, next) => {
     if (e.session_title !== undefined && e.session_title !== clock.title) {
@@ -334,9 +361,12 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
+  // At the end of each main turn, take the exact lifetime from the transcript,
+  // and look again whether idle compaction runs.
   on('classic.Stop', async ($, e, next) => {
     const result = await next(e)
     update($, prev => ({ ...prev, question: questionOf(e.last_assistant_message ?? '') }))
+    await readIdle($)
 
     try {
       const ran = await $.process.run(['tail', '-c', String(TRANSCRIPT_TAIL_BYTES), e.transcript_path])
@@ -367,23 +397,27 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
-  // A change made in /config wins over one the band kept in the store.
+  // A change made in /config wins over one the band kept in the store; the
+  // idle-compaction switch flipped there shows in the band.
   on('config.set', async ($, e, next) => {
     const result = await next(e)
+    const isWritten = !('deny' in result && result.deny !== undefined)
     const field = e.key.startsWith('cache-timer') ? e.key.slice(e.key.lastIndexOf('.') + 1) : undefined
 
-    if (field !== undefined && field in overrides && !('deny' in result && result.deny !== undefined)) {
+    if (field !== undefined && field in overrides && isWritten) {
       const { [field]: _dropped, ...rest } = overrides
       overrides = rest
       await saveOverrides($)
+    }
+
+    if (e.key === IDLE_ROW && isWritten) {
+      setIdleState($, e.value === false ? 'off' : 'on')
     }
 
     return result
   })
 
   on('session.start', async ($, e, next) => {
-    isHeadless = !e.isInteractive
-
     try {
       const saved = await $.store.get(OVERRIDES_KEY)
 
@@ -394,6 +428,9 @@ export const register: Register = (on, options) => {
     } catch {
       // No saved settings: the manifest's values apply.
     }
+
+    await applyThreshold($, thresholdK())
+    await readIdle($)
 
     try {
       const saved = (await $.store.get(storeKey(await $.session.id()))) as CacheClock | undefined
@@ -406,30 +443,24 @@ export const register: Register = (on, options) => {
     }
 
     $.clock.every(1000, async () => {
-      if (isCompacting) {
-        return
-      }
-
       const s = clock
       const { ttl, label } = effectiveTtl(s)
 
       if (s.lastAt === null) {
-        setView($, { time: '—', detail: s.tokens > 0 ? tokensOf(s.tokens) : '', left: null })
+        setView($, { time: '—', detail: s.tokens > 0 ? tokensOf(s.tokens, ttl) : '', left: null })
 
         return
       }
 
       const remaining = TTL_MS[ttl] - ((await $.clock.now()) - s.lastAt)
-      const isLarge = isAutoCompact() && s.tokens >= thresholdK() * 1000
 
       if (remaining <= 0) {
-        setView($, { time: 'expired', detail: `${label} · ${tokensOf(s.tokens)}`, left: 0 })
+        setView($, { time: 'expired', detail: `${label} · ${tokensOf(s.tokens, ttl)}`, left: 0 })
 
         return
       }
 
-      const willCompact = isLarge && s.handledAt !== s.lastAt
-      setView($, { time: formatRemaining(remaining), detail: `${label} · ${tokensOf(s.tokens)}`, left: remaining / TTL_MS[ttl] })
+      setView($, { time: formatRemaining(remaining), detail: `${label} · ${tokensOf(s.tokens, ttl)}`, left: remaining / TTL_MS[ttl] })
 
       // A 1h cache only: a 5m cache would notify after nearly every reply.
       if (isNotify() && ttl === '1h' && remaining <= notifyLeadMin() * 60_000 && s.notifiedAt !== s.lastAt) {
@@ -443,18 +474,14 @@ export const register: Register = (on, options) => {
             // No push tool or a refused call: the band still shows the countdown.
           })
       }
-
-      if (isLarge && remaining <= leadMs[ttl] && s.handledAt !== s.lastAt) {
-        await compactBeforeExpiry($, s)
-      }
     })
 
     return next(e)
   })
 
-  // The band above the prompt: the countdown, two state icons, and a gear that
-  // opens a row with the compaction and notification settings. A change
-  // writes the setting, which reloads the mod.
+  // The band above the prompt: the countdown, the idle-compaction and
+  // notification states, and a gear that opens a row with their settings. A
+  // change to one of the mod's fields writes it, which reloads the mod.
   on('ui.render', { component: 'AbovePrompt' }, ($, e, next) => {
     // The mobile app has no Select; it has not drawn mod UI so far either.
     if (e.props.hasSurvey || e.surface === 'mobile') {
@@ -464,7 +491,6 @@ export const register: Register = (on, options) => {
     const isDesktop = e.surface === 'desktop'
     const { Box, Button, Select, Text } = $.ui.resolve(e)
     const Svg = isDesktop ? $.ui.resolve(e).Svg : undefined
-    const auto = isAutoCompact()
     const notify = isNotify()
     const thresholdNow = thresholdK()
     const leadNow = notifyLeadMin()
@@ -477,6 +503,18 @@ export const register: Register = (on, options) => {
         <Svg source={icon(paths, isOn ? ON : OFF)} alt={`${alt} ${isOn ? 'on' : 'off'}`} width={14} height={14} />
       ) : (
         <Text color={isOn ? 'success' : 'inactive'}>{word}</Text>
+      )
+
+    const idleState =
+      Svg !== undefined ? (
+        <Box flexDirection="row" alignItems="center" gap={1}>
+          <Svg source={icon(COMPRESS, idle === 'on' ? ON : OFF)} alt={`idle compaction ${idle === 'unavailable' ? 'unavailable' : idle}`} width={14} height={14} />
+          {idle === 'unavailable' ? <Text dimColor>n/a</Text> : null}
+        </Box>
+      ) : idle === 'unavailable' ? (
+        <Text dimColor>idle n/a</Text>
+      ) : (
+        <Text color={idle === 'on' ? 'success' : 'inactive'}>idle</Text>
       )
 
     return (
@@ -496,7 +534,7 @@ export const register: Register = (on, options) => {
             <Text dimColor>{view.detail}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center" gap={1}>
-            {state(COMPRESS, auto, 'compact', 'auto-compact')}
+            {idleState}
             {state(BELL, notify, 'notify', 'notify')}
             <Button key="settings" label="⚙" plain dimColor={!isExpanded} onPress={() => {
               isExpanded = !isExpanded
@@ -506,7 +544,11 @@ export const register: Register = (on, options) => {
         </Box>
         {isExpanded ? (
           <Box flexDirection="row" alignItems="center" gap={1}>
-            <Button key="auto" label="compact" variant={auto ? 'primary' : 'secondary'} onPress={() => setOption($, 'auto_compact', !auto)} />
+            {idle === 'unavailable' ? (
+              <Text dimColor>idle compaction n/a</Text>
+            ) : (
+              <Button key="idle" label="idle compaction" variant={idle === 'on' ? 'primary' : 'secondary'} onPress={() => setIdle($, idle !== 'on')} />
+            )}
             <Select
               key="threshold"
               options={thresholds.map(k => ({ value: String(k), label: `≥${k}k` }))}
