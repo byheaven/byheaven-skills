@@ -27,6 +27,7 @@ class CheckPortabilityTest(unittest.TestCase):
         for line in ("Use codex for every task.", "Ask with AskUserQuestion.",
                      'root = os.environ["CLAUDE_PLUGIN_ROOT"]', "Call functions.exec_command.",
                      "Run claude -p here.", "Pick gpt-6 for this.", "Read $PLUGIN_ROOT/x.",
+                     "Read ${CLAUDE_PLUGIN_ROOT}/skills/x.md.",
                      "Use TaskOutput to wait."):
             with self.subTest(line=line):
                 self.assertTrue(scan({SHARED: line}))
@@ -50,7 +51,7 @@ class CheckPortabilityTest(unittest.TestCase):
     def test_accepts_capabilities_placeholder_and_adapters(self):
         self.assertEqual(scan({
             SHARED: "Ask through the host's user-question tool.\n"
-                    "Read ${CLAUDE_PLUGIN_ROOT}/skills/x.md and ~/<repo>.\n",
+                    "Read references/x.md and ~/<repo>.\n",
             ADAPTER: "Codex uses request_user_input and spawn_agent.\n",
             "plugins/demo/skills/demo/LICENSE": "Copyright Claude Shannon",
             "plugins/demo/hooks/hook.py": "os.environ['CLAUDE_PLUGIN_ROOT']",

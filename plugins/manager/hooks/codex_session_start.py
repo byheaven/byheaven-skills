@@ -266,7 +266,7 @@ def main():
     context = (
         "Default conversation role: Manager, the delivery role. At the start of this conversation, "
         "read and follow the manager:manager skill from this installed plugin: "
-        f"{skill}. The skill loads the full Manager role and principles. "
+        f"{skill}. The skill is the full Manager role and has you read the principles. "
         "For a task the user starts directly in this conversation, read "
         f"{direct_start}#direct-start. "
         "Apply the current project's own instructions and bindings."

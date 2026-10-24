@@ -27,8 +27,8 @@ ADAPTER = (
 LICENSE = re.compile(r"^LICENSE(-[A-Za-z0-9]+)?$")
 
 # Host and model names that are rare as ordinary words match in any case; Cursor, Opus, Sonnet,
-# and Haiku match only capitalized. `${CLAUDE_PLUGIN_ROOT}` is the one shared path placeholder, and
-# the `CLAUDE.md` and `agents/openai.yaml` file names are conventions every host's files share.
+# and Haiku match only capitalized. The `CLAUDE.md` and `agents/openai.yaml` file names are
+# conventions every host's files share.
 HOST = re.compile(
     r"(?i:\bclaude\b(?!\.md)|\bcodex\b|\bgrok\b|\bgemini\b|chatgpt|\bgpt\b|openai(?!\.yaml)|deepseek"
     r"|\b(?:claude|gpt|grok|gemini|deepseek|o\d)-\w*\d)"
@@ -36,7 +36,7 @@ HOST = re.compile(
     r"|AskUserQuestion|request_user_input|EnterWorktree|ExitWorktree|TodoWrite"
     r"|\bTask(?:Create|Update|List|Get|Output|Stop)\b|ScheduleWakeup|CronCreate"
     r"|SendMessage|spawn_agent|fork_turns|\bAgent tool\b|\bfunctions\.\w+|\bcollaboration\.\w+|\bmcp__\w+"
-    r"|(?<!\$\{)CLAUDE_\w+|CLAUDE_(?!PLUGIN_ROOT\})\w+|(?<!CLAUDE_)\bPLUGIN_ROOT\b"
+    r"|\bCLAUDE_\w+|\bPLUGIN_ROOT\b"
     r"|\bclaude -p\b|\bcodex exec\b|\bgrok -p\b|\bcursor-agent\b"
 )
 

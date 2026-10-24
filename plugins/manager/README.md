@@ -2,20 +2,17 @@
 
 `manager` packages one project-collaboration method for Claude Code, Codex, and
 Grok Bot. The
-`manager` agent delivers a locked Intent that the direction owner (the
-conversation where you settle project direction) hands it with your explicit
-authorization, and closes every Acceptance predicate through a qualified judge
+`manager` skill is the delivery role: it delivers a locked Intent that the
+direction owner (the conversation where you settle project direction) hands it
+with your explicit authorization, and closes every Acceptance predicate through a qualified judge
 before it claims completion.
 
 ## What It Includes
 
 ```text
-agents/manager            Manager role: Intake, Delivery, Coordination,
-                          Continuation, Completion, plus a verbatim copy of
-                          the principles (CI checks it matches)
+skills/manager            Manager role: Intake, Delivery, Coordination,
+                          Continuation, Completion; reads skills/principles
 skills/principles         Human-Agent Principles P1-P3 and operational baseline
-skills/manager            Loader that points runtimes without the agent to
-                          agents/manager.md
   references/             direction (Grill, handoff), experience gates,
                           production topology, evidence, repository
                           integration, runtime notes per host
@@ -74,8 +71,9 @@ references remain the same files used by Claude Code. It creates no task
 record and adds no task-store or machine-specific binding.
 
 Plugin hooks are not supported in cloud-orchestrated ChatGPT Work. A cloud
-host must make the complete plugin available and provide its own supported
-skill-loading entry. Installing the skills alone omits the Manager role.
+host loads the `manager` skill, with its sibling skills, through its own
+skill-loading entry; with the skills alone the role works, but the worker and
+verifier agents are absent.
 See [plugin support](https://learn.chatgpt.com/docs/plugins).
 
 ### Other skill-based tools
@@ -84,12 +82,11 @@ See [plugin support](https://learn.chatgpt.com/docs/plugins).
 npx skills add byheaven/byheaven-skills
 ```
 
-This installs the skills only, without the plugin's `agents/` directory, so
-the Manager role is not available this way: the `manager` skill reports an
-incomplete install instead of loading a role. Use the `principles`,
-`code-production`, `experience-design`, `grilling`, `roundtable`, and `writing-for-agents` skills
-on their own,
-or install the full plugin.
+This installs the skills only, without the plugin's `agents/` directory or
+hooks. The `manager` skill still carries the whole Manager role; invoke it at
+the start of a delivery conversation. The worker and verifier agents come only
+with the full plugin, so without them Manager produces each slice itself and
+finds another carrier for independent verification.
 
 `skills/grilling` and `skills/writing-for-agents` are adapted from
 [mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
@@ -106,25 +103,13 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 ## Usage
 
-In Claude Code, start sessions as the `manager:manager` agent so the role and
-principles are in the system prompt from the first turn:
-
-```json
-{ "agent": "manager:manager" }
-```
-
-Put that in `~/.claude/settings.json` for every session, or run
-`claude --agent manager:manager` for one session. A skill cannot be preloaded
-into a main-session agent, so the agent file carries the role text itself.
-
-The plugin's `hooks/hooks.json` also runs the Codex `SessionStart` hook in
-every Claude Code session where the plugin is enabled, so Manager is the
-default delivery role there: each new, resumed, cleared, or compacted session is told
-to load the `manager` skill. This covers hosts that replace the main-session
-system prompt with their own and so ignore the `agent` setting, such as
-Claude Code project threads on claude.ai. The hook adds a context line rather
-than a system prompt, so the model still has to follow it. A session already
-running as the `manager` agent keeps its role. A `claude -p` or Agent SDK run,
+In Claude Code, the plugin's `hooks/hooks.json` runs the `SessionStart` hook in
+every session where the plugin is enabled, so Manager is the default delivery
+role: each new, resumed, cleared, compacted, or forked session is told to load the
+`manager` skill, which is the whole role. The hook adds a context line rather
+than a system prompt, so the model still has to follow it. There is no
+`manager` agent: remove any `"agent": "manager:manager"` setting or
+`--agent manager:manager` flag left from an earlier version. A `claude -p` or Agent SDK run,
 such as a scripted writer or judge, gets nothing from the hook. The hook's
 branch-currency fetch runs only in a session it recognises as interactive
 (the terminal, VS Code, or the desktop app); any other session gets the
@@ -132,7 +117,7 @@ loading line without it. To opt out, disable the plugin or set
 `disableAllHooks`.
 
 Codex sessions use the trusted plugin hook to load the `manager` skill.
-Where neither an agent nor plugin hooks are available, invoke the `manager`
+Where plugin hooks are not available, invoke the `manager`
 skill at the start of a delivery conversation, or name its complete installed
 path in the repository's `CLAUDE.md` or `AGENTS.md`.
 
@@ -140,7 +125,7 @@ path in the repository's `CLAUDE.md` or `AGENTS.md`.
 
 Grok Bot has no plugin hook. A Manager there is one persistent bot per project
 with one long-lived conversation; it receives handoffs from the direction
-owner bot as agent-to-agent messages. Load the `manager` skill at the start, which loads
+owner bot as agent-to-agent messages. Load the `manager` skill at the start, which is
 the role, and read `skills/manager/references/runtime-grokbot.md` before a
 native action. The role, principles, and other references are the same files
 Claude Code and Codex use. Which bots own direction, take your questions,

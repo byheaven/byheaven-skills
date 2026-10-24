@@ -4,11 +4,11 @@ Read only when running in Codex. This file maps Manager requirements to Codex me
 
 ## Loading
 
-The plugin's session-start hook ([codex.json](../../../hooks/codex.json)) runs only at `startup` and tells the new session to load the `manager` skill. Resume, clear, compaction, and `codex exec` runs get nothing from it; load the skill yourself there when you need the role. Skill and role text reaches you with `${CLAUDE_PLUGIN_ROOT}` unexpanded (Codex sets that variable only for plugin hook commands): resolve it to the installed plugin root, the directory that contains `agents/` and `skills/`, two levels above the `manager` skill's directory. Read the installed copy, not a repository checkout of this plugin, unless the task changes the plugin.
+The plugin's session-start hook ([codex.json](../../../hooks/codex.json)) runs only at `startup` and tells the new session to load the `manager` skill. Resume, clear, compaction, and `codex exec` runs get nothing from it; load the skill yourself there when you need the role. Read the installed copy, not a repository checkout of this plugin, unless the task changes the plugin.
 
 ## Roles and sub-agents
 
-The plugin's Codex manifest registers no agents, so an agent type the session offers under the same name is not established as the plugin's role. To dispatch a worker or verifier, start a sub-agent with the session's sub-agent tool, give it the role file's body, the full text of each skill its `skills:` frontmatter lists, and then the directive. Start it with fresh context, inheriting none of this conversation (with `spawn_agent`, `fork_turns="none"`): a verifier must judge independent of the producer's reasoning. The other frontmatter fields (`effort`, `memory`, `color`) have no Codex mapping and change nothing here.
+The plugin's Codex manifest registers no agents, so an agent type the session offers under the same name is not established as the plugin's role. When the plugin's `agents/` files are installed, dispatch a worker or verifier by starting a sub-agent with the session's sub-agent tool, give it the role file's body, the full text of each skill its `skills:` frontmatter lists, and then the directive. Start it with fresh context, inheriting none of this conversation (with `spawn_agent`, `fork_turns="none"`): a verifier must judge independent of the producer's reasoning. The other frontmatter fields (`effort`, `memory`, `color`) have no Codex mapping and change nothing here.
 
 Without a sub-agent tool, run the same assembled prompt as a one-shot `codex exec` in the worker's worktree, or produce the slice yourself under [Topology](production.md#topology). A Codex sub-agent runs one of Codex's own models, not another family: a cross-family judge needs a carrier for another family.
 
