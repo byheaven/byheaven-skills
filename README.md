@@ -10,7 +10,14 @@ helps you ship faster.
 
 ## Skills
 
-- **manager** — Project delivery role: take a locked, authorized Intent from the direction owner, deliver, verify independently with sub-agents
+- **manager** — Project delivery role: take a locked, authorized Intent from the direction owner, deliver, verify independently with sub-agents. Also bundles:
+  - **grilling** — Question rounds that stress-test a plan or idea until it converges
+  - **writing-for-agents** — How to write skills, rules, and directives that agents follow
+  - **experience-design** — Design what a person experiences, from the job and journey down to screens and their words
+  - **content-creator** — Writing brief and drafting method for copy, articles, and documents
+  - **code-production** — Code editing and checking method for one bounded change
+  - **roundtable** — Ask several model families the same question and compare their answers (invoked by you only)
+  - **principles** — Human-Agent Principles P1–P3 and the operational baseline
 - **cache-timer** — Claude Code mod: prompt-cache countdown in a band above the prompt, and compaction of a large conversation just before its cache expires, switchable from the band
 - **newproject** — Self-contained full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning
 

@@ -1,6 +1,5 @@
 ---
 name: content-creator
-version: 0.4.0
 description: "Writing brief and drafting method for any writing task (product and interface copy, articles, introductions, documents written to be read such as a Vision or a PRD, messages sent on the user's behalf), and how to assist the user's own posts, articles, and books without drafting them. Use before drafting or revising any of them, and whenever the user writes something to publish under his name."
 ---
 

@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...HEAD)
 
+The `content-creator` skill no longer carries its own `version` field; the
+plugin version in the marketplace is the only one.
+
 ## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
 
 **Your runtime binding picks the machine and model** — On Grok Bot, the
