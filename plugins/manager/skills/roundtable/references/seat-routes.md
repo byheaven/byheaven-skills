@@ -33,6 +33,8 @@ Shapes to confirm against `--help`, not a claim about any machine:
 
 A Grok Bot Host answering as `@Grok` uses its own X search tool for the required X search.
 
+The model and reasoning effort each Seat's CLI runs come from the deployment's model routing when the user's instructions name one, otherwise from that CLI's configured default.
+
 ## Seat prompt
 
 Wrap the shared packet in this envelope, filled per Seat:
