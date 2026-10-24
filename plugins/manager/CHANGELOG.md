@@ -15,9 +15,9 @@ verifier agents still come with the plugin.
 
 ### Breaking Changes
 
-- The `manager` agent is gone, so `manager:manager` is no longer an agent
-  type. Remove `"agent": "manager:manager"` from your Claude settings and any
-  `--agent manager:manager` flag; the hook loads the role instead
+- The `manager` agent and its `manager:manager` agent type are gone, so remove
+  `"agent": "manager:manager"` and any `--agent manager:manager` flag from your
+  Claude settings, since the hook now loads the role
 
 ## [0.27.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...manager-0.27.0) (2026-10-24)
 

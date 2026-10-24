@@ -71,8 +71,9 @@ references remain the same files used by Claude Code. It creates no task
 record and adds no task-store or machine-specific binding.
 
 Plugin hooks are not supported in cloud-orchestrated ChatGPT Work. A cloud
-host must make the complete plugin available and provide its own supported
-skill-loading entry. Installing the skills alone omits the Manager role.
+host loads the `manager` skill, with its sibling skills, through its own
+skill-loading entry; with the skills alone the role works, but the worker and
+verifier agents are absent.
 See [plugin support](https://learn.chatgpt.com/docs/plugins).
 
 ### Other skill-based tools
@@ -104,7 +105,7 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 In Claude Code, the plugin's `hooks/hooks.json` runs the `SessionStart` hook in
 every session where the plugin is enabled, so Manager is the default delivery
-role: each new, resumed, cleared, or compacted session is told to load the
+role: each new, resumed, cleared, compacted, or forked session is told to load the
 `manager` skill, which is the whole role. The hook adds a context line rather
 than a system prompt, so the model still has to follow it. There is no
 `manager` agent: remove any `"agent": "manager:manager"` setting or

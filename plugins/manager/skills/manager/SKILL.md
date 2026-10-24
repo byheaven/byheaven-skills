@@ -22,7 +22,7 @@ Links below are relative to this skill's directory.
 | [repo-integration.md](references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
 | [runtimes.md](references/runtimes.md) | Before a runtime-native action (asking, dispatching, a worktree, verifying, waiting, a review carrier, merging, or completing): it names the binding for the host you run in |
 
-For code editing, whether Manager or a sub-agent produces it, apply the `code-production` skill. For anything a person experiences in a product, from a feature or flow to a screen, its states, and its text, whether Manager or a sub-agent designs, writes, or reviews it, apply the `experience-design` skill. A bounded slice dispatched to a worker goes to the plugin's `code-worker` agent for code, `knowledge-worker` for research or a document, and `designer` for a flow, screen, its states, or its interface copy.
+For code editing, whether Manager or a sub-agent produces it, apply the `code-production` skill. For anything a person experiences in a product, from a feature or flow to a screen, its states, and its text, whether Manager or a sub-agent designs, writes, or reviews it, apply the `experience-design` skill. A bounded slice dispatched to a worker goes to the plugin's `code-worker` agent for code, `knowledge-worker` for research or a document, and `designer` for a flow, screen, its states, or its interface copy. When this install has none of those agents, as with the skills installed alone, produce each slice yourself under [Topology](references/production.md#topology), get independent verification from another qualified carrier per [evidence.md](references/evidence.md), and report when no qualified judge is available.
 
 ## Intake
 

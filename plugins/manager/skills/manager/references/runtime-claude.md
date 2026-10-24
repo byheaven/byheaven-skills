@@ -8,7 +8,7 @@ The native user-question tool is `AskUserQuestion`. A host surface that offers i
 
 ## Roles and sub-agents
 
-The plugin's agents register as `manager:<role>`: dispatch a worker or verifier with the `Agent` tool and that `subagent_type`, for example `manager:code-worker` or `manager:verifier`. Each starts with fresh context and the skills its frontmatter lists. For a code slice in a repository, pass `isolation: "worktree"` so the worker gets its own worktree. Claude sub-agents are one model family: a cross-family judge needs a carrier for another family.
+When the plugin is installed, its agents register as `manager:<role>`: dispatch a worker or verifier with the `Agent` tool and that `subagent_type`, for example `manager:code-worker` or `manager:verifier`. Each starts with fresh context and the skills its frontmatter lists. For a code slice in a repository, pass `isolation: "worktree"` so the worker gets its own worktree. Claude sub-agents are one model family: a cross-family judge needs a carrier for another family.
 
 ## Waits
 

@@ -8,7 +8,7 @@ The plugin's session-start hook ([codex.json](../../../hooks/codex.json)) runs o
 
 ## Roles and sub-agents
 
-The plugin's Codex manifest registers no agents, so an agent type the session offers under the same name is not established as the plugin's role. To dispatch a worker or verifier, start a sub-agent with the session's sub-agent tool, give it the role file's body, the full text of each skill its `skills:` frontmatter lists, and then the directive. Start it with fresh context, inheriting none of this conversation (with `spawn_agent`, `fork_turns="none"`): a verifier must judge independent of the producer's reasoning. The other frontmatter fields (`effort`, `memory`, `color`) have no Codex mapping and change nothing here.
+The plugin's Codex manifest registers no agents, so an agent type the session offers under the same name is not established as the plugin's role. When the plugin's `agents/` files are installed, dispatch a worker or verifier by starting a sub-agent with the session's sub-agent tool, give it the role file's body, the full text of each skill its `skills:` frontmatter lists, and then the directive. Start it with fresh context, inheriting none of this conversation (with `spawn_agent`, `fork_turns="none"`): a verifier must judge independent of the producer's reasoning. The other frontmatter fields (`effort`, `memory`, `color`) have no Codex mapping and change nothing here.
 
 Without a sub-agent tool, run the same assembled prompt as a one-shot `codex exec` in the worker's worktree, or produce the slice yourself under [Topology](production.md#topology). A Codex sub-agent runs one of Codex's own models, not another family: a cross-family judge needs a carrier for another family.
 
