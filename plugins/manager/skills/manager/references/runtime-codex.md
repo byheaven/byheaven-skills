@@ -4,7 +4,7 @@ Read only when running in Codex. This file maps Manager requirements to Codex me
 
 ## Loading
 
-The plugin's session-start hook ([codex.json](../../../hooks/codex.json)) runs only at `startup` and tells the new session to load the `manager` skill. Resume, clear, compaction, and `codex exec` runs get nothing from it; load the skill yourself there when you need the role. Skill and role text reaches you with `${CLAUDE_PLUGIN_ROOT}` unexpanded (Codex sets that variable only for plugin hook commands): resolve it to the installed plugin root, the directory that contains `agents/` and `skills/`, two levels above the `manager` skill's directory. Read the installed copy, not a repository checkout of this plugin, unless the task changes the plugin.
+The plugin's session-start hook ([codex.json](../../../hooks/codex.json)) runs only at `startup` and tells the new session to load the `manager` skill. Resume, clear, compaction, and `codex exec` runs get nothing from it; load the skill yourself there when you need the role. Read the installed copy, not a repository checkout of this plugin, unless the task changes the plugin.
 
 ## Roles and sub-agents
 

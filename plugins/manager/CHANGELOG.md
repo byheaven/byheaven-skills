@@ -1,6 +1,23 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.27.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.28.0...HEAD)
+
+## [0.28.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.27.0...manager-0.28.0) (2026-10-24)
+
+**One skill is the role** — The `manager` skill now holds the whole Manager
+role and reads the `principles` skill directly, so the role lives in one
+place on every host. Claude Code gets it the way Codex already does: the
+plugin's startup hook loads the skill.
+
+**Manager without the plugin** — Installing only the skills, for example
+with `npx skills add`, now gives you the full Manager role. Worker and
+verifier agents still come with the plugin.
+
+### Breaking Changes
+
+- The `manager` agent is gone, so `manager:manager` is no longer an agent
+  type. Remove `"agent": "manager:manager"` from your Claude settings and any
+  `--agent manager:manager` flag; the hook loads the role instead
 
 ## [0.27.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...manager-0.27.0) (2026-10-24)
 

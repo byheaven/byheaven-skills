@@ -18,9 +18,8 @@ Every plugin behaves the same on every supported host and with any model. Three 
 
 - **Shared**: skill bodies, references, templates, and agent role text. Name what you need as a
   capability (the host's user-question tool, an isolated worktree, a sub-agent, a scheduled wake),
-  never as a host, a host tool, a host variable, a model, or a model CLI. The one path placeholder
-  is `${CLAUDE_PLUGIN_ROOT}`: a host that expands it gets the plugin root, and any other reader
-  resolves it to the directory that contains `agents/` and `skills/`.
+  never as a host, a host tool, a host variable, a model, or a model CLI. Link files by paths
+  relative to the file that links them.
 - **Adapter**: each host's packaging and bindings: `.claude-plugin/`, `.codex-plugin/`,
   `agents/openai.yaml`, `hooks/`, the frontmatter of agent role files (hosts that register agents
   read it; the body is shared), and binding files such as
@@ -41,10 +40,9 @@ an email address, or a notes-vault link. It catches known patterns only; the rev
 in meaning. Its `ADAPTER` list names the files allowed to name hosts; extend it only for a new
 adapter file. When a legitimate shared line trips it, rephrase the line.
 
-The Human-Agent Principles P1–P3 in `plugins/manager/skills/principles/SKILL.md`, and their verbatim
-copy in `plugins/manager/agents/manager.md`, mirror the owner's global rules file
-(`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth: change them there
-first, then mirror both copies here.
+The Human-Agent Principles P1–P3 in `plugins/manager/skills/principles/SKILL.md` mirror the owner's
+global rules file (`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth:
+change them there first, then mirror them here.
 
 ## Plugin Structure
 
