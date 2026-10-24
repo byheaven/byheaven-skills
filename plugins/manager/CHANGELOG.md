@@ -1,6 +1,43 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.28.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.29.0...HEAD)
+
+## [0.29.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.28.0...manager-0.29.0) (2026-10-24)
+
+**Your real intent comes first** — Every Discussion now opens with a round of
+its own that states the intent Manager infers from the whole context, what
+you observed, and each assumption your request carries, marked as yours with
+the evidence for or against it. You confirm or correct it before any
+diagnosis, and confirming it starts no work.
+
+**Cross-model designs by default** — Decisions that fix an interface or
+architecture others depend on, change stored data, are costly to reverse, or
+restructure a user journey now get derivations from another model family
+without anyone first naming a blind spot. Interface routes return a usage
+sketch, and that sketch is what you review in Grill. Open shape commitments
+in Delivery are drafted by two model families as competing candidates.
+
+**Evidence over abstract plan review** — Open questions in a plan are
+answered by probes and prototypes. The "meet Acceptance yet fail its purpose"
+review now runs only for plans costly to reverse, and the polishing loop
+covers designs, not plans.
+
+### Improvements
+
+- **Competing candidates** Selection fixes three to six criteria before
+  fan-out, has Manager and a judge from another family score independently
+  and compare, and reframes the task when candidates diverge widely
+- **Experience gate** Heavy and medium versions are drafted by producers from
+  different model families where available
+- **Code production** Structure starts from the README-style usage and real
+  call sites, then derives the types from them
+- **Basis line** Names only the principles that changed the choice and what
+  each ruled in or out
+- **Independent derivation** An unavailable or out-of-quota family falls back
+  to the next one the deployment's model routing names, and a missing
+  cross-family route is stated with the decision it affects
+- **Roundtable** Seat models and effort come from the deployment's model
+  routing when one is named
 
 ## [0.28.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.27.0...manager-0.28.0) (2026-10-24)
 
