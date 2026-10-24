@@ -1,17 +1,11 @@
 {
   "name": "cache-timer",
-  "description": "Claude Code mod that counts down the prompt cache, compacts a large conversation just before it expires, and can push a reminder to your phone.",
+  "description": "Claude Code mod that counts down the prompt cache, shows and sets Claude Code's own idle compaction, and can push a reminder to your phone.",
   "userConfig": {
-    "auto_compact": {
-      "type": "boolean",
-      "title": "Auto-compact before expiry",
-      "description": "Compact a conversation above the threshold shortly before its cache expires.",
-      "default": true
-    },
     "threshold_k": {
       "type": "number",
-      "title": "Auto-compact threshold (k tokens)",
-      "description": "Compact before the cache expires only when the context holds at least this many thousand tokens.",
+      "title": "Idle-compaction threshold (k tokens)",
+      "description": "Claude Code's own idle compaction compacts a conversation shortly before its 1-hour cache expires only when the context holds at least this many thousand tokens.",
       "default": 500
     },
     "notify": {
@@ -36,18 +30,6 @@
         "5m"
       ],
       "default": "auto"
-    },
-    "lead_seconds_1h": {
-      "type": "number",
-      "title": "Lead time for a 1h cache (seconds)",
-      "description": "How long before a 1h cache expires to start compacting.",
-      "default": 300
-    },
-    "lead_seconds_5m": {
-      "type": "number",
-      "title": "Lead time for a 5m cache (seconds)",
-      "description": "How long before a 5m cache expires to start compacting.",
-      "default": 60
     }
   }
 }
