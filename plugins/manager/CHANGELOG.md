@@ -1,10 +1,34 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.27.0...HEAD)
 
-**One version number to check** — The `content-creator` skill no longer
-shows a stale version of its own, so the manager plugin's version is the
-only one you need to compare when updating.
+## [0.27.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...manager-0.27.0) (2026-10-24)
+
+**Manager works in Codex** — A new Codex runtime binding tells Manager how
+Codex loads the role and finds the plugin's files, and how it dispatches
+workers and verifiers as fresh-context sub-agents and asks you questions. When
+Codex cannot resume a long wait, Manager reports the wait as blocked instead
+of pretending it waits.
+
+**One method on every host** — The role, skills, and references no longer
+name a host, its tools, or a model. Each host's mechanics live in its runtime
+binding, listed in one index, and the Claude Code binding now also covers
+questions, sub-agents, and waits.
+
+**Your setup stays yours** — The Grok Bot binding describes only Grok Bot's
+mechanisms; which bots own direction, take your questions, write, and verify
+come from your own deployment binding. `content-creator` no longer bundles a
+copy of one person's notes-vault rules or assumes who you are: a workspace's
+own document rules load with that workspace.
+
+### Improvements
+
+- The roundtable stays user-invoked in Codex too, keeps its seat roster next
+  to its routes, and asks you exact questions through your host's question
+  route
+- `writing-for-agents` names the user-invoked metadata of each host
+- The `content-creator` skill no longer shows a stale version of its own, so
+  the manager plugin's version is the only one to compare when updating
 
 ## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
 

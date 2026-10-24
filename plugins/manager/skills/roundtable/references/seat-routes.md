@@ -1,6 +1,15 @@
 # Seat routes
 
-How the Host reaches each selected Seat. Read before running any Seat other than the Host's own.
+The Seat roster and how the Host reaches each selected Seat. Read when choosing the Seats and before running any Seat other than the Host's own.
+
+## Seats
+
+| Seat | Source mode | Status |
+|---|---|---|
+| `@Codex` | packet-only | Active |
+| `@Grok` | X search, required on every run | Active |
+| `@Gemini` | web search, required on every run | Active when a logged-in route exists |
+| `@Claude` | packet-only | Active when a logged-in route exists |
 
 ## Route kinds
 

@@ -18,7 +18,7 @@ skills/manager            Loader that points runtimes without the agent to
                           agents/manager.md
   references/             direction (Grill, handoff), experience gates,
                           production topology, evidence, repository
-                          integration, Claude Code and Grok Bot runtime notes
+                          integration, runtime notes per host
 skills/code-production    Code editing and checking method
 skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
@@ -95,8 +95,8 @@ or install the full plugin.
 [mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
 license; each skill's notice is in its own `LICENSE` file.
 `writing-for-agents` keeps the upstream text at commit `6fd9479`, widens its
-description to cover rules and directives, and adds one sentence on blinding
-the no-op test run.
+description to cover rules and directives, adds one sentence on blinding
+the no-op test run, and names each host's user-invoked metadata.
 
 The performance method in `skills/code-production/references/performance.md`
 and the verifier's safety-fact check adapt ideas from the `benchmark-checklist`
@@ -143,4 +143,14 @@ with one long-lived conversation; it receives handoffs from the direction
 owner bot as agent-to-agent messages. Load the `manager` skill at the start, which loads
 the role, and read `skills/manager/references/runtime-grokbot.md` before a
 native action. The role, principles, and other references are the same files
-Claude Code and Codex use.
+Claude Code and Codex use. Which bots own direction, take your questions,
+write, and verify, with their agent ids and machines, belong in your own
+deployment binding, which your bots' instructions name; the plugin carries
+none of them.
+
+### Other hosts
+
+Each host's mechanics live in one runtime binding, listed in
+`skills/manager/references/runtimes.md`. On a host without one, Manager maps
+each requirement to that host's own mechanism and reports a requirement the
+host cannot meet as blocked.

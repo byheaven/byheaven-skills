@@ -37,6 +37,12 @@ jobs:
       - name: Check manager agent principles copy
         run: npm run check:manager
 
+      - name: Check harness portability
+        run: npm run check:portability
+
+      - name: Test repository scripts
+        run: python3 -m unittest discover -s scripts
+
       - name: Test manager scripts
         run: python3 -m unittest discover -s plugins/manager/skills/manager/scripts
 

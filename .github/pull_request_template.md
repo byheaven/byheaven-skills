@@ -26,7 +26,7 @@ Judge:
 ## Checklist
 
 - [ ] `markdownlint` passes (`npm run lint:md`)
-- [ ] Plugin structure follows `CLAUDE.md` conventions
+- [ ] Plugin structure and harness independence follow `AGENTS.md` (`npm run check:portability`)
 - [ ] `marketplace.json` updated (if new plugin added)
 - [ ] Self-reviewed the diff
 - [ ] Documentation updated if needed
