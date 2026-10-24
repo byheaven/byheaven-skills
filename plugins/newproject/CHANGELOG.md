@@ -1,6 +1,15 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.4...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.5...HEAD)
+
+## [0.5.5](https://github.com/byheaven/byheaven-skills/compare/newproject-0.5.4...newproject-0.5.5) (2026-10-24)
+
+**Setup questions on any host** — Setup questions take the route your host's
+own instructions name, otherwise its question tool, otherwise plain text.
+newproject no longer names hosts or depends on the manager plugin's files.
+
+**A host-neutral AGENTS.md** — A new project's `AGENTS.md` now addresses
+any AI coding agent instead of naming particular tools.
 
 - **Changelog correction** The 0.5.4 "claude.ai sync" entry calls
   `.claude-plugin/plugin.json` name-only; as shipped in 0.5.4 it also carries

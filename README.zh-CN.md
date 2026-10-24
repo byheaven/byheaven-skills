@@ -6,6 +6,8 @@
 
 这个仓库收集的是可以直接投入使用的实用型 Agent 工作流：项目初始化、内容发布，以及能减少重复劳动、帮助更快交付的可复用自动化能力。
 
+这些插件不依赖特定的 harness 或模型，Claude Code、Codex 和 Grok Bot 都能使用；只有 `cache-timer` 是 Claude Code 专属扩展。
+
 ## Skills
 
 - **manager** — 项目交付角色：接收方向负责方交来的已锁定、已授权 Intent，交付并通过子代理独立验证。同时附带：
@@ -16,20 +18,36 @@
   - **code-production** — 单个有界改动的代码编写与检查方法
   - **roundtable** — 向多个模型家族提出同一问题并对比回答（仅由你手动调用）
   - **principles** — 人机协作原则 P1–P3 与操作基线
-- **cache-timer** — Claude Code Mod：在输入框上方的横条中倒计时提示缓存，并在大上下文的缓存过期前自动压缩，可在横条中开关
+- **cache-timer**（仅限 Claude Code）— Claude Code Mod：在输入框上方的横条中倒计时提示缓存，并在大上下文的缓存过期前自动压缩，可在横条中开关
 - **newproject** — 完整项目初始化：脚手架、CI、代码规范、发布自动化、GitHub 仓库配置、依赖管理与安全扫描
 
 ## 安装方式
 
-### Claude Code——插件方式（推荐）
+### Claude Code
 
-以插件方式安装可在 Claude Code 中获得自动更新和打包好的使用体验：
+以插件方式安装可获得自动更新。先添加 marketplace，再安装需要的插件：
 
 ```text
 /plugin marketplace add byheaven/byheaven-skills
+/plugin install manager@byheaven-skills
 ```
 
-### 其他 AI 工具——npx skills
+### Codex
+
+Codex 读取同一个 marketplace：
+
+```bash
+codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
+codex plugin add manager@byheaven-skills
+```
+
+其他 skill 用下方的 `npx skills add` 安装。
+
+### Grok Bot
+
+Grok Bot 没有插件安装器或 hook。让 bot 在对话开始时从本仓库的检出中加载所需的 skill；Manager 角色见 [manager README](plugins/manager/README.md#grok-bot)。
+
+### 其他能加载 skill 的工具
 
 ```bash
 npx skills add byheaven/byheaven-skills

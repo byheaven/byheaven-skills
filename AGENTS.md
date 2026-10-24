@@ -1,15 +1,41 @@
 # AGENTS.md
 
-This file provides guidance to AI coding assistants (Claude Code, OpenAI Codex,
-and others) when working with code in this repository.
+This file guides every AI coding agent that works in this repository, whatever its harness or model.
+Claude Code reads it through the `CLAUDE.md` symlink; Codex and Grok Bot read it as `AGENTS.md`.
 
 ## What This Repo Is
 
-A monorepo of AI coding skills by Byheaven. Each skill lives under `plugins/<name>/skills/<skill-name>/`
-and can be installed and used independently by any AI coding tool (Claude Code, OpenAI Codex, etc.).
+A monorepo of agent plugins by Byheaven. Each skill lives under `plugins/<name>/skills/<skill-name>/`
+and can be installed and used on its own in any host that loads skills.
 
-For Claude Code users, skills are also bundled into **plugins** — the recommended installation method.
-Installing as a plugin enables auto-updates and the ability to enable or disable individual skills in bulk.
+Claude Code, Codex, and Grok Bot are the supported hosts: all three use these plugins and change this
+repository. Hosts with a plugin system install the plugins from this repository's marketplace; the
+README gives each host's entry point.
+
+## Harness and Model Independence
+
+Every plugin behaves the same on every supported host and with any model. Three layers keep it that way:
+
+- **Shared**: skill bodies, references, templates, and agent role text. Name what you need as a
+  capability (the host's user-question tool, an isolated worktree, a sub-agent, a scheduled wake),
+  never as a host, a host tool, a host variable, a model, or a model CLI. The one path placeholder
+  is `${CLAUDE_PLUGIN_ROOT}`: a host that expands it gets the plugin root, and any other reader
+  resolves it to the directory that contains `agents/` and `skills/`.
+- **Adapter**: each host's packaging and bindings: `.claude-plugin/`, `.codex-plugin/`,
+  `agents/openai.yaml`, `hooks/`, and binding files such as
+  `plugins/manager/skills/manager/references/runtime-<host>.md`, which map capabilities to one host's
+  mechanisms. Support a new host by adding its adapter files; a host-specific fix changes only that
+  host's adapter.
+- **Deployment**: the bots, agent ids, machines, accounts, private paths, and model CLIs one user runs.
+  None of it lives in this repository; a binding refers to the deployment's own binding instead.
+
+A **host extension** is a plugin whose purpose is one host's own API, such as `cache-timer` (Claude
+Code function hooks). Its marketplace description and README name that host, and all its files are
+adapter layer.
+
+`npm run check:portability`, which CI runs, fails when a shared file names a host, host tool, or
+model, or when any plugin file carries deployment data. Its `ADAPTER` list names the files allowed to
+name hosts; extend it only for a new adapter file.
 
 ## Plugin Structure
 
@@ -72,12 +98,15 @@ Before authoring or modifying a skill, ask: *"Can I run this skill on a brand-ne
 
 ## Skill Authoring: User Input
 
-**Always use the `AskUserQuestion` tool explicitly** when a skill needs input from the user. Never write vague prose like "ask the user for X" — Claude will skip the tool and ask inline in text instead.
+When a skill needs input from the user, write the question as its own step with its exact text, and
+say how to ask it in capability terms: the route the host's own instructions name for questions to
+the user, otherwise the host's user-question tool, otherwise plain text. A vague line such as "ask the
+user for X" gets answered with a guess instead of asked.
 
 Do this:
 
 ```
-Use the AskUserQuestion tool: "What is the project name?"
+Ask through the host's user-question tool: "What is the project name?"
 ```
 
 Not this:

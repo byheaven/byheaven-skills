@@ -1,11 +1,12 @@
 {
   "name": "byheaven-skills",
-  "description": "A monorepo of Claude Code skills/plugins by Byheaven",
+  "description": "A monorepo of harness- and model-agnostic agent plugins by Byheaven",
   "private": true,
   "scripts": {
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\" \"#node_modules\"",
     "check:manager": "bash scripts/check-manager-agent.sh",
+    "check:portability": "python3 scripts/check-portability.py",
     "prepare": "husky"
   },
   "repository": {

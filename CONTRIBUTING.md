@@ -12,7 +12,7 @@ Thank you for your interest in contributing!
 
 ## Adding a Plugin
 
-1. Create `plugins/<name>/` with the required structure (see [CLAUDE.md](CLAUDE.md))
+1. Create `plugins/<name>/` with the required structure (see [AGENTS.md](AGENTS.md))
 2. Add an entry to `.claude-plugin/marketplace.json` with `name`, `version`, `category`, `tags`, `keywords`, `description`, and `source`
 3. Set the initial plugin version in that marketplace entry to `0.1.0`
 4. Create `plugins/<name>/CHANGELOG.md` with a linked `## [Unreleased](compare-url)` header and a `## [0.1.0]` section describing the first release; merging the PR publishes `<name>-0.1.0`
@@ -87,4 +87,4 @@ Use the GitHub issue tracker. For bugs, include:
 
 - Steps to reproduce
 - Expected vs actual behavior
-- Environment details (OS, Claude Code version)
+- Environment details (OS, the host running the plugin and its version, the model)

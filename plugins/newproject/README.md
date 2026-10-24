@@ -1,7 +1,7 @@
 # newproject
 
-`newproject` is a self-contained project setup skill packaged as a Claude Code
-plugin. It can scaffold a repository from scratch or upgrade an existing project
+`newproject` is a self-contained project setup skill that runs on any host that
+loads skills, and installs as a plugin where the host has a plugin system. It can scaffold a repository from scratch or upgrade an existing project
 to a production-ready baseline with CI, code quality, release automation, GitHub
 repository setup, dependency management, and security scanning.
 

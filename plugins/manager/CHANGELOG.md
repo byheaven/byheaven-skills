@@ -1,6 +1,29 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.27.0...HEAD)
+
+## [0.27.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...manager-0.27.0) (2026-10-24)
+
+**Manager knows how to work in Codex** — A new Codex runtime binding tells
+Manager how Codex loads the role, finds the plugin's files without
+`${CLAUDE_PLUGIN_ROOT}`, dispatches workers and verifiers as Codex sub-agents,
+asks you questions, and waits on pull requests. It also says that a Codex
+sub-agent is not another model family, so cross-family review still goes to
+another family's CLI.
+
+**One method on every host** — The role, skills, and references no longer
+name a host or its tools. Each host's mechanics live only in its runtime
+binding, listed in one index, so a host-specific fix no longer touches the
+shared method.
+
+**Your Grok Bot setup stays yours** — The Grok Bot binding now describes only
+Grok Bot's mechanisms. Which bot owns direction, takes your questions, writes,
+verifies, and on which machine all come from your own deployment binding, so
+changing your bots no longer needs a plugin release.
+
+**Roundtable seats in one place** — The roundtable's seat roster now lives
+with its routes, and its questions to you follow your host's own question
+route.
 
 **One version number to check** — The `content-creator` skill no longer
 shows a stale version of its own, so the manager plugin's version is the

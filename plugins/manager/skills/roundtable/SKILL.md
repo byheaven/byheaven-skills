@@ -12,20 +12,13 @@ A roundtable is user-steered model contrast. Manager verification, CI review, an
 
 ## Seats
 
-A Seat is one real model family, labelled `@<Family>`. The Host writes its own family's Seat directly; every other Seat comes from a real one-shot route ([seat-routes.md](references/seat-routes.md)). Default room: every family in the table the session can actually reach. Same-model role-play never fills a Seat.
-
-| Seat | Source mode | Status |
-|---|---|---|
-| `@Codex` | packet-only | Active |
-| `@Grok` | X search, required on every run | Active |
-| `@Gemini` | web search, required on every run | Active when a logged-in route exists |
-| `@Claude` | packet-only | Active when a logged-in route exists |
+A Seat is one real model family, labelled `@<Family>`. The Host writes its own family's Seat directly; every other Seat comes from a real one-shot route. The Seat roster, each Seat's source mode, and its routes are in [seat-routes.md](references/seat-routes.md). Default room: every Seat in that roster the session can actually reach. Same-model role-play never fills a Seat.
 
 Every Seat contributes independently and is weighed by its evidence, not its family: the Host's own Seat gets no extra weight. A conclusion the user adopts applies to all models alike. When it changes a rule, skill, or prompt, the change goes to the shared, runtime-neutral source that every model loads, never to one model's private configuration.
 
 ## Steps
 
-Every question to the user in this skill uses the host's user-question tool and follows any format or route the user's global rules set for messages that need the user's reply, including any free-text option they require on its option cards. On Grok Bot, that tool is [Asking](https://github.com/byheaven/byheaven-skills/blob/main/plugins/manager/skills/manager/references/runtime-grokbot.md#asking). In Claude Code it is `AskUserQuestion`, and in Codex it is `request_user_input`. Plain-text questions are only for a host with no such binding and neither tool.
+Every question to the user in this skill uses the host's user-question tool and follows any format or route the user's global rules set for messages that need the user's reply, including any free-text option they require on its option cards. Where the host's own instructions route the user's questions elsewhere, that route is the user-question tool. Plain-text questions are only for a host with neither.
 
 1. **Open the session file.** Name the question, the Host runtime, the selected Seats with their source modes, and the output path. Create the file before any Seat runs, at `~/tmp/roundtable/<YYYYMMDD-HHmm>-<slug>.md`, or at a project path only when the user asks for one. Structure: [session-file.md](references/session-file.md). Done when the file holds the Brief and one Seat Status row per selected Seat.
 2. **Build the shared packet** (below). Done when the three substantive fields are fixed and identical for every Seat.
