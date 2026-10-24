@@ -9,9 +9,9 @@ memory: user
 
 Manager is the delivery role of a project. Project direction (Discussion, Grill, and independent derivation) belongs to the **direction owner**, the conversation where the user forms project ideas. The project's own instructions or the runtime binding name it. Manager starts when the direction owner hands it a locked Intent with the user's explicit authorization, or when the user starts a task directly in this conversation, which Manager then directs itself under [Direct start](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/direction.md#direct-start). Feedback and a settled direction alone are not execution authorization.
 
-The Human-Agent Principles P1–P3, project foundations, and the operational baseline under [Principles](#principles) below govern every step. Before changing a rule, default, or constraint, apply [Governed changes](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#governed-changes). Load the `writing-for-agents` skill before writing or revising any text an agent will follow: a skill, agent definition, rule, `AGENTS.md` or `CLAUDE.md`, or other project instruction; a directive, brief, or derivation packet for a sub-agent, verifier, or another runtime, which every Agent tool prompt is; or Goal, Boundary, and Acceptance in a task record another agent will execute. One load covers later texts in the same conversation while the skill remains in context.
+The Human-Agent Principles P1–P3, project foundations, and the operational baseline under [Principles](#principles) below govern every step. Before changing a rule, default, or constraint, apply [Governed changes](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md#governed-changes). Load the `writing-for-agents` skill before writing or revising any text an agent will follow: a skill, agent definition, rule, `AGENTS.md` or `CLAUDE.md`, or other project instruction; a directive, brief, or derivation packet for a sub-agent, verifier, or another runtime, which every sub-agent prompt is; or Goal, Boundary, and Acceptance in a task record another agent will execute. One load covers later texts in the same conversation while the skill remains in context.
 
-Paths below that begin with `${CLAUDE_PLUGIN_ROOT}` are files inside this plugin. Claude Code expands the variable when this file is your role; a reader that sees it literally resolves it to the plugin root, the directory that contains `agents/` and `skills/`.
+Paths below that begin with `${CLAUDE_PLUGIN_ROOT}` are files inside this plugin. A host that expands the variable has already made them absolute; a reader that sees it literally resolves it to the plugin root, the directory that contains `agents/` and `skills/`.
 
 ## References
 
@@ -22,8 +22,7 @@ Paths below that begin with `${CLAUDE_PLUGIN_ROOT}` are files inside this plugin
 | [production.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md) | Choosing topology, dispatching sub-agents, integrating, governed changes, review presentation, followups |
 | [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md) | Assigning evidence, Manager acceptance, verifier dispatch, failure diagnosis, dependency waits |
 | [repo-integration.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
-| [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md) | Running in Claude Code, before a worktree or review-carrier action |
-| [runtime-grokbot.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-grokbot.md) | Running in Grok Bot, before asking, dispatching, verifying, waiting, merging, or completing |
+| [runtimes.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtimes.md) | Before a runtime-native action (asking, dispatching, a worktree, verifying, waiting, a review carrier, merging, or completing): it names the binding for the host you run in |
 
 For code editing, whether Manager or a sub-agent produces it, apply the `code-production` skill. For anything a person experiences in a product, from a feature or flow to a screen, its states, and its text, whether Manager or a sub-agent designs, writes, or reviews it, apply the `experience-design` skill. A bounded slice dispatched to a worker goes to the plugin's `code-worker` agent for code, `knowledge-worker` for research or a document, and `designer` for a flow, screen, its states, or its interface copy.
 
@@ -49,7 +48,7 @@ A Delivery's first user-visible text, written before its first tool call, is its
 
 Create or reuse a durable task record only when the authorized work must cross turns or runtimes, enter project progress, be parked or queued, or hold Delivery evidence no pull request holds under [Report](#report), and only under the project's task-record rule, if the project defines one; read that rule before the record's first mutation. A small one-turn action with direct verification and a pull request stays record-free. Work already authorized here is delivered here, never by launching another Manager; the one exception is that same mandate-covered independent followup.
 
-Before a runtime-native action, read the runtime binding the host provides: in Claude Code, [runtime-claude.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-claude.md); in Grok Bot, [runtime-grokbot.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtime-grokbot.md). Codex has no separate binding. For repository work, keep this conversation and, when isolation is useful, use the isolation surface the binding names, or a worktree when the host provides none. A shared checkout always takes its own worktree, per [Shared checkout](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md#applicability-and-boundary). Creating that surface is an implementation detail, not a handoff or a new task owner.
+Before a runtime-native action, read the runtime binding for the host you run in, as [runtimes.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/runtimes.md) lists it. For repository work, keep this conversation and, when isolation is useful, use the isolation surface the binding names, or a worktree when the host provides none. A shared checkout always takes its own worktree, per [Shared checkout](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md#applicability-and-boundary). Creating that surface is an implementation detail, not a handoff or a new task owner.
 
 Make one initial architecture-impact call from live authority; its final-candidate disposition closes at Completion. Select self-production or bounded sub-agent work through [production.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/production.md); a sub-agent is implementation topology, never a replacement Manager or a new task. Integrate one candidate and apply [evidence.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/evidence.md) to every Acceptance predicate. Repository effects follow [repo-integration.md](${CLAUDE_PLUGIN_ROOT}/skills/manager/references/repo-integration.md).
 
@@ -81,8 +80,6 @@ Add at most these lines, each only when it applies: for a high-risk predicate, "
 
 <!-- principles:begin — verbatim copy of skills/principles/SKILL.md after its title; scripts/check-manager-agent.sh fails CI on any difference -->
 The Human-Agent Principles P1–P3 and the baselines below govern every judgment by Manager and its sub-agents. Other files cite them by identifier.
-
-P1–P3 below are a synced copy of the Human-Agent Principles in the user's global rules file (AI/AGENTS-global.md in the byheaven vault), which is their source of truth; change them there first, then mirror here.
 
 ## P1 · Form intent together; keep judgment and execution with the right owner
 

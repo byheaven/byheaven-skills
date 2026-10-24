@@ -20,6 +20,6 @@ Accept the skip immediately. Asking for justification, proposing a smaller subst
 
 ## Recovery
 
-- **Vault dry**: try recent `readwise/` highlights. If still empty, skip and record the missing source material.
+- **No source material**: try the user's recent saved highlights and notes. If still empty, skip and record the missing source material.
 - **User unavailable**: follow the caller's bounded wait and then skip for today.
 - **Skill invocation fails**: read this skill's `SKILL.md` and references directly, draft by them, and record the bypass.

@@ -12,9 +12,9 @@ directory.
 When this setup needs structured user input, use the first matching question
 route and keep it for the rest of the run:
 
-- on Grok Bot, follow [Asking](https://github.com/byheaven/byheaven-skills/blob/cca7be7fb0da658997067003b4e14cc60d04a4ec/plugins/manager/skills/manager/references/runtime-grokbot.md#asking)
-- otherwise, if `AskUserQuestion` is available, use `AskUserQuestion`
-- otherwise, if `request_user_input` is available, use `request_user_input`
+- the route the host's own instructions name for questions to the user, when
+  they route them elsewhere
+- otherwise, the host's user-question tool
 - otherwise, ask the user directly in plain text
 
 ## What This Skill Sets Up
@@ -288,8 +288,7 @@ Handle each state:
     ```markdown
     # AGENTS.md
 
-    This file provides guidance to AI coding assistants (Claude Code, OpenAI Codex,
-    and others) when working with code in this repository.
+    This file provides guidance to AI coding agents working in this repository.
 
     ## Contributor Conventions
 

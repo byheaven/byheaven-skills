@@ -8,6 +8,9 @@ This repository packages practical agent workflows you can actually use: project
 setup, publishing flows, and repeatable automation that removes busywork and
 helps you ship faster.
 
+The plugins do not depend on a particular harness or model. Claude Code, Codex,
+and Grok Bot all run them; `cache-timer` is the one Claude Code-only extension.
+
 ## Skills
 
 - **manager** — Project delivery role: take a locked, authorized Intent from the direction owner, deliver, verify independently with sub-agents. Also bundles:
@@ -18,21 +21,39 @@ helps you ship faster.
   - **code-production** — Code editing and checking method for one bounded change
   - **roundtable** — Ask several model families the same question and compare their answers (invoked by you only)
   - **principles** — Human-Agent Principles P1–P3 and the operational baseline
-- **cache-timer** — Claude Code mod: prompt-cache countdown in a band above the prompt, with Claude Code's own idle compaction shown and its switch and threshold set from the band
+- **cache-timer** (Claude Code only) — Claude Code mod: prompt-cache countdown in a band above the prompt, with Claude Code's own idle compaction shown and its switch and threshold set from the band
 - **newproject** — Self-contained full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning
 
 ## Installation
 
-### Claude Code — plugin (recommended)
+### Claude Code
 
-Installing as a plugin gives you auto-updates and a packaged experience in
-Claude Code:
+Installing as a plugin gives you auto-updates. Add the marketplace, then install
+the plugins you want:
 
 ```text
 /plugin marketplace add byheaven/byheaven-skills
+/plugin install manager@byheaven-skills
 ```
 
-### Other AI tools — npx skills
+### Codex
+
+Codex reads the same marketplace:
+
+```bash
+codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
+codex plugin add manager@byheaven-skills
+```
+
+Install the other skills with `npx skills add` below.
+
+### Grok Bot
+
+Grok Bot has no plugin installer or hook. Have the bot load the skill it needs
+at the start of its conversation, from a checkout of this repository. For the
+Manager role, see the [manager README](plugins/manager/README.md#grok-bot).
+
+### Other tools that load skills
 
 ```bash
 npx skills add byheaven/byheaven-skills
