@@ -22,10 +22,12 @@ Every plugin behaves the same on every supported host and with any model. Three 
   is `${CLAUDE_PLUGIN_ROOT}`: a host that expands it gets the plugin root, and any other reader
   resolves it to the directory that contains `agents/` and `skills/`.
 - **Adapter**: each host's packaging and bindings: `.claude-plugin/`, `.codex-plugin/`,
-  `agents/openai.yaml`, `hooks/`, and binding files such as
+  `agents/openai.yaml`, `hooks/`, the frontmatter of agent role files (hosts that register agents
+  read it; the body is shared), and binding files such as
   `plugins/manager/skills/manager/references/runtime-<host>.md`, which map capabilities to one host's
-  mechanisms. Support a new host by adding its adapter files; a host-specific fix changes only that
-  host's adapter.
+  mechanisms. Give every host the same behavior: a skill that only the user may invoke says so in
+  each host's metadata. Support a new host by adding its adapter files; a host-specific fix changes
+  only that host's adapter.
 - **Deployment**: the bots, agent ids, machines, accounts, private paths, and model CLIs one user runs.
   None of it lives in this repository; a binding refers to the deployment's own binding instead.
 
@@ -33,9 +35,16 @@ A **host extension** is a plugin whose purpose is one host's own API, such as `c
 Code function hooks). Its marketplace description and README name that host, and all its files are
 adapter layer.
 
-`npm run check:portability`, which CI runs, fails when a shared file names a host, host tool, or
-model, or when any plugin file carries deployment data. Its `ADAPTER` list names the files allowed to
-name hosts; extend it only for a new adapter file.
+`npm run check:portability`, which CI runs, is a lint: it fails when a shared file names a host, host
+tool, or model, or when any plugin file carries deployment data such as an agent id, a private path,
+an email address, or a notes-vault link. It catches known patterns only; the reviewer judges coupling
+in meaning. Its `ADAPTER` list names the files allowed to name hosts; extend it only for a new
+adapter file. When a legitimate shared line trips it, rephrase the line.
+
+The Human-Agent Principles P1–P3 in `plugins/manager/skills/principles/SKILL.md`, and their verbatim
+copy in `plugins/manager/agents/manager.md`, mirror the owner's global rules file
+(`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth: change them there
+first, then mirror both copies here.
 
 ## Plugin Structure
 

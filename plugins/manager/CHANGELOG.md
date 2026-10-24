@@ -4,30 +4,31 @@
 
 ## [0.27.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...manager-0.27.0) (2026-10-24)
 
-**Manager knows how to work in Codex** — A new Codex runtime binding tells
-Manager how Codex loads the role, finds the plugin's files without
-`${CLAUDE_PLUGIN_ROOT}`, dispatches workers and verifiers as Codex sub-agents,
-asks you questions, and waits on pull requests. It also says that a Codex
-sub-agent is not another model family, so cross-family review still goes to
-another family's CLI.
+**Manager works in Codex** — A new Codex runtime binding tells Manager how
+Codex loads the role and finds the plugin's files, and how it dispatches
+workers and verifiers as fresh-context sub-agents and asks you questions. When
+Codex cannot resume a long wait, Manager reports the wait as blocked instead
+of pretending it waits.
 
 **One method on every host** — The role, skills, and references no longer
-name a host or its tools. Each host's mechanics live only in its runtime
-binding, listed in one index, so a host-specific fix no longer touches the
-shared method.
+name a host, its tools, or a model. Each host's mechanics live in its runtime
+binding, listed in one index, and the Claude Code binding now also covers
+questions, sub-agents, and waits.
 
-**Your Grok Bot setup stays yours** — The Grok Bot binding now describes only
-Grok Bot's mechanisms. Which bot owns direction, takes your questions, writes,
-verifies, and on which machine all come from your own deployment binding, so
-changing your bots no longer needs a plugin release.
+**Your setup stays yours** — The Grok Bot binding describes only Grok Bot's
+mechanisms; which bots own direction, take your questions, write, and verify
+come from your own deployment binding. `content-creator` no longer bundles a
+copy of one person's notes-vault rules or assumes who you are: a workspace's
+own document rules load with that workspace.
 
-**Roundtable seats in one place** — The roundtable's seat roster now lives
-with its routes, and its questions to you follow your host's own question
-route.
+### Improvements
 
-**One version number to check** — The `content-creator` skill no longer
-shows a stale version of its own, so the manager plugin's version is the
-only one you need to compare when updating.
+- The roundtable stays user-invoked in Codex too, keeps its seat roster next
+  to its routes, and asks you exact questions through your host's question
+  route.
+- `writing-for-agents` names the user-invoked metadata of each host.
+- The `content-creator` skill no longer shows a stale version of its own, so
+  the manager plugin's version is the only one to compare when updating.
 
 ## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
 

@@ -34,7 +34,7 @@ Each worker returns the observed state with its result:
 
 The Manager decides when to verify. Where the deployment's binding names a verifier bot, the Manager sends the artifact there as an agent-to-agent message and keeps every decision on acceptance, blocking findings, and merging. Each judging run is a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model whose family did not produce the artifact, chosen and invoked as the deployment's binding says. A producer never dispatches its own verifier.
 
-For code, the verifier works in its own detached worktree at the exact pull request head per [Applicability and boundary](repo-integration.md#applicability-and-boundary), removed once the verdict is recorded. Confirm HEAD equals the pull request head sha, and `git status --porcelain` in that worktree is empty before and after the run.
+For code, the verifier runs with the read-only means the deployment's binding names, in its own detached worktree at the exact pull request head per [Applicability and boundary](repo-integration.md#applicability-and-boundary), removed once the verdict is recorded. Confirm HEAD equals the pull request head sha, and `git status --porcelain` in that worktree is empty before and after the run.
 
 For non-code product plans and documents, the verifier runs read-only against a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. When no model of another family is available, report that cross-model verification could not run. P1 product-direction items are marked for the user to judge and are never scored, and that judgment follows [Asking](#asking).
 

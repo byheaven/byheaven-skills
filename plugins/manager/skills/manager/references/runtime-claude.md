@@ -2,9 +2,21 @@
 
 Read only when running in Claude Code. This file maps Manager requirements to Claude mechanisms and adds no policy.
 
+## Asking
+
+The native user-question tool is `AskUserQuestion`. A host surface that offers its own question card in place of it, such as a desktop next-step box, is that tool there.
+
+## Roles and sub-agents
+
+The plugin's agents register as `manager:<role>`: dispatch a worker or verifier with the `Agent` tool and that `subagent_type`, for example `manager:code-worker` or `manager:verifier`. Each starts with fresh context and the skills its frontmatter lists. For a code slice in a repository, pass `isolation: "worktree"` so the worker gets its own worktree. Claude sub-agents are one model family: a cross-family judge needs a carrier for another family.
+
+## Waits
+
+A wait resumes this conversation through a background command that exits on the terminal signal or the deadline: run [pr_wait.py](../scripts/pr_wait.py) with Bash `run_in_background`, or a `Monitor` whose command ends on that signal. Its exit notification wakes this conversation. Polling in the foreground is not the wait.
+
 ## Worktree
 
-Use the native `EnterWorktree` tool in this conversation when isolation is useful; a shared checkout always takes its own worktree, per [Shared checkout](repo-integration.md#applicability-and-boundary). Its base follows the `worktree.baseRef` setting. Check exact remote currency explicitly only when the delivery itself requires it.
+Use the native `EnterWorktree` tool when the session's instructions allow it, otherwise `git worktree add` per [Applicability and boundary](repo-integration.md#applicability-and-boundary); a shared checkout always takes its own worktree. `EnterWorktree`'s base follows the `worktree.baseRef` setting. Check exact remote currency explicitly only when the delivery itself requires it.
 
 Inside an isolated worktree, Claude Code checks each Bash call's command text with a guard compiled into the CLI (observed in Claude Code 2.1.289). Literal commands, `;` lists, pipelines, loops, `if`, subshells, heredocs, and arithmetic pass. It refuses three shapes: an interpreter (`python3`, `node`, `sed`, `awk`) whose program text contains a runtime value such as `$f`, `$HOME`, or `$((…))`, even in a plain command; `awk` with a non-literal program inside a loop or other compound command; and `git` inside `$(…)`. Pass a runtime value as an argument instead of inside the program text (`python3 -c '…' "$HOME"`), or put the logic in a script in the session scratchpad through Write and run it as `sh <file>` or `python3 <file>`. Its true refusals, `git -C <shared checkout>` and `cd <shared checkout> && git …`, stay refused; rewrite them to run inside the worktree. A sub-agent directive for work inside the worktree carries this paragraph.
 

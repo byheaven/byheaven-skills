@@ -8,8 +8,12 @@
 own instructions name, otherwise its question tool, otherwise plain text.
 newproject no longer names hosts or depends on the manager plugin's files.
 
-**A host-neutral AGENTS.md** — A new project's `AGENTS.md` now addresses
-any AI coding agent instead of naming particular tools.
+### Improvements
+
+- A new project's `AGENTS.md` addresses any AI coding agent instead of naming
+  particular tools.
+
+### Bug Fixes
 
 - **Changelog correction** The 0.5.4 "claude.ai sync" entry calls
   `.claude-plugin/plugin.json` name-only; as shipped in 0.5.4 it also carries
