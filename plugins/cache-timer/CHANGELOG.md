@@ -1,6 +1,22 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.4.0...HEAD)
+
+## [0.4.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.1...cache-timer-0.4.0) (2026-10-24)
+
+- **Claude Code's idle compaction in the band** The band now shows whether
+  Claude Code's own idle compaction is on, or `n/a` where `/config` does not
+  offer it, and its switch turns that setting on or off
+- **Idle-compaction threshold** The threshold picker now sets the context
+  size from which Claude Code's idle compaction runs, so a conversation is
+  compacted only from 300k, 500k, or 700k tokens instead of the built-in
+  200k
+
+### Breaking Changes
+
+- The mod no longer compacts a conversation itself; Claude Code's idle
+  compaction does that where your account has it. The `auto_compact`,
+  `lead_seconds_1h`, and `lead_seconds_5m` settings are gone
 
 ## [0.3.1](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.0...cache-timer-0.3.1) (2026-10-05)
 

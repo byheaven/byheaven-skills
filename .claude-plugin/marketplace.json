@@ -51,7 +51,7 @@
     },
     {
       "name": "cache-timer",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "category": "productivity",
       "tags": [
         "prompt-cache",
@@ -62,12 +62,12 @@
       "keywords": [
         "prompt cache",
         "cache expiry",
-        "auto compact",
+        "idle compaction",
         "context window",
         "claude code mod",
         "push notification"
       ],
-      "description": "Claude Code mod that counts down the prompt cache, compacts a large conversation just before it expires, and can push a reminder to your phone.",
+      "description": "Claude Code mod that counts down the prompt cache, shows and sets Claude Code's own idle compaction, and can push a reminder to your phone.",
       "source": "./plugins/cache-timer"
     }
   ]

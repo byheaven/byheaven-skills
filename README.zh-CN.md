@@ -18,7 +18,7 @@
   - **code-production** — 单个有界改动的代码编写与检查方法
   - **roundtable** — 向多个模型家族提出同一问题并对比回答（仅由你手动调用）
   - **principles** — 人机协作原则 P1–P3 与操作基线
-- **cache-timer**（仅限 Claude Code）— Claude Code Mod：在输入框上方的横条中倒计时提示缓存，并在大上下文的缓存过期前自动压缩，可在横条中开关
+- **cache-timer**（仅限 Claude Code）— Claude Code Mod：在输入框上方的横条中倒计时提示缓存，显示 Claude Code 自带的空闲压缩，并可在横条中设置它的开关和阈值
 - **newproject** — 完整项目初始化：脚手架、CI、代码规范、发布自动化、GitHub 仓库配置、依赖管理与安全扫描
 
 ## 安装方式
