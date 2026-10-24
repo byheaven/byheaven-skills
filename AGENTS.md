@@ -20,10 +20,10 @@ plugins/<name>/
 ├── .claude-plugin/
 │   └── plugin.json              # Name and description (mods: see below); claude.ai marketplace sync requires it
 ├── skills/<skill-name>/
-│   ├── SKILL.md                 # Skill frontmatter: name, description, version
-│   ├── agents/                  # Codex app metadata
+│   ├── SKILL.md                 # Skill frontmatter: name, description (no version; see below)
+│   ├── agents/                  # Optional: Codex app metadata (display name, icon)
 │   │   └── openai.yaml
-│   └── assets/                  # Skill assets: icons, images
+│   └── assets/                  # Optional: skill icons and images
 │       └── favicon.png
 ├── README.md
 └── LICENSE

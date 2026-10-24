@@ -8,15 +8,22 @@
 
 ## Skills
 
-- **manager** — 项目交付角色：接收方向负责方交来的已锁定、已授权 Intent，交付并通过子代理独立验证
-- **cache-timer** — Claude Code Mod：状态栏显示提示缓存剩余时长，并在大上下文的缓存过期前自动压缩
+- **manager** — 项目交付角色：接收方向负责方交来的已锁定、已授权 Intent，交付并通过子代理独立验证。同时附带：
+  - **grilling** — 一轮轮追问，压力测试计划或想法直到收敛
+  - **writing-for-agents** — 如何编写供 Agent 遵循的 skill、规则与指令
+  - **experience-design** — 设计用户的体验：从任务与旅程，到界面及其文字
+  - **content-creator** — 文案、文章与文档的写作简报与起草方法；对你本人的帖子、文章与书籍只做辅助，不代写
+  - **code-production** — 单个有界改动的代码编写与检查方法
+  - **roundtable** — 向多个模型家族提出同一问题并对比回答（仅由你手动调用）
+  - **principles** — 人机协作原则 P1–P3 与操作基线
+- **cache-timer** — Claude Code Mod：在输入框上方的横条中倒计时提示缓存，并在大上下文的缓存过期前自动压缩，可在横条中开关
 - **newproject** — 完整项目初始化：脚手架、CI、代码规范、发布自动化、GitHub 仓库配置、依赖管理与安全扫描
 
 ## 安装方式
 
 ### Claude Code——插件方式（推荐）
 
-以插件方式安装可获得自动更新、一次性编排多个 skills 的斜杠命令，以及 skills 的批量开关：
+以插件方式安装可在 Claude Code 中获得自动更新和打包好的使用体验：
 
 ```text
 /plugin marketplace add byheaven/byheaven-skills
@@ -27,6 +34,10 @@
 ```bash
 npx skills add byheaven/byheaven-skills
 ```
+
+## 参与贡献
+
+新增 skill、提交规范与 PR 流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 许可证
 

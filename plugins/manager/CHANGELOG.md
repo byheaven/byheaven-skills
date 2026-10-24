@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...HEAD)
 
+**One version number to check** — The `content-creator` skill no longer
+shows a stale version of its own, so the manager plugin's version is the
+only one you need to compare when updating.
+
 ## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
 
 **Your runtime binding picks the machine and model** — On Grok Bot, the
