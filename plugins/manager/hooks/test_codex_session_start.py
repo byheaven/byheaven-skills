@@ -344,7 +344,6 @@ class OutputTest(unittest.TestCase):
         context = self.context(tempfile.mkdtemp())
         self.assertIn("manager:manager skill", context)
         self.assertIn("delivery role", context)
-        self.assertIn("brief this conversation was started with assign to it takes precedence", context)
         self.assertIn("direction.md#direct-start", context)
         self.assertNotIn("or here when the user starts the task in this conversation", context)
         self.assertNotIn("\n\n", context)

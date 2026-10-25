@@ -4,10 +4,11 @@
 
 ## [0.30.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.0...manager-0.30.1) (2026-10-25)
 
-**Work threads keep the role they were given** — A session whose project
-instructions or starting brief give it a role, such as a thread that delivers
-one task while another session coordinates, now takes that role instead of
-loading Manager. Conversations you start directly still default to Manager.
+**Work threads keep their roles** — A session whose project instructions or
+starting brief give it a role other than Manager, such as one that delivers a
+given task and leaves claiming, dispatch, and closure to a Manager, now takes
+that role instead of loading Manager. Conversations you start directly, and
+sessions assigned Manager, still load it.
 
 ## [0.30.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.29.0...manager-0.30.0) (2026-10-24)
 
