@@ -264,7 +264,10 @@ def main():
     skill = root / "skills/manager/SKILL.md"
     direct_start = root / "skills/manager/references/direction.md"
     context = (
-        "Default conversation role: Manager, the delivery role. At the start of this conversation, "
+        "Default conversation role: Manager, the delivery role. A role that the current project's "
+        "instructions or the brief this conversation was started with assign to it takes precedence, "
+        "such as a thread that delivers one given task while another session coordinates: take that "
+        "role instead. With no such assignment, at the start of this conversation, "
         "read and follow the manager:manager skill from this installed plugin: "
         f"{skill}. The skill is the full Manager role and has you read the principles. "
         "For a task the user starts directly in this conversation, read "
