@@ -5,7 +5,7 @@
 ## [0.33.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.32.0...manager-0.33.0) (2026-10-25)
 
 **Related issues travel together** — When Manager dispatches work from a
-queue, or hands followups to other sessions, it now groups issues that touch
+queue or turns followups into new work, it now groups issues that touch
 the same area and are judged the same way into one task instead of sending
 one task per issue, so setup and review happen once and your limit on tasks
 in flight covers more of the queue. Each task still stays small enough for
