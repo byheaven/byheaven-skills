@@ -30,6 +30,14 @@ Manager integrates every topology into one candidate. At a join, consume only di
 
 Evidence is assigned, preserved, and reminted per predicate under [evidence.md](evidence.md). When independent semantic judgment is warranted, identify one locked commitment identity and exact state, then select one verifier or a parallel wave divided by real specialist capability, observation method, or model blind spot. Join the initial review, then close repairs through affected predicates' true judges. Resolved parts are not replayed without invalidation. A materially new commitment gets a fresh verifier-need assessment. Unknown remains open until settled, judged unjudgeable under [Predicate closure](evidence.md#predicate-closure), or returned to Direction when its bounds change.
 
+## Task sizing
+
+When a Manager forms tasks to dispatch from a project's queue of open issues or task records, it groups related items into one task rather than dispatching one task per item, and keeps each group small enough for one producer to deliver. Group before the task's scope is locked; once it is locked, [Delivery unit](repo-integration.md#delivery-unit-and-early-feedback) governs its pull requests.
+
+- **Group.** Put items in one task when they touch the same surface or code area and are judged by similar acceptance, so one producer, one setup, and one review cover them.
+- **Bound.** A task stays deliverable by one producer as one pull request a reviewer can judge in a single pass, or as a short ordered chain of two or three small pull requests. Split a group that would exceed that at a boundary where each part can be verified and recovered on its own.
+- **Alone.** An urgent fix, or an item that blocks other work, goes out on its own rather than waiting for a group.
+
 ## Several Managers
 
 A project may have several Managers working at once, each in its own session; the project's binding names them and which one is the default. They divide the work through the project's claim mechanism, such as its task record's owner or a claim ref, and every claim records which Manager holds it.
