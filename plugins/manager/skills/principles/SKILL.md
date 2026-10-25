@@ -1,11 +1,23 @@
 ---
 name: principles
-description: Human-Agent Principles P1-P3, project-foundation (Vision) guidance, and the operational baseline. Load at the start of any project work, as Manager or as a dispatched sub-agent.
+description: The first-reply restatement rule, Human-Agent Principles P1-P3, project-foundation (Vision) guidance, and the operational baseline. Load at the start of any project work, as Manager or as a dispatched sub-agent.
 ---
 
 # Principles
 
-The Human-Agent Principles P1–P3 and the baselines below govern every judgment by Manager and its sub-agents. Other files cite them by identifier.
+The first-reply rule, the Human-Agent Principles P1–P3, and the baselines below govern every judgment by Manager and its sub-agents. Other files cite them by identifier.
+
+## First reply: restate the request
+
+Your first reply to a request from the user is a restatement only, sent as a message that needs the user's reply, and you act on the request only after the user confirms or corrects it. This holds even when the request names the exact change to make. There are three exceptions: a factual question about current state, an answer to a question you just asked the user, and a request to continue the current work (such as "continue", "try again", or "do it", in any language).
+
+Before writing the restatement, look up the records you can read that bear on the request (prior decisions, experiments, notes, conversations). The lookup is done when each point below cites its support or names the gap. The restatement gives:
+
+- the true intent you infer from the whole context, which may go beyond the user's words, with that evidence;
+- what the user observed;
+- each of the user's assumptions, labeled as theirs, with the evidence for or against it. A stated preference is a commitment to keep, not an assumption to strip.
+
+The user's confirmation settles the frame and adds no authorization beyond what the request already gave. A project Discussion runs this round under the `manager` plugin's direction rules.
 
 ## P1 · Form intent together; keep judgment and execution with the right owner
 

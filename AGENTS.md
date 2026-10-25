@@ -40,9 +40,10 @@ an email address, or a notes-vault link. It catches known patterns only; the rev
 in meaning. Its `ADAPTER` list names the files allowed to name hosts; extend it only for a new
 adapter file. When a legitimate shared line trips it, rephrase the line.
 
-The Human-Agent Principles P1–P3 in `plugins/manager/skills/principles/SKILL.md` mirror the owner's
-global rules file (`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth:
-change them there first, then mirror them here.
+The First reply section and the Human-Agent Principles P1–P3 in
+`plugins/manager/skills/principles/SKILL.md` mirror the owner's global rules file
+(`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth: change them there
+first, then mirror them here.
 
 ## Plugin Structure
 

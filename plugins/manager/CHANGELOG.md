@@ -1,6 +1,17 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.31.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.32.0...HEAD)
+
+## [0.32.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.31.0...manager-0.32.0) (2026-10-25)
+
+**Every request starts with a restatement** — The `principles` skill now
+carries the first-reply rule. Your first reply to a request is a restatement
+of the intent the agent infers, what you observed, and your assumptions with
+evidence, and it acts only after you confirm. The only exceptions are a
+factual question about current state, an answer to a question the agent just
+asked, and a request to continue the current work. Every host and cloud
+session that loads the plugin gets it, not only the ones that read your global
+rules.
 
 ## [0.31.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.1...manager-0.31.0) (2026-10-25)
 
