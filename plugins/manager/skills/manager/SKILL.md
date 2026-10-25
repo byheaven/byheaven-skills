@@ -17,7 +17,7 @@ Links below are relative to this skill's directory.
 |---|---|
 | [direction.md](references/direction.md) | Checking a handoff, directing a task the user starts here, deciding whether Delivery is open, or reopening Direction |
 | [experience-gate.md](references/experience-gate.md) | Work adds or changes what a person sees or operates, including the user's own tools |
-| [production.md](references/production.md) | Choosing topology, dispatching sub-agents, integrating, sharing a project with other Managers, governed changes, review presentation, followups |
+| [production.md](references/production.md) | Choosing topology, dispatching sub-agents, sizing the tasks you dispatch from a queue, integrating, sharing a project with other Managers, governed changes, review presentation, followups |
 | [evidence.md](references/evidence.md) | Assigning evidence, Manager acceptance, verifier dispatch, failure diagnosis, dependency waits |
 | [repo-integration.md](references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
 | [runtimes.md](references/runtimes.md) | Before a runtime-native action (asking, dispatching, a worktree, verifying, waiting, a review carrier, merging, or completing): it names the binding for the host you run in |

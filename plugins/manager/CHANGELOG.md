@@ -1,6 +1,17 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.32.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.33.0...HEAD)
+
+## [0.33.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.32.0...manager-0.33.0) (2026-10-25)
+
+**Related issues travel together** — When Manager dispatches work from a
+queue or turns followups into new work, it now groups issues that touch
+the same area and are judged the same way into one task instead of sending
+one task per issue, so setup and review happen once and your limit on tasks
+in flight covers more of the queue. Each task still stays small enough for
+one producer: one pull request a reviewer can judge in a single pass, or a
+short chain of two or three. Urgent fixes and blockers can still go out on
+their own.
 
 ## [0.32.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.31.0...manager-0.32.0) (2026-10-25)
 

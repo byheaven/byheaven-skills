@@ -20,7 +20,7 @@ Merge without asking only under a standing grant the user has recorded in their 
 
 ## Delivery unit and early feedback
 
-Choose PR boundaries around outcomes that can be verified, delivered, and recovered independently, within the authorized task. Agent count and file ownership do not determine PR count. Coupled changes may share one outcome; independent outcomes may use separate PRs with explicit dependencies. Keep the locked scope as is rather than expanding it to form a convenient batch.
+Choose PR boundaries around outcomes that can be verified, delivered, and recovered independently, within the authorized task. Agent count and file ownership do not determine PR count. Coupled changes may share one outcome; independent outcomes may use separate PRs with explicit dependencies. Keep the locked scope as is; grouping related work into one task happens before its scope is locked, under [Task sizing](production.md#task-sizing).
 
 Inspect semantic dependencies and shared interfaces before parallel production. Open a draft PR or integration candidate when it provides useful feedback; PR creation need not wait for final acceptance. Run each check at the earliest point where its judge can reliably observe the relevant state. Component evidence supports its own predicate; combined behavior requires evidence on the combined state.
 
