@@ -107,7 +107,11 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 In Claude Code, the plugin's `hooks/hooks.json` runs the `SessionStart` hook in
 every session where the plugin is enabled, so Manager is the default delivery
 role: each new, resumed, cleared, compacted, or forked session is told to load the
-`manager` skill, which is the whole role. The hook adds a context line rather
+`manager` skill, which is the whole role. A role other than Manager that the
+project's instructions or the session's starting brief assign takes precedence,
+so a session that delivers a given task and leaves claiming, dispatch, and
+closure to a Manager keeps that role instead; a session assigned Manager, or no
+role, loads the skill. The hook adds a context line rather
 than a system prompt, so the model still has to follow it. There is no
 `manager` agent: remove any `"agent": "manager:manager"` setting or
 `--agent manager:manager` flag left from an earlier version. A `claude -p` or Agent SDK run,
