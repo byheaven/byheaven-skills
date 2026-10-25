@@ -8,10 +8,10 @@
 review round from another model family by default, and a fix the verifier
 spelled out closes on a diff check instead of a second round. A follow-up
 runs only for an unresolved critical or high finding, or a fix that changes
-behavior beyond what was prescribed. Documentation and records, corrections
-that change no meaning, hash-checked mirrors, version metadata, probe-checked
-configuration values, and test path fixes close on the producer's own check
-and deterministic evidence, with no independent judge.
+behavior beyond what was prescribed. Outside the high-risk class,
+documentation and records, corrections that change no meaning, hash-checked
+mirrors, version metadata, and test path fixes close on the producer's own
+check and deterministic evidence, with no independent judge.
 
 ## [0.32.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.31.0...manager-0.32.0) (2026-10-25)
 
