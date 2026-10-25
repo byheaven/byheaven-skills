@@ -1,6 +1,17 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.31.0...HEAD)
+
+## [0.31.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.1...manager-0.31.0) (2026-10-25)
+
+**Several Managers can share a project** — When your project binding names
+more than one Manager working at once, they divide the work by claim. Each
+takes only tasks no other Manager has claimed and owns them to closure, and a
+limit on work in flight counts each Manager's own dispatches. Every duty has
+exactly one owner, with the default Manager your binding names taking
+whatever no one owns, including the one list of questions for you. When the
+shared branch goes red, only the Manager that merged the failing commit
+dispatches the repair, so two Managers no longer fix the same failure.
 
 ## [0.30.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.0...manager-0.30.1) (2026-10-25)
 

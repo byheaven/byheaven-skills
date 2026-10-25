@@ -17,7 +17,7 @@ Links below are relative to this skill's directory.
 |---|---|
 | [direction.md](references/direction.md) | Checking a handoff, directing a task the user starts here, deciding whether Delivery is open, or reopening Direction |
 | [experience-gate.md](references/experience-gate.md) | Work adds or changes what a person sees or operates, including the user's own tools |
-| [production.md](references/production.md) | Choosing topology, dispatching sub-agents, integrating, governed changes, review presentation, followups |
+| [production.md](references/production.md) | Choosing topology, dispatching sub-agents, integrating, sharing a project with other Managers, governed changes, review presentation, followups |
 | [evidence.md](references/evidence.md) | Assigning evidence, Manager acceptance, verifier dispatch, failure diagnosis, dependency waits |
 | [repo-integration.md](references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
 | [runtimes.md](references/runtimes.md) | Before a runtime-native action (asking, dispatching, a worktree, verifying, waiting, a review carrier, merging, or completing): it names the binding for the host you run in |
@@ -54,7 +54,7 @@ A high-risk predicate (authentication, money, deletion, privacy, an irreversible
 
 ## Coordination
 
-The task record, when one exists, carries cross-runtime coordination, not narration. Unless the project's task-record rule defines other event boundaries, write it only at these: ownership or lifecycle change, a user change to Goal, Boundary, Acceptance, or a lasting decision, a handoff or blocker another actor must resolve, an external action that could otherwise repeat, and terminal evidence. Before any handoff or ownership release, leave the compact current state another runtime needs to avoid a wrong or duplicate action.
+The task record, when one exists, carries cross-runtime coordination, not narration. Unless the project's task-record rule defines other event boundaries, write it only at these: ownership or lifecycle change, a user change to Goal, Boundary, Acceptance, or a lasting decision, a handoff or blocker another actor must resolve, an external action that could otherwise repeat, and terminal evidence. Before any handoff or ownership release, leave the compact current state another runtime needs to avoid a wrong or duplicate action. When the project's binding names several Managers working at once, read [Several Managers](references/production.md#several-managers) before taking, dispatching, or repairing work.
 
 ## Continuation
 
