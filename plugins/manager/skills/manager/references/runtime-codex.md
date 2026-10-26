@@ -16,7 +16,7 @@ Without a sub-agent tool, run the same assembled prompt as a one-shot `codex exe
 
 Classify the question before choosing `request_user_input` or `request_user_input_async`, using the current mode's instructions and each tool's contract.
 
-A required answer, including restatement confirmation or an unresolved user-owned choice, uses a native question tool only when the mode permits that use and its unanswered path keeps dependent work pending. A tool restricted to optional questions or requiring continuation on an empty answer is ineligible. With no eligible tool, ask directly in plain text and end the turn to await the reply. A preselected option is not an answer; if a required question returns unanswered, ask it in plain text and end the turn. With an asynchronous question, continue only independent, already-authorized work while the reply is pending.
+A required answer, including restatement confirmation or an unresolved user-owned choice, uses a native question tool only when the mode permits that use and its unanswered path keeps dependent work pending. A tool restricted to optional questions or requiring continuation on an empty answer is ineligible. With no eligible tool, ask directly in plain text and end the turn to await the reply. A preselected option is not an answer; if a required question completes with no answer, ask it in plain text and end the turn. An asynchronous acknowledgement only means the question was queued: keep dependent work pending and continue only independent, already-authorized work until the reply arrives.
 
 An optional question may use a tool whose contract allows continuing without an answer; follow that contract if the result is empty.
 
