@@ -1,8 +1,7 @@
 # manager
 
-`manager` packages one project-collaboration method for Claude Code, Codex, and
-Grok Bot. The
-`manager` skill is the delivery role: it delivers a locked Intent that the
+`manager` packages one project-collaboration method for any agent host that
+loads skills. The `manager` skill is the delivery role: it delivers a locked Intent that the
 direction owner (the conversation where you settle project direction) hands it
 with your explicit authorization, and closes every Acceptance predicate through a qualified judge
 before it claims completion.
@@ -15,7 +14,8 @@ skills/manager            Manager role: Intake, Delivery, Coordination,
 skills/principles         Human-Agent Principles P1-P3 and operational baseline
   references/             direction (Grill, handoff), experience gates,
                           production topology, evidence, repository
-                          integration, runtime notes per host
+                          integration, and the capabilities a host
+                          provides
 skills/code-production    Code editing and checking method
 skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
@@ -124,23 +124,14 @@ loading line without it. To opt out, disable the plugin or set
 Codex sessions use the trusted plugin hook to load the `manager` skill.
 Where plugin hooks are not available, invoke the `manager`
 skill at the start of a delivery conversation, or name its complete installed
-path in the repository's `CLAUDE.md` or `AGENTS.md`.
+path in the repository's project instruction file.
 
-### Grok Bot
+### Host mechanisms
 
-Grok Bot has no plugin hook. A Manager there is one persistent bot per project
-with one long-lived conversation; it receives handoffs from the direction
-owner bot as agent-to-agent messages. Load the `manager` skill at the start, which is
-the role, and read `skills/manager/references/runtime-grokbot.md` before a
-native action. The role, principles, and other references are the same files
-Claude Code and Codex use. Which bots own direction, take your questions,
-write, and verify, with their agent ids and machines, belong in your own
-deployment binding, which your bots' instructions name; the plugin carries
-none of them.
-
-### Other hosts
-
-Each host's mechanics live in one runtime binding, listed in
-`skills/manager/references/runtimes.md`. On a host without one, Manager maps
-each requirement to that host's own mechanism and reports a requirement the
-host cannot meet as blocked.
+`skills/manager/references/runtimes.md` states what Manager needs from a host
+(loading, asking, sub-agent dispatch, isolation, verification, waiting, a
+review carrier, merging, completion) as requirements only. Manager meets each
+with the host's own native mechanism, or with a binding your instructions
+name, and reports a requirement the host cannot meet as blocked. Which bots,
+agent ids, machines, and model CLIs your setup uses belong in that binding;
+the plugin carries none of them.

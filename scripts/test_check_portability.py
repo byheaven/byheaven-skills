@@ -9,7 +9,7 @@ check = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(check)
 
 SHARED = "plugins/demo/skills/demo/SKILL.md"
-ADAPTER = "plugins/manager/skills/manager/references/runtime-codex.md"
+ADAPTER = "plugins/demo/skills/demo/agents/openai.yaml"
 
 
 def scan(files):
@@ -52,7 +52,7 @@ class CheckPortabilityTest(unittest.TestCase):
         self.assertEqual(scan({
             SHARED: "Ask through the host's user-question tool.\n"
                     "Read references/x.md and ~/<repo>.\n",
-            ADAPTER: "Codex uses request_user_input and spawn_agent.\n",
+            ADAPTER: "policy:\n  allow_implicit_invocation: false  # Codex\n",
             "plugins/demo/skills/demo/LICENSE": "Copyright Claude Shannon",
             "plugins/demo/hooks/hook.py": "os.environ['CLAUDE_PLUGIN_ROOT']",
             "plugins/demo/skills/demo/setup.md": "Link CLAUDE.md to AGENTS.md; see agents/openai.yaml.\n",

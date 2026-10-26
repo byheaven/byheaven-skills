@@ -12,7 +12,7 @@ A roundtable is user-steered model contrast. Manager verification, CI review, an
 
 ## Seats
 
-A Seat is one real model family, labelled `@<Family>`. The Host writes its own family's Seat directly; every other Seat comes from a real one-shot route. The Seat roster, each Seat's source mode, and its routes are in [seat-routes.md](references/seat-routes.md). Default room: every Seat in that roster the session can actually reach. Same-model role-play never fills a Seat.
+A Seat is one real model family, labelled `@<Family>`. The Host writes its own family's Seat directly; every other Seat comes from a real one-shot route. Where the Seat roster, each Seat's source mode, and its route come from is in [seat-routes.md](references/seat-routes.md). Default room: every Seat in that roster the session can actually reach. Same-model role-play never fills a Seat.
 
 Every Seat contributes independently and is weighed by its evidence, not its family: the Host's own Seat gets no extra weight. A conclusion the user adopts applies to all models alike. When it changes a rule, skill, or prompt, the change goes to the shared, runtime-neutral source that every model loads, never to one model's private configuration.
 
@@ -44,7 +44,7 @@ Private material stays out of public search queries unless the user approves sen
 
 ## Defaults
 
-- Seats reply in Simplified Chinese, and the session file is written in Simplified Chinese, unless the user asks for another language; labels, links, paths, and identifiers stay as written.
+- Seats reply in the user's language, and the session file is written in it, unless the user asks for another language; labels, links, paths, and identifiers stay as written.
 - One session file per invocation.
 - Seats are read-only contributors: they read the packet's sources and their direct references, and leave files, tasks, and dispatch to the Host. The Host keeps task ownership.
 - Visible answers only; hidden reasoning stays out of the file.

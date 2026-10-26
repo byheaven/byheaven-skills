@@ -14,15 +14,10 @@ import re
 import sys
 from pathlib import Path
 
-# Adapter files may name hosts: each maps the shared layer to one host or model family.
-# Extend this list only for a new adapter file.
+# Host packaging under skills/ may name hosts; it carries no behavior text.
+# Extend this list only for a new packaging file there.
 ADAPTER = (
     "plugins/*/skills/*/agents/openai.yaml",
-    "plugins/manager/skills/manager/references/runtimes.md",
-    "plugins/manager/skills/manager/references/runtime-claude.md",
-    "plugins/manager/skills/manager/references/runtime-codex.md",
-    "plugins/manager/skills/manager/references/runtime-grokbot.md",
-    "plugins/manager/skills/roundtable/references/seat-routes.md",
 )
 LICENSE = re.compile(r"^LICENSE(-[A-Za-z0-9]+)?$")
 

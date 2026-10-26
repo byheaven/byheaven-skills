@@ -1,37 +1,19 @@
 # Seat routes
 
-The Seat roster and how the Host reaches each selected Seat. Read when choosing the Seats and before running any Seat other than the Host's own.
+How the Host chooses the Seats and reaches each one. Read when choosing the Seats and before running any Seat other than the Host's own.
 
 ## Seats
 
-| Seat | Source mode | Status |
-|---|---|---|
-| `@Codex` | packet-only | Active |
-| `@Grok` | X search, required on every run | Active |
-| `@Gemini` | web search, required on every run | Active when a logged-in route exists |
-| `@Claude` | packet-only | Active when a logged-in route exists |
+The Seat roster comes from the user's instructions when they name one: each Seat's model family, its source mode (packet-only, web search, or X search), whether that search is required on every run, and its route. Without a named roster, offer every real model family the session can reach, each packet-only unless the user asks a Seat to search, and confirm the room through the host's user-question tool before any Seat runs.
 
 ## Route kinds
 
 - **Native**: the Host's own model family. The Host writes that Seat's answer directly, separately from its Host synthesis.
-- **CLI one-shot**: a logged-in model CLI run once in print or exec mode, read-only, with no persistent session and no sub-agents, from a working directory that holds the packet's sources. The Host may run it on any machine the session can reach where that CLI is installed and logged in, or through the host's configured cross-model launcher when one exists.
+- **CLI one-shot**: a logged-in model CLI run once in print or exec mode, read-only, with no persistent session and no sub-agents, from a working directory that holds the packet's sources. The Host may run it on any machine the session can reach where that CLI is installed and logged in, or through the host's configured cross-model launcher when one exists. The roster names each CLI's one-shot shape when it has one.
 - **Manual paste**: the Host prints one exact prompt per Seat, the user runs it in that model's product, and the host's user-question tool collects the visible answer the user pastes back. A valid route that needs no API key.
 - **Browser**: only when the user prefers it or nothing else exists. Use a fresh chat, enable only the Seat's source surface, and copy back only the visible answer and references.
 
-Check a CLI before use: `command -v <cli>`, its live `--help` for the one-shot and read-only flags, and a tiny harmless probe when the CLI is migrating or plan-gated. Install or update a CLI only when the user asks. Each Seat run is one-shot and ends with the roundtable: no resumed session, persistent chat bridge, or task-owning agent.
-
-## Current routes
-
-Shapes to confirm against `--help`, not a claim about any machine:
-
-| Seat | Native when the Host is | CLI one-shot shape |
-|---|---|---|
-| `@Codex` | Codex | `codex exec --sandbox read-only --skip-git-repo-check --ephemeral -` |
-| `@Grok` | Grok Bot or Grok CLI | `grok -p "<prompt>" --output-format plain --permission-mode plan --no-subagents` (keep web and X search enabled) |
-| `@Gemini` | (none) | `agy --print "<prompt>" --sandbox` |
-| `@Claude` | Claude Code | `claude -p` with edit tools disabled and no session persistence |
-
-A Grok Bot Host answering as `@Grok` uses its own X search tool for the required X search.
+Check a CLI before use: `command -v <cli>`, its live `--help` for the one-shot and read-only flags, and a tiny harmless probe when the CLI is migrating or plan-gated. A shape the roster records is a claim to confirm against `--help`, not a fact about any machine. Install or update a CLI only when the user asks. Each Seat run is one-shot and ends with the roundtable: no resumed session, persistent chat bridge, or task-owning agent.
 
 The model and reasoning effort each Seat's CLI runs come from the deployment's model routing when the user's instructions name one, otherwise from that CLI's configured default.
 
@@ -58,7 +40,7 @@ Operational Constraints: <language, read-only, search surface, reporting>
 
 ## Required search Seats
 
-`@Gemini` must search the web and `@Grok` must search X on every run, reporting the surface used, valuable links with one line each, and any search limits. A route that cannot search marks that Seat failed for the run; it never stands in as packet-only.
+A Seat whose source mode requires search searches its surface on every run, reporting the surface used, valuable links with one line each, and any search limits. A Host answering natively for such a Seat uses its own search tool for that surface. A route that cannot search marks that Seat failed for the run; it never stands in as packet-only.
 
 ## Failure
 

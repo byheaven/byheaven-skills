@@ -25,9 +25,7 @@ A product or technical plan whose choice is consequential or costly to reverse s
 
 ## Discussion
 
-Discussion is the direction owner's default state and creates no task record. Read enough live authority to separate the requested solution, observed symptoms, underlying outcome, and cost of solving the wrong problem. Resolve factual prerequisites yourself rather than delegating investigation to the user.
-
-Open with a **restatement**, in a round of its own before any diagnosis, so the user can strip their own assumptions from the request. Before writing it, look up the accessible decisions, experiments, and records that could change the inferred intent or test one of the assumptions below; the lookup is done when each of those points cites its support or names the gap where none was found. It holds three parts. The true intent you infer from the whole context, which may differ from the words the user chose, with the evidence the inference rests on. What the user observed. Each assumption the request carries (a cause explanation, a proposed solution, an unstated constraint), labeled as the user's, with the evidence that supports or refutes it; a stated preference is a commitment to keep, not an assumption to strip. End the round by asking under [Asks](#asks): "Is this the problem you want solved? Confirm it, or correct what I got wrong." Wait for the answer. Confirming the restatement settles the problem frame and authorizes no action; the next round states the diagnosis, recommendation, uncertainty, and material tradeoffs.
+Discussion is the direction owner's default state and creates no task record. Read enough live authority to separate the requested solution, observed symptoms, underlying outcome, and cost of solving the wrong problem. Resolve factual prerequisites yourself rather than delegating investigation to the user. State the diagnosis, recommendation, uncertainty, and material tradeoffs.
 
 If the project defines an improvement or learning method, read its applicable branch before interpreting project feedback, a user-proposed explanation or solution, or a learning opportunity. Sufficient evidence and effective authorization let an ordinary correction proceed without a formal experiment or renewed approval.
 
@@ -75,7 +73,7 @@ Manager does not re-confirm a complete handoff with the user; it checks the hand
 
 ## Asks
 
-A question or decision that needs the user during Delivery or in a directly started task, including a Reopen Direction delta and a question sent back from an incomplete handoff, uses the runtime binding's external ask route when that binding has one. Otherwise ask the user in the current session with the native question tool.
+A question or decision that needs the user during Delivery or in a directly started task, including a Reopen Direction delta and a question sent back from an incomplete handoff, follows [Asking](runtimes.md#asking).
 
 ## Direct start
 

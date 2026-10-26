@@ -17,7 +17,7 @@ and Grok Bot all run them; `cache-timer` is the one Claude Code-only extension.
   - **grilling** — Question rounds that stress-test a plan or idea until it converges
   - **writing-for-agents** — How to write skills, rules, and directives that agents follow
   - **experience-design** — Design what a person experiences, from the job and journey down to screens and their words
-  - **content-creator** — Writing brief and drafting method for copy, articles, and documents; for your own posts, articles, and books it assists without drafting them
+  - **content-creator** — Writing brief and drafting method for copy, articles, and documents; writing your own rules reserve to you, it assists without drafting
   - **code-production** — Code editing and checking method for one bounded change
   - **roundtable** — Ask several model families the same question and compare their answers (invoked by you only)
   - **principles** — Human-Agent Principles P1–P3 and the operational baseline
@@ -51,7 +51,7 @@ Install the other skills with `npx skills add` below.
 
 Grok Bot has no plugin installer or hook. Have the bot load the skill it needs
 at the start of its conversation, from a checkout of this repository. For the
-Manager role, see the [manager README](plugins/manager/README.md#grok-bot).
+Manager role, see the [manager README](plugins/manager/README.md#host-mechanisms).
 
 ### Other tools that load skills
 

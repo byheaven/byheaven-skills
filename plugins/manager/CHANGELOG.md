@@ -1,6 +1,33 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.0...HEAD)
+
+## [0.35.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.1...manager-0.35.0) (2026-10-26)
+
+**Works with any host as is** — The plugin now states what Manager needs
+from a host (loading, asking, dispatching sub-agents, isolation,
+verification, waiting, review carriers, merging, completion) and lets your
+agent meet each need with its host's own tools. Per-host binding files are
+gone; a binding your own instructions name still applies, and a need the
+host cannot meet is reported as blocked.
+
+**No one person's setup built in** — Roundtable takes its Seat roster,
+search requirements, and CLI shapes from your instructions, and Seats reply
+in your language. Content Creator assists, without drafting, whatever
+writing your own rules reserve to you, and no longer ships one person's
+platform limits or skip-and-revision rules.
+
+### Breaking Changes
+
+- **Manager** `runtime-claude.md`, `runtime-codex.md`, and `runtime-grokbot.md` are removed; name your host binding in your own instructions if you relied on them
+- **Roundtable** The built-in Seat roster and CLI shapes are removed; without a roster in your instructions, the Host offers the model families it can reach and confirms the room with you
+- **Content Creator** `references/platforms.md` and `references/anti-perfectionism.md` are removed, along with the built-in procedure for assisting personal posts, articles, and books
+- **Principles** The first-reply restatement rule is removed, and Discussion no longer opens with a restatement round
+
+### Improvements
+
+- **Code Production** The shared-checkout rule links the installed repository-integration reference instead of a pinned commit
+- **Writing for Agents** Refers to the project instruction file instead of naming host-specific file names
 
 ## [0.34.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.0...manager-0.34.1) (2026-10-26)
 
