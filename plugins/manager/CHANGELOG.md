@@ -8,8 +8,8 @@
 routing in the directive. Workers make a checkable risk classification, send
 required reviews directly to the verifier with the fixed directive fields, and
 record every route choice; exempt work arrives marked as not verified. The
-verifier chooses its model family and returns the verdict to Manager, who retains
-acceptance and merging.
+verifier chooses its model family and returns all findings and the final verdict
+to Manager, who retains acceptance and merging.
 
 ### Improvements
 

@@ -24,7 +24,7 @@ A material assumption not settled by locked Acceptance that would change observa
 
 Apply the `code-production` skill. When the slice changes what a person sees or operates, also apply the `experience-design` skill within the approved review object's direction. Ending your turn returns the result to Manager, so return before a wait you own reaches terminal state only when the next step is Manager's or a concrete blocker stops the wait.
 
-When the directive delegates [Producer-routed verification](../skills/manager/references/evidence.md#producer-routed-verification), classify the artifact, forward it for verification or mark it exempt, log the route choice, and report the route in Result. When the verifier sends findings on that route, repair only those findings, return the repaired exact state to the verifier, and send your result to Manager.
+When the directive delegates [Producer-routed verification](../skills/manager/references/evidence.md#producer-routed-verification), classify the artifact, forward it for verification or mark it exempt, log the route choice, and report the route in Result.
 
 ## Result
 

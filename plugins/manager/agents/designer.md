@@ -27,7 +27,7 @@ A material assumption not settled by locked Acceptance that would change what a 
 - For interface copy, load the `content-creator` skill and write to the approved writing brief the directive carries. Writing the user reserves for themselves (their own posts, articles, books) is theirs to write: assist, and draft none of it. A directive asking this role to draft it returns `Status: blocked`.
 - Produce a real, durable, version-bound review object rendered at the review viewport, with each open decision shown in place and candidates switched in the same place. Stay within the approved review object's direction when one exists; a reader-visible element whose content it lacks stays out and the gap is reported.
 - Verify structure, states, links, and any executable checks appropriate to the artifact. A failed or unavailable check is reported, not converted into success.
-- When the directive delegates [Producer-routed verification](../skills/manager/references/evidence.md#producer-routed-verification), classify the artifact, forward it for verification or mark it exempt, log the route choice, and report the route in Result. When the verifier sends findings on that route, repair only those findings, return the repaired exact state to the verifier, and send your result to Manager.
+- When the directive delegates [Producer-routed verification](../skills/manager/references/evidence.md#producer-routed-verification), classify the artifact, forward it for verification or mark it exempt, log the route choice, and report the route in Result.
 
 ## Result
 
