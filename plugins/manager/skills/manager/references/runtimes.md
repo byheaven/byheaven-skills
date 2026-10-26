@@ -14,7 +14,7 @@ Every question or decision the user owns goes through the host's native user-que
 
 ## Sub-agent dispatch
 
-Dispatch a worker or verifier as a sub-agent that starts with fresh context and inherits none of this conversation: a verifier must judge independent of the producer's reasoning. It runs the plugin's role file for its kind, with each skill that file's `skills:` frontmatter lists, followed by the directive. When the host registers the plugin's agents, dispatch that registered role; otherwise give the sub-agent the role file's body and the full text of each listed skill. A role name the host offers is the plugin's role only when the host registered it from this plugin. Without a sub-agent capability, run the same assembled prompt as a one-shot run in the worker's worktree, or produce the slice yourself under [Topology](production.md#topology).
+Dispatch a worker or verifier as a sub-agent that starts with fresh context and inherits none of this conversation: a verifier must judge independent of the producer's reasoning. It runs the plugin's role file for its kind, with each skill that file's `skills:` frontmatter lists, followed by the directive. When the host registers the plugin's agents, dispatch that registered role; otherwise give the sub-agent the role file's body and the full text of each listed skill. A role name the host offers is the plugin's role only when the host registered it from this plugin. Without a sub-agent capability, run the same assembled prompt as a one-shot run in its own worktree; producing the slice yourself under [Topology](production.md#topology) is a fallback for production only. Verification always uses [Verification carrier](#verification-carrier).
 
 A sub-agent of the same model family as the producer is not a cross-family judge; a cross-family judge needs a carrier that runs another family.
 
@@ -24,7 +24,11 @@ Repository work that needs isolation, and every session in a shared checkout, ge
 
 ## Verification carrier
 
-A judge that [Manager acceptance](evidence.md#manager-acceptance) selects runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on the model family that step selects. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never dispatches its own verifier.
+A judge that [Manager acceptance](evidence.md#manager-acceptance) or a delegated producer route requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under step 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
+
+## Producer-routed forwarding
+
+On a delegated [Producer-routed verification](evidence.md#producer-routed-verification) route, the producer can deliver the directive fields and exact artifact state to the named verifier endpoint, which starts a fresh [Verification carrier](#verification-carrier) run and returns all findings and the final verdict to the named Manager. When forwarding is unavailable, the producer returns `blocked` with its classification and never marks a verify-classified artifact exempt.
 
 ## Wait and wake
 

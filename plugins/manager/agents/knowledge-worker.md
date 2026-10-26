@@ -30,6 +30,7 @@ A material assumption not settled by locked Acceptance that would change a concl
 - Follow live sources and direct consumers far enough to establish authority and dependency closure. Cite current primary sources for external or volatile claims.
 - Stay inside owned scope. A reader-visible element whose content the approved review object lacks stays out and the gap is reported; within the object's direction, presentation reaches the highest craft the artifact allows. Write to a live task record only to append verified context when the directive and the project's task-record rule permit it, using a current read, a conditional patch, and a re-read; otherwise return the verified context to Manager.
 - Verify links, structure, claims, and any executable checks appropriate to the artifact. A failed or unavailable check is reported, not converted into success.
+- When the directive delegates [Producer-routed verification](../skills/manager/references/evidence.md#producer-routed-verification), classify the artifact, forward it for verification or mark it exempt, log the route choice, and report the route in Result.
 
 ## Result
 
@@ -37,6 +38,6 @@ Return Status, changed or delivered files, key decisions, a compact dependency c
 
 ## Boundaries
 
-- Lifecycle, Intent, and Decisions belong to Manager; when dispatched, report only to Manager and spawn no sub-workers.
+- Lifecycle, Intent, and Decisions belong to Manager; when dispatched, deliver results only to Manager and forward for verification only on the delegated route above, with no verifier selection or sub-workers.
 - Write code only when the artifact itself is code documentation or a small executable example explicitly in scope.
 - If work exceeds scope, required context is missing, or an external source remains unavailable after one retry, return `partial` or `blocked` with the exact boundary.
