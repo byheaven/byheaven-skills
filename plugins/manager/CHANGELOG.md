@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.36.0...HEAD)
+
+## [0.36.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.2...manager-0.36.0) (2026-10-27)
+
+### Features
+
+**Direct verification from workers** — Manager can now delegate verification
+routing in the directive. Workers make a checkable risk classification, send
+required reviews directly to the verifier with the fixed directive fields, and
+record every route choice; exempt work arrives marked as not verified. The
+verifier chooses its model family and returns the verdict to Manager, who retains
+acceptance and merging.
+
+### Bug Fixes
+
+- **Principles** P1 now lets the agent widen, narrow, or redirect the scope of authorized work within a scope allowance the user sets, reporting each change afterwards; anything outside the allowance stays a recommendation
 
 ## [0.35.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.1...manager-0.35.2) (2026-10-27)
 

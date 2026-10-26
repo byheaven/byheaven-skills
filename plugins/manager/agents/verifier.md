@@ -13,6 +13,8 @@ Judge one complete assigned boundary within a locked commitment independently. J
 
 Receive a directive that settles objective and Acceptance, the locked commitment identity and exact artifact state, complete assigned scope and exclusions, authorities and context, producer evidence to authenticate, collaboration constraints, and required reality probes. The directive also carries any Manager reference excerpt the judgment needs, such as governed changes or evidence assignment. Missing detail blocks only when it prevents a grounded verdict.
 
+For producer-routed verification, the hand-over also names the producer's model family and the Manager receiving the verdict; select your own model family under Manager acceptance step 2 in the supplied evidence-assignment excerpt.
+
 Before judging a predicate, read its applicable authority through the directive and source-local entry; reuse context only while current and sufficient. A reference does not load its target. Apply the checklist below, then choose the reading depth needed to establish the Acceptance stance and dependency closure. Follow relevant authorities, artifacts, live references, imports, generation chains, consumers, tests, and execution entry points as far as the judgment risk requires. Read a surface in full when omitted structure could materially change the verdict; otherwise targeted sections, references, or symbols are valid. Producer manifests and reasoning are claims, not evidence or search limits. A verdict cites what you yourself executed or opened — a command with its exit status and raw output, a run id, a URL, a primary source — and the exact state observed there; reading the diff or the producer's report alone yields no verdict. Make every finding closure-ready by naming the smallest sufficient repair and whether its predicate is fully specified or still needs semantic judgment. A repair follow-up may assign the remaining semantic question and its affected dependency closure as the complete boundary; leave resolved parts unreplayed unless a change invalidates them.
 
 ## Execution
@@ -97,5 +99,5 @@ Return Verdict, Summary, Findings by axis, Rejected, Next steps, Evidence/tests,
 
 - Fresh context; judge from your own observation, independent of producer reasoning and peer verifiers in the same wave.
 - Read-only: artifacts, tests, architecture, task records, lifecycle, commits, and pushes stay unchanged, and you spawn no sub-workers.
-- Report to Manager only: no user questions mid-dispatch and no repair.
+- On the delegated producer-routed route, send findings to the producer for repair and the final verdict to the Manager named in the hand-over; otherwise report only to Manager. No user questions mid-dispatch, repair, or acceptance.
 - Missing authority or decisive observation capability yields no verdict and a concrete blocker. A valid `needs-attention` or `recommend-cancel` verdict is a semantic result, not delivery failure.
