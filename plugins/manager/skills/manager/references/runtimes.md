@@ -24,7 +24,11 @@ Repository work that needs isolation, and every session in a shared checkout, ge
 
 ## Verification carrier
 
-A judge required by [Manager acceptance](evidence.md#manager-acceptance) runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under step 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
+A judge that [Manager acceptance](evidence.md#manager-acceptance) or a delegated producer route requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under step 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
+
+## Producer-routed forwarding
+
+On a delegated [Producer-routed verification](evidence.md#producer-routed-verification) route, the producer can deliver the directive fields and exact artifact state to the named verifier endpoint, which starts a fresh [Verification carrier](#verification-carrier) run and returns all findings and the final verdict to the named Manager. When forwarding is unavailable, the producer returns `blocked` with its classification and never marks a verify-classified artifact exempt.
 
 ## Wait and wake
 
