@@ -94,7 +94,8 @@ finds another carrier for independent verification.
 license; each skill's notice is in its own `LICENSE` file.
 `writing-for-agents` keeps the upstream text at commit `6fd9479`, widens its
 description to cover rules and directives, adds one sentence on blinding
-the no-op test run, and names each host's user-invoked metadata.
+the no-op test run, and states that each host's packaging declares a
+skill's invocation.
 
 The performance method in `skills/code-production/references/performance.md`
 and the verifier's safety-fact check adapt ideas from the `benchmark-checklist`
