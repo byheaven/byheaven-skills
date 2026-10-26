@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.2...HEAD)
+
+## [0.35.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.1...manager-0.35.2) (2026-10-27)
+
+### Bug Fixes
+
+- **Principles** P2 now treats any agent's account of its own work as a claim rather than evidence, and delegates a decision only where an independent judge or a later trace can check it
+- **Principles** P3 now names the five reasons a hand-off between agents can have (authority, independent information, context isolation, concurrency, or a missing capability or environment); relay, role labels, tidiness, and a same-family second look are not reasons
 
 ## [0.35.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.0...manager-0.35.1) (2026-10-26)
 
