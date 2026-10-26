@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.1...HEAD)
+
+## [0.34.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.0...manager-0.34.1) (2026-10-26)
+
+### Bug Fixes
+
+- **Codex** Required confirmations use a question route that keeps dependent work waiting for your answer, with a direct text question when no suitable native tool is available
 
 ## [0.34.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.33.0...manager-0.34.0) (2026-10-25)
 
