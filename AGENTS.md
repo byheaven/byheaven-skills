@@ -16,19 +16,21 @@ README gives each host's entry point.
 
 Every plugin behaves the same on every supported host and with any model. Three layers keep it that way:
 
-- **Shared**: skill bodies, references, templates, and agent role text. Name what you need as a
-  capability (the host's user-question tool, an isolated worktree, a sub-agent, a scheduled wake),
-  never as a host, a host tool, a host variable, a model, or a model CLI. Link files by paths
-  relative to the file that links them.
-- **Adapter**: each host's packaging and bindings: `.claude-plugin/`, `.codex-plugin/`,
-  `agents/openai.yaml`, `hooks/`, the frontmatter of agent role files (hosts that register agents
-  read it; the body is shared), and binding files such as
-  `plugins/manager/skills/manager/references/runtime-<host>.md`, which map capabilities to one host's
-  mechanisms. Give every host the same behavior: a skill that only the user may invoke says so in
-  each host's metadata. Support a new host by adding its adapter files; a host-specific fix changes
-  only that host's adapter.
-- **Deployment**: the bots, agent ids, machines, accounts, private paths, and model CLIs one user runs.
-  None of it lives in this repository; a binding refers to the deployment's own binding instead.
+- **Shared**: skill bodies, references, templates, and agent role text. State the intent and name
+  what you need as a capability (the host's user-question tool, an isolated worktree, a sub-agent, a
+  scheduled wake), never as a host, a host tool, a host variable, a model, a model CLI, or one
+  person's preferences; the agent picks its host's native mechanism. Link files by paths relative to
+  the file that links them.
+- **Adapter**: each host's packaging, which carries no behavior text: `.claude-plugin/`,
+  `.codex-plugin/`, `agents/openai.yaml`, `hooks/` (manifests and the loader scripts they run), the
+  frontmatter of agent role files (hosts that register agents read it; the body is shared), and the
+  install sections of READMEs. Give every host the same behavior: a skill that only the user may
+  invoke says so in each host's metadata. Support a new host by adding its packaging files; a
+  host-specific fix changes only that host's packaging.
+- **Deployment**: the bots, agent ids, machines, accounts, private paths, model CLIs, and host
+  bindings (which mechanism meets each capability on one host) one user runs, plus that user's
+  personal preferences. None of it lives in this repository; shared text refers to the deployment's
+  own binding instead.
 
 A **host extension** is a plugin whose purpose is one host's own API, such as `cache-timer` (Claude
 Code function hooks). Its marketplace description and README name that host, and all its files are
@@ -37,10 +39,10 @@ adapter layer.
 `npm run check:portability`, which CI runs, is a lint: it fails when a shared file names a host, host
 tool, or model, or when any plugin file carries deployment data such as an agent id, a private path,
 an email address, or a notes-vault link. It catches known patterns only; the reviewer judges coupling
-in meaning. Its `ADAPTER` list names the files allowed to name hosts; extend it only for a new
-adapter file. When a legitimate shared line trips it, rephrase the line.
+in meaning. Its `ADAPTER` list names the skill and agent files allowed to name hosts; extend it only
+for a new packaging file there. When a legitimate shared line trips it, rephrase the line.
 
-The First reply section and the Human-Agent Principles P1–P3 in
+The Human-Agent Principles P1–P3 in
 `plugins/manager/skills/principles/SKILL.md` mirror the owner's global rules file
 (`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth: change them there
 first, then mirror them here.

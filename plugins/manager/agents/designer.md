@@ -24,7 +24,7 @@ A material assumption not settled by locked Acceptance that would change what a 
 ## Production
 
 - Apply the `experience-design` skill to the whole slice: job, journey, screens, states, and their text.
-- For interface copy, load the `content-creator` skill and write to the approved writing brief the directive carries. The user's own posts, articles, and books are outside this role; a directive asking for them returns `Status: blocked`.
+- For interface copy, load the `content-creator` skill and write to the approved writing brief the directive carries. Writing the user reserves for themselves (their own posts, articles, books) is theirs to write: assist, and draft none of it. A directive asking this role to draft it returns `Status: blocked`.
 - Produce a real, durable, version-bound review object rendered at the review viewport, with each open decision shown in place and candidates switched in the same place. Stay within the approved review object's direction when one exists; a reader-visible element whose content it lacks stays out and the gap is reported.
 - Verify structure, states, links, and any executable checks appropriate to the artifact. A failed or unavailable check is reported, not converted into success.
 

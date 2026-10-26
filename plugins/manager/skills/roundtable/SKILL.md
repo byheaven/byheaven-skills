@@ -12,7 +12,7 @@ A roundtable is user-steered model contrast. Manager verification, CI review, an
 
 ## Seats
 
-A Seat is one real model family, labelled `@<Family>`. The Host writes its own family's Seat directly; every other Seat comes from a real one-shot route. The Seat roster, each Seat's source mode, and its routes are in [seat-routes.md](references/seat-routes.md). Default room: every Seat in that roster the session can actually reach. Same-model role-play never fills a Seat.
+A Seat is one real model family, labelled `@<Family>`. The Host writes its own family's Seat directly; every other Seat comes from a real one-shot route. Where the Seat roster, each Seat's source mode, and its route come from is in [seat-routes.md](references/seat-routes.md). Default room: every Seat in that roster the session can actually reach. Same-model role-play never fills a Seat.
 
 Every Seat contributes independently and is weighed by its evidence, not its family: the Host's own Seat gets no extra weight. A conclusion the user adopts applies to all models alike. When it changes a rule, skill, or prompt, the change goes to the shared, runtime-neutral source that every model loads, never to one model's private configuration.
 
@@ -20,7 +20,7 @@ Every Seat contributes independently and is weighed by its evidence, not its fam
 
 Every question to the user in this skill uses the host's user-question tool and follows any format or route the user's global rules set for messages that need the user's reply, including any free-text option they require on its option cards. Where the host's own instructions route the user's questions elsewhere, that route is the user-question tool. Plain-text questions are only for a host with neither.
 
-1. **Open the session file.** Name the question, the Host runtime, the selected Seats with their source modes, and the output path. Create the file before any Seat runs, at `~/tmp/roundtable/<YYYYMMDD-HHmm>-<slug>.md`, or at a project path only when the user asks for one. Structure: [session-file.md](references/session-file.md). Done when the file holds the Brief and one Seat Status row per selected Seat.
+1. **Open the session file.** Name the question, the Host runtime, the selected Seats with their source modes, and the output path. Create the file before any Seat runs, as `<YYYYMMDD-HHmm>-<slug>.md` in a scratch directory outside the repository, or at a project path only when the user asks for one. Structure: [session-file.md](references/session-file.md). Done when the file holds the Brief and one Seat Status row per selected Seat.
 2. **Build the shared packet** (below). Done when the three substantive fields are fixed and identical for every Seat.
 3. **Collect independent first turns.** Run each Seat once, from the packet alone, before any Seat sees another's answer. Check each route first; a selected Seat whose route fails is recorded as failed, and the user-question tool asks: "@<Seat> could not run (<reason>). Continue with the Seats that answered?" Done when every selected Seat has an answer or a recorded failure.
 4. **Render the group chat.** Show each answer under its Seat label as the Seat wrote it. Host remarks carry the `Host` label.
@@ -44,7 +44,7 @@ Private material stays out of public search queries unless the user approves sen
 
 ## Defaults
 
-- Seats reply in Simplified Chinese, and the session file is written in Simplified Chinese, unless the user asks for another language; labels, links, paths, and identifiers stay as written.
+- Seats reply in the user's language, and the session file is written in it, unless the user asks for another language; labels, links, paths, and identifiers stay as written.
 - One session file per invocation.
 - Seats are read-only contributors: they read the packet's sources and their direct references, and leave files, tasks, and dispatch to the Host. The Host keeps task ownership.
 - Visible answers only; hidden reasoning stays out of the file.
