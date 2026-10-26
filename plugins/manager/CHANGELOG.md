@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.1...HEAD)
+
+## [0.35.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.0...manager-0.35.1) (2026-10-26)
+
+### Bug Fixes
+
+- **Principles** P3 now says the simplicity test holds between agents too: keep chains of hand-offs short, since each hand-off must add new information, such as an independent review or a required authority, and one that adds neither is removed
 
 ## [0.35.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.1...manager-0.35.0) (2026-10-26)
 
