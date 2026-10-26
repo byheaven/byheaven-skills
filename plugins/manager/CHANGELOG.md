@@ -13,9 +13,12 @@ host cannot meet is reported as blocked.
 
 **No one person's setup built in** — Roundtable takes its Seat roster,
 search requirements, and CLI shapes from your instructions, and Seats reply
-in your language. Content Creator assists, without drafting, whatever
-writing your own rules reserve to you, and no longer ships one person's
-platform limits or skip-and-revision rules.
+in your language; its session file goes to a scratch directory outside the
+repository. Writing
+you reserve for yourself (your own posts, articles, books) is yours to
+write: Content Creator assists, and drafts none of it. It no longer ships
+one person's platform limits or skip-and-revision rules, and example paths
+are placeholders instead of one machine's layout.
 
 ### Breaking Changes
 
@@ -26,7 +29,7 @@ platform limits or skip-and-revision rules.
 
 ### Improvements
 
-- **Code Production** The shared-checkout rule links the installed repository-integration reference instead of a pinned commit
+- **Code Production** The shared-checkout rule links the current repository-integration reference on `main` instead of a pinned commit
 - **Writing for Agents** Refers to the project instruction file instead of naming host-specific file names
 
 ## [0.34.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.0...manager-0.34.1) (2026-10-26)

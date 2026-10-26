@@ -11,7 +11,7 @@ A **writing task** is text whose value lies in how a human reader receives it: p
 
 ## 1. Writing brief
 
-Show the user the brief before drafting or revising, and draft only after the user approves it. When the user's own rules reserve a piece of writing to the user, assist the user's writing only: produce no draft, passage, or full text meant for publication, in any language.
+Show the user the brief before drafting or revising, and draft only after the user approves it. Writing the user reserves for themselves (their own posts, articles, books) is theirs to write: assist, and draft none of it.
 
 - **Author**: who is speaking, as a specific person or voice (a product team; a product's in-app companion; the founder in a Vision).
 - **Reader**: one specific person in a specific moment, described by what they already know, what they care about, and what would convince them. A platform or a category ("players", "investors") is too broad.
