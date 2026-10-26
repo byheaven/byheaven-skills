@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.36.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.37.0...HEAD)
+
+## [0.37.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.36.0...manager-0.37.0) (2026-10-27)
+
+### Improvements
+
+- **Verification** Follow-ups focus on one declared case, mechanical repairs close on checks, and questions still open after two follow-ups return to you
 
 ## [0.36.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.2...manager-0.36.0) (2026-10-27)
 
