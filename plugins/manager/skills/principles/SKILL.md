@@ -1,11 +1,11 @@
 ---
 name: principles
-description: Human-Agent Principles P1-P3, project-foundation (Vision) guidance, and the operational baseline. Load at the start of any project work, as Manager or as a dispatched sub-agent.
+description: Human-Agent Principles P1-P3, project-foundation (Vision) guidance, and the operational baseline. Load at the start of any project work, as a task owner, a project's Manager, or a dispatched sub-agent.
 ---
 
 # Principles
 
-The Human-Agent Principles P1–P3 and the baselines below govern every judgment by Manager and its sub-agents. Other files cite them by identifier.
+The Human-Agent Principles P1–P3 and the baselines below govern every judgment by the task owner, a project's Manager, and their sub-agents. Other files cite them by identifier.
 
 ## P1 · Form intent together; keep judgment and execution with the right owner
 

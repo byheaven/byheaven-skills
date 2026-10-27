@@ -1,6 +1,31 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.37.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.38.0...HEAD)
+
+## [0.38.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.37.0...manager-0.38.0) (2026-10-27)
+
+**Task owner and Manager are separate roles** — Any session that delivers a task
+now uses the new `task-owner` skill: it locks the task, delivers it through
+sub-agents, closes acceptance through independent verification, merges under
+your standing grant, and reports. The `manager` skill now holds only what a
+project's Manager adds on top: receiving handoffs, working inside a standing
+delivery mandate, sizing tasks from a queue, and sharing a project with other
+Managers. A session is a Manager only when your deployment's own instructions
+name it one; a standalone session asks you in its own conversation, records its
+work on the pull request, claims an existing issue through the project's own
+mechanism, leaves parked and queued work for the project's Manager, and continues
+only the followups you select.
+
+### Breaking Changes
+
+- **Skills** The delivery references (`direction`, `evidence`, `experience-gate`, `production`, `repo-integration`, `runtimes`) and `scripts/pr_wait.py` moved from `skills/manager/` to `skills/task-owner/`; update links that point at the old paths
+- **Skills** The `manager` skill no longer matches a session that merely delivers a task; load it only where your deployment names the session a project's Manager, and it loads `task-owner` first
+- **Evidence** `Manager acceptance` is now `Owner acceptance` (anchor `#owner-acceptance`)
+- **Production** Task sizing, Several Managers, and mandate-covered followups moved to `skills/manager/references/project.md`
+
+### Improvements
+
+- **Verification** On the producer-routed route, the verifier endpoint runs one repair round: it sends repairable findings straight to the producer, returns scope, direction, and taste findings to the task owner, and re-verifies only a declared follow-up case
 
 ## [0.37.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.36.0...manager-0.37.0) (2026-10-27)
 
