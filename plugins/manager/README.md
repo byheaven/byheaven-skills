@@ -1,21 +1,26 @@
 # manager
 
 `manager` packages one project-collaboration method for any agent host that
-loads skills. The `manager` skill is the delivery role: it delivers a locked Intent that the
-direction owner (the conversation where you settle project direction) hands it
-with your explicit authorization, and closes every Acceptance predicate through a qualified judge
-before it claims completion.
+loads skills. The `task-owner` skill is the delivery method of any session that
+owns a task: it locks the task's Intent, or takes one the direction owner (the
+conversation where you settle project direction) hands over with your explicit
+authorization, and closes every Acceptance predicate through a qualified judge
+before it claims completion. The `manager` skill adds the duties of a project's
+Manager, which exists only where your deployment's own instructions name one.
 
 ## What It Includes
 
 ```text
-skills/manager            Manager role: Intake, Delivery, Coordination,
-                          Continuation, Completion; reads skills/principles
-skills/principles         Human-Agent Principles P1-P3 and operational baseline
+skills/task-owner         Task delivery: Intake, Records, Delivery,
+                          Completion, Report; reads skills/principles
   references/             direction (Grill, handoff), experience gates,
                           production topology, evidence, repository
                           integration, and the capabilities a host
                           provides
+skills/manager            A project's Manager: handoff receipt, standing
+                          mandate, task sizing, several Managers;
+                          loads skills/task-owner first
+skills/principles         Human-Agent Principles P1-P3 and operational baseline
 skills/code-production    Code editing and checking method
 skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
@@ -83,10 +88,11 @@ npx skills add byheaven/byheaven-skills
 ```
 
 This installs the skills only, without the plugin's `agents/` directory or
-hooks. The `manager` skill still carries the whole Manager role; invoke it at
-the start of a delivery conversation. The worker and verifier agents come only
-with the full plugin, so without them Manager produces each slice itself and
-finds another carrier for independent verification.
+hooks. Invoke the `task-owner` skill at the start of a delivery conversation,
+and the `manager` skill only in a session your deployment names a project's
+Manager. The worker and verifier agents come only with the full plugin, so
+without them the task owner produces each slice itself and finds another
+carrier for independent verification.
 
 `skills/grilling` and `skills/writing-for-agents` are adapted from
 [mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
@@ -120,9 +126,9 @@ place get nothing from it. To opt out, disable the plugin or set
 
 ### Host mechanisms
 
-`skills/manager/references/runtimes.md` states what Manager needs from a host
+`skills/task-owner/references/runtimes.md` states what a task owner needs from a host
 (loading, asking, sub-agent dispatch, isolation, verification, waiting, a
-review carrier, merging, completion) as requirements only. Manager meets each
+review carrier, merging, completion) as requirements only. The task owner meets each
 with the host's own native mechanism, or with a binding your instructions
 name, and reports a requirement the host cannot meet as blocked. Which bots,
 agent ids, machines, and model CLIs your setup uses belong in that binding;
