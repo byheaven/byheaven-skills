@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.40.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.41.0...HEAD)
+
+## [0.41.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.40.0...manager-0.41.0) (2026-10-27)
+
+**Rule reviews audit every line** — A change to a rule or an agent definition
+now gets a line-by-line review against the `writing-for-agents` tests, with a
+keep-or-move verdict for each line, so content that belongs elsewhere is moved
+instead of trimmed.
+
+### Features
+
+- **Governed changes** Agent-definition changes now go through Governed changes too, and a rule or agent-definition change names, as an Acceptance item of its review, a line-by-line audit of each touched file against the `writing-for-agents` branch-disclosure, relevance, and no-op tests, with a keep-or-move verdict for every line
+- **Global-rules excerpt** Any directive, derivation packet, or verifier hand-over to a session that does not load the user's global rules carries what it needs from them: reply language, the user-owned P1 boundaries and floors, P2's two evidence sentences, and that questions go back to the dispatcher
+- **writing-for-agents** The single source of truth states only the current state; every other document links to it, and a summary or synced copy names its source
 
 ### Documentation
 
