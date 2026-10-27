@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.46.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.47.0...HEAD)
+
+## [0.47.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.46.0...manager-0.47.0) (2026-10-28)
+
+### Features
+
+- **Task owner** The task owner is the session holding the task's goal, whoever started it, until acceptance closes; before the first change it writes Scope and Acceptance in the project's task record, else in the delivery report, and an item not yet set reads as missing and blocks the change
+- **Worktrees** Every sub-agent's result names each worktree it created (machine and path) and whether it removed it; at close (merged, abandoned, or done) the task owner has removed every worktree the task created, wherever it lives, and the report or a recurring job's record says so. Post-merge cleanup removes only the branch, so post-merge verification keeps its worktree
+- **Method** A method the user picked binds the task owner and travels in the handoff; the task owner still sets the rest of scope and method
+- **Report** A recurring job reports as its definition says
+
+### Removed
+
+- The handoff's independent-derivation line (already dropped in 0.43.0; Synthesis still says what derivation changed), and duplicate sentences in the task-owner skill (the Contract's Goal-change and explicit-request clauses, the read-only allowance, and Intake's continue-unaffected-work line)
 
 ## [0.46.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.45.0...manager-0.46.0) (2026-10-28)
 
