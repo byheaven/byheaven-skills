@@ -1,21 +1,21 @@
 ---
 name: task-owner
-description: Delivery method for the one session that owns a task. Use when this session delivers work the user asked for here, or delivery a project's Manager handed it: implementing, changing, publishing, or merging, with independent verification and repository integration. Not for a dispatched worker or verifier, which follow their charter.
+description: Delivery method for the one session that owns a task. Use when this session holds a task's goal and delivers it: implementing, changing, publishing, or merging, with independent verification and repository integration. Not for a dispatched worker or verifier, which follow their charter.
 ---
 
 # Task owner
 
-This session owns one task: one the user started here, or one a project's Manager handed to it. It locks the task, delivers it, integrates it, and reports. It is a project's Manager only when the deployment's binding names it one; that session also applies the `manager` skill. Every other task owner, a **standalone session**, selects no queue work and starts no parallel session. Apply the `principles` skill with this one; when your rules already carry P1–P3 verbatim, its later sections are what you still need.
+This session owns one task: it holds the task's goal, whoever started it, until acceptance closes. It is a project's Manager only when the deployment's binding names it one; that session also applies the `manager` skill. Every other task owner, a **standalone session**, selects no queue work and starts no parallel session. Apply the `principles` skill with this one; when your rules already carry P1–P3 verbatim, its later sections are what you still need.
 
 ## Deliverables
 
 A delivery is done when each of these holds. Reviewers check these outcomes, not the steps taken to reach them.
 
-1. **Contract.** Before the first change, the user can see the Goal; read-only investigation may come first; a small action needs one line. The task owner sets Acceptance under P2, and each predicate names its true judge and, where the delivery can show it, the effect the work exists to produce. Delivery starts only from a currently effective explicit request; a material change to the Goal goes back to the direction owner.
+1. **Contract.** Before the first change, the user can see the Goal, and the task owner writes Scope and Acceptance in the project's task record when one exists, else in the delivery report; one not yet set reads as missing and blocks the change. A small action needs one line. Each predicate, set under P2, names its true judge and, where the delivery can show it, the effect the work exists to produce.
 2. **Directives open with outcomes.** Every directive you send a sub-agent, worker, verifier, or other runtime opens with the 1–3 checkable outcomes its slice must reach, per [Directive](references/production.md#topology).
 3. **Evidence.** Every Acceptance predicate is closed by its true judge on the exact final state, per [evidence.md](references/evidence.md). A high-risk predicate gets a judge from another model family: authentication, money, deletion, privacy, an irreversible action, a material Vision change, or a change to the user's global or role rules, a hard floor, or an agent's permissions. Other rule files can be rolled back and are not high-risk. Elsewhere, bring in another model family only when it would likely change the choice.
 4. **Rule changes.** A changed rule, skill, or agent definition is not longer than before, repeats nothing another file states, and states its key requirement first.
-5. **Integration.** One integrated candidate; repository effects pass the gates in [repo-integration.md](references/repo-integration.md), and a shared checkout gets its own worktree. A change that alters the project's architecture updates its architecture document.
+5. **Integration.** One integrated candidate; repository effects pass the gates in [repo-integration.md](references/repo-integration.md), and a shared checkout gets its own worktree. Every sub-agent's result names each worktree it created, with machine and path, and whether it removed it; at close (merged, abandoned, or done) the task owner has removed every worktree the task created, wherever it lives, and the report or a recurring job's record says so. A change that alters the project's architecture updates its architecture document.
 6. **Escaped bugs.** A defect that reached a user or production is fixed at its root, and the evidence says why it escaped, per [Predicate closure](references/evidence.md#predicate-closure).
 7. **Followups.** Valuable work outside Acceptance is routed once under [Followup closure](references/production.md#followup-closure); only candidates needing the user's selection reach the report.
 8. **Report.** The report below is sent, and the user can see why you recommend what you recommend.
@@ -35,7 +35,7 @@ Code follows the `code-production` skill and anything a person experiences in a 
 
 ## Intake
 
-A task the user starts here is discussed and locked under [Direct start](references/direction.md#direct-start). A handed-over task arrives with its locked Intent; check it against live state and open Delivery at the [Delivery gate](references/direction.md#delivery-gate). During Delivery, ask only for a user-owned choice inside the locked Intent (a review object, a completion gate, followup selection); a choice that changes the Goal reopens Direction. Both go through [Asks](references/direction.md#asks). Continue unaffected work meanwhile.
+A task the user starts here is discussed and locked under [Direct start](references/direction.md#direct-start). A handed-over task arrives with its locked Intent; check it against live state and open Delivery at the [Delivery gate](references/direction.md#delivery-gate). During Delivery, ask only for a user-owned choice inside the locked Intent (a review object, a completion gate, followup selection); a choice that changes the Goal reopens Direction. Both go through [Asks](references/direction.md#asks).
 
 ## Records
 
@@ -43,7 +43,7 @@ Keep a durable task record only when the work must cross turns or runtimes, ente
 
 ## Report
 
-Before reporting done, re-judge every predicate on current state and write the smallest terminal evidence the task record needs, when one exists. Every report on the state of work, in the user's language, follows any format the user's rules set for messages that need a reply, and goes where [Asking](references/runtimes.md#asking) routes such messages:
+Before reporting done, re-judge every predicate on current state and write the smallest terminal evidence the task record needs, when one exists. Every report on the state of work, in the user's language, follows any format the user's rules set for messages that need a reply, and goes where [Asking](references/runtimes.md#asking) routes such messages; a recurring job reports as its definition says:
 
 1. **Conclusion**, one sentence: done, partially done, or blocked, and where.
 2. **Links** the user can open: the pull request, document, or deliverable, which carry the evidence.
