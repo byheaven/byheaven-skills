@@ -1,9 +1,7 @@
 """Tell an interactive Claude Code or Codex session when its git checkout is behind the remote.
 
-The hook assigns no role: the plugin no longer makes Manager every session's default, so a
-session uses the manager skill only when its user or its instructions ask for it. When an
-interactive session starts in a git checkout, the hook refreshes the remote-tracking refs for
-the remote default branch and the branch's upstream with one bounded, non-interactive fetch
+The hook assigns no role. When an interactive session starts in a git checkout, it
+refreshes the remote-tracking refs for the remote default branch and the branch's upstream with one bounded, non-interactive fetch
 per remote, and says when HEAD lacks commits either has, so claims about what exists now
 are read from the remote rather than the stale tree. Each ref in the notice says whether
 it was refreshed now or is only as current as an earlier fetch. The whole check stays

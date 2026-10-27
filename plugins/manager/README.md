@@ -60,8 +60,8 @@ codex plugin add manager@byheaven-skills
 ```
 
 The Codex manifest enables a `SessionStart` hook only for `startup`. It assigns
-no role: in an interactive session whose git checkout is behind its remote, it
-only says so; otherwise it adds nothing. A `codex exec` run, such as a scripted
+no role: in an interactive session whose git checkout is behind its remote, or
+whose refresh failed, it only says so; otherwise it adds nothing. A `codex exec` run, such as a scripted
 writer or judge, gets nothing from the hook. Review and trust the hook through
 Codex's `/hooks` interface before it can run. Python 3 is required. Codex reads
 it from `hooks/codex.json`, named in `.codex-plugin/plugin.json`.
@@ -104,18 +104,16 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 ## Usage
 
-The plugin assigns no role when a session starts. Use the `manager` skill when
-you, or the session's instructions, call for it: invoke it at the start of a
-delivery conversation, or name its complete installed path in the repository's
-project instruction file. There is no `manager` agent: remove any
-`"agent": "manager:manager"` setting or `--agent manager:manager` flag left
-from an earlier version.
+The plugin assigns no role when a session starts. There is no `manager` agent:
+remove any `"agent": "manager:manager"` setting or `--agent manager:manager`
+flag left from an earlier version.
 
 In Claude Code, the plugin's `hooks/hooks.json` runs the `SessionStart` hook on
 new, resumed, cleared, compacted, and forked sessions. In a session it
 recognises as interactive (the terminal, VS Code, or the desktop app), it
-refreshes the remote-tracking refs and, when the checkout is behind, adds a
-one-line notice saying so; otherwise it adds nothing. A `claude -p` or Agent
+refreshes the remote-tracking refs and adds a notice when the checkout is
+behind, or when the refresh failed and whether it is current is unknown;
+otherwise it adds nothing. A `claude -p` or Agent
 SDK run, such as a scripted writer or judge, and any session the hook cannot
 place get nothing from it. To opt out, disable the plugin or set
 `disableAllHooks`.

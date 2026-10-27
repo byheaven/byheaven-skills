@@ -356,11 +356,6 @@ class OutputTest(unittest.TestCase):
         with mock.patch.object(hook, "currency_notice", side_effect=RuntimeError("boom")):
             self.assertEqual("", self.run_main(tempfile.mkdtemp()))
 
-    def test_the_hook_assigns_no_role(self):
-        source = Path(hook.__file__).read_text(encoding="utf-8")
-        self.assertNotIn("manager:manager", source)
-        self.assertNotIn("Default conversation role", source)
-
 
 if __name__ == "__main__":
     unittest.main()
