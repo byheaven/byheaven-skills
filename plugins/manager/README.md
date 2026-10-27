@@ -59,17 +59,16 @@ codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
 codex plugin add manager@byheaven-skills
 ```
 
-The Codex manifest enables a `SessionStart` hook only for `startup`, pointing
-each new session at the installed `manager:manager` skill. Resume, clear, and
-compaction do not run this loader again, and a `codex exec` run, such as a
-scripted writer or judge, gets nothing from the hook. Review and trust
-the hook through Codex's `/hooks` interface before it can run. Python 3 is
-required. Codex reads it from `hooks/codex.json`, named in
-`.codex-plugin/plugin.json`.
+The Codex manifest enables a `SessionStart` hook only for `startup`. It assigns
+no role: in an interactive session whose git checkout is behind its remote, it
+only says so; otherwise it adds nothing. A `codex exec` run, such as a scripted
+writer or judge, gets nothing from the hook. Review and trust the hook through
+Codex's `/hooks` interface before it can run. Python 3 is required. Codex reads
+it from `hooks/codex.json`, named in `.codex-plugin/plugin.json`.
 
-The hook carries only the loading instruction. The role, principles, and
-references remain the same files used by Claude Code. It creates no task
-record and adds no task-store or machine-specific binding.
+The role, principles, and references are the same files used by Claude Code.
+The hook creates no task record and adds no task-store or machine-specific
+binding.
 
 Plugin hooks are not supported in cloud-orchestrated ChatGPT Work. A cloud
 host loads the `manager` skill, with its sibling skills, through its own
@@ -105,27 +104,21 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 ## Usage
 
-In Claude Code, the plugin's `hooks/hooks.json` runs the `SessionStart` hook in
-every session where the plugin is enabled, so Manager is the default delivery
-role: each new, resumed, cleared, compacted, or forked session is told to load the
-`manager` skill, which is the whole role. A role other than Manager that the
-project's instructions or the session's starting brief assign takes precedence,
-so a session that delivers a given task and leaves claiming, dispatch, and
-closure to a Manager keeps that role instead; a session assigned Manager, or no
-role, loads the skill. The hook adds a context line rather
-than a system prompt, so the model still has to follow it. There is no
-`manager` agent: remove any `"agent": "manager:manager"` setting or
-`--agent manager:manager` flag left from an earlier version. A `claude -p` or Agent SDK run,
-such as a scripted writer or judge, gets nothing from the hook. The hook's
-branch-currency fetch runs only in a session it recognises as interactive
-(the terminal, VS Code, or the desktop app); any other session gets the
-loading line without it. To opt out, disable the plugin or set
-`disableAllHooks`.
+The plugin assigns no role when a session starts. Use the `manager` skill when
+you, or the session's instructions, call for it: invoke it at the start of a
+delivery conversation, or name its complete installed path in the repository's
+project instruction file. There is no `manager` agent: remove any
+`"agent": "manager:manager"` setting or `--agent manager:manager` flag left
+from an earlier version.
 
-Codex sessions use the trusted plugin hook to load the `manager` skill.
-Where plugin hooks are not available, invoke the `manager`
-skill at the start of a delivery conversation, or name its complete installed
-path in the repository's project instruction file.
+In Claude Code, the plugin's `hooks/hooks.json` runs the `SessionStart` hook on
+new, resumed, cleared, compacted, and forked sessions. In a session it
+recognises as interactive (the terminal, VS Code, or the desktop app), it
+refreshes the remote-tracking refs and, when the checkout is behind, adds a
+one-line notice saying so; otherwise it adds nothing. A `claude -p` or Agent
+SDK run, such as a scripted writer or judge, and any session the hook cannot
+place get nothing from it. To opt out, disable the plugin or set
+`disableAllHooks`.
 
 ### Host mechanisms
 
