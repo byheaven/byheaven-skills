@@ -76,7 +76,7 @@ The hook creates no task record and adds no task-store or machine-specific
 binding.
 
 Plugin hooks are not supported in cloud-orchestrated ChatGPT Work. A cloud
-host loads the `manager` skill, with its sibling skills, through its own
+host loads the `task-owner` skill, with its sibling skills, through its own
 skill-loading entry; with the skills alone the role works, but the worker and
 verifier agents are absent.
 See [plugin support](https://learn.chatgpt.com/docs/plugins).
