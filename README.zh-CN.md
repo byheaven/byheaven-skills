@@ -16,6 +16,7 @@
   - **experience-design** — 设计用户的体验：从任务与旅程，到界面及其文字
   - **content-creator** — 文案、文章与文档的写作简报与起草方法；你留给自己写的内容（你本人的帖子、文章、书）由你来写：只做辅助，不代写
   - **code-production** — 单个有界改动的代码编写与检查方法
+  - **diagnosing-bugs** — 为难查的 bug 建立反馈回路，并对已到达用户或生产环境的 bug 分类
   - **roundtable** — 向多个模型家族提出同一问题并对比回答（仅由你手动调用）
   - **principles** — 人机协作原则 P1–P3 与操作基线
 - **cache-timer**（仅限 Claude Code）— Claude Code Mod：在输入框上方的横条中倒计时提示缓存，显示 Claude Code 自带的空闲压缩，并可在横条中设置它的开关和阈值

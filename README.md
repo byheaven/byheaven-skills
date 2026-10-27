@@ -19,6 +19,7 @@ and Grok Bot all run them; `cache-timer` is the one Claude Code-only extension.
   - **experience-design** — Design what a person experiences, from the job and journey down to screens and their words
   - **content-creator** — Writing brief and drafting method for copy, articles, and documents. Writing you reserve for yourself (your own posts, articles, books) is yours to write: it assists, and drafts none of it
   - **code-production** — Code editing and checking method for one bounded change
+  - **diagnosing-bugs** — Build a feedback loop for a hard bug, and classify bugs that reached users or production
   - **roundtable** — Ask several model families the same question and compare their answers (invoked by you only)
   - **principles** — Human-Agent Principles P1–P3 and the operational baseline
 - **cache-timer** (Claude Code only) — Claude Code mod: prompt-cache countdown in a band above the prompt, with Claude Code's own idle compaction shown and its switch and threshold set from the band

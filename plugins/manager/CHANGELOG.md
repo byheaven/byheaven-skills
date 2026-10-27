@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.41.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.42.0...HEAD)
+
+## [0.42.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.41.0...manager-0.42.0) (2026-10-27)
+
+**Bug diagnosis ships with the plugin** — The `diagnosing-bugs` skill is now
+part of the plugin, so every session that installs it builds a feedback loop
+before theorizing about a hard bug and classifies a bug that reached users or
+production the same way.
+
+### Features
+
+- **diagnosing-bugs** New skill, adapted from mattpocock/skills: build one red-capable, deterministic, fast command that observes the failure, minimize, rank falsifiable hypotheses, fix with a regression test, and classify an escaped bug as a registered-assertion regression or a new behavior gap, recorded on the task record
+- **Evidence** An escaped bug is classified with the `diagnosing-bugs` skill instead of "a bug-diagnosis skill if one is installed"
 
 ## [0.41.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.40.0...manager-0.41.0) (2026-10-27)
 

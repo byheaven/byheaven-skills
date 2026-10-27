@@ -22,6 +22,8 @@ skills/manager            A project's Manager: handoff receipt, standing
                           loads skills/task-owner first
 skills/principles         Human-Agent Principles P1-P3 and operational baseline
 skills/code-production    Code editing and checking method
+skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped
+                          bugs
 skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
 skills/grilling           Question rounds that converge a direction (Grill)
@@ -86,7 +88,8 @@ Manager. The worker and verifier agents come only with the full plugin, so
 without them the task owner produces each slice itself and finds another
 carrier for independent verification.
 
-`skills/grilling` and `skills/writing-for-agents` are adapted from
+`skills/grilling`, `skills/writing-for-agents`, and `skills/diagnosing-bugs`
+are adapted from
 [mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
 license; each skill's notice is in its own `LICENSE` file.
 `writing-for-agents` keeps the upstream text at commit `6fd9479`, widens its
