@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.40.0...HEAD)
 
+### Documentation
+
+- **Contributing** The repository `AGENTS.md` names the owner's role rules file as the source the `principles` P1–P3 mirror
+
 ## [0.40.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.39.0...manager-0.40.0) (2026-10-27)
 
 **No session-start hook** — The plugin no longer ships a `SessionStart` hook for
