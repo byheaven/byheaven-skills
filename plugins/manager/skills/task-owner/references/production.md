@@ -65,7 +65,7 @@ If the project defines an improvement or learning method, read its branch for le
 Before completion, reconcile the locked Intent, final delivery, qualified findings, user corrections, explicit deferred or out-of-scope work, and material downstream effects against current evidence. Inspect execution events when their observed impact, recurrence, or unresolved outcome could change acceptance, recovery, or a worthwhile improvement: significant failures, repeated retries or corrections, costly waits, handoffs, and context loss. Use existing records and deepen a trace only for a concrete question. Preserve material incidents and report missing observations when they limit a claim. Route each supported material delta exactly once:
 
 1. **Repair now** when current Acceptance remains open; an unjudgeable predicate is not open work for this route.
-2. **Reopen Direction** when Goal, Boundary, Approach, or Acceptance must change; return it to the direction owner under [Handoff](direction.md#handoff).
+2. **Reopen Direction** when the Goal must change; return it to the direction owner under [Handoff](direction.md#handoff).
 3. **Continue-now candidate** when work is valuable and outside the locked Acceptance and no concrete blocker prevents starting it now. This task's Intent stays as locked.
 4. **Blocked candidate** when work is valuable and outside the locked Acceptance but a concrete blocker prevents starting it now; the candidate names that blocker.
 5. **Discard** when evidence or expected value does not justify user attention.

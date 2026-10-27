@@ -1,6 +1,15 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.44.0...HEAD)
+
+## [0.44.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.1...manager-0.44.0) (2026-10-27)
+
+### Features
+
+- **Intent is the Goal** Direction locks only the Goal, written as the result visible once done; Boundary and Approach are gone, and the task owner sets scope and method by P1–P3 and Acceptance by P2, escalating what lies beyond its authority. Handoff, Reopen Direction, Grill, the Delivery gate, Direct start, the task-owner contract, and the verifier's cancel verdict follow
+- **Direct start** drops its restatement step; the user's own rules say how a direct message is confirmed
+- **Owner acceptance** A predicate judged by taste or value has the user as judge and is marked `judged by the user`
+- **P1** drops the passage that feedback about current work does not itself authorize a new or changed outcome; inferred intent still authorizes no action by itself
 
 ## [0.43.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.0...manager-0.43.1) (2026-10-27)
 

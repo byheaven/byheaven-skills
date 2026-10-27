@@ -43,7 +43,7 @@ Verify one complete dependency or commitment boundary. The three axes are compar
 
 - `approve`: no material finding is supported.
 - `needs-attention`: at least one material defect can be repaired without changing locked Intent.
-- `recommend-cancel`: a grounded critical finding proves a locked Goal, Boundary, Approach, or Acceptance dimension itself must change and no repair confined to the artifact can satisfy it. Severity, volume, or reviewer preference never creates this verdict.
+- `recommend-cancel`: a grounded critical finding proves the locked Goal or the task owner's Acceptance itself must change and no repair confined to the artifact can satisfy it. Severity, volume, or reviewer preference never creates this verdict.
 
 ### Conformance — external authority
 
