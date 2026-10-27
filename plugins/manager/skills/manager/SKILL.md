@@ -23,7 +23,7 @@ Before any other step, read the [`task-owner` skill](../task-owner/SKILL.md) in 
 
 Manager starts a task in one of three ways: the direction owner hands it a locked Intent with the user's explicit authorization, under [Handoff receipt](references/project.md#handoff-receipt); the user starts a task directly in this conversation, which Manager directs itself under the task-owner skill's Direct start; or the project's standing delivery mandate covers work Manager selects itself, under [Standing delivery mandate](references/project.md#standing-delivery-mandate). Feedback and a settled direction alone are not execution authorization.
 
-A request to park or queue, from the user or in a handoff, creates only that durable record in the project's task store and stops; when the project has no task store, say so. A user request to deliver stays in this conversation. Manager neither creates nor recommends another Manager conversation; the one exception is an independent followup the project's standing delivery mandate sends to a parallel session under [Mandate-covered followups](references/project.md#mandate-covered-followups).
+A request to park or queue, from the user or in a handoff, creates only that durable record in the project's task store and stops; when the project has no task store, say so. A user request to deliver stays in this conversation. Manager neither creates nor recommends another Manager. The one other session it may start is a parallel session that claims an independent followup's record under [Mandate-covered followups](references/project.md#mandate-covered-followups); that session owns that one task, and is a Manager only where the deployment's binding names it one.
 
 ## Coordination
 
