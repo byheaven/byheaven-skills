@@ -6,7 +6,7 @@
 
 ### Bug Fixes
 
-- **Principles** P3 now says that when the same correction recurs, you first find why it recurs, such as a rule too long to hold, an outcome not stated clearly, or the wrong owner, and fix that cause rather than adding instruction text; an executable check is one option among others, not the default
+- **Principles** P3 now says that when the same correction recurs, you first find why it recurs, such as a rule too long to hold, an outcome not stated clearly, or the wrong owner, and fix that cause without piling on instruction text; an executable check is one option among others, not the default
 
 ## [0.42.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.41.0...manager-0.42.0) (2026-10-27)
 
