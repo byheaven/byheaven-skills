@@ -5,12 +5,12 @@
 # transcripts are not kept, so a judge left unrecorded at merge cannot be
 # recovered later.
 #
-# Rule text: plugins/*/skills, plugins/*/agents, the Manager hooks that inject
-# the role, and the root AGENTS.md / CLAUDE.md.
+# Rule text: plugins/*/skills, plugins/*/agents, and the root AGENTS.md /
+# CLAUDE.md.
 # Inputs: PR_BODY (description text), BASE_SHA, HEAD_SHA.
 set -euo pipefail
 
-rule_paths='^(plugins/[^/]+/(skills|agents)/|plugins/manager/hooks/|AGENTS\.md$|CLAUDE\.md$)'
+rule_paths='^(plugins/[^/]+/(skills|agents)/|AGENTS\.md$|CLAUDE\.md$)'
 # --no-renames lists both sides of a rename, so moving a file out still counts.
 changed="$(git diff --no-renames --name-only "$BASE_SHA...$HEAD_SHA" | grep -E "$rule_paths" || true)"
 if [ -z "$changed" ]; then

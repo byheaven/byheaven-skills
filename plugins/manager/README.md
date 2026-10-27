@@ -64,19 +64,11 @@ codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
 codex plugin add manager@byheaven-skills
 ```
 
-The Codex manifest enables a `SessionStart` hook only for `startup`. It assigns
-no role: in an interactive session whose git checkout is behind its remote, or
-whose refresh failed, it only says so; otherwise it adds nothing. A `codex exec` run, such as a scripted
-writer or judge, gets nothing from the hook. Review and trust the hook through
-Codex's `/hooks` interface before it can run. Python 3 is required. Codex reads
-it from `hooks/codex.json`, named in `.codex-plugin/plugin.json`.
-
 The role, principles, and references are the same files used by Claude Code.
-The hook creates no task record and adds no task-store or machine-specific
+The plugin creates no task record and adds no task-store or machine-specific
 binding.
 
-Plugin hooks are not supported in cloud-orchestrated ChatGPT Work. A cloud
-host loads the `task-owner` skill, with its sibling skills, through its own
+In cloud-orchestrated ChatGPT Work, a cloud host loads the `task-owner` skill, with its sibling skills, through its own
 skill-loading entry; with the skills alone the role works, but the worker and
 verifier agents are absent.
 See [plugin support](https://learn.chatgpt.com/docs/plugins).
@@ -87,8 +79,8 @@ See [plugin support](https://learn.chatgpt.com/docs/plugins).
 npx skills add byheaven/byheaven-skills
 ```
 
-This installs the skills only, without the plugin's `agents/` directory or
-hooks. Invoke the `task-owner` skill at the start of a delivery conversation,
+This installs the skills only, without the plugin's `agents/` directory.
+Invoke the `task-owner` skill at the start of a delivery conversation,
 and the `manager` skill only in a session your deployment names a project's
 Manager. The worker and verifier agents come only with the full plugin, so
 without them the task owner produces each slice itself and finds another
@@ -110,19 +102,9 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 ## Usage
 
-The plugin assigns no role when a session starts. There is no `manager` agent:
-remove any `"agent": "manager:manager"` setting or `--agent manager:manager`
-flag left from an earlier version.
-
-In Claude Code, the plugin's `hooks/hooks.json` runs the `SessionStart` hook on
-new, resumed, cleared, compacted, and forked sessions. In a session it
-recognises as interactive (the terminal, VS Code, or the desktop app), it
-refreshes the remote-tracking refs and adds a notice when the checkout is
-behind, or when the refresh failed and whether it is current is unknown;
-otherwise it adds nothing. A `claude -p` or Agent
-SDK run, such as a scripted writer or judge, and any session the hook cannot
-place get nothing from it. To opt out, disable the plugin or set
-`disableAllHooks`.
+The plugin ships no hooks and assigns no role when a session starts. There is
+no `manager` agent: remove any `"agent": "manager:manager"` setting or
+`--agent manager:manager` flag left from an earlier version.
 
 ### Host mechanisms
 
