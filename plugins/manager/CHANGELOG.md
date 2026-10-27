@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.39.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.40.0...HEAD)
+
+## [0.40.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.39.0...manager-0.40.0) (2026-10-27)
+
+**No session-start hook** — The plugin no longer ships a `SessionStart` hook for
+Claude Code or Codex, so nothing runs when a session starts and Codex no longer
+asks you to review and trust a plugin hook.
+
+### Breaking Changes
+
+- **Hook** The `SessionStart` hook and its git-currency notice are removed; check whether a checkout is behind its remote yourself when it matters
 
 ### Bug Fixes
 

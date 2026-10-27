@@ -22,7 +22,7 @@ Every plugin behaves the same on every supported host and with any model. Three 
   person's preferences; the agent picks its host's native mechanism. Link files by paths relative to
   the file that links them.
 - **Adapter**: each host's packaging, which carries no behavior text: `.claude-plugin/`,
-  `.codex-plugin/`, `agents/openai.yaml`, `hooks/` (manifests and the loader scripts they run), the
+  `.codex-plugin/`, `agents/openai.yaml`, `hooks/` (hook manifests and the scripts they run), the
   frontmatter of agent role files (hosts that register agents read it; the body is shared), and the
   install sections of READMEs. Give every host the same behavior: a skill that only the user may
   invoke says so in each host's metadata. Support a new host by adding its packaging files; a
