@@ -40,8 +40,8 @@ jobs:
       - name: Test repository scripts
         run: python3 -m unittest discover -s scripts
 
-      - name: Test manager scripts
-        run: python3 -m unittest discover -s plugins/manager/skills/manager/scripts
+      - name: Test task-owner scripts
+        run: python3 -m unittest discover -s plugins/manager/skills/task-owner/scripts
 
       - name: Test manager hooks
         run: python3 -m unittest discover -s plugins/manager/hooks

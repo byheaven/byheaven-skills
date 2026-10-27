@@ -31,7 +31,7 @@
     },
     {
       "name": "manager",
-      "version": "0.37.0",
+      "version": "0.38.0",
       "category": "productivity",
       "tags": [
         "project-management",
@@ -46,7 +46,7 @@
         "acceptance criteria",
         "pull request integration"
       ],
-      "description": "Project delivery role that takes a locked, explicitly authorized Intent from the direction owner and closes acceptance through independent verification and sub-agents.",
+      "description": "Project-collaboration method: any session that owns a task delivers it through sub-agents and closes acceptance through independent verification; a project's Manager, named by your deployment, also drives the project.",
       "source": "./plugins/manager"
     },
     {

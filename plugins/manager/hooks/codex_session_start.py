@@ -262,7 +262,7 @@ def main():
 
     root = Path(__file__).resolve().parents[1]
     skill = root / "skills/manager/SKILL.md"
-    direct_start = root / "skills/manager/references/direction.md"
+    direct_start = root / "skills/task-owner/references/direction.md"
     context = (
         "Default conversation role: Manager, the delivery role. When the current project's instructions "
         "or the brief this conversation was started with assign it a role other than Manager, such as "

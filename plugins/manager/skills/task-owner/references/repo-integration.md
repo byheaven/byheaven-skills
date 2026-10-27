@@ -1,6 +1,6 @@
 # Repository integration
 
-Load before the first repository-affecting action — commit, push, PR, merge, worktree, or completion integration — including establishing an isolated worktree after scope expansion. Manager owns integration. A producer commits, pushes, and opens the PR on the branch its directive names; when several producers share one branch, each directive narrows this to leaving the tree uncommitted and Manager commits and pushes. Manager retains integration and merge responsibility, including when a project mechanism executes the merge.
+Load before the first repository-affecting action — commit, push, PR, merge, worktree, or completion integration — including establishing an isolated worktree after scope expansion. The task owner owns integration. A producer commits, pushes, and opens the PR on the branch its directive names; when several producers share one branch, each directive narrows this to leaving the tree uncommitted and the task owner commits and pushes. The task owner retains integration and merge responsibility, including when a project mechanism executes the merge.
 
 ## Applicability and boundary
 
@@ -10,23 +10,23 @@ This applies to source changes in a Git repository, not to non-repository knowle
 
 A shared checkout always requires an isolated worktree. On any other checkout, use an isolated worktree when the task or later scope expansion requires one. Record the source and worktree relationship so receipts and completion evidence bind to the correct checkout.
 
-For a shared `main` failure, query the open PR set and related task records, then apply [Dependency waits](evidence.md#dependency-waits) using live repair execution evidence. An active repair receives an automatic dependency wait; an unclaimed or stopped repair receives diagnosis and a concrete repair plan under the ordinary authorization boundary. Preserve existing work and avoid duplicate repair; when several Managers share the project, [Several Managers](production.md#several-managers) names the one that repairs.
+For a shared `main` failure, query the open PR set and related task records, then apply [Dependency waits](evidence.md#dependency-waits) using live repair execution evidence. An active repair receives an automatic dependency wait; an unclaimed or stopped repair receives diagnosis and a concrete repair plan under the ordinary authorization boundary. Preserve existing work and avoid duplicate repair; when the project's binding names several Managers, its Manager rules name the one that repairs.
 
 When an isolated worktree is active, it is the only writable code surface. Run builds, tests, IDEs, and GUI developer tools there; treat the source checkout as a read-only control surface for repository identity and synchronization. Leave the source checkout untouched — no stash, reset, or clean — to satisfy a dispatch or integration precondition. A dirty source remains a separately reported blocker unless the user explicitly authorizes current-branch or local-checkout work on a checkout that isn't shared.
 
 ## Merge authorization
 
-Merge without asking only under a standing grant the user has recorded in their own instructions; otherwise ask, as the last step on a reviewable object after every gate in [Integration sequence](#integration-sequence) has passed. A standing grant never waives locked scope, independent verification, required checks, review resolution, mergeability, or the user-owned boundaries of P1. With any unresolved direction conflict, material risk, blocking review thread, or mergeability problem, keep the PR unmerged and the task non-terminal; investigate and repair within settled boundaries, and surface the exact unresolved condition rather than weakening the gates.
+Merge without asking only under a standing grant the user has recorded in their own instructions that covers this session as the task's owner; otherwise ask, as the last step on a reviewable object after every gate in [Integration sequence](#integration-sequence) has passed. A standing grant never waives locked scope, independent verification, required checks, review resolution, mergeability, or the user-owned boundaries of P1. With any unresolved direction conflict, material risk, blocking review thread, or mergeability problem, keep the PR unmerged and the task non-terminal; investigate and repair within settled boundaries, and surface the exact unresolved condition rather than weakening the gates.
 
 ## Delivery unit and early feedback
 
-Choose PR boundaries around outcomes that can be verified, delivered, and recovered independently, within the authorized task. Agent count and file ownership do not determine PR count. Coupled changes may share one outcome; independent outcomes may use separate PRs with explicit dependencies. Keep the locked scope as is; grouping related work into one task happens before its scope is locked, under [Task sizing](production.md#task-sizing).
+Choose PR boundaries around outcomes that can be verified, delivered, and recovered independently, within the authorized task. Agent count and file ownership do not determine PR count. Coupled changes may share one outcome; independent outcomes may use separate PRs with explicit dependencies. Keep the locked scope as is; grouping related work into one task happens before its scope is locked.
 
 Inspect semantic dependencies and shared interfaces before parallel production. Open a draft PR or integration candidate when it provides useful feedback; PR creation need not wait for final acceptance. Run each check at the earliest point where its judge can reliably observe the relevant state. Component evidence supports its own predicate; combined behavior requires evidence on the combined state.
 
 ## Same-target merge coordination
 
-The project owns its controlled integration entry and candidate construction; Manager owns their use and the delivery evidence. Reuse that mechanism rather than adding a workflow-level queue or prescribing author-branch rebase. Independent preparation and checks may run concurrently; final target publication preserves the project's coordination guarantees.
+The project owns its controlled integration entry and candidate construction; the task owner owns their use and the delivery evidence. Reuse that mechanism rather than adding a workflow-level queue or prescribing author-branch rebase. Independent preparation and checks may run concurrently; final target publication preserves the project's coordination guarantees.
 
 The project determines which predicates close before merge and which close on actual main afterward. Bind admission to the reviewed author revision, current target, and the evidence required at that stage; an authorized post-merge engineering check stays post-merge. When the project validates a combined candidate before merge, use its merge strategy and establish that the candidate still matches the intended update immediately before publication. Target movement remints affected pre-merge predicates under [evidence.md](evidence.md), not every receipt or the author branch. A main-first project instead validates the actual accepted main with its cumulative coverage and recovery contract; a green author branch never establishes combined correctness.
 
@@ -47,15 +47,15 @@ Repository commands and host APIs are project and runtime capabilities. Discover
 
 ## PR review triage
 
-Manager triages hosted review findings against the current candidate. Routine triage asks the user nothing.
+The task owner triages hosted review findings against the current candidate. Routine triage asks the user nothing.
 
 **Eligibility.** Repair a finding when it remains valid on the current candidate, concerns the submitted change within locked scope, and demonstrates a real failure, data loss, blocking defect, or violation of locked Acceptance. Its first-comment revision does not determine eligibility. Suggestions, style preferences, and out-of-scope requests receive an explicit disposition or a followup candidate; an unresolved required Acceptance predicate is never dismissed as low severity.
 
 **Repeated comments.** Deduplicate messages, not unresolved defects. Re-anchored or older findings that still meet eligibility remain blockers until closed by relevant evidence. Already fixed, superseded, or inapplicable findings receive a state-bound explanation; their repetition alone does not require another repair or review round. Every finding receives a disposition.
 
-**Repair and receipts.** Apply [Failure diagnosis](evidence.md#failure-diagnosis) when a repair fails or a defect recurs. Repairs within the same commitment remint only affected evidence through the appropriate judges. Independent review is not repeated merely because a PR was updated; neither Manager confidence nor message deduplication closes an open semantic predicate.
+**Repair and receipts.** Apply [Failure diagnosis](evidence.md#failure-diagnosis) when a repair fails or a defect recurs. Repairs within the same commitment remint only affected evidence through the appropriate judges. Independent review is not repeated merely because a PR was updated; neither task-owner confidence nor message deduplication closes an open semantic predicate.
 
-**Escalation.** A finding that conflicts with locked Intent, warrants cancellation, or creates a new user-owned value or risk choice reopens Direction and returns to the direction owner under [Handoff](direction.md#handoff); a new authorization choice inside the locked Intent goes to the user. Ordinary implementation and environment repairs remain Manager execution within settled boundaries.
+**Escalation.** A finding that conflicts with locked Intent, warrants cancellation, or creates a new user-owned value or risk choice reopens Direction and returns to the direction owner under [Handoff](direction.md#handoff); a new authorization choice inside the locked Intent goes to the user. Ordinary implementation and environment repairs remain task-owner execution within settled boundaries.
 
 ## Failure and completion
 
