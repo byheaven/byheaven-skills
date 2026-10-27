@@ -43,8 +43,8 @@ in meaning. Its `ADAPTER` list names the skill and agent files allowed to name h
 for a new packaging file there. When a legitimate shared line trips it, rephrase the line.
 
 The Human-Agent Principles P1–P3 in
-`plugins/manager/skills/principles/SKILL.md` mirror the owner's global rules file
-(`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth: change them there
+`plugins/manager/skills/principles/SKILL.md` mirror the owner's role rules file
+(`AI/AGENTS-roles.md` in the byheaven vault), which is their source of truth: change them there
 first, then mirror them here.
 
 ## Plugin Structure
