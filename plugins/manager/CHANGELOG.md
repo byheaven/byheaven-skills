@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.39.0...HEAD)
 
+### Bug Fixes
+
+- **README** The cloud-host note names `task-owner`, not `manager`, as the skill a cloud host loads
+
 ## [0.39.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.38.0...manager-0.39.0) (2026-10-27)
 
 **No default role at session start** — The `SessionStart` hook no longer tells
