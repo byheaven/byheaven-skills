@@ -47,7 +47,7 @@ Between frontier admission and the first round, [Independent derivation](#indepe
 
 **Defaults ledger.** At round closure the direction owner lists each owner decision it closed by source, one line each with the source. Routine technical choices stay agent-owned under P1 and are not listed. The user may pull any line back into the frontier.
 
-**Completion.** Grill completes when the frontier is empty, the ledger is shown, and the user confirms shared understanding; a first round whose frontier is already empty completes at once by showing the ledger, the confirmation step being waived because nothing was asked. Closure locks direction only; the handoff to the project's Manager still needs the user's explicit action request unless one is already effective under [Delivery gate](#delivery-gate).
+**Completion.** Grill completes when the frontier is empty, the ledger is shown, and the user confirms shared understanding; a first round whose frontier is already empty completes at once by showing the ledger, the confirmation step being waived because nothing was asked, except where [Direct start](#direct-start) requires it. Closure locks direction only; the handoff to the project's Manager still needs the user's explicit action request unless one is already effective under [Delivery gate](#delivery-gate).
 
 ## Independent derivation
 
@@ -77,7 +77,7 @@ A question or decision that needs the user during Delivery or in a directly star
 
 ## Direct start
 
-When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above, locks Goal, Boundary, Approach where any, and Acceptance, and opens Delivery only at the [Delivery gate](#delivery-gate). Delivery then proceeds unchanged in that conversation. Every question or decision it needs from the user, before and after Delivery opens, follows [Asks](#asks).
+When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above and locks Goal, Boundary, Approach where any, and Acceptance. Before delivering a task or an action that is costly or hard to reverse, it sets out those [Intent](#intent) dimensions briefly, naming which route the Approach takes and what the Boundary leaves untouched, and waits for the user to confirm or amend them, even when Grill had nothing to ask; for cheap, reversible work it opens with one line saying what done looks like and who judges it by what method, then acts. Delivery opens only at the [Delivery gate](#delivery-gate) and then proceeds unchanged in that conversation. Every question or decision it needs from the user, before and after Delivery opens, follows [Asks](#asks).
 
 ## Delivery gate
 

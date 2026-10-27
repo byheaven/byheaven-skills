@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.1...HEAD)
+
+## [0.43.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.0...manager-0.43.1) (2026-10-27)
+
+### Bug Fixes
+
+- **Direct start** A task the user starts directly sets out its Intent dimensions and waits for the user to confirm or amend them before a delivery or a costly or hard-to-reverse action, even when Grill had nothing to ask; cheap, reversible work opens with one line on what done looks like and who judges it
 
 ## [0.43.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.42.1...manager-0.43.0) (2026-10-27)
 
