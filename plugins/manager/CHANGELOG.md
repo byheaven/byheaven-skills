@@ -1,6 +1,29 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.42.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.0...HEAD)
+
+## [0.43.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.42.1...manager-0.43.0) (2026-10-27)
+
+**Deliverables instead of steps** — The task-owner method is now a one-page
+list of outcomes a reviewer checks, directives open with the outcomes they must
+reach, and a cross-family judge is required only where a mistake is hard to
+undo. Models are stronger now, so the method states results and drops the
+bookkeeping and repeated checks that had piled up.
+
+### Features
+
+- **Task owner** The skill is a one-page deliverables list: contract, outcomes-first directives, evidence, rule changes, integration, escaped bugs, followups, and the report; the fixed basis line becomes "the user can see why", and a delivery with no pull request no longer has to open a task record to hold its evidence
+- **Directives** Every directive opens with the 1–3 checkable outcomes its slice must reach; a bare "load skill X" is not an outcome, and the global-rules excerpt no longer copies P2 verbatim
+- **Rule changes** The line-by-line keep-or-move audit (0.41.0) is replaced by one outcome: each changed file is not longer, repeats nothing, and states its key requirement first
+- **Evidence** Rewritten as a short list of what the evidence must show. A cross-family judge is required for authentication, money, deletion, privacy, irreversible actions, material Vision changes, and changes to the user's global or role rules, hard floors, or agent permissions; other rule changes can be rolled back and are no longer high-risk
+- **Cross-family steps** Shape candidates, competing-candidate scoring, polishing rounds, design versions, and architecture derivation bring in another model family only when it would likely change the choice; design versions get no per-version verifier pre-check
+
+- **Principles** The core of Project foundations (grounding project work in P1–P3 and the Vision, traceable conclusions, named derivation gaps) now lives in the user's global rules so every session gets it; the skill keeps only the mechanics beyond that core
+
+### Removed
+
+- The verifier finding ledger rows, review replay cases and replays, the per-route choice log, and the `Independent derivation:` handoff line; turn such bookkeeping on only for a named experiment
+- The repeated "read task-owner/principles first" lines in the manager skill, the task-owner skill, and the loading requirement
 
 ## [0.42.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.42.0...manager-0.42.1) (2026-10-27)
 

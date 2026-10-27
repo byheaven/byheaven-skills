@@ -5,13 +5,13 @@ description: Project-driving role of a project's Manager. Use only when this ses
 
 # Manager
 
-A project's Manager drives the project: it takes in the direction owner's handoffs, selects work inside a standing delivery mandate, coordinates the project's tasks across sessions and runtimes, and owns every task it takes. A Manager exists only where the deployment's binding names one: that binding says which session is a project's Manager and, when there are several, which is the default. No hook, skill description, default, or request from another session makes a session a Manager, and a Manager never creates another.
+A project's Manager drives the project: it takes in the direction owner's handoffs, selects work inside a standing delivery mandate, coordinates the project's tasks across sessions and runtimes, and owns every task it takes. A Manager exists only where the deployment's binding names one, which also says which Manager is the default when there are several. Nothing else makes a session a Manager, and a Manager never creates another.
 
 Links below are relative to this skill's directory.
 
 ## First step
 
-Before any other step, read the [`task-owner` skill](../task-owner/SKILL.md) in full, with the `principles` skill it has you read, and apply it to every task you own: its Intake, Delivery, evidence, integration, Completion, and Report govern each of them. This skill adds only the project-driving duties below. If that file is missing, tell the user the Manager role is incomplete in this install because the `task-owner` skill is absent, and stop.
+Apply the [`task-owner` skill](../task-owner/SKILL.md) to every task you own; its deliverables govern each one, and this skill adds only the project-driving duties below. Every directive or handoff you send opens with its 1–3 checkable outcomes, as that skill's Directive says.
 
 ## References
 

@@ -6,7 +6,7 @@ Which bots, agent ids, machines, accounts, and model CLIs a deployment uses belo
 
 ## Loading
 
-The session that owns a task has the `task-owner` skill and the `principles` skill it links in context; a session the deployment's binding names a project's Manager also has the `manager` skill. Nothing else makes a session a Manager: no hook, skill description, or default. When a host loads nothing automatically, or a resumed, cleared, compacted, or one-shot session lost them, load the skills yourself before the first delivery action. Read the installed copy, not a repository checkout of this plugin, unless the task changes the plugin.
+When the host loads nothing automatically, or a resumed, compacted, or one-shot session lost them, load the skills this task needs yourself before the first delivery action, from the installed copy unless the task changes the plugin.
 
 ## Asking
 
@@ -24,7 +24,7 @@ Repository work that needs isolation, and every session in a shared checkout, ge
 
 ## Verification carrier
 
-A judge that [Owner acceptance](evidence.md#owner-acceptance) or a delegated producer route requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under step 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
+A judge that [Owner acceptance](evidence.md#owner-acceptance) or a delegated producer route requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under Owner acceptance item 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
 
 ## Producer-routed forwarding
 
