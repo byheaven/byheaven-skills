@@ -127,28 +127,41 @@ class CheckoutTest(unittest.TestCase):
     def test_claude_print_run_gets_no_context_and_leaves_the_repository_untouched(self):
         self.assertEqual("", self.assert_untouched("claude", "sdk-cli"))
 
-    def test_unplaced_session_gets_the_loader_line_but_leaves_the_repository_untouched(self):
+    def test_unplaced_session_gets_no_context_and_leaves_the_repository_untouched(self):
         for entrypoint in (None, "claude-code-github-action"):
             with self.subTest(entrypoint=entrypoint):
-                out = json.loads(self.assert_untouched("claude", entrypoint))
-                self.assertEqual("SessionStart", out["hookSpecificOutput"]["hookEventName"])
+                self.assertEqual("", self.assert_untouched("claude", entrypoint))
 
     def test_unplaced_codex_originator_leaves_the_repository_untouched(self):
         rollout = Path(tempfile.mkdtemp(), "rollout.jsonl")
         rollout.write_text(json.dumps({"type": "session_meta", "payload": {"originator": "codex_sdk_ts"}}) + "\n")
-        json.loads(self.assert_untouched("codex", None, transcript_path=str(rollout)))
+        self.assertEqual("", self.assert_untouched("codex", None, transcript_path=str(rollout)))
 
     def test_codex_run_without_a_rollout_ignores_an_inherited_claude_entrypoint(self):
         # `codex exec --ephemeral` writes no rollout; launched from an interactive Claude Code
         # session, it inherits CLAUDE_CODE_ENTRYPOINT=cli.
         for transcript_path in (None, str(self.tmp / "missing.jsonl")):
             with self.subTest(transcript_path=transcript_path):
-                json.loads(self.assert_untouched("codex", "cli", transcript_path=transcript_path))
+                self.assertEqual("", self.assert_untouched("codex", "cli", transcript_path=transcript_path))
 
     def test_interactive_claude_session_refreshes_the_remote_tracking_ref(self):
         run_hook(self.clone, "claude", "cli", source="startup")
         self.assertEqual(git(self.remote, "rev-parse", "main"),
                          git(self.clone, "rev-parse", "origin/main"))
+
+    def test_interactive_session_behind_the_remote_gets_only_the_notice(self):
+        rollout = Path(tempfile.mkdtemp(), "rollout.jsonl")
+        rollout.write_text(json.dumps({"type": "session_meta", "payload": {"originator": "codex_cli_rs"}}) + "\n")
+        for host, entrypoint, event in (("claude", "cli", {}),
+                                        ("codex", None, {"transcript_path": str(rollout)})):
+            with self.subTest(host=host):
+                out = json.loads(run_hook(self.clone, host, entrypoint, source="startup", **event))
+                context = out["hookSpecificOutput"]["additionalContext"]
+                self.assertEqual("SessionStart", out["hookSpecificOutput"]["hookEventName"])
+                self.assertIn("origin/main (fetched just now) has 1 commit that main lacks", context)
+                self.assertNotIn("Manager", context)
+                self.assertNotIn("manager:manager", context)
+                self.assertNotIn("role", context)
 
     def test_up_to_date_checkout_is_silent(self):
         git(self.clone, "pull", "-q")
@@ -322,9 +335,6 @@ class OutputTest(unittest.TestCase):
     def run_main(self, cwd, host="claude", **event):
         return run_hook(cwd, host, "cli" if host == "claude" else None, **event)
 
-    def context(self, cwd, host="claude", **event):
-        return json.loads(self.run_main(cwd, host, **event))["hookSpecificOutput"]["additionalContext"]
-
     def transcript(self, originator):
         """A Codex rollout as it stands when SessionStart runs: its session_meta line."""
         path = Path(tempfile.mkdtemp(), "rollout.jsonl")
@@ -336,22 +346,15 @@ class OutputTest(unittest.TestCase):
         out = self.run_main(tempfile.mkdtemp(), "codex", transcript_path=self.transcript("codex_exec"))
         self.assertEqual("", out)
 
-    def test_interactive_codex_session_still_gets_the_loader_line(self):
-        context = self.context(tempfile.mkdtemp(), "codex", transcript_path=self.transcript("Codex Desktop"))
-        self.assertIn("manager:manager skill", context)
+    def test_interactive_session_with_nothing_to_report_gets_no_context(self):
+        for host, event in (("claude", {}),
+                            ("codex", {"transcript_path": self.transcript("Codex Desktop")})):
+            with self.subTest(host=host):
+                self.assertEqual("", self.run_main(tempfile.mkdtemp(), host, **event))
 
-    def test_non_git_directory_gets_only_the_loader_line(self):
-        context = self.context(tempfile.mkdtemp())
-        self.assertIn("manager:manager skill", context)
-        self.assertIn("delivery role", context)
-        self.assertIn("direction.md#direct-start", context)
-        self.assertNotIn("or here when the user starts the task in this conversation", context)
-        self.assertNotIn("\n\n", context)
-
-    def test_a_git_surprise_never_drops_the_loader_line(self):
+    def test_a_git_surprise_never_fails_the_session_start(self):
         with mock.patch.object(hook, "currency_notice", side_effect=RuntimeError("boom")):
-            context = self.context(tempfile.mkdtemp())
-        self.assertIn("manager:manager skill", context)
+            self.assertEqual("", self.run_main(tempfile.mkdtemp()))
 
 
 if __name__ == "__main__":

@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.38.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.39.0...HEAD)
+
+## [0.39.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.38.0...manager-0.39.0) (2026-10-27)
+
+**No default role at session start** — The `SessionStart` hook no longer tells
+Claude Code and Codex sessions to load the `manager` skill. It now only tells an
+interactive session when its checkout is behind the remote, and otherwise adds
+nothing.
+
+### Breaking Changes
+
+- **Hook** New Claude Code and Codex sessions are no longer told to take the Manager role
+- **Hook** A session the hook cannot place as interactive now gets no output at all
 
 ## [0.38.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.37.0...manager-0.38.0) (2026-10-27)
 

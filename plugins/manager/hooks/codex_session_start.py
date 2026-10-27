@@ -1,27 +1,25 @@
-"""Point Claude Code and Codex sessions at this installed plugin's canonical Manager loader.
+"""Tell an interactive Claude Code or Codex session when its git checkout is behind the remote.
 
-When the session starts in a git checkout, also refresh the remote-tracking refs for the
-remote default branch and the branch's upstream with one bounded, non-interactive fetch
-per remote, and say when HEAD lacks commits either has, so claims about what exists now
+The hook assigns no role. When an interactive session starts in a git checkout, it
+refreshes the remote-tracking refs for the remote default branch and the branch's upstream with one bounded, non-interactive fetch
+per remote, and says when HEAD lacks commits either has, so claims about what exists now
 are read from the remote rather than the stale tree. Each ref in the notice says whether
 it was refreshed now or is only as current as an earlier fetch. The whole check stays
-inside the hook's 5 s limit, and any failure still leaves the loader line. The fetch runs
-only in a session confirmed interactive. A scripted one-shot run (`claude -p`, the Agent
-SDK, `codex exec`) gets neither the loader line nor the fetch, and a session the hook cannot
-place gets the loader line without the fetch, so the hook writes nothing into the repository
-of a run nobody is driving.
+inside the hook's 5 s limit. A session with nothing to report gets no output. A scripted
+one-shot run (`claude -p`, the Agent SDK, `codex exec`) and a session the hook cannot place
+get neither the fetch nor any output, so the hook writes nothing into the repository of a
+run nobody is driving.
 """
 
 import json
 import os
 import re
-from pathlib import Path
 import signal
 import subprocess
 import sys
 import time
 
-BUDGET_S = 4.0  # leaves headroom under the 5 s hook timeout for the loader line
+BUDGET_S = 4.0  # leaves headroom under the 5 s hook timeout
 CALL_S = 0.4
 FETCH_S = 2.0
 
@@ -256,36 +254,18 @@ def main():
     event = json.load(sys.stdin)
     if event.get("hook_event_name") != "SessionStart":
         return
-    kind = run_kind(event, sys.argv[1] if len(sys.argv) > 1 else None)
-    if kind == "one-shot":
+    if run_kind(event, sys.argv[1] if len(sys.argv) > 1 else None) != "interactive":
         return
-
-    root = Path(__file__).resolve().parents[1]
-    skill = root / "skills/manager/SKILL.md"
-    direct_start = root / "skills/task-owner/references/direction.md"
-    context = (
-        "Default conversation role: Manager, the delivery role. When the current project's instructions "
-        "or the brief this conversation was started with assign it a role other than Manager, such as "
-        "one that delivers a given task and leaves claiming, dispatch, and closure to a Manager, take "
-        "that role instead. Otherwise, including when they assign it Manager, at the start of this "
-        "conversation, read and follow the manager:manager skill from this installed plugin: "
-        f"{skill}. The skill is the full Manager role and has you read the principles. "
-        "For a task the user starts directly in this conversation, read "
-        f"{direct_start}#direct-start. "
-        "Apply the current project's own instructions and bindings."
-    )
-    notice = None
-    if kind == "interactive":
-        try:
-            notice = currency_notice(event.get("cwd") or ".")
-        except Exception:  # the loader line must survive any git surprise
-            pass
-    if notice:
-        context += "\n\n" + notice
+    try:
+        notice = currency_notice(event.get("cwd") or ".")
+    except Exception:  # a git surprise must never fail the session start
+        return
+    if not notice:
+        return
     print(json.dumps({
         "hookSpecificOutput": {
             "hookEventName": "SessionStart",
-            "additionalContext": context,
+            "additionalContext": notice,
         }
     }))
 
