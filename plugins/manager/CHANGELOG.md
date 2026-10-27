@@ -6,9 +6,9 @@
 
 ### Features
 
-- **P3** A fix is done only when evidence shows its class will not recur: a new case of it would be stopped, or its cause no longer exists; an interim fix also names where the problem can still recur
+- **P3** A fix is done only when evidence shows its class will not recur: every path that produces it is blocked or its cause no longer exists, checked against a new case of the class; an interim fix also names where the problem can still recur
 - **Intent** For a problem, the Goal's visible result includes its class not recurring; **Owner acceptance** checks a root fix against a new case of the class
-- **Context pointers** Placement follows when a rule must act and how long it must hold: session-long rules are always loaded, an action-triggered rule's pointer is always loaded and names the action, and a rule that contradicts a platform default is always loaded and says it overrides it
+- **Context pointers** Placement follows when a rule must act and how long it must hold: session-long rules are always loaded, an action-triggered rule's pointer is always loaded and names the action, and a rule that contradicts a platform default the user may override is always loaded and says it overrides it
 
 ## [0.44.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.1...manager-0.44.0) (2026-10-27)
 
