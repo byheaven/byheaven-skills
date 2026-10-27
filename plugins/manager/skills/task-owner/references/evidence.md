@@ -4,7 +4,7 @@ P2 in the [principles skill](../../principles/SKILL.md) sets the evidence standa
 
 ## Owner acceptance
 
-The task owner closes every objective Acceptance predicate before any completion claim, terminal write, or completion-stage request for user judgment. The user is never the test carrier: missing access or private state leaves a predicate unknown and the task owned, not handed to the user. User judgment is the true judge only for a predicate irreducibly about value, taste, risk, or irreversible authorization, and it comes after every objective predicate is current.
+The task owner closes every objective Acceptance predicate before any completion claim, terminal write, or completion-stage request for user judgment. The user is never the test carrier: missing access or private state leaves a predicate unknown and the task owned, not handed to the user. User judgment is the true judge only for a predicate irreducibly about value, taste, risk, or irreversible authorization, and it comes after every objective predicate is current. When taste or value judges the outcome, the judge is the user, and the task owner marks that predicate `judged by the user`.
 
 For each predicate, the evidence shows:
 

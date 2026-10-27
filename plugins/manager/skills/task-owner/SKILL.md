@@ -11,7 +11,7 @@ This session owns one task: one the user started here, or one a project's Manage
 
 A delivery is done when each of these holds. Reviewers check these outcomes, not the steps taken to reach them.
 
-1. **Contract.** Before the first tool call, the user can see Goal, Boundary, and Acceptance; a small action needs one line. Each Acceptance predicate names its true judge and, where the delivery can show it, the effect the work exists to produce. Delivery starts only from a currently effective explicit request; a material change to Goal, Boundary, or Acceptance goes back to the direction owner.
+1. **Contract.** Before the first change, the user can see the Goal; read-only investigation may come first; a small action needs one line. The task owner sets Acceptance under P2, and each predicate names its true judge and, where the delivery can show it, the effect the work exists to produce. Delivery starts only from a currently effective explicit request; a material change to the Goal goes back to the direction owner.
 2. **Directives open with outcomes.** Every directive you send a sub-agent, worker, verifier, or other runtime opens with the 1–3 checkable outcomes its slice must reach, per [Directive](references/production.md#topology).
 3. **Evidence.** Every Acceptance predicate is closed by its true judge on the exact final state, per [evidence.md](references/evidence.md). A high-risk predicate gets a judge from another model family: authentication, money, deletion, privacy, an irreversible action, a material Vision change, or a change to the user's global or role rules, a hard floor, or an agent's permissions. Other rule files can be rolled back and are not high-risk. Elsewhere, bring in another model family only when it would likely change the choice.
 4. **Rule changes.** A changed rule, skill, or agent definition is not longer than before, repeats nothing another file states, and states its key requirement first.
@@ -35,7 +35,7 @@ Code follows the `code-production` skill and anything a person experiences in a 
 
 ## Intake
 
-A task the user starts here is discussed and locked under [Direct start](references/direction.md#direct-start). A handed-over task arrives with its locked Intent; check it against live state and open Delivery at the [Delivery gate](references/direction.md#delivery-gate). During Delivery, ask only for a user-owned choice inside the locked Intent (a review object, a completion gate, followup selection); a choice that changes Goal, Boundary, Approach, or Acceptance reopens Direction. Both go through [Asks](references/direction.md#asks). Continue unaffected work meanwhile.
+A task the user starts here is discussed and locked under [Direct start](references/direction.md#direct-start). A handed-over task arrives with its locked Intent; check it against live state and open Delivery at the [Delivery gate](references/direction.md#delivery-gate). During Delivery, ask only for a user-owned choice inside the locked Intent (a review object, a completion gate, followup selection); a choice that changes the Goal reopens Direction. Both go through [Asks](references/direction.md#asks). Continue unaffected work meanwhile.
 
 ## Records
 
