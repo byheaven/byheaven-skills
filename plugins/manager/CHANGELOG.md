@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.45.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.46.0...HEAD)
+
+## [0.46.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.45.0...manager-0.46.0) (2026-10-28)
+
+### Features
+
+- **P3** The feasible alternatives compared include removing the structure that produces the problem, not only patching on top of the existing structure
+- **Contributing** The repository `AGENTS.md` names the owner's global rules file, which now holds the role rules and the full P1–P3, as the source the `principles` P1–P3 mirror
 
 ## [0.45.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.44.0...manager-0.45.0) (2026-10-27)
 
