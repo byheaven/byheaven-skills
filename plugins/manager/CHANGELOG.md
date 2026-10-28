@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.48.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.49.0...HEAD)
+
+## [0.49.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.48.0...manager-0.49.0) (2026-10-28)
+
+**Every route list gets a second family** — Whenever direction offers you more
+than one route, one of them comes from another model family's independent
+derivation, or the reply says in one line why none ran. A direction with one
+sensible route, a factual lookup, or a pure question is unchanged.
+
+### Improvements
+
+- **Independent derivation** The trigger is now "the direction presents more than one route" instead of four decision classes (0.48.0), so no separate classification is left to the producer
+- **Verifier** Checks the `Independent derivation:` line whenever the direction presented more than one route
 
 ## [0.48.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.47.0...manager-0.48.0) (2026-10-28)
 
