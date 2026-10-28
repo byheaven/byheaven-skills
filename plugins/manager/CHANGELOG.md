@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.49.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.50.0...HEAD)
+
+## [0.50.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.49.0...manager-0.50.0) (2026-10-28)
+
+**Derivation on request** — Your first reply with routes no longer waits on
+another model family. Every card that asks you to pick a route offers an
+option to have another family derive independently; picking it runs one
+derivation and brings a new card.
+
+### Improvements
+
+- **Independent derivation** Runs only when the user picks the card option, with one route from one other family; the not-run line is gone
+- **Verifier** Checks the `Independent derivation:` line only when the user picked derivation
 
 ## [0.49.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.48.0...manager-0.49.0) (2026-10-28)
 
