@@ -1,6 +1,6 @@
 ---
 name: task-owner
-description: Delivery method for the one session that owns a task. Use when this session holds a task's goal and delivers it: implementing, changing, publishing, or merging, with independent verification and repository integration. Not for a dispatched worker or verifier, which follow their charter.
+description: "Delivery method for the one session that owns a task. Use when this session holds a task's goal and delivers it: implementing, changing, publishing, or merging, with independent verification and repository integration. Not for a dispatched worker or verifier, which follow their charter."
 ---
 
 # Task owner
