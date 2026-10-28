@@ -1,6 +1,20 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.51.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.0...HEAD)
+
+## [0.52.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.51.0...manager-0.52.0) (2026-10-28)
+
+**Reviews say whether another round is needed** — Every verdict now opens
+with a Gate line listing the open critical or high findings and which of
+them need a follow-up. When it lists no follow-up, the remaining findings
+are fixed and checked against the diff, and the change merges without
+another review. A follow-up looks only at the listed findings and continues
+the first reviewer's session, so it does not reread everything.
+
+### Improvements
+
+- **Verifier** The result opens with a Gate line, whatever report format the directive asks for
+- **Verifier dispatch** The Gate line decides the next round; a medium or low finding never starts one, and a follow-up resumes the first verifier's session
 
 ## [0.51.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.50.0...manager-0.51.0) (2026-10-28)
 
