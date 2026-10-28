@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.50.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.51.0...HEAD)
+
+## [0.51.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.50.0...manager-0.51.0) (2026-10-28)
+
+**Design drafts go straight to you** — A proposal, mockup, or candidate
+draft you see before implementation no longer waits on a review by another
+model family; you judge it directly. The change that implements it is still
+judged before merge as before.
+
+### Improvements
+
+- **Owner acceptance** Design-stage artifacts get no cross-family judge; the implementing change keeps its usual judge
+- **Design polishing rounds** Each round's fresh judge may come from any model family
 
 ## [0.50.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.49.0...manager-0.50.0) (2026-10-28)
 
