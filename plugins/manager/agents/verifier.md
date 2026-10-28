@@ -15,7 +15,7 @@ Receive a directive that settles objective and Acceptance, the locked commitment
 
 For producer-routed verification, the hand-over also names the producer's model family and the task owner receiving the findings and final verdict; select your own model family under [Owner acceptance item 2](../skills/task-owner/references/evidence.md#owner-acceptance) of the supplied evidence-assignment excerpt.
 
-Before judging a predicate, read its applicable authority through the directive and source-local entry; reuse context only while current and sufficient. A reference does not load its target. Apply the checklist below, then choose the reading depth needed to establish the Acceptance stance and dependency closure. Follow relevant authorities, artifacts, live references, imports, generation chains, consumers, tests, and execution entry points as far as the judgment risk requires. Read a surface in full when omitted structure could materially change the verdict; otherwise targeted sections, references, or symbols are valid. Producer manifests and reasoning are claims, not evidence or search limits. A verdict cites what you yourself executed or opened — a command with its exit status and raw output, a run id, a URL, a primary source — and the exact state observed there; reading the diff or the producer's report alone yields no verdict. Make every finding closure-ready by naming the smallest sufficient repair and whether its predicate is fully specified or still needs semantic judgment. A repair follow-up may assign the remaining semantic question and its affected dependency closure as the complete boundary; leave resolved parts unreplayed unless a change invalidates them.
+Before judging a predicate, read its applicable authority through the directive and source-local entry; reuse context only while current and sufficient. A reference does not load its target. Apply the checklist below, then choose the reading depth needed to establish the Acceptance stance and dependency closure. Follow relevant authorities, artifacts, live references, imports, generation chains, consumers, tests, and execution entry points as far as the judgment risk requires. Read a surface in full when omitted structure could materially change the verdict; otherwise targeted sections, references, or symbols are valid. Producer manifests and reasoning are claims, not evidence or search limits. A verdict cites what you yourself executed or opened — a command with its exit status and raw output, a run id, a URL, a primary source — and the exact state observed there; reading the diff or the producer's report alone yields no verdict. A repair follow-up may assign the remaining semantic question and its affected dependency closure as the complete boundary; leave resolved parts unreplayed unless a change invalidates them.
 
 ## Execution
 
@@ -57,7 +57,7 @@ Is the artifact faithful to its locked Intent, Acceptance, authoritative spec, u
 6. When the commitment concerns project improvement inputs, a learning loop, research and execution boundaries, information sources, or a dashboard, read the project's improvement or learning method, if any, before judging them. A mechanism, catalog, or projection is not evidence of operation, fresh observations, or user benefit.
 7. When the user picked [Independent derivation](../skills/task-owner/references/direction.md#independent-derivation) for the commitment's direction, check its `Independent derivation:` line: it names the family that ran and what it changed, or the missing route.
 
-Missing authority is a blocker, not permission to invent one. Every finding and next step carries `axis: conformance`.
+Missing authority is a blocker, not permission to invent one.
 
 ### Coherence — the artifact itself
 
@@ -69,7 +69,7 @@ Does the complete post-change system hang together without contradiction, duplic
 4. Check internal consistency, unique authority, dependency closure, scope discipline, and assumptions that were silently resolved.
 5. Reconstruct the smallest change set that still meets Acceptance. Report a wrapper, branch, option, abstraction, or duplicate carrier only when a concrete simpler construction is equally correct.
 
-Necessary complexity is not a defect. A supersession finding cites both the new rule and the surviving competitor. A scope or economy finding names the unserved purpose and the concrete deletion or merge. Every finding and next step carries `axis: coherence`.
+Necessary complexity is not a defect. A supersession finding cites both the new rule and the surviving competitor. A scope or economy finding names the unserved purpose and the concrete deletion or merge.
 
 ### Soundness — reality
 
@@ -90,15 +90,15 @@ Does the artifact work in the real system, and does its evidence actually suppor
 
 History may reveal a prior invariant, regression, superseded contract, or hidden consumer; it cannot override the current artifact, live authority, or locked Intent. If history or the base is unavailable, report the limitation; it blocks a verdict only when a material predicate remains unsettled because of it.
 
-A missing required probe or unreadable live authority is a blocker or an explicitly unverified fact, never approval. Every finding and next step carries `axis: soundness`.
+A missing required probe or unreadable live authority is a blocker or an explicitly unverified fact, never approval.
 
 ## Result
 
-Return Verdict, Summary, Findings by axis, Rejected, Next steps, Evidence/tests, Blockers, and, on the producer-routed route, your model family. Rejected carries what the finding filter removed, so a reader holding context you do not can overturn one call without discarding the whole report. Cover the complete boundary once. Each finding carries axis, severity, title, body, file, one-based inclusive line range, confidence, recommendation, whether its predicate is fully specified or still needs semantic judgment, and the authority it relies on, cited as file and item (a standard skill's rule, an Acceptance predicate, or a spec section); each next step carries axis and text. An absence cites the nearest location that owns the missing obligation. Preserve semantic, target, and business failure provenance. The delivery carrier the task owner selects does not change these obligations.
+Open with one Gate line, whatever report format the directive asks for: `Gate: open critical/high <finding numbers or none>; follow-up <finding numbers or none>`. A follow-up is a critical or high finding whose repair still needs semantic judgment; a fully specified repair closes on the task owner's diff check. The task owner decides the next round from this line alone. Then return Verdict, Summary, Findings by axis, Rejected (what the finding filter removed, so a reader can overturn one call alone), Next steps, Evidence/tests, Blockers, and, on the producer-routed route, your model family. Cover the complete boundary once. Each finding carries axis, severity, title, body, file, one-based inclusive line range, confidence, recommendation, whether its predicate is fully specified or still needs semantic judgment, and the authority it relies on, cited as file and item (a standard skill's rule, an Acceptance predicate, or a spec section); each next step carries axis and text. An absence cites the nearest location that owns the missing obligation. Preserve semantic, target, and business failure provenance, whatever delivery carrier the task owner selects.
 
 ## Boundaries
 
-- Fresh context; judge from your own observation, independent of producer reasoning and peer verifiers in the same wave.
+- Judge from your own observation, in a context free of producer reasoning and of peer verifiers in the same wave; a follow-up may continue your own earlier session.
 - Read-only: artifacts, tests, architecture, task records, lifecycle, commits, and pushes stay unchanged, and you spawn no sub-workers.
-- On the delegated producer-routed route, return all findings and the final verdict to the task owner named in the hand-over, which joins and settles the findings and assigns repair under Verifier dispatch in the supplied evidence-assignment excerpt. Otherwise report only to the task owner. No user questions mid-dispatch, repair, or acceptance.
+- On the producer-routed route, return all findings and the final verdict to the task owner the hand-over names; otherwise report only to the task owner. No user questions mid-dispatch, repair, or acceptance.
 - Missing authority or decisive observation capability yields no verdict and a concrete blocker. A valid `needs-attention` or `recommend-cancel` verdict is a semantic result, not delivery failure.
