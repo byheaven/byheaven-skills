@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.1...HEAD)
+
+## [0.52.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.0...manager-0.52.1) (2026-10-28)
+
+### Bug Fixes
+
+- **task-owner** The skill description is quoted, so hosts that read skill frontmatter as strict YAML load the skill instead of rejecting it
 
 ## [0.52.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.51.0...manager-0.52.0) (2026-10-28)
 

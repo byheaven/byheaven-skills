@@ -1,5 +1,5 @@
 # .github/workflows/ci.yml
-# Plugin monorepo CI — markdown linting, the portability lint, and script tests (no build)
+# Plugin monorepo CI — markdown linting, the portability and frontmatter lints, and script tests (no build)
 
 name: CI
 
@@ -36,6 +36,9 @@ jobs:
 
       - name: Check harness portability
         run: npm run check:portability
+
+      - name: Check skill and agent frontmatter
+        run: npm run check:frontmatter
 
       - name: Test repository scripts
         run: python3 -m unittest discover -s scripts

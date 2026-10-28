@@ -6,6 +6,7 @@
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\" \"#node_modules\"",
     "check:portability": "python3 scripts/check-portability.py",
+    "check:frontmatter": "node scripts/check-frontmatter.mjs",
     "prepare": "husky"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "@commitlint/config-conventional": "^21.2.3",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "markdownlint-cli2": "^0.23.3"
+    "markdownlint-cli2": "^0.23.3",
+    "yaml": "^2.9.1"
   }
 }
