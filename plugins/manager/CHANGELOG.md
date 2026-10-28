@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.47.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.48.0...HEAD)
+
+## [0.48.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.47.0...manager-0.48.0) (2026-10-28)
+
+**Cross-model derivation runs by default again, and you see it** — Decisions
+that fix an interface or architecture others depend on, change stored data, are
+costly to reverse, or restructure a user journey get a derivation from another
+model family before you commit. The reply in which you confirm such a decision
+shows that family's routes or divergences, or one line saying none ran and why,
+so you can ask for it.
+
+### Features
+
+- **Independent derivation** The default classes run by default again instead of only when another family would likely change the choice (the 0.43.0 wording); other decisions keep the conditional trigger
+- **Record** The handoff, and the task record or else the delivery report, carry one `Independent derivation:` line naming the families that ran and what they changed, or why none ran
+- **Verifier** For a default-class decision, the verifier judges the class itself and checks that line
 
 ## [0.47.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.46.0...manager-0.47.0) (2026-10-28)
 
