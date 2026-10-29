@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Fails a PR that changes agent-facing rule text without a "Judge:" line in its
 # description. The line names the model family of the independent judge, or
-# states "same-family" with the reason no cross-model judge was used. Cloud
+# states "same-family" or "none" with the reason no cross-model judge was used. Cloud
 # transcripts are not kept, so a judge left unrecorded at merge cannot be
 # recovered later.
 #
@@ -24,7 +24,7 @@ visible="$(printf '%s\n' "${PR_BODY:-}" | perl -0pe 's/<!--.*?-->//gs' | tr -d '
 valid() {
   local value="$1" reason
   [ -n "$value" ] || return 1
-  if printf '%s' "$value" | grep -qi 'same-family'; then
+  if printf '%s' "$value" | grep -qiE 'same-family|^none\b'; then
     reason="$(printf '%s' "$value" | sed -nE 's/.*[Rr]eason:[[:space:]]*(.*[^[:space:]]).*$/\1/p')"
     [ -n "$reason" ] || return 1
   fi
@@ -38,9 +38,9 @@ while IFS= read -r line; do
   fi
 done < <(printf '%s\n' "$visible" | grep -E '^Judge:' || true)
 
-echo 'check-judge-line: no filled "Judge:" line (a "same-family" judge also needs "reason: <why>")' >&2
+echo 'check-judge-line: no filled "Judge:" line ("same-family" or "none" also needs "reason: <why>")' >&2
 echo "Rule files changed:" >&2
 printf '  %s\n' $changed >&2
 echo 'Add a line to the PR description, e.g. "Judge: GPT (Codex, GPT-6)" or' >&2
-echo '"Judge: same-family (Claude), reason: <why no cross-model judge>".' >&2
+echo '"Judge: same-family (Claude), reason: <why no cross-model judge>" or "Judge: none, reason: <why>".' >&2
 exit 1
