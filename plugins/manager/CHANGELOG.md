@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.53.0...HEAD)
+
+## [0.53.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.1...manager-0.53.0) (2026-10-29)
+
+**Worktrees no longer pile up after a task** — Whoever creates a worktree
+or scratch directory now removes it when its own part of the task ends,
+instead of waiting for a close that a session handing the task on never
+reaches. A session that started another in a host-provided worktree ends it
+once its task resolves and checks that the directory is gone.
+
+### Improvements
+
+- **Task owner** Worktrees and scratch directories are removed by whoever created them when their part of the task ends; anything kept is named with its machine and path
+- **Verifier** Removes the worktrees and scratch it created before it returns
 
 ## [0.52.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.0...manager-0.52.1) (2026-10-28)
 
