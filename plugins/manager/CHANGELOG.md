@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.53.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.54.0...HEAD)
+
+## [0.54.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.53.0...manager-0.54.0) (2026-10-29)
+
+**Fewer, sharper tests** — A task no longer sends a second agent to write
+test cases for a decided requirement while the code is being written. The
+producer writes those cases from the requirement's own words. The review
+before merge now asks whether each new test should exist at all, and a test
+that repeats another one across variants, or that the test rules would not
+add, comes back as a finding to delete.
+
+### Improvements
+
+- **Code production** A decided requirement's test cases come from its statement and no longer need an author other than the producer
+- **Task owner** Directives no longer carry independently written requirement cases, and a task owner producing alone no longer asks a verifier for them first
+- **Verifier** Judges whether each new or changed test should exist as well as whether it can fail, and stops asking for every reachable boundary case
 
 ## [0.53.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.1...manager-0.53.0) (2026-10-29)
 
