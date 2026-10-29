@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.54.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.55.0...HEAD)
+
+## [0.55.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.54.0...manager-0.55.0) (2026-10-29)
+
+**Directives stop prescribing tests** — A directive now describes the
+behaviors a slice must get right, not a list of tests to write, so the
+producer decides which tests are worth adding under the test rules instead
+of turning every listed scenario into one.
+
+### Improvements
+
+- **Task owner** A directive's Acceptance slice names behaviors to judge, never tests to write
+- **Code worker** No longer expects the directive to supply its tests
 
 ## [0.54.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.53.0...manager-0.54.0) (2026-10-29)
 
