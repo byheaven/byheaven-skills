@@ -1,6 +1,17 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.56.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.57.0...HEAD)
+
+## [0.57.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.56.0...manager-0.57.0) (2026-10-29)
+
+**Ordinary changes merge without an independent review** — Outside the
+high-risk class, a predicate now closes on the producer's own check and
+deterministic evidence, rule changes included, so a delivery no longer waits
+for a second agent unless you name one.
+
+**High-risk reviews run alongside the checks** — The other-family review a
+high-risk change still needs runs at the same time as the deterministic
+checks of the same state, so its wait overlaps theirs instead of adding to it.
 
 ## [0.56.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.55.0...manager-0.56.0) (2026-10-29)
 
