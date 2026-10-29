@@ -9,7 +9,7 @@ setup, publishing flows, and repeatable automation that removes busywork and
 helps you ship faster.
 
 The plugins do not depend on a particular harness or model. Claude Code, Codex,
-and Grok Bot all run them; `cache-timer` is the one Claude Code-only extension.
+Pi, and Grok Bot all run them; `cache-timer` is the one Claude Code-only extension.
 
 ## Skills
 
@@ -47,6 +47,19 @@ codex plugin add manager@byheaven-skills
 ```
 
 Install the other skills with `npx skills add` below.
+
+### Pi
+
+Install the repository as a Pi package. It loads the `manager` skills and an
+extension that applies `~/.agents/AGENTS.md`, if present, to every run, read
+fresh each time:
+
+```bash
+pi install git:github.com/byheaven/byheaven-skills
+```
+
+`pi update` moves it to the latest `main`. Point `~/.agents/AGENTS.md` at the
+same global rules file your other agents read to give Pi the same rules.
 
 ### Grok Bot
 

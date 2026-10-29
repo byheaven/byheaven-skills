@@ -14,6 +14,17 @@
     "url": "git+https://github.com/byheaven/byheaven-skills.git"
   },
   "license": "MIT",
+  "keywords": [
+    "pi-package"
+  ],
+  "pi": {
+    "skills": [
+      "./plugins/manager/skills"
+    ],
+    "extensions": [
+      "./plugins/manager/.pi-plugin/user-rules.ts"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/byheaven/byheaven-skills/issues"
   },

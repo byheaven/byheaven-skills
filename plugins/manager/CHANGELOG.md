@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.55.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.56.0...HEAD)
+
+## [0.56.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.55.0...manager-0.56.0) (2026-10-29)
+
+**Pi support** — Pi now installs the Manager skills straight from this
+repository as a Pi package and follows the latest `main` with `pi update`.
+An included extension applies the user's `~/.agents/AGENTS.md` to every Pi
+run, read fresh each time, so Pi can follow the same global rules as the
+other agents even where its own config directory is recreated per run.
+
+### Features
+
+- **Pi package** `pi install git:github.com/byheaven/byheaven-skills` loads the Manager skills
+- **User rules** A Pi extension applies `~/.agents/AGENTS.md`, when present, to every run
 
 ## [0.55.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.54.0...manager-0.55.0) (2026-10-29)
 
