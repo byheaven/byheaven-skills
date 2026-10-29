@@ -1,14 +1,14 @@
 # AGENTS.md
 
 This file guides every AI coding agent that works in this repository, whatever its harness or model.
-Claude Code reads it through the `CLAUDE.md` symlink; Codex and Grok Bot read it as `AGENTS.md`.
+Claude Code reads it through the `CLAUDE.md` symlink; Codex, Pi, and Grok Bot read it as `AGENTS.md`.
 
 ## What This Repo Is
 
 A monorepo of agent plugins by Byheaven. Each skill lives under `plugins/<name>/skills/<skill-name>/`
 and can be installed and used on its own in any host that loads skills.
 
-Claude Code, Codex, and Grok Bot are the supported hosts: all three use these plugins and change this
+Claude Code, Codex, Pi, and Grok Bot are the supported hosts: all four use these plugins and change this
 repository. Hosts with a plugin system install the plugins from this repository's marketplace; the
 README gives each host's entry point.
 
@@ -22,7 +22,7 @@ Every plugin behaves the same on every supported host and with any model. Three 
   person's preferences; the agent picks its host's native mechanism. Link files by paths relative to
   the file that links them.
 - **Adapter**: each host's packaging, which carries no behavior text: `.claude-plugin/`,
-  `.codex-plugin/`, `agents/openai.yaml`, `hooks/` (hook manifests and the scripts they run), the
+  `.codex-plugin/`, `.pi-plugin/` (Pi extensions, which the root `package.json` `pi` field lists), `agents/openai.yaml`, `hooks/` (hook manifests and the scripts they run), the
   frontmatter of agent role files (hosts that register agents read it; the body is shared), and the
   install sections of READMEs. Give every host the same behavior: a skill that only the user may
   invoke says so in each host's metadata. Support a new host by adding its packaging files; a

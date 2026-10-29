@@ -7,13 +7,24 @@
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\" \"#node_modules\"",
     "check:portability": "python3 scripts/check-portability.py",
     "check:frontmatter": "node scripts/check-frontmatter.mjs",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/byheaven/byheaven-skills.git"
   },
   "license": "MIT",
+  "keywords": [
+    "pi-package"
+  ],
+  "pi": {
+    "skills": [
+      "./plugins/manager/skills"
+    ],
+    "extensions": [
+      "./plugins/manager/.pi-plugin/user-rules.ts"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/byheaven/byheaven-skills/issues"
   },

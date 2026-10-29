@@ -6,7 +6,7 @@
 
 这个仓库收集的是可以直接投入使用的实用型 Agent 工作流：项目初始化、内容发布，以及能减少重复劳动、帮助更快交付的可复用自动化能力。
 
-这些插件不依赖特定的 harness 或模型，Claude Code、Codex 和 Grok Bot 都能使用；只有 `cache-timer` 是 Claude Code 专属扩展。
+这些插件不依赖特定的 harness 或模型，Claude Code、Codex、Pi 和 Grok Bot 都能使用；只有 `cache-timer` 是 Claude Code 专属扩展。
 
 ## Skills
 
@@ -43,6 +43,16 @@ codex plugin add manager@byheaven-skills
 ```
 
 其他 skill 用下方的 `npx skills add` 安装。
+
+### Pi
+
+把本仓库作为 Pi 包安装。它会加载 `manager` 的 skill，以及一个扩展：每次运行都重新读取 `~/.agents/AGENTS.md`（存在时）并应用到这次运行：
+
+```bash
+pi install git:github.com/byheaven/byheaven-skills
+```
+
+把 `~/.agents/AGENTS.md` 指向你其他 agent 读取的同一份全局规则文件，Pi 就会遵循同样的规则。
 
 ### Grok Bot
 
