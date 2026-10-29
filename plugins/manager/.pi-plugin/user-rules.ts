@@ -31,6 +31,6 @@ export default function userRules(pi: ExtensionAPI) {
 			return;
 		}
 		event.systemPromptOptions.sections[SECTION] =
-			`# User rules (${RULES_FILE})\n\nThe user's rules for every agent session. Follow them.\n\n${text}`;
+			`# User rules (${RULES_FILE})\n\n${text}`;
 	});
 }

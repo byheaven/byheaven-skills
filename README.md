@@ -58,8 +58,8 @@ fresh each time:
 pi install git:github.com/byheaven/byheaven-skills
 ```
 
-`pi update` moves it to the latest `main`. Point `~/.agents/AGENTS.md` at the
-same global rules file your other agents read to give Pi the same rules.
+Point `~/.agents/AGENTS.md` at the same global rules file your other agents
+read to give Pi the same rules.
 
 ### Grok Bot
 

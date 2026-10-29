@@ -52,7 +52,7 @@ codex plugin add manager@byheaven-skills
 pi install git:github.com/byheaven/byheaven-skills
 ```
 
-`pi update` 会把它更新到最新的 `main`。把 `~/.agents/AGENTS.md` 指向你其他 agent 读取的同一份全局规则文件，Pi 就会遵循同样的规则。
+把 `~/.agents/AGENTS.md` 指向你其他 agent 读取的同一份全局规则文件，Pi 就会遵循同样的规则。
 
 ### Grok Bot
 
