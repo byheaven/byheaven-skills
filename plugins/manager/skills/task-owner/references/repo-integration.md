@@ -65,4 +65,4 @@ The task owner triages hosted review findings against the current candidate. Rou
 - Completion asks only for remaining user judgment or irreversible authorization and never removes required true-judge evidence.
 - Required source integration, including the merge when authorized, completes before the terminal task state.
 
-After merge, verify the merged state or accepted target ref, record the final checkout reference in the task record's current state, if any, and clean up only the task-owned branch; worktrees go at close.
+After merge, verify the merged state or accepted target ref, record the final checkout reference in the task record's current state, if any, and clean up the task-owned branch.
