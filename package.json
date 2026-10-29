@@ -7,7 +7,7 @@
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\" \"#node_modules\"",
     "check:portability": "python3 scripts/check-portability.py",
     "check:frontmatter": "node scripts/check-frontmatter.mjs",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "repository": {
     "type": "git",
