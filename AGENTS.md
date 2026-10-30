@@ -109,14 +109,14 @@ Before authoring or modifying a skill, ask: *"Can I run this skill on a brand-ne
 ## Skill Authoring: User Input
 
 When a skill needs input from the user, write the question as its own step with its exact text, and
-say how to ask it in capability terms: the route the host's own instructions name for questions to
-the user, otherwise the host's user-question tool, otherwise plain text. A vague line such as "ask the
+say how to ask it: the route the host's own instructions name for questions to the user, otherwise
+as [Asking](plugins/manager/skills/task-owner/references/runtimes.md#asking) says. A vague line such as "ask the
 user for X" gets answered with a guess instead of asked.
 
 Do this:
 
 ```
-Ask through the host's user-question tool: "What is the project name?"
+Ask the user and end the turn: "What is the project name?"
 ```
 
 Not this:

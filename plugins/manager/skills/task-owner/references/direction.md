@@ -38,7 +38,7 @@ Grill is Discussion's convergence procedure. This plugin's `grilling` skill supp
 
 **Value bets.** A user-facing product change is a *value bet* when user behavior could refute it — users start, return, pay, tell someone, or do not — and a *taste decision* when no user behavior could. Whoever originates it, user or agent, and even when the user's own words are its source, a value bet enters the frontier as one proposal in five parts: the benchmark it must beat; the observation that motivates it; its mechanism and the Vision clause it serves; the smallest verifiable action; and the refuting observation. Candidates in the frontier rank by how soon their refuting observation can be made on real users, not by how convincing the derivation reads. A taste decision the user states directly. When the user refuses or drops a value bet, the direction owner appends it at that moment to the project's proposal log, if it keeps one, with the user's stated reason and any actual refuting evidence, or reports the missing log rather than creating one. A refusal without a reason or observation remains unexplained, not empirically refuted.
 
-When the user picks [Independent derivation](#independent-derivation) on a round's card, its divergences enter the next round as options.
+When the user picks [Independent derivation](#independent-derivation) in a round, its divergences enter the next round as options.
 
 **Defaults ledger.** At round closure the direction owner lists each owner decision it closed by source, one line each with the source. Routine technical choices stay agent-owned under P1 and are not listed. The user may pull any line back into the frontier.
 

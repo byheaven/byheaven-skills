@@ -4,11 +4,9 @@
 
 ## [0.58.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.57.0...manager-0.58.0) (2026-10-29)
 
-**Questions end the turn** — A question or decision put to you now lists
-the choices with the recommended one first, answerable in one step where
-your host offers it and always in your own words, and the turn ends while
-you decide, so a session waiting on you counts as idle. Your global rules
-still set any format they name.
+**Questions end the turn** — Questions list recommended-first choices,
+answerable in one step or your own words, and end the turn while you
+decide; your own rules for questions still come first.
 
 ## [0.57.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.56.0...manager-0.57.0) (2026-10-29)
 

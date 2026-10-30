@@ -4,13 +4,13 @@ How the Host chooses the Seats and reaches each one. Read when choosing the Seat
 
 ## Seats
 
-The Seat roster comes from the user's instructions when they name one: each Seat's model family, its source mode (packet-only, web search, or X search), whether that search is required on every run, and its route. Without a named roster, offer every real model family the session can reach, each packet-only unless the user asks a Seat to search, and confirm the room through the host's user-question tool before any Seat runs.
+The Seat roster comes from the user's instructions when they name one: each Seat's model family, its source mode (packet-only, web search, or X search), whether that search is required on every run, and its route. Without a named roster, offer every real model family the session can reach, each packet-only unless the user asks a Seat to search, and ask the user to confirm the room before any Seat runs.
 
 ## Route kinds
 
 - **Native**: the Host's own model family. The Host writes that Seat's answer directly, separately from its Host synthesis.
 - **CLI one-shot**: a logged-in model CLI run once in print or exec mode, read-only, with no persistent session and no sub-agents, from a working directory that holds the packet's sources. The Host may run it on any machine the session can reach where that CLI is installed and logged in, or through the host's configured cross-model launcher when one exists. The roster names each CLI's one-shot shape when it has one.
-- **Manual paste**: the Host prints one exact prompt per Seat, the user runs it in that model's product, and the host's user-question tool collects the visible answer the user pastes back. A valid route that needs no API key.
+- **Manual paste**: the Host prints one exact prompt per Seat, the user runs it in that model's product, and the user pastes the visible answer back. A valid route that needs no API key.
 - **Browser**: only when the user prefers it or nothing else exists. Use a fresh chat, enable only the Seat's source surface, and copy back only the visible answer and references.
 
 Check a CLI before use: `command -v <cli>`, its live `--help` for the one-shot and read-only flags, and a tiny harmless probe when the CLI is migrating or plan-gated. A shape the roster records is a claim to confirm against `--help`, not a fact about any machine. Install or update a CLI only when the user asks. Each Seat run is one-shot and ends with the roundtable: no resumed session, persistent chat bridge, or task-owning agent.
@@ -44,4 +44,4 @@ A Seat whose source mode requires search searches its surface on every run, repo
 
 ## Failure
 
-A selected Seat that cannot be reached is recorded as failed with the reason, and the Host stops and reports it. For a default room, the host's user-question tool asks whether to continue with the Seats that answered; a Seat the user named as required stops the run unless the user accepts a smaller room. A room needs at least two real model families. Credentials, logins, captchas, paywalls, and usage limits stay with the user: report the block, and offer manual paste through the user-question tool.
+A selected Seat that cannot be reached is recorded as failed with the reason, and the Host stops and reports it. For a default room, the user is asked whether to continue with the Seats that answered; a Seat the user named as required stops the run unless the user accepts a smaller room. A room needs at least two real model families. Credentials, logins, captchas, paywalls, and usage limits stay with the user: report the block, and offer manual paste.

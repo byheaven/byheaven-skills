@@ -18,7 +18,7 @@ Every Seat contributes independently and is weighed by its evidence, not its fam
 
 ## Steps
 
-Every question to the user in this skill follows any format or route the user's global rules or the host's own instructions set for messages that need the user's reply; otherwise it uses the host's user-question tool, or plain text on a host without one.
+Every question to the user in this skill is asked as [Asking](../task-owner/references/runtimes.md#asking) says.
 
 1. **Open the session file.** Name the question, the Host runtime, the selected Seats with their source modes, and the output path. Create the file before any Seat runs, as `<YYYYMMDD-HHmm>-<slug>.md` in a scratch directory outside the repository, or at a project path only when the user asks for one. Structure: [session-file.md](references/session-file.md). Done when the file holds the Brief and one Seat Status row per selected Seat.
 2. **Build the shared packet** (below). Done when the three substantive fields are fixed and identical for every Seat.
