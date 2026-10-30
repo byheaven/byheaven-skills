@@ -53,6 +53,6 @@ De-duplicate the links from every Seat answer into the References table, each wi
 1. Read the session file.
 2. Continue from the last completed section:
    - Brief only: run the independent first turns.
-   - First turns, no synthesis: use the host's user-question tool to ask whether to interject or synthesize.
-   - Synthesis present: show it, and use the user-question tool to ask whether to reopen.
+   - First turns, no synthesis: ask whether to interject or synthesize.
+   - Synthesis present: show it, and ask whether to reopen.
 3. Keep every recorded Seat turn; rerun one only when the user asks for a fresh take.

@@ -18,7 +18,7 @@ Phase 1 is complete only when you can state **one command you have already run a
 - **Fast** — seconds, not minutes.
 - **Agent-runnable** — you can run it yourself without a human.
 
-If you catch yourself reading code to build a theory before this command exists — stop; jumping to hypotheses is the exact failure this skill prevents. If the loop truly cannot be built, stop and ask through the route the host's instructions name for questions to the user, otherwise the host's user-question tool, otherwise plain text: "I could not build a command that reproduces this bug. I tried: <what was tried>. Can you give me <environment access, a capture, or production instrumentation>?"
+If you catch yourself reading code to build a theory before this command exists — stop; jumping to hypotheses is the exact failure this skill prevents. If the loop truly cannot be built, stop and ask the user as [Asking](../task-owner/references/runtimes.md#asking) says: "I could not build a command that reproduces this bug. I tried: <what was tried>. Can you give me <environment access, a capture, or production instrumentation>?"
 
 Redact secrets everywhere: literals become `<REDACTED>`, loops read from environment variables, captures quote only the signal-bearing lines.
 

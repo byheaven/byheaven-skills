@@ -10,7 +10,7 @@ When the host loads nothing automatically, or a resumed, compacted, or one-shot 
 
 ## Asking
 
-Every question or decision the user owns goes through the host's native user-question tool in this conversation, or through the external ask route the deployment's binding names for this session when it names one. A standalone session asks the user in its own conversation, since the user is present there; a dispatched session returns its question to its dispatcher. A required answer keeps dependent work pending until the user answers: a tool that may continue on an empty or preselected answer is not eligible for it, and with no eligible tool, ask in plain text and end the turn to await the reply. An acknowledgement that a question was queued is not an answer; continue only independent, already-authorized work until the reply arrives. An optional question may use a tool whose contract allows continuing without an answer.
+Every question or decision the user owns is asked in this conversation, or through the external ask route the deployment's binding names for this session when it names one. The user's own rules for such questions set its form; without them, give the choices, the recommended one first, answerable in one step where the host offers it and always in the user's own words, and end the turn while the user decides, so the wait holds no turn open. A standalone session asks the user in its own conversation, since the user is present there; a dispatched session returns its question to its dispatcher. Dependent work stays pending until the answer arrives: an empty or preselected answer, or an acknowledgement that the question was queued, is not one, and only independent, already-authorized work continues meanwhile.
 
 ## Sub-agent dispatch
 
