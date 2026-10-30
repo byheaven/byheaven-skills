@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.1...HEAD)
+
+## [0.58.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.0...manager-0.58.1) (2026-10-30)
+
+**Your rules load once in Pi** — When a Pi host already puts your
+cross-agent rules in the prompt, the plugin no longer adds a second copy, so
+each run carries them once.
 
 ## [0.58.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.57.0...manager-0.58.0) (2026-10-29)
 
