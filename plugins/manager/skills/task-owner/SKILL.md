@@ -47,6 +47,6 @@ Before reporting done, re-judge every predicate on current state and write the s
 
 1. **Conclusion**, one sentence: done, partially done, or blocked, and where.
 2. **Links** the user can open: the pull request, document, or deliverable, which carry the evidence.
-3. **Decisions**, only when the user has a real choice: numbered, one line each, through the runtime's native user-question tool. A question also says what proceeds and what waits while it is open.
+3. **Decisions**, only when the user has a real choice: numbered, one line each, per [Asking](references/runtimes.md#asking). A question also says what proceeds and what waits while it is open.
 
 Add a line only when it applies: for a high-risk predicate, "independently verified by <model family>" or "could not get cross-model verification"; for unfinished work, what is not done.
