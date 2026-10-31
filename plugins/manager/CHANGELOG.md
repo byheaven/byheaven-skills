@@ -1,6 +1,17 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...HEAD)
+
+## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
+
+**No producer-routed verification** — A directive can no longer hand
+verification to the producer it dispatches. The producer-routed route, its
+forwarding to a verifier endpoint, and its exempt marking are gone; a
+producer returns its work to the task owner.
+
+**Peer duties no longer need a subject key** — Without a default, a duty is
+still taken as a task and the first recorded claim wins; the plugin no longer
+asks for a stable subject key on that task.
 
 ## [0.59.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.1...manager-0.59.0) (2026-10-30)
 
