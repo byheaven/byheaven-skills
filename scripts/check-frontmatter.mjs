@@ -3,14 +3,36 @@
 // `name` and `description`. Lenient hosts accept, for example, an unquoted ": " inside
 // a description; strict YAML parsers reject it and the skill fails to load there.
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { parseDocument } from 'yaml';
 
-const files = execFileSync(
-  'git',
-  ['ls-files', '--', 'plugins/*/skills/*/SKILL.md', 'plugins/*/agents/*.md'],
-  { encoding: 'utf8' },
-).split('\n').filter(Boolean);
+function walk(directory = '.') {
+  const files = [];
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const file = directory === '.' ? entry.name : `${directory}/${entry.name}`;
+    if (entry.isDirectory()) {
+      if (entry.name !== 'node_modules' && entry.name !== '.git') {
+        files.push(...walk(file));
+      }
+    } else if ((entry.isFile() || entry.isSymbolicLink())
+      && /^plugins\/.*\/(?:skills\/.*\/SKILL\.md|agents\/.*\.md)$/s.test(file)) {
+      files.push(file);
+    }
+  }
+  return files;
+}
+
+let files;
+try {
+  files = execFileSync(
+    'git',
+    ['ls-files', '--', 'plugins/*/skills/*/SKILL.md', 'plugins/*/agents/*.md'],
+    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, LC_ALL: 'C' } },
+  ).split('\n').filter(Boolean);
+} catch (error) {
+  if (!error.stderr?.startsWith('fatal: not a git repository (or any ')) throw error;
+  files = walk().sort((a, b) => Buffer.compare(Buffer.from(a), Buffer.from(b)));
+}
 
 const failures = [];
 for (const file of files) {
