@@ -20,7 +20,7 @@ When a Manager forms tasks, from a project's queue of open issues or task record
 
 ## Several Managers
 
-A project's binding names its peer Managers, each in its own session, and any default. Its claim mechanism records each task's Manager. Without a default, take each duty otherwise assigned to it as a task, keyed to its stable subject so a second claim finds the first; the first recorded claim wins.
+A project's binding names its peer Managers, each in its own session, and any default. Its claim mechanism records each task's Manager. Without a default, take each duty otherwise assigned to it as a task; the first recorded claim wins.
 
 - **Claims.** Take only a task no other Manager has claimed, and own each task you claim from dispatch to closure. A task stays with its Manager while any of its claims remains, and is unclaimed again once all are released. When a claim attempt meets an existing claim whose record does not name you, leave the task; when claims of two Managers land on one task, the Manager whose claim was recorded later releases its own.
 - **Limits.** A limit on tasks in flight counts each Manager's own dispatches, unless the binding says the Managers share it.
