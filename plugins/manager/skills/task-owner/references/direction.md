@@ -26,7 +26,7 @@ If the project defines an improvement or learning method, read its applicable br
 
 For an existing app in a repository, read its open pull requests, remote branches, and worktrees before locking an interface, cutting a worktree, or dispatching a sub-agent. Approved but unmerged work is landed in the user's eyes; its merge order against the new work is a frontier question.
 
-Under P1, defer only actions dependent on an unsettled user-owned choice; continue unaffected work covered by an effective Delivery request. Discussion ends with a settled direction in the current conversation; the direction owner hands it to the project's Manager under [Handoff](#handoff) only once the user explicitly asks for the work.
+Under P1, defer only actions dependent on an unsettled user-owned choice; continue unaffected work covered by an effective Delivery request. Discussion ends with a settled direction in the current conversation; the direction owner hands it to a task owner under [Handoff](#handoff) only once the user explicitly asks for the work.
 
 Before asking the user to judge a concrete review object, follow [Review presentation](production.md#review-presentation).
 
@@ -42,7 +42,7 @@ When the user picks [Independent derivation](#independent-derivation) in a round
 
 **Defaults ledger.** At round closure the direction owner lists each owner decision it closed by source, one line each with the source. Routine technical choices stay agent-owned under P1 and are not listed. The user may pull any line back into the frontier.
 
-**Completion.** Grill completes when the frontier is empty, the ledger is shown, and the user confirms shared understanding; a first round whose frontier is already empty completes at once by showing the ledger, the confirmation step being waived because nothing was asked. Closure locks direction only; the handoff to the project's Manager still needs the user's explicit action request unless one is already effective under [Delivery gate](#delivery-gate).
+**Completion.** Grill completes when the frontier is empty, the ledger is shown, and the user confirms shared understanding; a first round whose frontier is already empty completes at once by showing the ledger, the confirmation step being waived because nothing was asked. Closure locks direction only; the handoff still needs the user's explicit action request unless one is already effective under [Delivery gate](#delivery-gate).
 
 ## Independent derivation
 
@@ -62,17 +62,17 @@ Independent derivation can expose materially different options before a user-own
 
 ## Handoff
 
-A handoff is the direction owner's message to the project's Manager once Grill completes and the user explicitly asked for the work. It carries the locked Goal and any observation, any method the user picked, the Defaults ledger, the sources the receiver must read, and the user's authorization quoted with its date. A request to park or queue rides the same message; the receiver, not the direction owner, creates any task record. A task a project's Manager hands to another session carries the same locked Intent.
+A handoff is the direction owner's message to the task owner, the project's Manager where the deployment names one, once Grill completes and the user explicitly asked for the work; the direction owner then waits on it only as [Wait and wake](runtimes.md#wait-and-wake) says. It carries the locked Goal and any observation, any method the user picked, the Defaults ledger, the sources the receiver must read, and the user's authorization quoted with its date. A request to park or queue rides the same message; the receiver, not the direction owner, creates any task record. A task a project's Manager hands to another session carries the same locked Intent.
 
 The receiver does not re-confirm a complete handoff with the user; it checks the handoff against live state and opens Delivery at the gate below. A gap, a contradiction with live state, or an owner decision still open is one precise question under [Asks](#asks). **Reopen Direction** is a delta that would change the Goal. Send the delta and its evidence under [Asks](#asks). Only the work it affects waits, and that work resumes when a revised Intent returns.
 
 ## Asks
 
-A question or decision that needs the user during Delivery or in a directly started task, including a Reopen Direction delta and a question sent back from an incomplete handoff, follows [Asking](runtimes.md#asking).
+Every question or decision for the user, including a Reopen Direction delta and a question sent back from an incomplete handoff, follows [Asking](runtimes.md#asking).
 
 ## Direct start
 
-When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above and locks the Goal. Delivery opens only at the [Delivery gate](#delivery-gate) and then proceeds unchanged in that conversation. Every question or decision it needs from the user, before and after Delivery opens, follows [Asks](#asks).
+When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above and locks the Goal. Delivery opens only at the [Delivery gate](#delivery-gate) and then proceeds unchanged in that conversation.
 
 ## Delivery gate
 

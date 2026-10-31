@@ -31,7 +31,7 @@ A delivery is done when each of these holds. Reviewers check these outcomes, not
 | [repo-integration.md](references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
 | [runtimes.md](references/runtimes.md) | Before a runtime-native action: loading, asking, dispatching, a worktree, verifying, waiting, a review carrier, merging, or completing |
 
-Code follows the `code-production` skill and anything a person experiences in a product follows `experience-design`, whoever produces it. A slice goes to the plugin's `code-worker`, `knowledge-worker`, or `designer` agent; without them, produce it yourself. A sub-agent is topology, never a new task owner.
+You are the task's one writer. Code follows `code-production` and anything a person experiences in a product follows `experience-design`, whoever writes it. Dispatch only what [Topology](references/production.md#topology) admits; a writer slice goes to the `code-worker`, `knowledge-worker`, or `designer` agent, never a new task owner.
 
 ## Intake
 
