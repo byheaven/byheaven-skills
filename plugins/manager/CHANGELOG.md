@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...HEAD)
+
+## [0.59.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.1...manager-0.59.0) (2026-10-30)
+
+**Share work without a default** — Your project can name peer Managers without
+choosing a default. Project-wide work and repairs that would fall to a default
+are claimed as tasks under a stable subject, so competing claims find the
+same duty and the first recorded claim owns it. Projects with a named default
+keep their existing division of work.
 
 ## [0.58.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.0...manager-0.58.1) (2026-10-30)
 
