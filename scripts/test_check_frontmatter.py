@@ -16,7 +16,7 @@ class CheckFrontmatterTest(unittest.TestCase):
         self.root = Path(tmp.name).resolve()
         self.env = {key: value for key, value in os.environ.items()
                     if not key.startswith("GIT_")}
-        self.env["GIT_CEILING_DIRECTORIES"] = str(self.root)
+        self.env["GIT_CEILING_DIRECTORIES"] = str(self.root.parent)
 
     def write(self, path, text=VALID):
         target = self.root / path
