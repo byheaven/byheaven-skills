@@ -84,9 +84,9 @@ npx skills add byheaven/byheaven-skills
 This installs the skills only, without the plugin's `agents/` directory.
 Invoke the `task-owner` skill at the start of a delivery conversation,
 and the `manager` skill only in a session your deployment names a project's
-Manager. The worker and verifier agents come only with the full plugin, so
-without them the task owner produces each slice itself and finds another
-carrier for independent verification.
+Manager. The worker and verifier agents come only with the full plugin;
+without them the task owner, writing the work itself as always, finds
+another carrier for independent verification.
 
 `skills/grilling`, `skills/writing-for-agents`, and `skills/diagnosing-bugs`
 are adapted from

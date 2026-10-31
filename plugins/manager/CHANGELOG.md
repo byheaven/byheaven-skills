@@ -1,6 +1,20 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...HEAD)
+
+## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
+
+**One session writes the task** — The session that owns a task now does the
+work itself. It hands work to another agent only for an independent review,
+read-only research, or a slice that needs its own context, runs truly in
+parallel, or uses a model you name. Rework goes back to the same writer's
+session, so fixes keep their context.
+
+**Questions come back to you, not stuck in a session** — A dispatched task,
+or one whose questions route to your ask session, returns each decision with
+its recommendation and ends its turn; whoever relays it continues that same
+task with your answer. A session that dispatches work no longer sits in its
+turn waiting for the result.
 
 ## [0.59.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.1...manager-0.59.0) (2026-10-30)
 
