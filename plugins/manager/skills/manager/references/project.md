@@ -20,13 +20,13 @@ When a Manager forms tasks, from a project's queue of open issues or task record
 
 ## Several Managers
 
-A project may have several Managers working at once, each in its own session; the project's binding names them and which one is the default. They divide the work through the project's claim mechanism, such as its task record's owner or a claim ref, and every claim records which Manager holds it.
+A project may have peer Managers, each in its own session. Its binding names them and may name a default. Every claim through the project's mechanism, such as its task record's owner or a claim ref, records its Manager. Without a named default, take each duty otherwise assigned to it as a task; the first recorded claim wins.
 
 - **Claims.** Take only a task no other Manager has claimed, and own each task you claim from dispatch to closure. A task stays with its Manager while any of its claims remains, and is unclaimed again once all are released. When a claim attempt meets an existing claim whose record does not name you, leave the task; when claims of two Managers land on one task, the Manager whose claim was recorded later releases its own.
 - **Limits.** A limit on tasks in flight counts each Manager's own dispatches, unless the binding says the Managers share it.
 - **One owner per duty.** A duty the project gives its Manager falls to exactly one Manager, decided in this order: for a task, the Manager that owns it; for a pull request, the Manager that dispatched it or took over that dispatch, else the owner of the first task it references; for everything else, the default Manager. Everything else includes project-wide duties such as the one list of questions for the user, tasks no Manager has claimed, short of taking them, records a standalone session left for the project's Manager, and pull requests neither rule assigns.
 - **Shared target failure.** When the shared target branch fails its verification, the Manager that merged the failing commit dispatches the repair or revert, without waiting for blame, and the other Managers leave that failure to it. That Manager is the one the pull request behind the commit the failing run checked falls to under the order above; a commit no pull request produced falls to the default Manager.
-- **A Manager stops.** The user decides which Manager takes over its active work and claims, and, when the default Manager stops, the default role. The outgoing session hands them over with the compact current state the task-owner skill's Records section requires.
+- **A Manager stops.** The user decides who takes over its active work and claims, and any default role it held. The outgoing session hands them over with the compact current state the task-owner skill's Records section requires.
 
 ## Mandate-covered followups
 
