@@ -1,20 +1,30 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.0...HEAD)
 
-## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
+## [0.61.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...manager-0.61.0) (2026-10-31)
 
 **Keep one accountable owner** — A fixed task-owner role holds the goal and
 acceptance while writing itself or dispatching for a P3 hand-off reason.
 The skill becomes an action checklist, and optional workers stay bounded.
-Supported local adapters load the role and prompt checks at publication,
-merge, dispatch and completion; model choice stays with the dispatcher.
+Local lifecycle adapters load the role and add publication, merge and
+dispatch context; completion reminders apply only to active task owners.
 
-**Questions come back to you, not stuck in a session** — A dispatched task,
-or one whose questions route to your ask session, returns each decision with
-its recommendation and ends its turn; whoever relays it continues that same
-task with your answer. A session that dispatches work no longer sits in its
-turn waiting for the result.
+**Resume the same work** — Routed questions return with context and a
+recommendation, then the turn ends. Dispatchers finish independent work
+without waiting in-turn; writer rework and permitted verifier follow-up
+resume their recorded sessions.
+
+## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
+
+**No producer-routed verification** — A directive can no longer hand
+verification to the producer it dispatches. The producer-routed route, its
+forwarding to a verifier endpoint, and its exempt marking are gone; a
+producer returns its work to the task owner.
+
+**Peer duties no longer need a subject key** — Without a default, a duty is
+still taken as a task and the first recorded claim wins; the plugin no longer
+asks for a stable subject key on that task.
 
 ## [0.59.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.1...manager-0.59.0) (2026-10-30)
 

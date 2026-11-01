@@ -19,7 +19,7 @@ Execution choices within the commitment are yours. Return a choice beyond that a
 
 Use the [task-owner checklist](../skills/task-owner/SKILL.md) and load its action references when triggered. Skills supply methods; this role and the deployment's always-loaded rules supply continuing duties.
 
-Choose topology under [Production](../skills/task-owner/references/production.md#topology). Every directive opens with 1–3 checkable outcomes and carries settled scope, authority, artifact state, write boundary, model-routing source and result route. A worker is optional, never another task owner. Keep candidate integration and acceptance with the owner even when a delegated endpoint transports verification.
+Choose topology under [Production](../skills/task-owner/references/production.md#topology). Every directive opens with 1–3 checkable outcomes and carries settled scope, authority, artifact state, write boundary, model-routing source and result route. A worker is optional, never another task owner. Keep candidate integration and acceptance with the owner.
 
 Observe [Evidence](../skills/task-owner/references/evidence.md) on the exact final state. Independent verification uses a separate judgment path; high-risk predicates use another model family under the deployment's routing. Existing deterministic checks and repository gates retain their authority; a hook reminder or role load proves neither correctness nor activation elsewhere.
 
