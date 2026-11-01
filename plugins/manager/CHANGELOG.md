@@ -19,7 +19,8 @@ resume their recorded sessions.
 **Call the judge directly** — The owner selects the review model and effort
 from deployment routing and invokes it through its harness. The carrier
 pins exact state, keeps artifacts read-only and verifies them unchanged;
-non-zero exit or a missing verdict cannot count as success.
+non-zero exit or a missing verdict cannot count as success. Judge lines disclose
+any difference between the selected model and the receipt's actual model.
 
 ## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
 
