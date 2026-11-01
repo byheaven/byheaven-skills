@@ -28,8 +28,7 @@ export function actionKeys(toolName, input = {}) {
     if (/^gh\s+pr\s+merge(?:\s|$)/.test(part)
       || /^gh\s+api\b.*\/pulls\/[^/\s]+\/merge\b/.test(part)) keys.add('Merge');
     if (/^claude\b.*(?:\s-p\b|\s--print\b|\s--bg\b|\s--background\b)/.test(part)
-      || /^codex\s+exec(?:\s|$)/.test(part)
-      || /^(?:\S*\/)?cross-model(?:\s|$)/.test(part)) keys.add('Dispatch');
+      || /^codex\s+exec(?:\s|$)/.test(part)) keys.add('Dispatch');
   }
   return [...keys];
 }

@@ -16,7 +16,7 @@ Apply the repository's controlled merge entry and the task's current integration
 
 ## Dispatch
 
-Apply Production's directive contract and the deployment's Model routing authority. The dispatcher selects and records model, effort and authorized inference source; this reminder selects none. Preserve a result route that resumes the owner.
+Apply Production's directive contract and the deployment's Model routing authority. The dispatcher records model, effort and authorized source; this reminder selects none. For review, the owner uses Verification carrier directly, with its exact-state, read-only and result guards. Preserve a result route that resumes the owner.
 
 ## Finish
 

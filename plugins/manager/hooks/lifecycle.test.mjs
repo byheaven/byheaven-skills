@@ -21,7 +21,7 @@ test('action checks cover recognized commands and exclude text in unrelated tool
 test('native, routed and CLI dispatch receive model-routing context', () => {
   assert.deepEqual(actionKeys('Agent', { prompt: 'Review the candidate' }), ['Dispatch']);
   assert.deepEqual(actionKeys('mcp__tools__call_tool', { name: 'spawn_agent', args: {} }), ['Dispatch']);
-  for (const command of ['claude -p "review"', 'codex exec "review"', 'cross-model verifier review']) {
+  for (const command of ['claude -p "review"', 'codex exec "review"']) {
     assert.deepEqual(actionKeys('Bash', { command }), ['Dispatch']);
   }
 });

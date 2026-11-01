@@ -1,8 +1,6 @@
 # Runtime capabilities
 
-A task owner needs the capabilities below from whatever host it runs in. Each states the requirement only; the mechanism is the host's. Before a runtime-native action, map the requirement to the host's own native mechanism, or read the binding the deployment names for this host when the user's instructions name one. When neither meets a requirement, report it as blocked rather than approximating it. A binding maps requirements to mechanisms and adds no policy; on task-owner and Manager method and role semantics this plugin wins.
-
-Which bots, agent ids, machines, accounts, and model CLIs a deployment uses belong to that deployment's own binding. This plugin names none of them.
+Meet each capability through the host's native mechanism or the deployment binding; report an unavailable layer as blocked. A binding maps mechanisms and adds no task-owner or Manager policy. Deployment bot ids, machines, accounts and model CLIs stay outside this plugin.
 
 ## Loading
 
@@ -24,7 +22,7 @@ Repository work that needs isolation, and every session in a shared checkout, ge
 
 ## Verification carrier
 
-A judge that [Owner acceptance](evidence.md#owner-acceptance) requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under Owner acceptance item 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producing leaf never selects, briefs, or judges its verifier.
+The owner directly invokes the judge required by [Owner acceptance](evidence.md#owner-acceptance), using its harness's sub-agent, task or the selected family's native CLI. Select model and effort from the deployment's single model-routing authority; no review script selects or invokes the judge. Supply the [verifier](../../../agents/verifier.md) charter, its listed skills and a fresh directive without producer reasoning. Pin code to exact head/base in a clean detached worktree, documents to reported sha256; grant read-only artifact access. After the verdict, authenticate unchanged hashes and a clean tree, then remove the tree. Non-zero exit, timeout, changed artifacts or a missing verdict yields no valid verdict. A bounded producer never selects, briefs or judges its verifier.
 
 ## Wait and wake
 

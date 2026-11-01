@@ -131,7 +131,10 @@ profile (this replaces built-in instructions), or through an additive
 SessionStart hook. No Codex hook manifest is shipped in this change. Trust and
 embedding-host adoption must be verified for the chosen carrier. Hooks never
 select a model or inference source; the dispatcher reads the deployment's
-Model routing and records its choice. Existing sessions require a confirmed
+Model routing and records its choice. Owners invoke verifiers directly through
+their harness under Verification carrier: pinned state, read-only artifacts,
+unchanged-artifact checks and non-zero/no-verdict handling. No review script
+selects or invokes a verifier. Existing sessions require a confirmed
 reload before relying on changed instructions.
 
 ### Host mechanisms

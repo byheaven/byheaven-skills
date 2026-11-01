@@ -15,6 +15,11 @@ recommendation, then the turn ends. Dispatchers finish independent work
 without waiting in-turn; writer rework and permitted verifier follow-up
 resume their recorded sessions.
 
+**Call the judge directly** — The owner selects the review model and effort
+from deployment routing and invokes it through its harness. The carrier
+pins exact state, keeps artifacts read-only and verifies them unchanged;
+non-zero exit or a missing verdict cannot count as success.
+
 ## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
 
 **No producer-routed verification** — A directive can no longer hand
