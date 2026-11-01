@@ -26,7 +26,7 @@ A project's binding names its peer Managers, each in its own session, and any de
 - **Limits.** A limit on tasks in flight counts each Manager's own dispatches, unless the binding says the Managers share it.
 - **One owner per duty.** A duty the project gives its Manager falls to exactly one Manager, decided in this order: for a task, the Manager that owns it; for a pull request, the Manager that dispatched it or took over that dispatch, else the owner of the first task it references; for other work, a named default, otherwise the first Manager to claim it as a task. Other work includes the one list of user questions, unclaimed tasks, records a standalone session left, and otherwise-unassigned pull requests.
 - **Shared target failure.** When the shared target branch fails its verification, the Manager that merged the failing commit repairs or reverts it, without waiting for blame, and the other Managers leave that failure to it. That Manager is the one the pull request behind the commit the failing run checked falls to under the order above; a commit no pull request produced follows the same ownership rule for other work.
-- **A Manager stops.** The user decides who takes over its active work and claims, and any default role it held. The outgoing session hands them over with the compact current state the task-owner skill's Records section requires.
+- **A Manager stops.** The user decides who takes over its active work and claims, and any default role it held. The outgoing session hands them over with current state under the task-owner role's Records and closure.
 
 ## Mandate-covered followups
 

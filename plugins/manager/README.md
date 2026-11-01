@@ -1,7 +1,7 @@
 # manager
 
 `manager` packages one project-collaboration method for any agent host that
-loads skills. The `task-owner` skill is the delivery method of any session that
+loads skills. The `task-owner` role and checklist are the delivery method of any session that
 owns a task: it locks the task's Intent, or takes one the direction owner (the
 conversation where you settle project direction) hands over with your explicit
 authorization, and closes every Acceptance predicate through a qualified judge
@@ -31,6 +31,7 @@ skills/roundtable         One question to several model families, compared
                           in one saved file (user-invoked)
 skills/writing-for-agents How to write skills, rules, and directives agents
                           follow
+agents/task-owner         Accountable task owner; self-production or P3 dispatch
 agents/verifier           Independent verifier with its checklist
 agents/code-worker        Bounded code-production slice
 agents/designer           Bounded design slice: flow, screen, states, or
@@ -85,7 +86,7 @@ This installs the skills only, without the plugin's `agents/` directory.
 Invoke the `task-owner` skill at the start of a delivery conversation,
 and the `manager` skill only in a session your deployment names a project's
 Manager. The worker and verifier agents come only with the full plugin;
-without them the task owner, writing the work itself as always, finds
+without them the task owner uses focused writer directives and finds
 another carrier for independent verification.
 
 `skills/grilling`, `skills/writing-for-agents`, and `skills/diagnosing-bugs`
@@ -105,9 +106,28 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 ## Usage
 
-The plugin ships no hooks and assigns no role when a session starts. There is
-no `manager` agent: remove any `"agent": "manager:manager"` setting or
-`--agent manager:manager` flag left from an earlier version.
+Three responsibilities stay separate: the deployment defines its coordinator,
+`agents/task-owner.md` owns one task, and `agents/verifier.md` judges it. Worker
+charters are optional bounded slices. The `manager` skill remains for deployments
+with project queues or recurring delivery loops; it assigns no coordinator.
+
+Claude Code can start a main session with `claude --agent manager:task-owner`.
+The plugin's `hooks/hooks.json` loads the role conditionally at SessionStart and
+reminds before publication, merge and dispatch. Stop requests one checklist pass;
+its `stop_hook_active` guard permits the next stop. Pi uses the registered
+`.pi-plugin/task-lifecycle.ts` extension at the corresponding event boundaries.
+Its completion check requests at most one continuation per completed run.
+These are reminders, not semantic or merge validators. A read, shell command or
+MCP call outside the adapters' recognized names may bypass an action reminder;
+repository gates and the continuing role remain authoritative.
+
+Codex can consume the role through `model_instructions_file` in a separate
+profile (this replaces built-in instructions), or through an additive
+SessionStart hook. No Codex hook manifest is shipped in this change. Trust and
+embedding-host adoption must be verified for the chosen carrier. Hooks never
+select a model or inference source; the dispatcher reads the deployment's
+Model routing and records its choice. Existing sessions require a confirmed
+reload before relying on changed instructions.
 
 ### Host mechanisms
 

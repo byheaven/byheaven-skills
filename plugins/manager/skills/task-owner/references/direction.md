@@ -62,7 +62,15 @@ Independent derivation can expose materially different options before a user-own
 
 ## Handoff
 
-A handoff is the direction owner's message to the task owner, the project's Manager where the deployment names one, once Grill completes and the user explicitly asked for the work; the direction owner then waits on it only as [Wait and wake](runtimes.md#wait-and-wake) says. It carries the locked Goal and any observation, any method the user picked, the Defaults ledger, the sources the receiver must read, and the user's authorization quoted with its date. A request to park or queue rides the same message; the receiver, not the direction owner, creates any task record. A task a project's Manager hands to another session carries the same locked Intent.
+A handoff transfers authorized work to its task owner. Its first message carries:
+
+- **Outcomes:** 1–3 checkable results.
+- **Intent:** locked Goal, observation, user-selected route or method, and Defaults ledger.
+- **Authority:** the user's exact action request, source and date; keep it separate from the sender's interpretation.
+- **Scope and Acceptance:** boundaries, true judges, dependencies and exact artifact/write target.
+- **Context and return:** required sources, owner/session, result route and coordinator question route. Missing routing is a gap, not permission to ask elsewhere.
+
+A park/queue request uses the same packet; the receiver creates any required record. An onward handoff preserves the locked Intent.
 
 The receiver does not re-confirm a complete handoff with the user; it checks the handoff against live state and opens Delivery at the gate below. A gap, a contradiction with live state, or an owner decision still open is one precise question under [Asks](#asks). **Reopen Direction** is a delta that would change the Goal. Send the delta and its evidence under [Asks](#asks). Only the work it affects waits, and that work resumes when a revised Intent returns.
 
@@ -72,7 +80,7 @@ Every question or decision for the user, including a Reopen Direction delta and 
 
 ## Direct start
 
-When the user starts a task directly in a conversation, that conversation is the task's direction owner and nothing is handed off. It runs Discussion, Grill, and Independent derivation as above and locks the Goal. Delivery opens only at the [Delivery gate](#delivery-gate) and then proceeds unchanged in that conversation.
+A user-started task forms and confirms its Goal in that conversation through Discussion, Grill and any selected Independent derivation. No handoff is needed; [Delivery gate](#delivery-gate) opens execution there.
 
 ## Delivery gate
 

@@ -5,13 +5,13 @@ description: Project-driving role of a project's Manager. Use only when this ses
 
 # Manager
 
-A project's Manager drives the project: it takes in the direction owner's handoffs, selects work inside a standing delivery mandate, coordinates the project's tasks across sessions and runtimes, and owns every task it takes. A Manager exists only where the deployment's binding names one, which also says which Manager is the default when there are several. Nothing else makes a session a Manager, and a Manager never creates another.
+A project's Manager drives the project: it takes in the direction owner's handoffs, selects work inside a standing delivery mandate, coordinates the project's tasks across sessions and runtimes, and owns every task it takes. Only a deployment assigning project queues or loops names a Manager and its peers or default. Nothing else makes a session a Manager, and a Manager never creates another.
 
 Links below are relative to this skill's directory.
 
 ## First step
 
-Apply the [`task-owner` skill](../task-owner/SKILL.md) to every task you own; its deliverables govern each one, and this skill adds only the project-driving duties below. Every directive or handoff you send opens with its 1–3 checkable outcomes, as that skill's Directive says.
+Apply the [`task-owner` skill](../task-owner/SKILL.md) to every task you own; its role and checklist govern each one, and this skill adds only the project-driving duties below. Every directive or handoff you send opens with its 1–3 checkable outcomes, as that skill's Directive says.
 
 ## References
 
@@ -27,7 +27,7 @@ A request to park or queue, from the user or in a handoff, creates only that dur
 
 ## Coordination
 
-The project's task records carry its coordination across sessions and runtimes; Manager writes each at the event boundaries the task-owner skill's Records section names. When forming tasks from the project's queue or from followup candidates, size them under [Task sizing](references/project.md#task-sizing). When the project's binding names several Managers working at once, read [Several Managers](references/project.md#several-managers) before taking, dispatching, or repairing work.
+The project's task records carry its coordination across sessions and runtimes; Manager writes each at the event boundaries the task-owner role's Records and closure section names. When forming tasks from the project's queue or from followup candidates, size them under [Task sizing](references/project.md#task-sizing). When the project's binding names several Managers working at once, read [Several Managers](references/project.md#several-managers) before taking, dispatching, or repairing work.
 
 ## Followups
 

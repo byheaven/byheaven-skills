@@ -4,11 +4,11 @@
 
 ## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
 
-**One session writes the task** — The session that owns a task now does the
-work itself. It hands work to another agent only for an independent review,
-read-only research, or a slice that needs its own context, runs truly in
-parallel, or uses a model you name. Rework goes back to the same writer's
-session, so fixes keep their context.
+**Keep one accountable owner** — A fixed task-owner role holds the goal and
+acceptance while writing itself or dispatching for a P3 hand-off reason.
+The skill becomes an action checklist, and optional workers stay bounded.
+Supported local adapters load the role and prompt checks at publication,
+merge, dispatch and completion; model choice stays with the dispatcher.
 
 **Questions come back to you, not stuck in a session** — A dispatched task,
 or one whose questions route to your ask session, returns each decision with

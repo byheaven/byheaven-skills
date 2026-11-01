@@ -6,7 +6,7 @@ Which bots, agent ids, machines, accounts, and model CLIs a deployment uses belo
 
 ## Loading
 
-When the host loads nothing automatically, or a resumed, compacted, or one-shot session lost them, load the skills this task needs yourself before the first delivery action, from the installed copy unless the task changes the plugin.
+Load the assigned role before judgment and reload it after context loss; for an owned task use the [task-owner role](../../../agents/task-owner.md) and its checklist. When automatic loading is absent, load them yourself from the installed copy, unless changing the plugin. Hooks carry reminders and never certify gate completion.
 
 ## Asking
 
@@ -14,7 +14,7 @@ A session whose questions go to its dispatcher or to an ask session never asks o
 
 ## Sub-agent dispatch
 
-Dispatch a worker or verifier as a sub-agent that starts with fresh context and inherits none of this conversation: a verifier must judge independent of the producer's reasoning. It runs the plugin's role file for its kind, with each skill that file's `skills:` frontmatter lists, followed by the directive. When the host registers the plugin's agents, dispatch that registered role; otherwise give the sub-agent the role file's body and the full text of each listed skill. A role name the host offers is the plugin's role only when the host registered it from this plugin. Without a sub-agent capability, run the same assembled prompt as a one-shot run in its own worktree, or keep a writer slice yourself; verification always uses [Verification carrier](#verification-carrier).
+Dispatch bounded work with fresh context and the focused directive. A verifier always receives the plugin's verifier role and its listed skills, without producer reasoning. A writer may use a worker charter when it adds necessary method or context; otherwise its directive and applicable skills suffice. Use a registered role only when the host registered it from this plugin; otherwise supply its body and listed skills. Without a sub-agent capability, run the same assembled prompt as a one-shot run in its own worktree, or keep a writer slice yourself; verification always uses [Verification carrier](#verification-carrier).
 
 A sub-agent of the same model family as the producer is not a cross-family judge; a cross-family judge needs a carrier that runs another family.
 
@@ -24,7 +24,7 @@ Repository work that needs isolation, and every session in a shared checkout, ge
 
 ## Verification carrier
 
-A judge that [Owner acceptance](evidence.md#owner-acceptance) or a delegated producer route requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under Owner acceptance item 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
+A judge that [Owner acceptance](evidence.md#owner-acceptance) or a delegated producer route requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under Owner acceptance item 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producing leaf never selects, briefs, or judges its verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
 
 ## Producer-routed forwarding
 
