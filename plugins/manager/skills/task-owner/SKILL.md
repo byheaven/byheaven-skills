@@ -27,7 +27,7 @@ A delivery is done when each of these holds. Reviewers check these outcomes, not
 | [direction.md](references/direction.md) | Directing a task the user starts here, checking a handed-over task, deciding whether Delivery is open, or reopening Direction |
 | [experience-gate.md](references/experience-gate.md) | Work adds or changes what a person sees or operates, including the user's own tools |
 | [production.md](references/production.md) | Choosing topology, dispatching sub-agents, integrating, governed changes, review presentation, followups |
-| [evidence.md](references/evidence.md) | Assigning evidence, verifier dispatch, producer-routed verification, failure diagnosis, dependency waits |
+| [evidence.md](references/evidence.md) | Assigning evidence, verifier dispatch, failure diagnosis, dependency waits |
 | [repo-integration.md](references/repo-integration.md) | Before the first repository-affecting action: commit, push, PR, merge, worktree |
 | [runtimes.md](references/runtimes.md) | Before a runtime-native action: loading, asking, dispatching, a worktree, verifying, waiting, a review carrier, merging, or completing |
 

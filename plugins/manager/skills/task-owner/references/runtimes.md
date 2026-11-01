@@ -24,11 +24,7 @@ Repository work that needs isolation, and every session in a shared checkout, ge
 
 ## Verification carrier
 
-A judge that [Owner acceptance](evidence.md#owner-acceptance) or a delegated producer route requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under Owner acceptance item 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier; it may forward its artifact only on the [Producer-routed verification](evidence.md#producer-routed-verification) route its directive delegates.
-
-## Producer-routed forwarding
-
-On a delegated [Producer-routed verification](evidence.md#producer-routed-verification) route, the producer can deliver the directive fields and exact artifact state to the named verifier endpoint, which starts a fresh [Verification carrier](#verification-carrier) run and runs the route's one repair round where it can reach the producer, and returns all findings and the final verdict to the named task owner. When forwarding is unavailable, the producer returns `blocked` with its classification and never marks a verify-classified artifact exempt.
+A judge that [Owner acceptance](evidence.md#owner-acceptance) requires runs as a fresh isolated run with only the [verifier](../../../agents/verifier.md) charter and the directive, on a model family selected under Owner acceptance item 2. For code, it reads the exact pull request head in its own detached worktree, clean before and after the run and removed once the verdict is recorded. For a document, it reads a copy whose sha256 matches what the producer reported, and the hashes are unchanged after the run. A producer never selects, briefs, or judges its own verifier.
 
 ## Wait and wake
 

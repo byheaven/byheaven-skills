@@ -35,16 +35,6 @@ A verifier receives the locked commitment, the exact artifact state, the authori
 
 A delivery gets one review round, and the verdict's Gate line decides what follows. With no follow-up listed, settle the other findings, diff-check each prescribed repair, and pass the gate; a medium or low finding never starts a round. A follow-up runs only for a finding the Gate line lists or a repair that changed behavior beyond its prescription; it resumes the first verifier's session where the runtime can and judges only those cases. After two follow-ups, stop and return each open question to the user. A gate reads `no open critical or high finding on <object>`, never an approve verdict.
 
-## Producer-routed verification
-
-The task owner may delegate verification to a producing worker in its directive, which names the verifier endpoint, the producer the endpoint returns repairable findings to, and the repair wait (24 hours when it names none). An artifact the task owner produces itself stays with the task owner.
-
-- **Classify.** The producer classifies each predicate under [Owner acceptance](#owner-acceptance) item 2 and names the fact that places it there. Exempt only when everything falls in item 2's no-judge list; when unsure, or when the directive mandates it, verify.
-- **Verify.** Send the exact artifact state (for code: repository root, commit SHA, comparison base) and the directive's fields unchanged to the endpoint, with the producer's model family and no producer reasoning. The endpoint runs a fresh [Verification carrier](runtimes.md#verification-carrier), sends repairable findings to the producer for one repair round, routes scope, direction, and taste findings to the task owner, and returns every finding with its state and the final verdict to the task owner. A timeout is never a pass.
-- **Exempt.** Deliver marked `not verified: <class>, <predicate and classifying fact>`, with the producer's check.
-
-The task owner keeps acceptance, merging, and any further repair, and may still send an unverified artifact to a verifier.
-
 ## Failure diagnosis
 
 When a predicate fails or a defect recurs, find the cause before the next action: a changed commitment, an implementation defect, an environment fault, stale evidence, or a correlated reasoning failure. After two fixes resting on the same premise fail the same check, test that premise directly before a third. A hard or recurring bug follows the `diagnosing-bugs` skill. Reopen Direction only when the remedy changes a user-owned dimension. Semantic rule conflicts go to the `verifier` agent.
