@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import taskLifecycle from '../.pi-plugin/task-lifecycle.ts';
 
-function adapter() {
+function adapter(role = 'task-owner') {
   const handlers = new Map();
   const messages = [];
-  taskLifecycle({ on: (name, handler) => handlers.set(name, handler), sendMessage: (message) => messages.push(message) });
+  taskLifecycle({ on: (name, handler) => handlers.set(name, handler), sendMessage: (message) => messages.push(message), registerFlag: () => {}, getFlag: () => role });
   return { handlers, messages };
 }
 
@@ -29,6 +29,8 @@ test('recognized actions add context without authorizing or executing tools', ()
 test('only a completed run gets one final checklist continuation', () => {
   const { handlers } = adapter();
   const settle = handlers.get('agent_before_settle');
+  assert.equal(settle({ outcome: 'completed', entries: [] }), undefined);
+  handlers.get('tool_call')({ toolName: 'Agent', input: {} });
   assert.equal(settle({ outcome: 'aborted', entries: [] }), undefined);
   const existing = { type: 'custom', customType: 'existing', data: {} };
   const first = settle({ outcome: 'completed', entries: [existing] });
@@ -36,5 +38,15 @@ test('only a completed run gets one final checklist continuation', () => {
   assert.equal(first.entries[0], existing);
   assert.equal(settle({ outcome: 'completed', entries: [] }), undefined);
   handlers.get('before_agent_start')({ systemPromptOptions: { sections: {} } });
+  handlers.get('tool_call')({ toolName: 'Agent', input: {} });
   assert.equal(settle({ outcome: 'completed', entries: [] }).continue, true);
+});
+
+
+test('workers, verifiers and unclassified sessions receive no completion continuation', () => {
+  for (const role of ['worker', 'verifier', 'coordinator', '']) {
+    const { handlers } = adapter(role);
+    handlers.get('tool_call')({ toolName: 'Agent', input: {} });
+    assert.equal(handlers.get('agent_before_settle')({ outcome: 'completed', entries: [] }), undefined);
+  }
 });

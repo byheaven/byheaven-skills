@@ -8,15 +8,15 @@ Apply the supplied task-owner role only when this session holds a task's Goal. K
 
 ## Publish
 
-Before a push or PR change, apply repository integration to the current candidate, required checks, review dispositions and publication authority. A published candidate is not a completed merge.
+For a push or PR change, apply repository integration to the current candidate, required checks, review dispositions and publication authority. A published candidate is not a completed merge.
 
 ## Merge
 
-Read the repository's controlled merge entry and the task's current integration evidence before merging. Close the applicable gates on the exact candidate; a reminder supplies no gate receipt.
+Apply the repository's controlled merge entry and the task's current integration evidence. Close the applicable gates on the exact candidate; a reminder supplies no gate receipt.
 
 ## Dispatch
 
-Read Production's directive contract and the deployment's Model routing authority before dispatch. The dispatcher selects and records model, effort and authorized inference source; this reminder selects none. Preserve a result route that resumes the owner.
+Apply Production's directive contract and the deployment's Model routing authority. The dispatcher selects and records model, effort and authorized inference source; this reminder selects none. Preserve a result route that resumes the owner.
 
 ## Finish
 

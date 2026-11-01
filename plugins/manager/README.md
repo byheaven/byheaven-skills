@@ -113,13 +113,18 @@ with project queues or recurring delivery loops; it assigns no coordinator.
 
 Claude Code can start a main session with `claude --agent manager:task-owner`.
 The plugin's `hooks/hooks.json` loads the role conditionally at SessionStart and
-reminds before publication, merge and dispatch. Stop requests one checklist pass;
-its `stop_hook_active` guard permits the next stop. Pi uses the registered
+adds context with the first matching tool result, for later actions. Completion
+requests one checklist pass only for an explicitly assigned task owner that has
+received a publication, merge or dispatch reminder. Workers and verifiers receive
+no extra completion pass; `stop_hook_active` permits the next stop. Pi uses the registered
 `.pi-plugin/task-lifecycle.ts` extension at the corresponding event boundaries.
-Its completion check requests at most one continuation per completed run.
+Use `pi --manager-role task-owner` for the owning main session. Its completion
+check requests at most one continuation per active completed run; other roles
+and unclassified sessions receive none.
 These are reminders, not semantic or merge validators. A read, shell command or
 MCP call outside the adapters' recognized names may bypass an action reminder;
-repository gates and the continuing role remain authoritative.
+repository gates and the continuing role remain authoritative. Claude session
+activity is kept in the plugin data directory and reset at each user prompt.
 
 Codex can consume the role through `model_instructions_file` in a separate
 profile (this replaces built-in instructions), or through an additive
