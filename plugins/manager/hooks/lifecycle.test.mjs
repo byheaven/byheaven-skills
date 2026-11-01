@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { actionKeys, hookResult, runHook } from './lifecycle.mjs';
@@ -60,6 +60,33 @@ test('session activity persists across calls and resets at prompt and completion
     event({ hook_event_name: 'SessionStart', agent_type: 'manager:verifier' });
     event({ hook_event_name: 'PreToolUse', tool_name: 'Agent', tool_input: {} });
     assert.deepEqual(event({ hook_event_name: 'Stop' }), {});
+  } finally {
+    rmSync(directory, { recursive: true });
+  }
+});
+
+test('compaction preserves an active owner check until its final result', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'manager-compact-'));
+  const event = (input) => runHook({ session_id: 'owner-session', agent_type: 'manager:task-owner', ...input }, directory);
+  try {
+    event({ hook_event_name: 'SessionStart' });
+    event({ hook_event_name: 'PreToolUse', tool_name: 'Agent', tool_input: {} });
+    event({ hook_event_name: 'SessionStart', source: 'compact' });
+    assert.equal(event({ hook_event_name: 'Stop' }).decision, 'block');
+    assert.deepEqual(event({ hook_event_name: 'Stop' }), {});
+  } finally {
+    rmSync(directory, { recursive: true });
+  }
+});
+
+test('state storage failure preserves action context without an unsafe completion block', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'manager-state-failure-'));
+  const unavailable = join(directory, 'file');
+  writeFileSync(unavailable, 'not a directory');
+  try {
+    const result = runHook({ session_id: 'owner-session', hook_event_name: 'PreToolUse', tool_name: 'Bash', tool_input: { command: 'git push -h' } }, unavailable);
+    assert.equal(result.hookSpecificOutput.hookEventName, 'PreToolUse');
+    assert.deepEqual(runHook({ session_id: 'owner-session', agent_type: 'manager:task-owner', hook_event_name: 'Stop' }, unavailable), {});
   } finally {
     rmSync(directory, { recursive: true });
   }

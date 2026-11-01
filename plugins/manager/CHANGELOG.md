@@ -9,6 +9,7 @@ acceptance while writing itself or dispatching for a P3 hand-off reason.
 The skill becomes an action checklist, and optional workers stay bounded.
 Local lifecycle adapters load the role and add publication, merge and
 dispatch context; completion reminders apply only to active task owners.
+Pending activity survives compaction, and storage faults retain basic reminders.
 
 **Resume the same work** — Routed questions return with context and a
 recommendation, then the turn ends. Dispatchers finish independent work

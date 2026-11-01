@@ -57,20 +57,25 @@ export function hookResult(input, active = false) {
 
 export function runHook(input, directory) {
   if (!input.session_id) return hookResult(input);
-  mkdirSync(directory, { recursive: true });
-  const key = createHash('sha256').update(input.session_id).digest('hex');
-  const path = join(directory, `${key}.json`);
-  const previous = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : {};
-  const agentType = input.hook_event_name === 'SessionStart' ? input.agent_type : input.agent_type ?? previous.agent_type;
-  const state = { agent_type: agentType, active: previous.active ?? false };
-  if (input.hook_event_name === 'SessionStart' || input.hook_event_name === 'UserPromptSubmit') state.active = false;
-  if (input.hook_event_name === 'PreToolUse' && actionKeys(input.tool_name, input.tool_input).length) state.active = true;
-  const result = hookResult({ ...input, agent_type: state.agent_type }, state.active);
-  if (input.hook_event_name === 'Stop') state.active = false;
-  const temporary = `${path}.${process.pid}`;
-  writeFileSync(temporary, JSON.stringify(state));
-  renameSync(temporary, path);
-  return result;
+  if (input.hook_event_name === 'PreToolUse' && !actionKeys(input.tool_name, input.tool_input).length) return hookResult(input);
+  try {
+    mkdirSync(directory, { recursive: true });
+    const key = createHash('sha256').update(input.session_id).digest('hex');
+    const path = join(directory, `${key}.json`);
+    const previous = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : {};
+    const agentType = input.hook_event_name === 'SessionStart' ? input.agent_type : input.agent_type ?? previous.agent_type;
+    const state = { agent_type: agentType, active: previous.active ?? false };
+    if (input.hook_event_name === 'UserPromptSubmit') state.active = false;
+    if (input.hook_event_name === 'PreToolUse') state.active = true;
+    const result = hookResult({ ...input, agent_type: state.agent_type }, state.active);
+    if (input.hook_event_name === 'Stop') state.active = false;
+    const temporary = `${path}.${process.pid}`;
+    writeFileSync(temporary, JSON.stringify(state));
+    renameSync(temporary, path);
+    return result;
+  } catch {
+    return hookResult(input);
+  }
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
