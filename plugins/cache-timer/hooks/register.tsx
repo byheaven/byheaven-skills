@@ -1,4 +1,4 @@
-import type { EngineInterface, Register, ResolveInput } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
 
 import type { CacheClock, CacheTtl } from '../types'
 
@@ -60,8 +60,8 @@ export function ttlFromTranscriptTail(tail: string): CacheTtl | null {
 }
 
 // The session's cache clock. Module state, saved to the plugin's store under
-// the session id on each change, so a reload (a /config change, a press in
-// the band) restores it in session.start instead of starting over.
+// the session id on each change, so a reload (a /config change, one made
+// through /cache-timer) restores it in session.start instead of starting over.
 let clock: CacheClock = initial
 
 const storeKey = (sessionId: string): string => `clock:${sessionId}`
@@ -102,21 +102,6 @@ export function questionOf(reply: string): string | null {
   return text.length > QUESTION_MAX ? `${text.slice(0, QUESTION_MAX - 1)}…` : text
 }
 
-/** What the band shows, set by the clock's tick. */
-type View = {
-  /** Time left (`54:12`), `expired`, or `—` before a request. */
-  time: string
-  /** Lifetime and tokens against the threshold: `1h · 612k/500k`. */
-  detail: string
-  /** Share of the cache lifetime left, 0 to 1; null when no countdown runs. */
-  left: number | null
-}
-
-let view: View = { time: '—', detail: '', left: null }
-
-// Whether the band shows its settings row; per process, closed after a reload.
-let isExpanded = false
-
 const formatRemaining = (ms: number): string => {
   const total = Math.max(0, Math.ceil(ms / 1000))
   const minutes = Math.floor(total / 60)
@@ -127,28 +112,21 @@ const formatRemaining = (ms: number): string => {
 
 const formatK = (tokens: number): string => `${Math.round(tokens / 1000)}k`
 
-const setView = ($: EngineInterface, next: View): void => {
-  if (next.time !== view.time || next.detail !== view.detail || next.left !== view.left) {
-    view = next
-    $.ui.invalidate('ui.render')
+// The status line under the prompt: the time left and the tokens the next
+// request re-sends (`54:12 · 612k`), none before a request. A status line,
+// unlike a band, stays drawn in the desktop app between turns. Null until this
+// process first sets it, so a line left by an earlier load is replaced.
+let status: string | undefined | null = null
+
+const setStatus = ($: EngineInterface, next: string | undefined): void => {
+  if (next !== status) {
+    status = next
+    $.ui.status(next)
   }
 }
 
 const THRESHOLD_PRESETS_K = [300, 500, 700]
 const NOTIFY_LEAD_PRESETS_MIN = [10, 15, 20]
-
-const BAR_CELLS = 10
-
-// Icons for the desktop band; the terminal draws text instead.
-const ON = '#1D9E75'
-const OFF = '#888780'
-const icon = (paths: string, color: string): string =>
-  `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`
-const CLOCK = '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>'
-const COMPRESS = '<path d="M5 9h4V5M15 5v4h4M5 15h4v4M15 19v-4h4"/>'
-const BELL = '<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3H4a4 4 0 0 0 2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'
-const bar = (left: number): string =>
-  `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="4" viewBox="0 0 80 4"><rect width="80" height="4" rx="2" fill="${OFF}" fill-opacity="0.35"/><rect width="${Math.round(80 * left)}" height="4" rx="2" fill="${left > 0.2 ? ON : '#BA7517'}"/></svg>`
 
 /** The `/config` key of one of this plugin's fields, as the engine names it. */
 async function configKey($: EngineInterface, field: string): Promise<string | undefined> {
@@ -157,8 +135,8 @@ async function configKey($: EngineInterface, field: string): Promise<string | un
   return rows.find(row => row.key.startsWith('cache-timer') && row.key.endsWith(`.${field}`))?.key
 }
 
-// Settings changed in the band where `/config` has no rows for them (a session
-// the desktop app runs). Kept in the plugin store across sessions; a `/config`
+// Settings changed through /cache-timer where `/config` has no rows for them (a
+// session the desktop app runs). Kept in the plugin store across sessions; a `/config`
 // change to the same field drops the entry.
 const OVERRIDES_KEY = 'settings'
 let overrides: Record<string, boolean | number> = {}
@@ -171,12 +149,11 @@ const saveOverrides = async ($: EngineInterface): Promise<void> => {
   }
 }
 
-async function setOption($: EngineInterface, field: string, value: boolean | number): Promise<void> {
+async function setOption($: EngineInterface, field: string, value: boolean | number): Promise<boolean> {
   const key = await configKey($, field)
 
   if (key === undefined) {
     overrides = { ...overrides, [field]: value }
-    $.ui.invalidate('ui.render')
     await saveOverrides($)
   } else {
     const result = await $.config.set({ key, value })
@@ -184,13 +161,15 @@ async function setOption($: EngineInterface, field: string, value: boolean | num
     if ('deny' in result && result.deny !== undefined) {
       $.ui.toast(`cache-timer: ${field} not changed (${result.deny})`)
 
-      return
+      return false
     }
   }
 
   if (field === 'threshold_k') {
     await applyThreshold($, Number(value))
   }
+
+  return true
 }
 
 // Claude Code's own idle compaction compacts a long conversation shortly
@@ -205,23 +184,20 @@ const IDLE_ROW = 'idleCompaction'
 const IDLE_FLOOR_K = 100
 const IDLE_DEFAULT_K = 200
 
-// The minimum Claude Code reads now, in thousands of tokens: what the band
+// The minimum Claude Code reads now, in thousands of tokens: what /cache-timer
 // shows, whether or not the mod's own write went through.
 let appliedK = IDLE_DEFAULT_K
 
 let idle: IdleCompaction = 'unavailable'
 
-const setIdleState = ($: EngineInterface, next: IdleCompaction): void => {
-  if (next !== idle) {
-    idle = next
-    $.ui.invalidate('ui.render')
-  }
+const setIdleState = (next: IdleCompaction): void => {
+  idle = next
 }
 
 async function readIdle($: EngineInterface): Promise<void> {
   try {
     const row = (await $.config.list()).find(r => r.key === IDLE_ROW)
-    setIdleState($, row === undefined ? 'unavailable' : row.value === false ? 'off' : 'on')
+    setIdleState(row === undefined ? 'unavailable' : row.value === false ? 'off' : 'on')
   } catch {
     // An unreadable menu leaves the last state shown.
   }
@@ -236,7 +212,7 @@ async function setIdle($: EngineInterface, value: boolean): Promise<void> {
 
       return
     }
-    setIdleState($, value ? 'on' : 'off')
+    setIdleState(value ? 'on' : 'off')
   } catch (err) {
     $.ui.toast(`cache-timer: idle compaction not changed (${String(err)})`)
   }
@@ -246,12 +222,7 @@ async function readThreshold($: EngineInterface): Promise<void> {
   try {
     const raw = await $.env.get('CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS')
     const tokens = raw !== undefined && /^\d+$/.test(raw) && Number(raw) >= 1 ? Number(raw) : IDLE_DEFAULT_K * 1000
-    const next = Math.max(IDLE_FLOOR_K, Math.round(tokens / 1000))
-
-    if (next !== appliedK) {
-      appliedK = next
-      $.ui.invalidate('ui.render')
-    }
+    appliedK = Math.max(IDLE_FLOOR_K, Math.round(tokens / 1000))
   } catch {
     // An unreadable environment leaves the last value shown.
   }
@@ -273,93 +244,70 @@ async function applyThreshold($: EngineInterface, k: number): Promise<void> {
   await readThreshold($)
 }
 
-/** The mod's settings as the rows show them. */
-type Shown = { notify: boolean; thresholdK: number; leadMinutes: number }
+/** The notification settings the dialog starts from. */
+type Notify = { isOn: boolean; leadMinutes: number }
 
 /**
- * The countdown row (the countdown, the idle-compaction and notification
- * states, and a gear) and the settings row the gear opens, null while closed. A
- * change to one of the mod's fields writes it, which reloads the mod.
+ * `/cache-timer`: asks which setting to change, then its new value, in the
+ * engine's own question dialog, writes it, and says what changed. Dismissing
+ * the dialog, or typing an answer it cannot read, changes nothing.
  */
-function rows($: EngineInterface, e: ResolveInput<'AbovePrompt' | 'PromptHint', 'terminal' | 'desktop'>, shown: Shown) {
-  const isDesktop = e.surface === 'desktop'
-  const { Box, Button, Select, Text } = $.ui.resolve(e)
-  const Svg = isDesktop ? $.ui.resolve(e).Svg : undefined
-  const { notify, thresholdK: thresholdNow, leadMinutes: leadNow } = shown
-  const thresholds = THRESHOLD_PRESETS_K.includes(thresholdNow) ? THRESHOLD_PRESETS_K : [...THRESHOLD_PRESETS_K, thresholdNow]
-  const leads = NOTIFY_LEAD_PRESETS_MIN.includes(leadNow) ? NOTIFY_LEAD_PRESETS_MIN : [...NOTIFY_LEAD_PRESETS_MIN, leadNow]
-  const filled = view.left === null ? 0 : Math.round(BAR_CELLS * view.left)
+async function changeSetting($: EngineInterface, notify: Notify): Promise<string | undefined> {
+  const idleChoice = `Idle compaction (${idle})`
+  const thresholdChoice = `Threshold (${appliedK}k)`
+  const notifyChoice = `Notification (${notify.isOn ? `${notify.leadMinutes} min before` : 'off'})`
 
-  const state = (paths: string, isOn: boolean, word: string, alt: string) =>
-    Svg !== undefined ? (
-      <Svg source={icon(paths, isOn ? ON : OFF)} alt={`${alt} ${isOn ? 'on' : 'off'}`} width={14} height={14} />
-    ) : (
-      <Text color={isOn ? 'success' : 'inactive'}>{word}</Text>
-    )
+  try {
+    const which = await $.ui.ask('Which setting?', [...(idle === 'unavailable' ? [] : [idleChoice]), thresholdChoice, notifyChoice])
 
-  const idleState =
-    Svg !== undefined ? (
-      <Box flexDirection="row" alignItems="center" gap={1}>
-        <Svg source={icon(COMPRESS, idle === 'on' ? ON : OFF)} alt={`idle compaction ${idle === 'unavailable' ? 'unavailable' : idle}`} width={14} height={14} />
-        {idle === 'unavailable' ? <Text dimColor>n/a</Text> : null}
-      </Box>
-    ) : idle === 'unavailable' ? (
-      <Text dimColor>idle n/a</Text>
-    ) : (
-      <Text color={idle === 'on' ? 'success' : 'inactive'}>idle</Text>
-    )
+    if (which === idleChoice) {
+      const value = await $.ui.ask('Idle compaction?', ['On', 'Off'])
 
-  const countdown = (
-    <Box flexDirection="row" justifyContent="space-between" gap={2}>
-      <Box flexDirection="row" alignItems="center" gap={1}>
-        {Svg !== undefined ? <Svg source={icon(CLOCK, OFF)} alt="cache" width={14} height={14} /> : <Text dimColor>cache</Text>}
-        <Text bold>{view.time}</Text>
-        {view.left === null ? null : Svg !== undefined ? (
-          <Svg source={bar(view.left)} alt={`${Math.round(view.left * 100)}% left`} width={80} height={4} />
-        ) : (
-          <Text>
-            <Text color={view.left > 0.2 ? 'success' : 'warning'}>{'━'.repeat(filled)}</Text>
-            <Text dimColor>{'─'.repeat(BAR_CELLS - filled)}</Text>
-          </Text>
-        )}
-        <Text dimColor>{view.detail}</Text>
-      </Box>
-      <Box flexDirection="row" alignItems="center" gap={1}>
-        {idleState}
-        {state(BELL, notify, 'notify', 'notify')}
-        <Button key="settings" label="⚙" plain dimColor={!isExpanded} onPress={() => {
-          isExpanded = !isExpanded
-          $.ui.invalidate('ui.render')
-        }} />
-      </Box>
-    </Box>
-  )
+      if (value !== 'On' && value !== 'Off') {
+        return undefined
+      }
+      await setIdle($, value === 'On')
 
-  const settings = isExpanded ? (
-    <Box flexDirection="row" alignItems="center" gap={1}>
-      {idle === 'unavailable' ? (
-        <Text dimColor>idle compaction n/a</Text>
-      ) : (
-        <Button key="idle" label="idle compaction" variant={idle === 'on' ? 'primary' : 'secondary'} onPress={() => setIdle($, idle !== 'on')} />
-      )}
-      <Select
-        key="threshold"
-        options={thresholds.map(k => ({ value: String(k), label: `≥${k}k` }))}
-        value={String(thresholdNow)}
-        onSelect={(value: string) => setOption($, 'threshold_k', Number(value))}
-      />
-      <Text dimColor>│</Text>
-      <Button key="notify" label="notify" variant={notify ? 'primary' : 'secondary'} onPress={() => setOption($, 'notify', !notify)} />
-      <Select
-        key="notify_lead"
-        options={leads.map(m => ({ value: String(m), label: `${m}m before` }))}
-        value={String(leadNow)}
-        onSelect={(value: string) => setOption($, 'notify_lead_minutes', Number(value))}
-      />
-    </Box>
-  ) : null
+      return `Idle compaction ${idle}`
+    }
 
-  return { countdown, settings }
+    if (which === thresholdChoice) {
+      const value = await $.ui.ask('Compact an idle conversation from how many tokens?', THRESHOLD_PRESETS_K.map(k => `${k}k`))
+      const k = Number(value.trim().toLowerCase().replace(/k$/, ''))
+
+      if (!Number.isFinite(k) || k <= 0 || !(await setOption($, 'threshold_k', k))) {
+        return undefined
+      }
+
+      return `Threshold ${appliedK}k`
+    }
+
+    if (which === notifyChoice) {
+      const value = await $.ui.ask('Notify before the cache expires?', ['Off', ...NOTIFY_LEAD_PRESETS_MIN.map(m => `${m} min before`)])
+
+      if (value === 'Off') {
+        return (await setOption($, 'notify', false)) ? 'Notification off' : undefined
+      }
+
+      const minutes = Number(value.replace(/\s*min before$/, ''))
+
+      if (!Number.isFinite(minutes) || minutes <= 0) {
+        return undefined
+      }
+      if (minutes !== notify.leadMinutes && !(await setOption($, 'notify_lead_minutes', minutes))) {
+        return undefined
+      }
+      if (!notify.isOn && !(await setOption($, 'notify', true))) {
+        return undefined
+      }
+
+      return `Notification ${minutes} min before`
+    }
+  } catch {
+    // Dismissed: nothing changes.
+  }
+
+  return undefined
 }
 
 export const register: Register = (on, options) => {
@@ -367,21 +315,9 @@ export const register: Register = (on, options) => {
   const isNotify = () => option('notify', true) !== false
   const notifyLeadMin = () => Number(option('notify_lead_minutes', 10))
   const thresholdK = () => Number(option('threshold_k', 500))
-  const shown = (): Shown => ({ notify: isNotify(), thresholdK: thresholdK(), leadMinutes: notifyLeadMin() })
   const ttlMode = String(options.cache_ttl ?? 'auto')
 
-  // Tokens against the idle-compaction threshold where idle compaction can
-  // run: it is on and the cache lasts 1 hour.
-  const tokensOf = (tokens: number, ttl: CacheTtl): string =>
-    idle === 'on' && ttl === '1h' ? `${formatK(tokens)}/${appliedK}k` : formatK(tokens)
-
-  const effectiveTtl = (s: CacheClock): { ttl: CacheTtl; label: string } => {
-    if (ttlMode === '1h' || ttlMode === '5m') {
-      return { ttl: ttlMode, label: ttlMode }
-    }
-
-    return { ttl: s.ttl, label: s.ttl }
-  }
+  const effectiveTtl = (s: CacheClock): CacheTtl => (ttlMode === '1h' || ttlMode === '5m' ? ttlMode : s.ttl)
 
   on('turn.step', async function* ($, e, next) {
     // The cache entry is refreshed when the request is processed, not when
@@ -487,8 +423,8 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
-  // A change made in /config wins over one the band kept in the store; the
-  // idle-compaction switch flipped there shows in the band.
+  // A change made in /config wins over one /cache-timer kept in the store; the
+  // idle-compaction switch flipped there shows in /cache-timer.
   on('config.set', async ($, e, next) => {
     const result = await next(e)
     const isWritten = !('deny' in result && result.deny !== undefined)
@@ -501,7 +437,7 @@ export const register: Register = (on, options) => {
     }
 
     if (e.key === IDLE_ROW && isWritten) {
-      setIdleState($, e.value === false ? 'off' : 'on')
+      setIdleState(e.value === false ? 'off' : 'on')
     }
 
     return result
@@ -513,7 +449,6 @@ export const register: Register = (on, options) => {
 
       if (saved !== null && typeof saved === 'object') {
         overrides = saved as Record<string, boolean | number>
-        $.ui.invalidate('ui.render')
       }
     } catch {
       // No saved settings: the manifest's values apply.
@@ -532,25 +467,26 @@ export const register: Register = (on, options) => {
       // Nothing saved: the next request sets the clock.
     }
 
+    $.command.register({ name: 'cache-timer', description: 'Change idle compaction, its threshold, or the expiry notification' }).catch(() => {
+      // No command: /config still holds the settings.
+    })
+
     $.clock.every(1000, async () => {
       const s = clock
-      const { ttl, label } = effectiveTtl(s)
+      const ttl = effectiveTtl(s)
 
       if (s.lastAt === null) {
-        setView($, { time: '—', detail: s.tokens > 0 ? tokensOf(s.tokens, ttl) : '', left: null })
+        setStatus($, undefined)
 
         return
       }
 
       const remaining = TTL_MS[ttl] - ((await $.clock.now()) - s.lastAt)
+      setStatus($, `${formatRemaining(remaining)} · ${formatK(s.tokens)}`)
 
       if (remaining <= 0) {
-        setView($, { time: 'expired', detail: `${label} · ${tokensOf(s.tokens, ttl)}`, left: 0 })
-
         return
       }
-
-      setView($, { time: formatRemaining(remaining), detail: `${label} · ${tokensOf(s.tokens, ttl)}`, left: remaining / TTL_MS[ttl] })
 
       // A 1h cache only: a 5m cache would notify after nearly every reply.
       if (isNotify() && ttl === '1h' && remaining <= notifyLeadMin() * 60_000 && s.notifiedAt !== s.lastAt) {
@@ -561,7 +497,7 @@ export const register: Register = (on, options) => {
         void $.tool
           .call({ tool: 'PushNotification', message, status: 'proactive' } as never)
           .catch(() => {
-            // No push tool or a refused call: the band still shows the countdown.
+            // No push tool or a refused call: the status line still shows the countdown.
           })
       }
     })
@@ -569,32 +505,7 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
-  // The terminal draws both rows in the band above the prompt. The desktop app
-  // does not always draw that band, so there the countdown keeps to the hint
-  // line under the prompt, and the band holds only the settings row once the
-  // gear opens it.
-  on('ui.render', { component: 'AbovePrompt' }, ($, e, next) => {
-    // The mobile app has no Select; it has not drawn mod UI so far either.
-    if (e.props.hasSurvey || (e.surface !== 'terminal' && e.surface !== 'desktop')) {
-      return next(e)
-    }
-
-    const { countdown, settings } = rows($, e, shown())
-
-    if (e.surface === 'desktop') {
-      return settings ?? next(e)
-    }
-
-    const { Box } = $.ui.resolve(e)
-
-    return (
-      <Box flexDirection="column">
-        {countdown}
-        {settings}
-      </Box>
-    )
-  })
-
-  // The desktop app draws no text of its own in this line.
-  on('ui.render', { component: 'PromptHint' }, ($, e, next) => (e.surface === 'desktop' ? rows($, e, shown()).countdown : next(e)))
+  on('command.run', { command: 'cache-timer' }, async $ => ({
+    text: (await changeSetting($, { isOn: isNotify(), leadMinutes: notifyLeadMin() })) ?? 'No change',
+  }))
 }

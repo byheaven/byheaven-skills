@@ -13,6 +13,14 @@ type World = {
   thresholds: string[]
   pushes: string[]
   toasts: string[]
+  /** Every status line the mod set, undefined for a cleared one. */
+  statuses: (string | undefined)[]
+  /** Commands the mod registered, by name. */
+  registered: string[]
+  /** The questions the dialog asked, with their option labels. */
+  asked: { question: string; options: string[] }[]
+  /** What the person answers, in order; with none left the dialog is dismissed. */
+  answers: string[]
   compactions: number
   /** Commands the mod queued, by name. */
   commands: string[]
@@ -38,7 +46,24 @@ type Setup = {
 }
 
 const world = (on: On, { stored = {}, pluginRows = true, idle = true }: Setup = {}): World => {
-  const w: World = { configSets: [], thresholds: [], pushes: [], toasts: [], compactions: 0, commands: [], setUsage: () => {}, stepGate: null, transcriptTail: null, envDeny: null, configDeny: null, setIdleRow: () => {} }
+  const w: World = {
+    configSets: [],
+    thresholds: [],
+    pushes: [],
+    toasts: [],
+    statuses: [],
+    registered: [],
+    asked: [],
+    answers: [],
+    compactions: 0,
+    commands: [],
+    setUsage: () => {},
+    stepGate: null,
+    transcriptTail: null,
+    envDeny: null,
+    configDeny: null,
+    setIdleRow: () => {},
+  }
   let usage: TurnUsage | null = null
   w.setUsage = u => {
     usage = u
@@ -77,6 +102,18 @@ const world = (on: On, { stored = {}, pluginRows = true, idle = true }: Setup = 
 
     return { result: 'sent' } as never
   })
+  on('tool.call', { tool: 'AskUserQuestion' }, (_$, e) => {
+    const [q] = (e as unknown as { questions: { question: string; options: { label: string }[] }[] }).questions
+    const question = q?.question ?? ''
+    w.asked.push({ question, options: (q?.options ?? []).map(o => o.label) })
+    const answer = w.answers.shift()
+
+    if (answer === undefined) {
+      return { deny: 'dismissed' } as never
+    }
+
+    return { result: { questions: [q], answers: { [question]: answer } } } as never
+  })
   on('config.set', (_$, e) => {
     if (w.configDeny !== null) {
       return { deny: w.configDeny }
@@ -105,6 +142,16 @@ const world = (on: On, { stored = {}, pluginRows = true, idle = true }: Setup = 
 
     return { value: undefined }
   })
+  on('ui.status', (_$, e) => {
+    w.statuses.push(e.text)
+
+    return { value: undefined }
+  })
+  on('command.register', (_$, e) => {
+    w.registered.push(e.name)
+
+    return { value: { command: e.name } } as never
+  })
   on('turn.step', async function* (_$, e) {
     if (w.stepGate !== null) {
       await w.stepGate
@@ -121,12 +168,6 @@ const world = (on: On, { stored = {}, pluginRows = true, idle = true }: Setup = 
     w.compactions += 1
 
     return { messages: [{ role: 'user' as const, text: 'summary', toolUses: [] }], tokensBefore: 600_000, tokensAfter: 40_000 }
-  })
-  // The engine's own drawing, where the mod passes.
-  on('ui.render', ($, e) => {
-    const { Text } = $.ui.resolve(e)
-
-    return <Text>engine</Text>
   })
 
   return w
@@ -150,50 +191,19 @@ const step = async ($: Engine, n: number, agentId?: string) => {
 
 const start = ($: Engine) => $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
 
-const BAND = {
-  component: 'AbovePrompt' as const,
-  props: { hasSurvey: false, isWorking: false, maxRows: 10, bodyColumns: 100, scroll: { offset: 0, bodyRows: 10 }, view: {} },
+/** The status line the mod shows now; `—` when it shows none. */
+const shown = (w: World) => w.statuses.at(-1) ?? '—'
+
+/** Runs `/cache-timer` with the queued answers and returns its output line. */
+const changeSetting = async ($: Engine, w: World, ...answers: string[]) => {
+  w.asked = []
+  w.answers = answers
+  const ran = await $.command.run({ command: 'cache-timer', args: '' } as never)
+
+  return ran.text
 }
 
-const HINT = {
-  component: 'PromptHint' as const,
-  props: { isDraft: false, isWorking: false, hint: '' },
-}
-
-/** Opens or closes the settings row: the gear is in the band on the terminal, in the hint line on the desktop. */
-const pressGear = async ($: Engine, surface: 'terminal' | 'desktop') => {
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface, ...(surface === 'desktop' ? HINT : BAND) })
-  await ui.press({ key: 'settings' })
-  await ui.unmount()
-}
-
-const TIME = /^(\d+:\d\d|expired|—)$/
-
-/** The countdown the band draws now: the time, then the detail line. */
-const shown = async ($: Engine) => {
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
-  const texts = (await ui.findAll({ type: 'Text' })).map(t => t.text ?? '')
-  await ui.unmount()
-  const at = texts.findIndex(t => TIME.test(t))
-  const detail = texts.slice(at + 1).find(t => /\dk\b/.test(t)) ?? ''
-
-  return `${texts[at]} ${detail}`.trim()
-}
-
-/** Every text the terminal band draws, the settings row opened when asked. */
-const textsOf = async ($: Engine, isExpanded = false) => {
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
-  if (isExpanded) {
-    await ui.press({ key: 'settings' })
-  }
-  const texts = (await ui.findAll({ type: 'Text' })).map(t => t.text ?? '')
-  const hasSwitch = (await ui.find({ key: 'idle' })) !== undefined
-  await ui.unmount()
-
-  return { texts, hasSwitch }
-}
-
-test('a 1h cache counts down against the idle-compaction threshold and the mod never compacts', async ($, on) => {
+test('a 1h cache counts down in the status line and the mod never compacts', async ($, on) => {
   const clock = mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
@@ -201,12 +211,21 @@ test('a 1h cache counts down against the idle-compaction threshold and the mod n
   await step($, 1)
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 600k/500k')
+  expect(shown(w)).toBe('59:59 · 600k')
 
   await clock.advance(61 * MIN)
-  expect(await shown($)).toBe('expired 1h · 600k/500k')
+  expect(shown(w)).toBe('0:00 · 600k')
   expect(w.compactions).toBe(0)
   expect(w.commands).toEqual([])
+})
+
+test('the status line shows nothing before the first request', async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await start($)
+
+  await clock.advance(5_000)
+  expect(w.statuses).toEqual([undefined])
 })
 
 test('a headless session does not compact either', async ($, on) => {
@@ -227,67 +246,54 @@ test('the session gets the threshold as Claude Code’s idle-compaction minimum'
   await start($)
 
   expect(w.thresholds).toEqual(['500000'])
+  expect(w.registered).toEqual(['cache-timer'])
 })
 
-test('the threshold option sets the minimum and the band', { options: { threshold_k: 300 } }, async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+test('the threshold option sets the minimum', { options: { threshold_k: 300 } }, async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
 
-  await clock.advance(1_000)
   expect(w.thresholds).toEqual(['300000'])
-  expect(await shown($)).toBe('59:59 1h · 600k/300k')
+  await changeSetting($, w)
+  expect(w.asked[0]?.options).toContain('Threshold (300k)')
 })
 
 for (const k of [50, 0]) {
   test(`a threshold of ${k}k is raised to Claude Code’s floor`, { options: { threshold_k: k } }, async ($, on) => {
-    const clock = mock.clock(on, { now: 1_000_000 })
+    mock.clock(on, { now: 1_000_000 })
     const w = world(on)
     await start($)
-    w.setUsage(usageOf(600_000, 598_000))
-    await step($, 1)
 
-    await clock.advance(1_000)
     expect(w.thresholds).toEqual(['100000'])
-    expect(await shown($)).toBe('59:59 1h · 600k/100k')
+    await changeSetting($, w)
+    expect(w.asked[0]?.options).toContain('Threshold (100k)')
   })
 }
 
-test('a refused threshold is reported, and the band shows the one Claude Code uses', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+test('a refused threshold is reported, and /cache-timer shows the one Claude Code uses', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   w.envDeny = 'held by policy'
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
 
-  await clock.advance(1_000)
   expect(w.toasts).toContain('cache-timer: idle-compaction threshold not set (held by policy)')
-  expect(await shown($)).toBe('59:59 1h · 600k/200k')
+  await changeSetting($, w)
+  expect(w.asked[0]?.options).toContain('Threshold (200k)')
 })
 
 test('a refused /config change leaves the threshold as it was', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
   w.configDeny = 'locked'
 
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
-  await ui.press({ key: 'settings' })
-  await ui.select({ key: 'threshold', value: '700' })
-  await ui.unmount()
-
-  await clock.advance(1_000)
+  expect(await changeSetting($, w, 'Threshold (500k)', '700k')).toBe('No change')
   expect(w.toasts).toContain('cache-timer: threshold_k not changed (locked)')
   expect(w.thresholds).toEqual(['500000'])
-  expect(await shown($)).toBe('59:59 1h · 600k/500k')
 })
 
-test('a miss after a 10-minute gap switches to a 5m cache, which idle compaction leaves alone', async ($, on) => {
+test('a miss after a 10-minute gap switches to a 5m cache', async ($, on) => {
   const clock = mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
@@ -298,7 +304,7 @@ test('a miss after a 10-minute gap switches to a 5m cache, which idle compaction
   await step($, 2)
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('4:59 5m · 600k')
+  expect(shown(w)).toBe('4:59 · 600k')
 })
 
 test('a hit after a 10-minute gap confirms a 1h cache', async ($, on) => {
@@ -311,7 +317,7 @@ test('a hit after a 10-minute gap confirms a 1h cache', async ($, on) => {
   await step($, 2)
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 300k/500k')
+  expect(shown(w)).toBe('59:59 · 300k')
 })
 
 test('a pinned 5m lifetime ignores inference', { options: { cache_ttl: '5m' } }, async ($, on) => {
@@ -322,9 +328,9 @@ test('a pinned 5m lifetime ignores inference', { options: { cache_ttl: '5m' } },
   await step($, 1)
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('4:59 5m · 600k')
+  expect(shown(w)).toBe('4:59 · 600k')
   await clock.advance(5 * MIN)
-  expect(await shown($)).toBe('expired 5m · 600k')
+  expect(shown(w)).toBe('0:00 · 600k')
 })
 
 test('the countdown starts when the request is sent, not when a long response ends', { options: { cache_ttl: '5m' } }, async ($, on) => {
@@ -343,7 +349,7 @@ test('the countdown starts when the request is sent, not when a long response en
   w.stepGate = null
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('3:29 5m · 600k')
+  expect(shown(w)).toBe('3:29 · 600k')
 })
 
 test('a subagent step does not restart the main countdown', async ($, on) => {
@@ -357,10 +363,10 @@ test('a subagent step does not restart the main countdown', async ($, on) => {
   await step($, 2, 'agent-1')
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('49:59 1h · 300k/500k')
+  expect(shown(w)).toBe('49:59 · 300k')
 })
 
-test('a compaction resets the countdown; a precompute does not', async ($, on) => {
+test('a compaction clears the countdown; a precompute does not', async ($, on) => {
   const clock = mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
@@ -369,12 +375,12 @@ test('a compaction resets the countdown; a precompute does not', async ($, on) =
 
   await $.session.compact({ trigger: 'precompute', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
   await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 600k/500k')
+  expect(shown(w)).toBe('59:59 · 600k')
 
   // Claude Code's idle compaction, like any other, replaces the cached prefix.
   await $.session.compact({ trigger: 'auto', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
   await clock.advance(1_000)
-  expect(await shown($)).toBe('— 40k/500k')
+  expect(shown(w)).toBe('—')
   await clock.advance(60 * MIN)
   expect(w.compactions).toBe(2)
 })
@@ -388,7 +394,7 @@ test('a /clear drops the old conversation and its countdown', async ($, on) => {
 
   await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as never)
   await clock.advance(1_000)
-  expect(await shown($)).toBe('—')
+  expect(shown(w)).toBe('—')
 })
 
 const row = (o: object) => JSON.stringify(o)
@@ -413,13 +419,13 @@ test('an exact 5m lifetime from the transcript is not overturned by inference', 
   await $.classic.Stop({ stop_hook_active: false, transcript_path: '/t.jsonl' })
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('4:59 5m · 300k')
+  expect(shown(w)).toBe('4:59 · 300k')
 
   // A hit after 10 minutes would read as 1h to inference; the transcript wins.
   await clock.advance(10 * MIN)
   await step($, 2)
   await clock.advance(1_000)
-  expect(await shown($)).toBe('4:59 5m · 300k')
+  expect(shown(w)).toBe('4:59 · 300k')
 })
 
 test('without a readable transcript the lifetime stays an estimate', async ($, on) => {
@@ -431,175 +437,103 @@ test('without a readable transcript the lifetime stays an estimate', async ($, o
   await $.classic.Stop({ stop_hook_active: false, transcript_path: '/missing.jsonl' })
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 300k/500k')
+  expect(shown(w)).toBe('59:59 · 300k')
 })
 
-test('with idle compaction off the band says so and leaves the threshold out', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
-  const w = world(on, { idle: false })
-  await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
-
-  await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 600k')
-  const { texts, hasSwitch } = await textsOf($, true)
-  expect(texts).toContain('idle')
-  expect(hasSwitch).toBe(true)
-})
-
-/** How the countdown marks idle compaction: the terminal word's color, the desktop icon's alt text. */
-const idleMark = async ($: Engine) => {
-  const terminal = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
-  const word = (await terminal.findAll({ type: 'Text' })).find(t => t.text === 'idle')
-  await terminal.unmount()
-  const desktop = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...HINT })
-  const icon = (await desktop.findAll({ type: 'Svg' })).find(t => String(t.props.alt).startsWith('idle compaction'))
-  await desktop.unmount()
-
-  return { color: word?.props.color, alt: icon?.props.alt }
-}
-
-test('the band marks idle compaction on and off apart', async ($, on) => {
+test('/cache-timer offers each setting with its current value', async ($, on) => {
   mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
-  expect(await idleMark($)).toEqual({ color: 'success', alt: 'idle compaction on' })
 
-  w.setIdleRow(false)
-  await $.classic.Stop({ stop_hook_active: false, transcript_path: '/missing.jsonl' })
-  expect(await idleMark($)).toEqual({ color: 'inactive', alt: 'idle compaction off' })
+  expect(await changeSetting($, w)).toBe('No change')
+  expect(w.asked).toEqual([
+    { question: 'Which setting?', options: ['Idle compaction (on)', 'Threshold (500k)', 'Notification (10 min before)'] },
+  ])
 })
 
-test('where Claude Code does not run idle compaction the band says n/a and offers no switch', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+test('where Claude Code does not run idle compaction /cache-timer leaves it out', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on, { idle: 'absent' })
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
 
-  await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 600k')
-  const { texts, hasSwitch } = await textsOf($, true)
-  expect(texts).toContain('idle n/a')
-  expect(texts).toContain('idle compaction n/a')
-  expect(hasSwitch).toBe(false)
+  await changeSetting($, w)
+  expect(w.asked[0]?.options).toEqual(['Threshold (500k)', 'Notification (10 min before)'])
 })
 
 test('idle compaction that starts running mid-session shows after the next turn', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on, { idle: 'absent' })
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
-  await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 600k')
 
   w.setIdleRow(true)
   await $.classic.Stop({ stop_hook_active: false, transcript_path: '/missing.jsonl' })
-  await clock.advance(1_000)
-  expect(await shown($)).toBe('59:58 1h · 600k/500k')
+  await changeSetting($, w)
+  expect(w.asked[0]?.options[0]).toBe('Idle compaction (on)')
 })
 
-test('a /config change to idle compaction shows in the band', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+test('a /config change to idle compaction shows in /cache-timer', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
 
   await $.config.set({ key: 'idleCompaction', value: false } as never)
-  await clock.advance(1_000)
-  expect(await shown($)).toBe('59:59 1h · 600k')
+  await changeSetting($, w)
+  expect(w.asked[0]?.options[0]).toBe('Idle compaction (off)')
 })
 
-test('the gear opens the settings row, whose controls write the settings', async ($, on) => {
+test('/cache-timer switches idle compaction', async ($, on) => {
   mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
 
-  for (const surface of ['terminal', 'desktop'] as const) {
-    const ui = await $.ui.mount({ plugin: 'cache-timer', surface, ...BAND })
-    expect(await ui.find({ key: 'idle' })).toBeUndefined()
-    await pressGear($, surface)
-    await ui.press({ key: 'idle' })
-    await ui.select({ key: 'threshold', value: '700' })
-    await ui.press({ key: 'notify' })
-    await ui.select({ key: 'notify_lead', value: '15' })
-    await pressGear($, surface)
-    expect(await ui.find({ key: 'idle' })).toBeUndefined()
-    await ui.unmount()
-  }
+  expect(await changeSetting($, w, 'Idle compaction (on)', 'Off')).toBe('Idle compaction off')
+  expect(w.asked.map(a => a.question)).toEqual(['Which setting?', 'Idle compaction?'])
+  expect(await changeSetting($, w, 'Idle compaction (off)', 'On')).toBe('Idle compaction on')
+  expect(w.configSets).toEqual([
+    { key: 'idleCompaction', value: false },
+    { key: 'idleCompaction', value: true },
+  ])
+})
 
-  const rest = [
+test('/cache-timer sets the threshold from a preset or a typed number', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await start($)
+
+  expect(await changeSetting($, w, 'Threshold (500k)', '700k')).toBe('Threshold 700k')
+  expect(w.asked[1]?.options).toEqual(['300k', '500k', '700k'])
+  // Typed under Other.
+  expect(await changeSetting($, w, 'Threshold (700k)', '800')).toBe('Threshold 800k')
+  expect(await changeSetting($, w, 'Threshold (800k)', 'lots')).toBe('No change')
+  expect(w.configSets).toEqual([
     { key: 'cache-timer@market.threshold_k', value: 700 },
-    { key: 'cache-timer@market.notify', value: false },
-    { key: 'cache-timer@market.notify_lead_minutes', value: 15 },
-  ]
-  // The switch flips Claude Code's own setting: off, then back on.
-  expect(w.configSets).toEqual([{ key: 'idleCompaction', value: false }, ...rest, { key: 'idleCompaction', value: true }, ...rest])
-  expect(w.thresholds).toEqual(['500000', '700000', '700000'])
+    { key: 'cache-timer@market.threshold_k', value: 800 },
+  ])
+  expect(w.thresholds).toEqual(['500000', '700000', '800000'])
 })
 
-test('on the desktop the countdown is in the hint line, and the band shows only the opened settings', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+test('/cache-timer sets the notification', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
-  await clock.advance(1_000)
 
-  const hint = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...HINT })
-  const texts = (await hint.findAll({ type: 'Text' })).map(t => t.text)
-  expect(texts).toContain('59:59')
-  expect(texts).toContain('1h · 600k/500k')
-  await hint.unmount()
-
-  const closed = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...BAND })
-  expect((await closed.findAll({ type: 'Text' })).map(t => t.text)).toEqual(['engine'])
-  await closed.unmount()
-
-  await pressGear($, 'desktop')
-  const opened = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...BAND })
-  expect(await opened.find({ key: 'threshold' })).toBeDefined()
-  expect((await opened.findAll({ type: 'Text' })).map(t => t.text)).not.toContain('59:59')
-  await opened.unmount()
+  expect(await changeSetting($, w, 'Notification (10 min before)', '15 min before')).toBe('Notification 15 min before')
+  expect(w.asked[1]?.options).toEqual(['Off', '10 min before', '15 min before', '20 min before'])
+  expect(await changeSetting($, w, 'Notification (10 min before)', 'Off')).toBe('Notification off')
+  expect(w.configSets).toEqual([
+    { key: 'cache-timer@market.notify_lead_minutes', value: 15 },
+    { key: 'cache-timer@market.notify', value: false },
+  ])
 })
 
-test('the terminal keeps its own hint line', async ($, on) => {
+test('a dismissed /cache-timer changes nothing', async ($, on) => {
   mock.clock(on, { now: 1_000_000 })
-  world(on)
+  const w = world(on)
   await start($)
 
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...HINT })
-  expect((await ui.findAll({ type: 'Text' })).map(t => t.text)).toEqual(['engine'])
-  await ui.unmount()
-})
-
-test('the threshold picker offers 300k, 500k, and 700k', async ($, on) => {
-  mock.clock(on, { now: 1_000_000 })
-  world(on)
-  await start($)
-
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
-  await ui.press({ key: 'settings' })
-  const picker = (await ui.find({ key: 'threshold' })) as unknown as { props: { options: { value: string }[]; value: string } }
-  expect(picker.props.options.map(o => o.value)).toEqual(['300', '500', '700'])
-  expect(picker.props.value).toBe('500')
-  await ui.unmount()
-})
-
-test('a threshold outside the presets stays selectable', { options: { threshold_k: 800 } }, async ($, on) => {
-  mock.clock(on, { now: 1_000_000 })
-  world(on)
-  await start($)
-
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
-  await ui.press({ key: 'settings' })
-  const picker = (await ui.find({ key: 'threshold' })) as unknown as { props: { options: { value: string }[]; value: string } }
-  expect(picker.props.options.map(o => o.value)).toEqual(['300', '500', '700', '800'])
-  expect(picker.props.value).toBe('800')
-  await ui.unmount()
+  expect(await changeSetting($, w, 'Threshold (500k)')).toBe('No change')
+  expect(w.configSets).toEqual([])
+  expect(w.thresholds).toEqual(['500000'])
 })
 
 test('a 1h cache sends one push notification 10 minutes before it expires', async ($, on) => {
@@ -655,11 +589,11 @@ test('a 5m cache never notifies', { options: { cache_ttl: '5m' } }, async ($, on
 test('a reload picks the countdown up from the store', async ($, on) => {
   const clock = mock.clock(on, { now: 1_000_000 })
   const saved = { lastAt: 1_000_000 - 10 * MIN, tokens: 600_000, model: 'm', ttl: '1h', isTtlObserved: true, isTtlExact: true }
-  world(on, { stored: { [`clock:${SESSION_ID}`]: saved } })
+  const w = world(on, { stored: { [`clock:${SESSION_ID}`]: saved } })
   await start($)
 
   await clock.advance(1_000)
-  expect(await shown($)).toBe('49:59 1h · 600k/500k')
+  expect(shown(w)).toBe('49:59 · 600k')
 })
 
 test('the question is the last sentence that asks one, else the last paragraph', () => {
@@ -671,33 +605,23 @@ test('the question is the last sentence that asks one, else the last paragraph',
   expect(questionOf('')).toBeNull()
 })
 
-test('without /config rows (a desktop-app session) the band keeps its changes in the store', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
+test('without /config rows (a desktop-app session) /cache-timer keeps its changes in the store', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
   const w = world(on, { pluginRows: false })
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
 
-  await pressGear($, 'desktop')
-  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...BAND })
-  await ui.select({ key: 'threshold', value: '700' })
+  expect(await changeSetting($, w, 'Threshold (500k)', '700k')).toBe('Threshold 700k')
   expect(w.configSets).toEqual([])
   expect(w.toasts).toEqual([])
-  await ui.unmount()
-
-  await clock.advance(1_000)
   expect(w.thresholds).toEqual(['500000', '700000'])
-  expect(await shown($)).toBe('59:59 1h · 600k/700k')
 })
 
-test('saved band settings apply in the next session', async ($, on) => {
-  const clock = mock.clock(on, { now: 1_000_000 })
-  const w = world(on, { stored: { settings: { threshold_k: 300 } }, pluginRows: false })
+test('saved settings apply in the next session', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  const w = world(on, { stored: { settings: { threshold_k: 300, notify: false } }, pluginRows: false })
   await start($)
-  w.setUsage(usageOf(600_000, 598_000))
-  await step($, 1)
 
-  await clock.advance(1_000)
   expect(w.thresholds).toEqual(['300000'])
-  expect(await shown($)).toBe('59:59 1h · 600k/300k')
+  await changeSetting($, w)
+  expect(w.asked[0]?.options).toEqual(['Idle compaction (on)', 'Threshold (300k)', 'Notification (off)'])
 })

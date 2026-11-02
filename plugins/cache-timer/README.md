@@ -10,30 +10,27 @@ plugin API). Other agent tools do not load it.
 
 ## What It Does
 
-- **Countdown band above the prompt**: `54:12 ━━━━━━──── 1h · 612k/500k`
-  reads as the time left on the cache, a bar of the lifetime left, the cache
-  lifetime, and the tokens the next request re-sends against the
-  idle-compaction threshold (the threshold is left out while idle compaction
-  is off or does not run, and for a 5-minute cache, which it leaves alone).
-  Icons on the right show whether idle compaction and notifications are on;
-  `idle n/a` means `/config` offers no `Idle compaction` row in this session:
-  Claude Code does not run idle compaction there, or a settings file other
-  than your own sets it.
-  The gear opens a row with a switch for idle compaction, a threshold picker
-  (300k, 500k, or 700k), and a switch and lead-time picker (10, 15, or 20
-  minutes) for notifications. In the terminal, click them or press ctrl+x tab
-  to focus the band. In sessions the desktop app runs, the countdown sits in
-  the line under the prompt instead, since the app does not always draw the
-  band, and its gear opens the settings row in the band. Viewers that attach
-  over Remote Control, including the iOS app, do not draw mod UI.
+- **Countdown status line**: `54:12 · 612k` under the prompt reads as the
+  time left on the cache and the tokens the next request re-sends; it shows
+  `0:00` once the cache has expired, and nothing before the first request or
+  after a compaction. It shows in the terminal and in sessions the desktop
+  app runs, including between turns; viewers that attach over Remote Control,
+  including the iOS app, do not draw mod UI.
+- **`/cache-timer`**: asks which setting to change, each shown with its
+  current value, then the new value, in Claude Code's own question dialog:
+  idle compaction on or off, the idle-compaction threshold (300k, 500k, 700k,
+  or a number typed under Other), and the notification (off, or 10, 15, or 20
+  minutes before expiry). Idle compaction is left out where `/config` offers
+  no `Idle compaction` row in this session: Claude Code does not run idle
+  compaction there, or a settings file other than your own sets it.
 - **Claude Code's idle compaction**: Claude Code itself can compact a long
   conversation shortly before its 1-hour cache expires (about 54 minutes into
   an idle period), so your next message does not re-send the whole context.
-  Where your account has it, `/config` lists an `Idle compaction` row; the
-  band's switch changes that same setting. The mod gives the session the
+  Where your account has it, `/config` lists an `Idle compaction` row;
+  `/cache-timer` changes that same setting. The mod gives the session the
   threshold as `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS`, so idle compaction runs
   only from that many tokens; a value under 100k is raised to 100k. Where the
-  variable cannot be set, the band shows the threshold Claude Code uses.
+  variable cannot be set, `/cache-timer` shows the threshold Claude Code uses.
   Leave that variable out of your own settings' `env`, or a change to the
   settings file sets it back.
 - **Notification before expiry**: when a 1-hour cache has the notification
@@ -54,10 +51,10 @@ plugin API). Other agent tools do not load it.
 
 ## Settings
 
-Each field is a row under `/config`; a change there or in the band reloads the
-mod, and the countdown carries over the reload. Sessions the desktop app runs
-have no `/config` rows for plugins, so a change made in the band there is kept
-in the mod's own store and applies to later sessions too; a later `/config`
+Each field is a row under `/config`; a change there or through `/cache-timer`
+reloads the mod, and the countdown carries over the reload. Sessions the
+desktop app runs have no `/config` rows for plugins, so a change made through
+`/cache-timer` there is kept in the mod's own store and applies to later sessions too; a later `/config`
 change to the same field replaces it. The idle-compaction switch is Claude
 Code's own `Idle compaction` row, not one of these fields.
 
@@ -73,7 +70,7 @@ Code's own `Idle compaction` row, not one of these fields.
 ```text
 .claude-plugin/plugin.json   Name and settings
 hooks/hooks.json             Names the hooks module
-hooks/register.tsx           Countdown, inference, idle-compaction settings, the band, and the desktop hint line
+hooks/register.tsx           Countdown, inference, idle-compaction settings, the status line, and /cache-timer
 hooks/register.test.tsx      Mock-clock tests: claude plugin test plugins/cache-timer
 types/index.d.ts             Type of the cache clock the module keeps
 ```
