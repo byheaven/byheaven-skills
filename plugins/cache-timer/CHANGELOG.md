@@ -1,6 +1,24 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.4.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.0...HEAD)
+
+## [0.5.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.4.0...cache-timer-0.5.0) (2026-11-02)
+
+- **A countdown that stays in view** The countdown is now one status line
+  under the prompt, `54:12 · 612k`: the time left on the cache and the tokens
+  the next request re-sends. The desktop app stops drawing the band above the
+  prompt between turns, exactly when you wait on the cache, and keeps a status
+  line
+- **Settings from `/cache-timer`** Run `/cache-timer` and pick a setting, then
+  its new value, in a question dialog: idle compaction on or off, its
+  threshold (300k, 500k, 700k, or a number you type), and the notification
+  lead time or off. It works in the terminal and the desktop app alike
+
+### Breaking Changes
+
+- The band above the prompt is gone, with its bar, icons, and gear. The
+  status line no longer shows the cache lifetime or the idle-compaction
+  threshold; `/cache-timer` shows the settings
 
 ## [0.4.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.1...cache-timer-0.4.0) (2026-10-24)
 
