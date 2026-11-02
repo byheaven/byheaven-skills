@@ -71,7 +71,7 @@ The plugin creates no task record and adds no task-store or machine-specific
 binding.
 
 In cloud-orchestrated ChatGPT Work, a cloud host loads the `task-owner` skill, with its sibling skills, through its own
-skill-loading entry; with the skills alone the role works, but the worker and
+skill-loading entry; with the skills alone the task-owner checklist reads its role from the repository, and the worker and
 verifier agents are absent.
 See [plugin support](https://learn.chatgpt.com/docs/plugins).
 
