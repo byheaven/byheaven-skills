@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.1...HEAD)
+
+## [0.60.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...manager-0.60.1) (2026-11-02)
+
+### Bug Fixes
+
+- **Evidence** High-risk rule changes now cover agent permissions and rules guarding credentials or security
 
 ## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
 
@@ -223,7 +229,7 @@ bookkeeping and repeated checks that had piled up.
 - **Task owner** The skill is a one-page deliverables list: contract, outcomes-first directives, evidence, rule changes, integration, escaped bugs, followups, and the report; the fixed basis line becomes "the user can see why", and a delivery with no pull request no longer has to open a task record to hold its evidence
 - **Directives** Every directive opens with the 1–3 checkable outcomes its slice must reach; a bare "load skill X" is not an outcome, and the global-rules excerpt no longer copies P2 verbatim
 - **Rule changes** The line-by-line keep-or-move audit (0.41.0) is replaced by one outcome: each changed file is not longer, repeats nothing, and states its key requirement first
-- **Evidence** Rewritten as a short list of what the evidence must show. A cross-family judge is required for authentication, money, deletion, privacy, irreversible actions, material Vision changes, and changes to the user's global or role rules, hard floors, or agent permissions; other rule changes can be rolled back and are no longer high-risk
+- **Evidence** Rewritten as a short list of what the evidence must show. A cross-family judge is required for authentication, money, deletion, privacy, irreversible actions, material Vision changes, or a change to an agent's permissions, or to a rule that guards credentials or security; other rule changes can be rolled back and are no longer high-risk
 - **Cross-family steps** Shape candidates, competing-candidate scoring, polishing rounds, design versions, and architecture derivation bring in another model family only when it would likely change the choice; design versions get no per-version verifier pre-check
 
 - **Principles** The core of Project foundations (grounding project work in P1–P3 and the Vision, traceable conclusions, named derivation gaps) now lives in the user's global rules so every session gets it; the skill keeps only the mechanics beyond that core
