@@ -22,8 +22,9 @@ recommendation, then the turn ends. Dispatchers finish independent work
 without waiting in-turn; writer rework and permitted verifier follow-up
 resume their recorded sessions.
 
-**Call the judge directly** — The owner selects the review model and effort
-from deployment routing and invokes it through its harness. The carrier
+**The owner calls the judge** — The owner invokes it through its harness, or
+the verification launcher its deployment binds, with the model and effort
+deployment routing selects. The carrier
 pins exact state, keeps artifacts read-only and verifies them unchanged;
 non-zero exit or a missing verdict cannot count as success. Judge lines disclose
 any difference between the selected model and the receipt's actual model.
