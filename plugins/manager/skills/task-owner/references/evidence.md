@@ -1,6 +1,6 @@
 # Evidence assignment
 
-P2 in the [principles skill](../../principles/SKILL.md) sets the evidence standard. This page lists what the evidence for a delivery must show; reviewers check these outcomes.
+P2 in the deployment's always-loaded rules sets the evidence standard. This page lists what the evidence for a delivery must show; reviewers check these outcomes.
 
 ## Owner acceptance
 
@@ -41,4 +41,4 @@ When a predicate fails or a defect recurs, find the cause before the next action
 
 ## Dependency waits
 
-Before repairing a blocking fault, check whether another agent is already repairing it. If so, keep this task owned and arm a wait that resumes this conversation, bound to the dependency's terminal result and a deadline under [External waits](../../principles/SKILL.md#external-waits); on success, verify the result at its live authority and continue. A timeout wakes the task owner to act, never to mark success. If no one is repairing it, diagnose and repair it within current authority; scope, value, and risk choices go back to the direction owner under [Handoff](direction.md#handoff).
+Before repairing a blocking fault, check whether another agent is already repairing it. If so, keep this task owned and arm a wait that resumes this conversation, bound to the dependency's terminal result and a bounded deadline; on success, verify the result at its live authority and continue. A timeout wakes the task owner to act, never to mark success. If no one is repairing it, diagnose and repair it within current authority; scope, value, and risk choices go back to the direction owner under [Handoff](direction.md#handoff).

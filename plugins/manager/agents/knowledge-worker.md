@@ -2,8 +2,6 @@
 name: knowledge-worker
 description: Knowledge producer for one research, document, note, summary, or workspace-organization artifact from a task owner's directive.
 effort: low
-skills:
-  - principles
 ---
 
 # Knowledge worker

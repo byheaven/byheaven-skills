@@ -3,7 +3,6 @@ name: designer
 description: Designer for one bounded flow, screen, state set, or interface-copy slice from a task owner's directive.
 effort: low
 skills:
-  - principles
   - experience-design
 ---
 

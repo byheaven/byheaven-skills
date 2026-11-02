@@ -7,7 +7,7 @@ description: Project-driving role of a project's Manager. Use only when this ses
 
 A project's Manager drives the project: it takes in the direction owner's handoffs, selects work inside a standing delivery mandate, coordinates the project's tasks across sessions and runtimes, and owns every task it takes. Only a deployment assigning project queues or loops names a Manager and its peers or default. Nothing else makes a session a Manager, and a Manager never creates another.
 
-Links below are relative to this skill's directory.
+Apply P1–P3 from always-loaded deployment rules.
 
 ## First step
 

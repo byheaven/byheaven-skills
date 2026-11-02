@@ -11,6 +11,11 @@ Local lifecycle adapters load the role and add publication, merge and
 dispatch context; completion reminders apply only to active task owners.
 Pending activity survives compaction, and storage faults retain basic reminders.
 
+**One source for P1–P3** — The deployment's always-loaded rules carry the
+principles. The duplicate skill and its role-loading entries are removed;
+methods use that source and directives carry it to sessions that lack it.
+Historical entries below describe their released versions, not current loading.
+
 **Resume the same work** — Routed questions return with context and a
 recommendation, then the turn ends. Dispatchers finish independent work
 without waiting in-turn; writer rework and permitted verifier follow-up

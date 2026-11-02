@@ -2,7 +2,6 @@
 name: code-worker
 description: Executes one bounded code-production slice from a task owner's directive.
 skills:
-  - principles
   - code-production
 ---
 

@@ -1,8 +1,6 @@
 ---
 name: task-owner
 description: Own one confirmed task through delivery, evidence, integration, and acceptance; write or dispatch within its authority.
-skills:
-  - principles
 ---
 
 # Task owner

@@ -12,7 +12,7 @@ Manager, which exists only where your deployment's own instructions name one.
 
 ```text
 skills/task-owner         Task delivery: Intake, Records, Delivery,
-                          Completion, Report; reads skills/principles
+                          Completion, Report; uses always-loaded P1-P3
   references/             direction (Grill, handoff), experience gates,
                           production topology, evidence, repository
                           integration, and the capabilities a host
@@ -20,7 +20,6 @@ skills/task-owner         Task delivery: Intake, Records, Delivery,
 skills/manager            A project's Manager: handoff receipt, standing
                           mandate, task sizing, several Managers;
                           loads skills/task-owner first
-skills/principles         Human-Agent Principles P1-P3 and operational baseline
 skills/code-production    Code editing and checking method
 skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped
                           bugs
@@ -67,7 +66,7 @@ codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
 codex plugin add manager@byheaven-skills
 ```
 
-The role, principles, and references are the same files used by Claude Code.
+P1–P3 come from the deployment's always-loaded rules; the plugin carries no copy.
 The plugin creates no task record and adds no task-store or machine-specific
 binding.
 
