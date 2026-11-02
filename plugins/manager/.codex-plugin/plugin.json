@@ -1,5 +1,6 @@
 {
   "name": "manager",
+  "version": "0.61.0",
   "description": "Project-collaboration roles and methods: one task owner writes or dispatches bounded work and closes acceptance through qualified evidence; deployments may add a coordinator and project queues.",
   "skills": "./skills",
   "interface": {
