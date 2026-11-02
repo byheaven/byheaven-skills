@@ -22,9 +22,10 @@ plugin API). Other agent tools do not load it.
   The gear opens a row with a switch for idle compaction, a threshold picker
   (300k, 500k, or 700k), and a switch and lead-time picker (10, 15, or 20
   minutes) for notifications. In the terminal, click them or press ctrl+x tab
-  to focus the band. The band shows in the terminal and in sessions the
-  desktop app runs; viewers that attach over Remote Control, including the iOS
-  app, do not draw mod UI.
+  to focus the band. In sessions the desktop app runs, the countdown sits in
+  the line under the prompt instead, since the app does not always draw the
+  band, and its gear opens the settings row in the band. Viewers that attach
+  over Remote Control, including the iOS app, do not draw mod UI.
 - **Claude Code's idle compaction**: Claude Code itself can compact a long
   conversation shortly before its 1-hour cache expires (about 54 minutes into
   an idle period), so your next message does not re-send the whole context.
@@ -72,7 +73,7 @@ Code's own `Idle compaction` row, not one of these fields.
 ```text
 .claude-plugin/plugin.json   Name and settings
 hooks/hooks.json             Names the hooks module
-hooks/register.tsx           Countdown, inference, idle-compaction settings, and the band
+hooks/register.tsx           Countdown, inference, idle-compaction settings, the band, and the desktop hint line
 hooks/register.test.tsx      Mock-clock tests: claude plugin test plugins/cache-timer
 types/index.d.ts             Type of the cache clock the module keeps
 ```

@@ -122,6 +122,12 @@ const world = (on: On, { stored = {}, pluginRows = true, idle = true }: Setup = 
 
     return { messages: [{ role: 'user' as const, text: 'summary', toolUses: [] }], tokensBefore: 600_000, tokensAfter: 40_000 }
   })
+  // The engine's own drawing, where the mod passes.
+  on('ui.render', ($, e) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>engine</Text>
+  })
 
   return w
 }
@@ -147,6 +153,18 @@ const start = ($: Engine) => $.session.start({ cwd: '/', surface: 'terminal', is
 const BAND = {
   component: 'AbovePrompt' as const,
   props: { hasSurvey: false, isWorking: false, maxRows: 10, bodyColumns: 100, scroll: { offset: 0, bodyRows: 10 }, view: {} },
+}
+
+const HINT = {
+  component: 'PromptHint' as const,
+  props: { isDraft: false, isWorking: false, hint: '' },
+}
+
+/** Opens or closes the settings row: the gear is in the band on the terminal, in the hint line on the desktop. */
+const pressGear = async ($: Engine, surface: 'terminal' | 'desktop') => {
+  const ui = await $.ui.mount({ plugin: 'cache-timer', surface, ...(surface === 'desktop' ? HINT : BAND) })
+  await ui.press({ key: 'settings' })
+  await ui.unmount()
 }
 
 const TIME = /^(\d+:\d\d|expired|—)$/
@@ -430,12 +448,12 @@ test('with idle compaction off the band says so and leaves the threshold out', a
   expect(hasSwitch).toBe(true)
 })
 
-/** How the band marks idle compaction: the terminal word's color, the desktop icon's alt text. */
+/** How the countdown marks idle compaction: the terminal word's color, the desktop icon's alt text. */
 const idleMark = async ($: Engine) => {
   const terminal = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...BAND })
   const word = (await terminal.findAll({ type: 'Text' })).find(t => t.text === 'idle')
   await terminal.unmount()
-  const desktop = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...BAND })
+  const desktop = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...HINT })
   const icon = (await desktop.findAll({ type: 'Svg' })).find(t => String(t.props.alt).startsWith('idle compaction'))
   await desktop.unmount()
 
@@ -503,12 +521,12 @@ test('the gear opens the settings row, whose controls write the settings', async
   for (const surface of ['terminal', 'desktop'] as const) {
     const ui = await $.ui.mount({ plugin: 'cache-timer', surface, ...BAND })
     expect(await ui.find({ key: 'idle' })).toBeUndefined()
-    await ui.press({ key: 'settings' })
+    await pressGear($, surface)
     await ui.press({ key: 'idle' })
     await ui.select({ key: 'threshold', value: '700' })
     await ui.press({ key: 'notify' })
     await ui.select({ key: 'notify_lead', value: '15' })
-    await ui.press({ key: 'settings' })
+    await pressGear($, surface)
     expect(await ui.find({ key: 'idle' })).toBeUndefined()
     await ui.unmount()
   }
@@ -521,6 +539,41 @@ test('the gear opens the settings row, whose controls write the settings', async
   // The switch flips Claude Code's own setting: off, then back on.
   expect(w.configSets).toEqual([{ key: 'idleCompaction', value: false }, ...rest, { key: 'idleCompaction', value: true }, ...rest])
   expect(w.thresholds).toEqual(['500000', '700000', '700000'])
+})
+
+test('on the desktop the countdown is in the hint line, and the band shows only the opened settings', async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await start($)
+  w.setUsage(usageOf(600_000, 598_000))
+  await step($, 1)
+  await clock.advance(1_000)
+
+  const hint = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...HINT })
+  const texts = (await hint.findAll({ type: 'Text' })).map(t => t.text)
+  expect(texts).toContain('59:59')
+  expect(texts).toContain('1h · 600k/500k')
+  await hint.unmount()
+
+  const closed = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...BAND })
+  expect((await closed.findAll({ type: 'Text' })).map(t => t.text)).toEqual(['engine'])
+  await closed.unmount()
+
+  await pressGear($, 'desktop')
+  const opened = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...BAND })
+  expect(await opened.find({ key: 'threshold' })).toBeDefined()
+  expect((await opened.findAll({ type: 'Text' })).map(t => t.text)).not.toContain('59:59')
+  await opened.unmount()
+})
+
+test('the terminal keeps its own hint line', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  world(on)
+  await start($)
+
+  const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'terminal', ...HINT })
+  expect((await ui.findAll({ type: 'Text' })).map(t => t.text)).toEqual(['engine'])
+  await ui.unmount()
 })
 
 test('the threshold picker offers 300k, 500k, and 700k', async ($, on) => {
@@ -625,8 +678,8 @@ test('without /config rows (a desktop-app session) the band keeps its changes in
   w.setUsage(usageOf(600_000, 598_000))
   await step($, 1)
 
+  await pressGear($, 'desktop')
   const ui = await $.ui.mount({ plugin: 'cache-timer', surface: 'desktop', ...BAND })
-  await ui.press({ key: 'settings' })
   await ui.select({ key: 'threshold', value: '700' })
   expect(w.configSets).toEqual([])
   expect(w.toasts).toEqual([])

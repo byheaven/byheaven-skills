@@ -1,4 +1,4 @@
-import type { EngineInterface, Register } from 'claude-code'
+import type { EngineInterface, Register, ResolveInput } from 'claude-code'
 
 import type { CacheClock, CacheTtl } from '../types'
 
@@ -273,11 +273,101 @@ async function applyThreshold($: EngineInterface, k: number): Promise<void> {
   await readThreshold($)
 }
 
+/** The mod's settings as the rows show them. */
+type Shown = { notify: boolean; thresholdK: number; leadMinutes: number }
+
+/**
+ * The countdown row (the countdown, the idle-compaction and notification
+ * states, and a gear) and the settings row the gear opens, null while closed. A
+ * change to one of the mod's fields writes it, which reloads the mod.
+ */
+function rows($: EngineInterface, e: ResolveInput<'AbovePrompt' | 'PromptHint', 'terminal' | 'desktop'>, shown: Shown) {
+  const isDesktop = e.surface === 'desktop'
+  const { Box, Button, Select, Text } = $.ui.resolve(e)
+  const Svg = isDesktop ? $.ui.resolve(e).Svg : undefined
+  const { notify, thresholdK: thresholdNow, leadMinutes: leadNow } = shown
+  const thresholds = THRESHOLD_PRESETS_K.includes(thresholdNow) ? THRESHOLD_PRESETS_K : [...THRESHOLD_PRESETS_K, thresholdNow]
+  const leads = NOTIFY_LEAD_PRESETS_MIN.includes(leadNow) ? NOTIFY_LEAD_PRESETS_MIN : [...NOTIFY_LEAD_PRESETS_MIN, leadNow]
+  const filled = view.left === null ? 0 : Math.round(BAR_CELLS * view.left)
+
+  const state = (paths: string, isOn: boolean, word: string, alt: string) =>
+    Svg !== undefined ? (
+      <Svg source={icon(paths, isOn ? ON : OFF)} alt={`${alt} ${isOn ? 'on' : 'off'}`} width={14} height={14} />
+    ) : (
+      <Text color={isOn ? 'success' : 'inactive'}>{word}</Text>
+    )
+
+  const idleState =
+    Svg !== undefined ? (
+      <Box flexDirection="row" alignItems="center" gap={1}>
+        <Svg source={icon(COMPRESS, idle === 'on' ? ON : OFF)} alt={`idle compaction ${idle === 'unavailable' ? 'unavailable' : idle}`} width={14} height={14} />
+        {idle === 'unavailable' ? <Text dimColor>n/a</Text> : null}
+      </Box>
+    ) : idle === 'unavailable' ? (
+      <Text dimColor>idle n/a</Text>
+    ) : (
+      <Text color={idle === 'on' ? 'success' : 'inactive'}>idle</Text>
+    )
+
+  const countdown = (
+    <Box flexDirection="row" justifyContent="space-between" gap={2}>
+      <Box flexDirection="row" alignItems="center" gap={1}>
+        {Svg !== undefined ? <Svg source={icon(CLOCK, OFF)} alt="cache" width={14} height={14} /> : <Text dimColor>cache</Text>}
+        <Text bold>{view.time}</Text>
+        {view.left === null ? null : Svg !== undefined ? (
+          <Svg source={bar(view.left)} alt={`${Math.round(view.left * 100)}% left`} width={80} height={4} />
+        ) : (
+          <Text>
+            <Text color={view.left > 0.2 ? 'success' : 'warning'}>{'━'.repeat(filled)}</Text>
+            <Text dimColor>{'─'.repeat(BAR_CELLS - filled)}</Text>
+          </Text>
+        )}
+        <Text dimColor>{view.detail}</Text>
+      </Box>
+      <Box flexDirection="row" alignItems="center" gap={1}>
+        {idleState}
+        {state(BELL, notify, 'notify', 'notify')}
+        <Button key="settings" label="⚙" plain dimColor={!isExpanded} onPress={() => {
+          isExpanded = !isExpanded
+          $.ui.invalidate('ui.render')
+        }} />
+      </Box>
+    </Box>
+  )
+
+  const settings = isExpanded ? (
+    <Box flexDirection="row" alignItems="center" gap={1}>
+      {idle === 'unavailable' ? (
+        <Text dimColor>idle compaction n/a</Text>
+      ) : (
+        <Button key="idle" label="idle compaction" variant={idle === 'on' ? 'primary' : 'secondary'} onPress={() => setIdle($, idle !== 'on')} />
+      )}
+      <Select
+        key="threshold"
+        options={thresholds.map(k => ({ value: String(k), label: `≥${k}k` }))}
+        value={String(thresholdNow)}
+        onSelect={(value: string) => setOption($, 'threshold_k', Number(value))}
+      />
+      <Text dimColor>│</Text>
+      <Button key="notify" label="notify" variant={notify ? 'primary' : 'secondary'} onPress={() => setOption($, 'notify', !notify)} />
+      <Select
+        key="notify_lead"
+        options={leads.map(m => ({ value: String(m), label: `${m}m before` }))}
+        value={String(leadNow)}
+        onSelect={(value: string) => setOption($, 'notify_lead_minutes', Number(value))}
+      />
+    </Box>
+  ) : null
+
+  return { countdown, settings }
+}
+
 export const register: Register = (on, options) => {
   const option = (field: string, fallback: boolean | number) => overrides[field] ?? options[field] ?? fallback
   const isNotify = () => option('notify', true) !== false
   const notifyLeadMin = () => Number(option('notify_lead_minutes', 10))
   const thresholdK = () => Number(option('threshold_k', 500))
+  const shown = (): Shown => ({ notify: isNotify(), thresholdK: thresholdK(), leadMinutes: notifyLeadMin() })
   const ttlMode = String(options.cache_ttl ?? 'auto')
 
   // Tokens against the idle-compaction threshold where idle compaction can
@@ -479,93 +569,32 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
-  // The band above the prompt: the countdown, the idle-compaction and
-  // notification states, and a gear that opens a row with their settings. A
-  // change to one of the mod's fields writes it, which reloads the mod.
+  // The terminal draws both rows in the band above the prompt. The desktop app
+  // does not always draw that band, so there the countdown keeps to the hint
+  // line under the prompt, and the band holds only the settings row once the
+  // gear opens it.
   on('ui.render', { component: 'AbovePrompt' }, ($, e, next) => {
     // The mobile app has no Select; it has not drawn mod UI so far either.
-    if (e.props.hasSurvey || e.surface === 'mobile') {
+    if (e.props.hasSurvey || (e.surface !== 'terminal' && e.surface !== 'desktop')) {
       return next(e)
     }
 
-    const isDesktop = e.surface === 'desktop'
-    const { Box, Button, Select, Text } = $.ui.resolve(e)
-    const Svg = isDesktop ? $.ui.resolve(e).Svg : undefined
-    const notify = isNotify()
-    const thresholdNow = thresholdK()
-    const leadNow = notifyLeadMin()
-    const thresholds = THRESHOLD_PRESETS_K.includes(thresholdNow) ? THRESHOLD_PRESETS_K : [...THRESHOLD_PRESETS_K, thresholdNow]
-    const leads = NOTIFY_LEAD_PRESETS_MIN.includes(leadNow) ? NOTIFY_LEAD_PRESETS_MIN : [...NOTIFY_LEAD_PRESETS_MIN, leadNow]
-    const filled = view.left === null ? 0 : Math.round(BAR_CELLS * view.left)
+    const { countdown, settings } = rows($, e, shown())
 
-    const state = (paths: string, isOn: boolean, word: string, alt: string) =>
-      Svg !== undefined ? (
-        <Svg source={icon(paths, isOn ? ON : OFF)} alt={`${alt} ${isOn ? 'on' : 'off'}`} width={14} height={14} />
-      ) : (
-        <Text color={isOn ? 'success' : 'inactive'}>{word}</Text>
-      )
+    if (e.surface === 'desktop') {
+      return settings ?? next(e)
+    }
 
-    const idleState =
-      Svg !== undefined ? (
-        <Box flexDirection="row" alignItems="center" gap={1}>
-          <Svg source={icon(COMPRESS, idle === 'on' ? ON : OFF)} alt={`idle compaction ${idle === 'unavailable' ? 'unavailable' : idle}`} width={14} height={14} />
-          {idle === 'unavailable' ? <Text dimColor>n/a</Text> : null}
-        </Box>
-      ) : idle === 'unavailable' ? (
-        <Text dimColor>idle n/a</Text>
-      ) : (
-        <Text color={idle === 'on' ? 'success' : 'inactive'}>idle</Text>
-      )
+    const { Box } = $.ui.resolve(e)
 
     return (
       <Box flexDirection="column">
-        <Box flexDirection="row" justifyContent="space-between" gap={2}>
-          <Box flexDirection="row" alignItems="center" gap={1}>
-            {Svg !== undefined ? <Svg source={icon(CLOCK, OFF)} alt="cache" width={14} height={14} /> : <Text dimColor>cache</Text>}
-            <Text bold>{view.time}</Text>
-            {view.left === null ? null : Svg !== undefined ? (
-              <Svg source={bar(view.left)} alt={`${Math.round(view.left * 100)}% left`} width={80} height={4} />
-            ) : (
-              <Text>
-                <Text color={view.left > 0.2 ? 'success' : 'warning'}>{'━'.repeat(filled)}</Text>
-                <Text dimColor>{'─'.repeat(BAR_CELLS - filled)}</Text>
-              </Text>
-            )}
-            <Text dimColor>{view.detail}</Text>
-          </Box>
-          <Box flexDirection="row" alignItems="center" gap={1}>
-            {idleState}
-            {state(BELL, notify, 'notify', 'notify')}
-            <Button key="settings" label="⚙" plain dimColor={!isExpanded} onPress={() => {
-              isExpanded = !isExpanded
-              $.ui.invalidate('ui.render')
-            }} />
-          </Box>
-        </Box>
-        {isExpanded ? (
-          <Box flexDirection="row" alignItems="center" gap={1}>
-            {idle === 'unavailable' ? (
-              <Text dimColor>idle compaction n/a</Text>
-            ) : (
-              <Button key="idle" label="idle compaction" variant={idle === 'on' ? 'primary' : 'secondary'} onPress={() => setIdle($, idle !== 'on')} />
-            )}
-            <Select
-              key="threshold"
-              options={thresholds.map(k => ({ value: String(k), label: `≥${k}k` }))}
-              value={String(thresholdNow)}
-              onSelect={(value: string) => setOption($, 'threshold_k', Number(value))}
-            />
-            <Text dimColor>│</Text>
-            <Button key="notify" label="notify" variant={notify ? 'primary' : 'secondary'} onPress={() => setOption($, 'notify', !notify)} />
-            <Select
-              key="notify_lead"
-              options={leads.map(m => ({ value: String(m), label: `${m}m before` }))}
-              value={String(leadNow)}
-              onSelect={(value: string) => setOption($, 'notify_lead_minutes', Number(value))}
-            />
-          </Box>
-        ) : null}
+        {countdown}
+        {settings}
       </Box>
     )
   })
+
+  // The desktop app draws no text of its own in this line.
+  on('ui.render', { component: 'PromptHint' }, ($, e, next) => (e.surface === 'desktop' ? rows($, e, shown()).countdown : next(e)))
 }

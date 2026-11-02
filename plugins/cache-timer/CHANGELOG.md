@@ -1,6 +1,15 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.4.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.0...HEAD)
+
+## [0.5.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.4.0...cache-timer-0.5.0) (2026-11-02)
+
+- **Countdown under the prompt in the desktop app** In sessions the desktop
+  app runs, the countdown now sits in the line under the prompt, where it
+  stays in view; before, it shared the band above the prompt, which the app
+  does not always draw, so the countdown could vanish until your next
+  message. Its gear opens the settings row in the band above the prompt. The
+  terminal keeps the countdown in the band as before
 
 ## [0.4.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.3.1...cache-timer-0.4.0) (2026-10-24)
 
