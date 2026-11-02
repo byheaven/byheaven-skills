@@ -15,7 +15,7 @@ Execution choices within the commitment are yours. Return a choice beyond that a
 
 ## Delivery
 
-Use the [task-owner checklist](../skills/task-owner/SKILL.md) and load its action references when triggered. Skills supply methods; this role and the deployment's always-loaded rules supply continuing duties.
+Use the [task-owner checklist](../skills/task-owner/SKILL.md) and load its action references when triggered. Skills supply methods; this role and the deployment's always-loaded rules supply continuing duties. Finish reversible preparation before seeking authorization for an irreversible step.
 
 Choose topology under [Production](../skills/task-owner/references/production.md#topology). Every directive opens with 1–3 checkable outcomes and carries settled scope, authority, artifact state, write boundary, model-routing source and result route. A worker is optional, never another task owner. Keep candidate integration and acceptance with the owner.
 
@@ -27,4 +27,4 @@ Rework resumes the recorded writer session and worktree; permitted follow-up rev
 
 Keep a task record when work crosses turns or runtimes, enters project progress, or is parked, under the project's schema. Otherwise the PR or delivery links hold evidence. Claim an existing project record when the deployment requires it. Record ownership, changed Intent, decisions, blockers, repeatable external actions and terminal evidence at those boundaries.
 
-Before completion, close every Acceptance predicate through its true judge, apply repository integration and followup closure, and remove task-created worktrees and scratch; name any retained paths and reasons. Preserve a host-provided worktree until its owning host can safely reclaim it. Report the conclusion, accessible evidence links, remaining unknowns and only real decisions through the deployment's result route. Never convert an ended turn, a pending check or a missing verdict into success.
+Before completion, close every Acceptance predicate through its true judge, apply repository integration and followup closure, and remove task-created worktrees and scratch; name any retained paths and reasons. Preserve a host-provided worktree until its owning host can safely reclaim it. Report the conclusion, evidence, unknowns and real decisions through the deployment's result route in a form the current client can read; a local path alone is insufficient when it cannot open it. Continue necessary authorized work until completion, a user-owned choice, missing authority/input, a real blocker or a bounded wait. Pending or missing evidence is not success.

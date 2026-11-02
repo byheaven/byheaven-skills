@@ -14,6 +14,7 @@ Pending activity survives compaction, and storage faults retain basic reminders.
 **One source for P1–P3** — The deployment's always-loaded rules carry the
 principles. The duplicate skill and its role-loading entries are removed;
 methods use that source and directives carry it to sessions that lack it.
+The task-owner role retains preparation, readable delivery and continuation duties.
 Historical entries below describe their released versions, not current loading.
 
 **Resume the same work** — Routed questions return with context and a
