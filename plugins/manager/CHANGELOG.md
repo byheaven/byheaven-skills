@@ -1,6 +1,33 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.0...HEAD)
+
+## [0.61.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.1...manager-0.61.0) (2026-11-02)
+
+**Keep one accountable owner** — A fixed task-owner role holds the goal and
+acceptance while writing itself or dispatching for a P3 hand-off reason.
+The skill becomes an action checklist, and optional workers stay bounded.
+Local lifecycle adapters load the role and add publication, merge and
+dispatch context; completion reminders apply only to active task owners.
+Pending activity survives compaction, and storage faults retain basic reminders.
+
+**One source for P1–P3** — The deployment's always-loaded rules carry the
+principles. The duplicate skill and its role-loading entries are removed;
+methods use that source and directives carry it to sessions that lack it.
+The task-owner role retains preparation, readable delivery and continuation duties.
+Historical entries below describe their released versions, not current loading.
+
+**Resume the same work** — Routed questions return with context and a
+recommendation, then the turn ends. Dispatchers finish independent work
+without waiting in-turn; writer rework and permitted verifier follow-up
+resume their recorded sessions.
+
+**The owner calls the judge** — The owner invokes it through its harness, or
+the verification launcher its deployment binds, with the model and effort
+deployment routing selects. The carrier
+pins exact state, keeps artifacts read-only and verifies them unchanged;
+non-zero exit or a missing verdict cannot count as success. Judge lines disclose
+any difference between the selected model and the receipt's actual model.
 
 ## [0.60.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...manager-0.60.1) (2026-11-02)
 

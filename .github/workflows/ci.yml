@@ -45,3 +45,6 @@ jobs:
 
       - name: Test task-owner scripts
         run: python3 -m unittest discover -s plugins/manager/skills/task-owner/scripts
+
+      - name: Test lifecycle adapters
+        run: node --experimental-strip-types --test plugins/manager/hooks/*.test.mjs

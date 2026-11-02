@@ -2,7 +2,6 @@
 name: code-worker
 description: Executes one bounded code-production slice from a task owner's directive.
 skills:
-  - principles
   - code-production
 ---
 
@@ -22,7 +21,7 @@ A material assumption not settled by locked Acceptance that would change observa
 
 ## Production
 
-Apply the `code-production` skill. When the slice changes what a person sees or operates, also apply the `experience-design` skill within the approved review object's direction. Ending your turn returns the result to the task owner, so return before a wait you own reaches terminal state only when the next step is the task owner's or a concrete blocker stops the wait.
+Apply the `code-production` skill. When the slice changes what a person sees or operates, apply the `experience-design` skill within the approved review object's direction. Ending your turn returns the result to the task owner, so return before a wait you own reaches terminal state only when the next step is the task owner's or a concrete blocker stops the wait.
 
 ## Result
 

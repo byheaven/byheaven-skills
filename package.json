@@ -22,7 +22,8 @@
       "./plugins/manager/skills"
     ],
     "extensions": [
-      "./plugins/manager/.pi-plugin/user-rules.ts"
+      "./plugins/manager/.pi-plugin/user-rules.ts",
+      "./plugins/manager/.pi-plugin/task-lifecycle.ts"
     ]
   },
   "bugs": {

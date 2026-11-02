@@ -42,10 +42,8 @@ an email address, or a notes-vault link. It catches known patterns only; the rev
 in meaning. Its `ADAPTER` list names the skill and agent files allowed to name hosts; extend it only
 for a new packaging file there. When a legitimate shared line trips it, rephrase the line.
 
-The Human-Agent Principles P1–P3 in
-`plugins/manager/skills/principles/SKILL.md` mirror the owner's global rules file
-(`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth: change them there
-first, then mirror them here.
+The deployment's always-loaded rules carry P1–P3. Plugin skills and roles apply those
+identifiers; their bodies stay in that source.
 
 ## Plugin Structure
 
