@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.1...HEAD)
+
+## [0.61.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.0...manager-0.61.1) (2026-11-02)
+
+**One evidence policy** — Task owners respect your goal-confirmation and scope
+allowance, and can arrange independent verification of work they produced.
+Design feedback no longer introduces an extra acceptance gate.
+
+**Continuation fits your host** — External waits use the host's permitted
+continuation mechanism. A temporary yield preserves the result route; a missing
+bounded wake remains an explicit capability gap.
 
 ## [0.61.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.1...manager-0.61.0) (2026-11-02)
 
