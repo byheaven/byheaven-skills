@@ -4,7 +4,7 @@ Meet each capability through the host's native mechanism or the deployment bindi
 
 ## Loading
 
-The host's own role setting loads the role for the whole session (the README names each host's form); reload it after context loss, or read the installed or repository copy where no setting exists. Hooks carry action reminders and never certify gate completion.
+The host's own role setting loads the role for the whole session (the README names each host's form); reload it after context loss, or read the installed or repository copy where no setting exists.
 
 ## Deployment rules
 
@@ -12,13 +12,13 @@ The plugin carries method only; the deployment's always-loaded rules supply P1â€
 
 ## Asking
 
-A session whose questions go to its dispatcher or to an ask session never asks or waits on the user: it ends the turn with each decision the user owns, with context, recommendation, and any exact wording proposed, in its result or through the ask route; whoever relays it continues this same session with the answer. Every other session asks in its own conversation and ends the turn while the user decides. The user's own rules for such questions set their form; without them, give the choices, the recommended one first, answerable in one step where the host offers it and always in the user's own words. Until the answer arrives only independent, already-authorized work proceeds; an empty or preselected answer, or an acknowledgement that the question was queued, is not an answer.
+A session whose questions go to its dispatcher or to an ask session never asks or waits on the user: it ends the turn with each decision the user owns, with context, recommendation, and any exact wording proposed, in its result or through the ask route; whoever relays it continues this same session with the answer. Every other session asks in its own conversation and ends the turn while the user decides. The user's own rules for such questions set their form; without them, give the choices, the recommended one first, answerable in one step where the host offers it and always in the user's own words. Until the answer arrives only independent, already-authorized work proceeds; an empty or preselected answer is not an answer.
 
 ## Sub-agent dispatch
 
 Dispatch bounded work with fresh context and the focused directive. A verifier always receives the plugin's verifier role and its listed skills, without producer reasoning; a writer takes a worker charter only when it adds needed method or context. Use a registered role only when the host registered it from this plugin; otherwise supply its body and skills. Without sub-agents, run the assembled prompt as a one-shot in its own worktree, or keep the slice yourself; verification always uses [Verification carrier](#verification-carrier).
 
-A sub-agent of the same model family as the producer is not a cross-family judge; a cross-family judge needs a carrier that runs another family.
+A registered role's body resolves no relative link, so the directive names the absolute path of the installed charter directory (the candidate's during development) for every reference the role must read before producing. A same-family sub-agent is never a cross-family judge.
 
 ## Isolation
 

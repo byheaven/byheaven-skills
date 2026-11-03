@@ -128,8 +128,18 @@ test('the PreToolUse matcher spawns no hook for read-only tools and covers every
     assert.ok(!matcher.test(name), name);
     assert.deepEqual(actionKeys(name, { file_path: '/repo/x.md', pattern: 'git push' }), [], name);
   }
-  for (const name of ['Bash', 'Edit', 'Write', 'MultiEdit', 'NotebookEdit', 'Agent', 'Task', 'Workflow', 'SendMessage',
-    'mcp__github__create_pull_request', 'mcp__github__merge_pull_request', 'mcp__t3-code__delegate_task', 'mcp__tools__call_tool']) {
-    assert.ok(matcher.test(name), name);
+  // Every call actionKeys classifies must reach the hook: the matcher is judged by coverage, not by a name list.
+  const probes = [
+    ['Bash', { command: 'git push origin HEAD' }], ['PowerShell', { command: 'gh pr merge 7' }],
+    ['Bash', { command: 'codex exec "x"' }], ['Edit', { file_path: '/vault/AI/rules/x.md' }],
+    ['Write', { file_path: '/vault/AI/rules/x.md' }], ['NotebookEdit', { notebook_path: '/vault/AI/rules/x.ipynb' }],
+    ['Agent', {}], ['Task', {}], ['Workflow', {}], ['SendMessage', {}],
+    ['mcp__github__create_pull_request', {}], ['mcp__github__merge_pull_request', {}], ['mcp__t3-code__delegate_task', {}],
+    ['mcp__t3-code__t3_thread_launch', {}], ['mcp__tools__call_tool', { name: 'spawn_agent' }],
+  ];
+  const options = { rule_paths: [/\/AI\/rules\//] };
+  for (const [name, input] of probes) {
+    assert.ok(actionKeys(name, input, options).length > 0, `probe ${name} must be an action`);
+    assert.ok(matcher.test(name), `matcher must cover ${name}`);
   }
 });
