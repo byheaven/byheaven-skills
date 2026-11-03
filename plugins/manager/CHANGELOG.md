@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.2...HEAD)
+
+## [0.62.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.1...manager-0.62.2) (2026-11-03)
+
+**Installs reuse the shared Bun cache** — Code production in a Bun repository
+installs offline from the shared `~/.bun` cache, cloning it when it isn't
+writable, instead of downloading a fresh copy into a private temporary cache.
 
 ## [0.62.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.0...manager-0.62.1) (2026-11-03)
 
