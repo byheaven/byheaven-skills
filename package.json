@@ -23,7 +23,7 @@
     ],
     "extensions": [
       "./plugins/manager/.pi-plugin/user-rules.ts",
-      "./plugins/manager/.pi-plugin/task-lifecycle.ts"
+      "./plugins/manager/.pi-plugin/task-owner-role.ts"
     ]
   },
   "bugs": {

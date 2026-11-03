@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.65.0...HEAD)
+
+## [0.65.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.1...manager-0.65.0) (2026-11-03)
+
+**Pi loads only the role** — The Pi extension now adds the task-owner role to
+every run and nothing else: the action reminder and the completion check are
+gone, as they went from Claude Code in 0.64.0. The `--manager-role` flag is gone
+with them; drop it from your `pi` commands.
 
 ## [0.64.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.0...manager-0.64.1) (2026-11-03)
 
