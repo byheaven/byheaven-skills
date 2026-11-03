@@ -33,7 +33,7 @@ Evidence carries to a new state only when every input and observation condition 
 
 A verifier receives the locked commitment, the exact artifact state, the authority and Acceptance, scope, the approved writing brief and review object where they apply, the excerpts of this skill it needs, and the [global-rules excerpt](production.md#topology) when it does not load the user's rules; it never receives producer reasoning. When a predicate judges what the user decided, quote the user's words with date and place. The task owner joins all findings once, gives each a stable id, and settles each as fixed, wrong, intentional, or immaterial.
 
-A delivery gets one review round, and the verdict's Gate line decides what follows. With no follow-up listed, settle the other findings, diff-check each prescribed repair, and pass the gate; a medium or low finding never starts a round. A follow-up runs only for a finding the Gate line lists or a repair that changed behavior beyond its prescription; it resumes the first verifier's session where the runtime can and judges only those cases. After two follow-ups, stop and return each open question to the user. A gate reads `no open critical or high finding on <object>`, never an approve verdict.
+Every review is one round, with no follow-up. The task owner settles every finding, fixes and diff-checks each repair against its finding, and records the result; a finding it cannot settle within its authority goes to the user. A gate reads `no open critical or high finding on <object>`, never an approve verdict.
 
 ## Failure diagnosis
 
