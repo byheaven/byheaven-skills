@@ -33,7 +33,7 @@ test('no host event other than an action or completion adds context; Pi still as
 });
 
 test('rule-file edits get the writing reminder only for deployment-configured paths', () => {
-  const options = { rule_paths: ['/AI/', '^/vault/rules/'] };
+  const options = readOptions({ CLAUDE_PLUGIN_OPTIONS: JSON.stringify({ rule_paths: ['/AI/', '^/vault/rules/'] }) });
   assert.deepEqual(actionKeys('Edit', { file_path: '/srv/vault/AI/AGENTS-global.md' }, options), ['Rules']);
   assert.deepEqual(actionKeys('Write', { file_path: '/vault/rules/x.md' }, options), ['Rules']);
   assert.deepEqual(actionKeys('Edit', { file_path: '/srv/code/src/app.ts' }, options), []);
@@ -50,9 +50,15 @@ test('dispatch appends the deployment routing table when configured and names a 
     assert.ok(reminder(['Dispatch'], { routing_table: join(directory, 'missing.md') }).includes('could not be read'));
     assert.ok(!reminder(['Publish'], { routing_table: table }).includes('Model routing'));
     writeFileSync(join(directory, 'settings.json'), JSON.stringify({ pluginConfigs: { 'manager@byheaven-skills': { options: { routing_table: table } } } }));
-    assert.deepEqual(readOptions({}, join(directory, 'settings.json')), { routing_table: table });
-    assert.deepEqual(readOptions({ CLAUDE_PLUGIN_OPTIONS: '{"rule_paths":["x"]}' }), { rule_paths: ['x'] });
+    assert.deepEqual(readOptions({}, join(directory, 'settings.json')), { rule_paths: [], routing_table: table });
+    assert.deepEqual(readOptions({ CLAUDE_PLUGIN_OPTIONS: '{"rule_paths":["x"]}' }).rule_paths.map(String), ['/x/']);
     assert.deepEqual(readOptions({}, join(directory, 'absent.json')), {});
+    for (const bad of ['null', '"text"', '[1]', '{"rule_paths":"not-a-list"}', '{"rule_paths":["[unterminated", 7, "/ok/"],"routing_table":3}', 'not json']) {
+      const options = readOptions({ CLAUDE_PLUGIN_OPTIONS: bad });
+      assert.ok(typeof options === 'object' && options !== null && !Array.isArray(options), bad);
+      assert.deepEqual(hookResult({ hook_event_name: 'PreToolUse', tool_name: 'Edit', tool_input: { file_path: '/ok/x.md' } }, false, options).hookSpecificOutput?.additionalContext?.includes('writing-for-agents') ?? false, bad.includes('/ok/'), bad);
+      assert.deepEqual(hookResult({ hook_event_name: 'PreToolUse', tool_name: 'Agent', tool_input: {} }, false, options).hookSpecificOutput.hookEventName, 'PreToolUse', bad);
+    }
   } finally {
     rmSync(directory, { recursive: true });
   }

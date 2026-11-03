@@ -19,14 +19,23 @@ const sections = Object.fromEntries(
 // reminder). Read from CLAUDE_PLUGIN_OPTIONS when the host sets it, else from the
 // user's settings file under pluginConfigs["manager@<marketplace>"].options.
 export function readOptions(env = process.env, settingsPath = join(homedir(), '.claude', 'settings.json')) {
+  let raw;
   try {
-    if (env.CLAUDE_PLUGIN_OPTIONS) return JSON.parse(env.CLAUDE_PLUGIN_OPTIONS);
-    const configs = JSON.parse(readFileSync(settingsPath, 'utf8')).pluginConfigs ?? {};
-    const key = Object.keys(configs).find((name) => name.startsWith('manager@'));
-    return configs[key]?.options ?? {};
+    if (env.CLAUDE_PLUGIN_OPTIONS) raw = JSON.parse(env.CLAUDE_PLUGIN_OPTIONS);
+    else {
+      const configs = JSON.parse(readFileSync(settingsPath, 'utf8')).pluginConfigs ?? {};
+      const key = Object.keys(configs).find((name) => name.startsWith('manager@'));
+      raw = configs[key]?.options;
+    }
   } catch {
-    return {};
+    raw = undefined;
   }
+  if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) return {};
+  const options = {};
+  const patterns = Array.isArray(raw.rule_paths) ? raw.rule_paths.filter((p) => typeof p === 'string') : [];
+  options.rule_paths = patterns.flatMap((p) => { try { return [new RegExp(p)]; } catch { return []; } });
+  if (typeof raw.routing_table === 'string' && raw.routing_table) options.routing_table = raw.routing_table;
+  return options;
 }
 
 export function actionKeys(toolName, input = {}, options = {}) {
@@ -39,7 +48,7 @@ export function actionKeys(toolName, input = {}, options = {}) {
   if (/^(Agent|Task|spawn_agent|SendMessage|Workflow|delegate_task|t3_thread_launch)$/.test(name)) keys.add('Dispatch');
   const path = typeof input.file_path === 'string' ? input.file_path : input.notebook_path;
   if (/^(Edit|Write|MultiEdit|NotebookEdit)$/.test(name) && typeof path === 'string'
-    && (options.rule_paths ?? []).some((pattern) => new RegExp(pattern).test(path))) keys.add('Rules');
+    && (Array.isArray(options.rule_paths) ? options.rule_paths : []).some((pattern) => pattern instanceof RegExp && pattern.test(path))) keys.add('Rules');
   for (const part of commands) {
     if (/^git(?:\s+-C\s+(?:"[^"]*"|'[^']*'|\S+))*\s+push(?:\s|$)/.test(part)
       || /^gh\s+pr\s+(?:create|edit)(?:\s|$)/.test(part)) keys.add('Publish');
@@ -55,7 +64,7 @@ export function actionKeys(toolName, input = {}, options = {}) {
 export function reminder(keys, options = {}) {
   let text = `Read links relative to their source file.\nSource: ${checksPath}\n\n`
     + keys.map((key) => sections[key]).join('\n\n');
-  if (keys.includes('Dispatch') && options.routing_table) {
+  if (keys.includes('Dispatch') && typeof options.routing_table === 'string') {
     try {
       text += `\n\nModel routing (deployment table, ${options.routing_table}):\n${readFileSync(options.routing_table, 'utf8').trim()}`;
     } catch {
