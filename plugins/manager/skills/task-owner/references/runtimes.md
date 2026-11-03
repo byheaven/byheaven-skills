@@ -4,7 +4,7 @@ Meet each capability through the host's native mechanism or the deployment bindi
 
 ## Loading
 
-Load the assigned role before judgment and reload it after context loss; for an owned task use the [task-owner role](../../../agents/task-owner.md) and its checklist. When automatic loading is absent, load them yourself from the installed copy, or from the repository where the plugin is not installed or is being changed. Hooks carry reminders and never certify gate completion.
+Load the assigned role before judgment and after context loss; for an owned task use the [task-owner role](../../../agents/task-owner.md) and its checklist. Without automatic loading, load them from the installed copy, or the repository's when changing or lacking the plugin. Hooks carry reminders and never certify gate completion.
 
 ## Asking
 
