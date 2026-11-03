@@ -164,11 +164,32 @@ const world = (on: On, { stored = {}, pluginRows = true, idle = true }: Setup = 
 
     return { text: '' }
   })
-  on('session.compact', () => {
+  // The summary, then the last message kept; a precompute reports no size after.
+  on('session.compact', (_$, e) => {
     w.compactions += 1
 
-    return { messages: [{ role: 'user' as const, text: 'summary', toolUses: [] }], tokensBefore: 600_000, tokensAfter: 40_000 }
+    return {
+      messages: [{ role: 'user' as const, text: 'summary', toolUses: [] }, ...e.messages.slice(-1)],
+      tokensBefore: 600_000,
+      tokensAfter: e.trigger === 'precompute' ? undefined : 40_000,
+      usage: { input_tokens: 0, output_tokens: 30_000, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 },
+    } as never
   })
+  // /context: 20k fixed (system prompt, tools) and the rest messages.
+  on('session.usage', () => ({
+    value: {
+      context: {
+        window: 1_000_000,
+        breakdown: {
+          categories: [
+            { name: 'System prompt', tokens: 20_000, color: '', isDeferred: false, kind: 'used' },
+            { name: 'Messages', tokens: 580_000, color: '', isDeferred: false, kind: 'used' },
+          ],
+          totalTokens: 600_000,
+        },
+      },
+    } as never,
+  }))
 
   return w
 }
@@ -366,16 +387,17 @@ test('a subagent step does not restart the main countdown', async ($, on) => {
   expect(shown(w)).toBe('49:59 · 300k')
 })
 
-test('a compaction clears the countdown; a precompute does not', async ($, on) => {
+test('a compaction clears the countdown; a precompute only adds the estimate after it', async ($, on) => {
   const clock = mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   await start($)
   w.setUsage(usageOf(600_000, 598_000))
   await step($, 1)
 
+  // 20k fixed and the 30k summary; the one message kept is not the old one.
   await $.session.compact({ trigger: 'precompute', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
   await clock.advance(1_000)
-  expect(shown(w)).toBe('59:59 · 600k')
+  expect(shown(w)).toBe('59:59 · 600k → ~50k')
 
   // Claude Code's idle compaction, like any other, replaces the cached prefix.
   await $.session.compact({ trigger: 'auto', messages: [{ role: 'user', text: 'hi', toolUses: [] }] })
@@ -383,6 +405,33 @@ test('a compaction clears the countdown; a precompute does not', async ($, on) =
   expect(shown(w)).toBe('—')
   await clock.advance(60 * MIN)
   expect(w.compactions).toBe(2)
+})
+
+test('a precomputed summary shows what the next request will send', async ($, on) => {
+  const clock = mock.clock(on, { now: 1_000_000 })
+  const w = world(on)
+  await start($)
+  w.setUsage(usageOf(600_000, 598_000))
+  await step($, 1)
+
+  // The kept message holds a tenth of the old messages' characters: 20k fixed,
+  // 30k summary, and a tenth of the 580k of messages.
+  const old = [
+    { role: 'user' as const, text: 'a'.repeat(896), toolUses: [], handle: 'h1' },
+    { role: 'assistant' as const, text: 'b'.repeat(96), toolUses: [], handle: 'h2' },
+  ]
+  await clock.advance(54 * MIN)
+  await $.session.compact({ trigger: 'precompute', messages: old })
+  await clock.advance(1_000)
+  expect(shown(w)).toBe('5:59 · 600k → ~108k')
+  await clock.advance(6 * MIN)
+  expect(shown(w)).toBe('0:00 · 600k → ~108k')
+
+  // The next request sends the summary; its own size replaces the estimate.
+  w.setUsage(usageOf(110_000, 0))
+  await step($, 2)
+  await clock.advance(1_000)
+  expect(shown(w)).toBe('59:59 · 110k')
 })
 
 test('a /clear drops the old conversation and its countdown', async ($, on) => {

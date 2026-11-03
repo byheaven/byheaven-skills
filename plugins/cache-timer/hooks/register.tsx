@@ -1,4 +1,4 @@
-import type { EngineInterface, Register } from 'claude-code'
+import type { EngineInterface, Register, SessionCompacted, SessionMessage } from 'claude-code'
 
 import type { CacheClock, CacheTtl } from '../types'
 
@@ -123,6 +123,48 @@ const setStatus = ($: EngineInterface, next: string | undefined): void => {
     status = next
     $.ui.status(next)
   }
+}
+
+// While Claude Code holds a summary it wrote ahead of a compaction (as its idle
+// compaction does while you are away), the tokens the next request is
+// estimated to send once the summary replaces the conversation; the status
+// line shows it after an arrow. Not saved: a new process has no summary.
+let summaryTokens: number | null = null
+
+/** A message's size as the estimate weighs it: its text and tool blocks, in characters. */
+const charsOf = (messages: readonly SessionMessage[]): number =>
+  messages.reduce((sum, m) => sum + m.text.length + JSON.stringify(m.toolUses).length + JSON.stringify(m.toolResults ?? []).length, 0)
+
+/**
+ * What the next request will send once a precomputed summary replaces the
+ * conversation, from the last request's size: the fixed part (system prompt,
+ * tools, memory) as /context counts it, the summary as its writer reported
+ * it, and the messages the summary keeps, by their share of the old messages'
+ * characters. An estimate: /context counts locally and characters stand in for
+ * tokens.
+ */
+async function estimateAfterSummary($: EngineInterface, before: number, old: readonly SessionMessage[], summary: SessionCompacted): Promise<number> {
+  const handles = new Set(old.map(m => m.handle))
+  const kept = summary.messages.filter(m => m.handle !== undefined && handles.has(m.handle))
+  const written = summary.messages.filter(m => m.handle === undefined || !handles.has(m.handle))
+  const writtenTokens = summary.usage?.output_tokens ?? Math.round(charsOf(written) / 4)
+  let fixed = 0
+
+  try {
+    const breakdown = (await $.session.usage({ breakdown: 'summary' })).context.breakdown
+    const messagesRow = breakdown?.categories.find(c => c.name === 'Messages')
+
+    if (breakdown !== undefined && messagesRow !== undefined) {
+      fixed = Math.max(0, breakdown.totalTokens - messagesRow.tokens)
+    }
+  } catch {
+    // No breakdown: the estimate leaves the fixed part out.
+  }
+
+  const oldChars = charsOf(old)
+  const keptShare = oldChars === 0 ? 0 : charsOf(kept) / oldChars
+
+  return Math.round(fixed + writtenTokens + Math.max(0, before - fixed) * keptShare)
 }
 
 const THRESHOLD_PRESETS_K = [300, 500, 700]
@@ -335,6 +377,9 @@ export const register: Register = (on, options) => {
       usage.cache_read_input_tokens +
       usage.cache_creation_input_tokens +
       usage.output_tokens
+    // The request either used a waiting summary or went out without it; its
+    // size is now the real one.
+    summaryTokens = null
 
     update($, prev => {
       let { ttl, isTtlObserved } = prev
@@ -367,7 +412,15 @@ export const register: Register = (on, options) => {
   on('session.compact', async ($, e, next) => {
     const result = await next(e)
 
-    if (e.trigger !== 'precompute' && result.messages !== undefined && e.agentId === undefined) {
+    if (result.messages === undefined || e.agentId !== undefined) {
+      return result
+    }
+
+    if (e.trigger === 'precompute') {
+      // Kept for the next compaction; nothing changes until it runs.
+      summaryTokens = await estimateAfterSummary($, clock.tokens, e.messages, result)
+    } else {
+      summaryTokens = null
       update($, prev => ({
         ...prev,
         lastAt: null,
@@ -417,6 +470,7 @@ export const register: Register = (on, options) => {
     }
 
     if (e.reason === 'clear' || e.reason === 'resume') {
+      summaryTokens = null
       update($, prev => ({ ...initial, ttl: prev.ttl, isTtlObserved: prev.isTtlObserved, isTtlExact: prev.isTtlExact }))
     }
 
@@ -482,7 +536,8 @@ export const register: Register = (on, options) => {
       }
 
       const remaining = TTL_MS[ttl] - ((await $.clock.now()) - s.lastAt)
-      setStatus($, `${formatRemaining(remaining)} · ${formatK(s.tokens)}`)
+      const after = summaryTokens === null ? '' : ` → ~${formatK(summaryTokens)}`
+      setStatus($, `${formatRemaining(remaining)} · ${formatK(s.tokens)}${after}`)
 
       if (remaining <= 0) {
         return

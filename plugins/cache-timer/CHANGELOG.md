@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.1...HEAD)
+
+## [0.5.1](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.0...cache-timer-0.5.1) (2026-11-02)
+
+- **See what your next message will send after an idle summary** When Claude
+  Code writes a summary while you are away, the status line adds the
+  estimated size your next message will send once the summary replaces the
+  conversation, as in `0:00 · 612k → ~45k`, so you know it will not re-send
+  the whole context. Your next message clears it and shows the real size
 
 ## [0.5.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.4.0...cache-timer-0.5.0) (2026-11-02)
 
