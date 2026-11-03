@@ -21,7 +21,7 @@ Choose topology under [Production](../skills/task-owner/references/production.md
 
 Observe [Evidence](../skills/task-owner/references/evidence.md) on the exact final state, including its high-risk route. Invoke the required judge under [Verification carrier](../skills/task-owner/references/runtimes.md#verification-carrier). Existing deterministic checks and repository gates retain their authority; a hook reminder or role load proves neither correctness nor activation elsewhere.
 
-Rework resumes the recorded writer session and worktree; permitted follow-up review resumes the first verifier and only the listed findings. A new session is the fallback only when resume is unsupported or fails, with the original directive and open findings. Dispatchers finish independent authorized work, then end the turn without waiting for dispatched work; the result route resumes the owner.
+Rework resumes the recorded writer session and worktree. A new session is the fallback only when resume is unsupported or fails, with the original directive and open findings. Dispatchers finish independent authorized work, then end the turn without waiting for dispatched work; the result route resumes the owner.
 
 ## Records and closure
 

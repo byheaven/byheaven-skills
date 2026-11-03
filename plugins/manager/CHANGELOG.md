@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.2...HEAD)
+
+## [0.61.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.1...manager-0.61.2) (2026-11-03)
+
+**One review, then done** — Every review is a single round. The task owner
+settles, repairs and records each finding without asking the verifier to look
+again; a finding beyond its authority goes to you. Design polishing rounds
+are the task owner's own comparisons against the benchmark.
+
+**Experience checks match your risk rules** — An independent verifier walks
+the experience scenarios only when the acceptance rules assign one; otherwise
+the task owner renders and walks them itself. Task owners changing the plugin
+load its role from the repository.
 
 ## [0.61.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.0...manager-0.61.1) (2026-11-02)
 
