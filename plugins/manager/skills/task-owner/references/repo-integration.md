@@ -53,7 +53,7 @@ The task owner triages hosted review findings against the current candidate. Rou
 
 **Repeated comments.** Deduplicate messages, not unresolved defects. Re-anchored or older findings that still meet eligibility remain blockers until closed by relevant evidence. Already fixed, superseded, or inapplicable findings receive a state-bound explanation; their repetition alone does not require another repair or review round. Every finding receives a disposition.
 
-**Repair and receipts.** Apply [Failure diagnosis](evidence.md#failure-diagnosis) when a repair fails or a defect recurs. Repairs within the same commitment remint only affected evidence through the appropriate judges. Independent review is not repeated merely because a PR was updated; neither task-owner confidence nor message deduplication closes an open semantic predicate.
+**Repair and receipts.** Apply [Failure diagnosis](evidence.md#failure-diagnosis) when a repair fails or a defect recurs. Repairs within the same commitment rerun only affected deterministic checks; review findings settle under [Verifier dispatch](evidence.md#verifier-dispatch), without another review. Message deduplication never closes an open semantic predicate.
 
 **Escalation.** A finding that conflicts with locked Intent, warrants cancellation, or creates a new user-owned value or risk choice reopens Direction and returns to the direction owner under [Handoff](direction.md#handoff); a new authorization choice inside the locked Intent goes to the user. Ordinary implementation and environment repairs remain task-owner execution within settled boundaries.
 

@@ -6,7 +6,8 @@
 
 **One review, then done** — Every review is a single round. The task owner
 settles, repairs and records each finding without asking the verifier to look
-again; a finding beyond its authority goes to you.
+again; a finding beyond its authority goes to you. Design polishing rounds
+are the task owner's own comparisons against the benchmark.
 
 **Experience checks match your risk rules** — An independent verifier walks
 the experience scenarios only when the acceptance rules assign one; otherwise

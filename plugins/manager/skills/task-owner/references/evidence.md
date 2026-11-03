@@ -13,7 +13,7 @@ For each predicate, the evidence shows:
 3. **Discriminating power:** expected outcomes come from the predicate's authority, never the implementation, and the check is shown able to tell the required outcome from a relevant failure (preferably by failing on a subject that lacks the behavior); for a root fix, the subjects include a new case of the problem's class, though one case does not replace P3's evidence that every path producing the class is blocked or its cause is gone. A stand-in proves only the layer it actually exercised. Reworded prose is judged by a qualified reader, not a test.
 4. **A settled result:** missing, empty, refused, timed-out, pending, stale, or wrong-state evidence is unknown and blocks completion.
 
-A claim that a change is safe states the strongest level its deciding fact reached: asserted, located at a cited line, failure path walked through, shown by running the real code, or reproduced in the running product. Independent judgment means a fresh verifier is the judge; the task owner's own reading never closes it.
+A claim that a change is safe states the strongest level its deciding fact reached: asserted, located at a cited line, failure path walked through, shown by running the real code, or reproduced in the running product. Independent judgment means a fresh verifier is the judge; the task owner's own reading never replaces it; the owner then settles its findings under [Verifier dispatch](#verifier-dispatch).
 
 ## Predicate closure
 
