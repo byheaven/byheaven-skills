@@ -1,6 +1,22 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.63.0...HEAD)
+
+## [0.63.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.2...manager-0.63.0) (2026-11-03)
+
+**A lighter read for every task** — The task-owner checklist now names each
+reference's trigger, and procedures that only some tasks need moved into their
+own files: rule changes, review presentation, followup closure, design rounds
+(competing candidates and polishing) and consequential plans. The method text every
+task reads drops from about 12,400 to 6,200 words, with no rule dropped.
+
+**One shared worker charter** — The code worker, designer and knowledge worker
+apply one bounded-worker reference and keep only what is specific to them, and
+none of them pins an effort level any more, so your deployment's model routing
+alone picks it.
+
+**Quieter hooks** — The action reminder no longer starts for reads and searches;
+it runs only for shell, edit, dispatch and connector tools.
 
 ## [0.62.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.1...manager-0.62.2) (2026-11-03)
 

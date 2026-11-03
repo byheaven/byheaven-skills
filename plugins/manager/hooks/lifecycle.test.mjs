@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { actionKeys, hookResult, readOptions, reminder, runHook, sessionContext } from './lifecycle.mjs';
 
 test('action checks cover recognized commands and exclude text in unrelated tool fields', () => {
@@ -115,5 +116,20 @@ test('state storage failure preserves action context without an unsafe completio
     assert.deepEqual(runHook({ session_id: 'owner-session', agent_type: 'manager:task-owner', hook_event_name: 'Stop' }, unavailable, {}), {});
   } finally {
     rmSync(directory, { recursive: true });
+  }
+});
+
+test('the PreToolUse matcher spawns no hook for read-only tools and covers every recognized action', () => {
+  // Read-only tools return no action keys, so the matcher leaves them out instead of
+  // starting a hook process for each call; the regex is tested unanchored, its widest reading.
+  const manifest = JSON.parse(readFileSync(fileURLToPath(new URL('./hooks.json', import.meta.url)), 'utf8'));
+  const matcher = new RegExp(manifest.hooks.PreToolUse[0].matcher);
+  for (const name of ['Read', 'Grep', 'Glob']) {
+    assert.ok(!matcher.test(name), name);
+    assert.deepEqual(actionKeys(name, { file_path: '/repo/x.md', pattern: 'git push' }), [], name);
+  }
+  for (const name of ['Bash', 'Edit', 'Write', 'MultiEdit', 'NotebookEdit', 'Agent', 'Task', 'Workflow', 'SendMessage',
+    'mcp__github__create_pull_request', 'mcp__github__merge_pull_request', 'mcp__t3-code__delegate_task', 'mcp__tools__call_tool']) {
+    assert.ok(matcher.test(name), name);
   }
 });

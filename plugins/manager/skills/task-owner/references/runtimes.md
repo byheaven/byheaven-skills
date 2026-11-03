@@ -36,7 +36,7 @@ An external wait needs a terminal signal, a deadline and a supported route that 
 
 ## Review carrier
 
-For [Review presentation](production.md#review-presentation), put the exact object and version in a form the user's current client can open: inline content, an openable file, a rendered attachment or artifact, or an authorized accessible page; remote control alone proves none of these. Provide operable interaction when the decision depends on it. Use another sufficient authorized carrier when one is unavailable; only the absence of any leaves the review gate open. No carrier grants publishing or sharing authority.
+For [Review presentation](review-presentation.md), put the exact object and version in a form the user's current client can open: inline content, an openable file, a rendered attachment or artifact, or an authorized accessible page; remote control alone proves none of these. Provide operable interaction when the decision depends on it. Use another sufficient authorized carrier when one is unavailable; only the absence of any leaves the review gate open. No carrier grants publishing or sharing authority.
 
 ## Merge
 
