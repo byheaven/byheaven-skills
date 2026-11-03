@@ -110,12 +110,16 @@ Three responsibilities stay separate: the deployment defines its coordinator,
 charters are optional bounded slices. The `manager` skill remains for deployments
 with project queues or recurring delivery loops; it assigns no coordinator.
 
-Claude Code can start a main session with `claude --agent manager:task-owner`.
-The plugin's `hooks/hooks.json` loads the role conditionally at SessionStart and
-adds context with the first matching tool result, for later actions. Completion
-requests one checklist pass only for an explicitly assigned task owner that has
-received a publication, merge or dispatch reminder. Workers and verifiers receive
-no extra completion pass; `stop_hook_active` permits the next stop. Pi uses the registered
+Claude Code loads the role through its own `agent` setting (`"agent": "manager:task-owner"` in
+`settings.json`) or `claude --agent manager:task-owner`; the plugin injects
+nothing at session start. The plugin's `hooks/hooks.json` adds context before an
+action: publication, merge, dispatch, and edits to the rule paths the deployment
+lists. Completion requests one checklist pass only for a session the host started
+as the task owner that has received such a reminder; `stop_hook_active` permits the
+next stop. Workers and verifiers receive no extra completion pass. Deployment
+options sit in `settings.json` under `pluginConfigs["manager@<marketplace>"].options`:
+`rule_paths`, regular expressions matched against an edited file's path, and
+`routing_table`, a file whose text the dispatch reminder appends. Pi uses the registered
 `.pi-plugin/task-lifecycle.ts` extension at the corresponding event boundaries.
 Use `pi --manager-role task-owner` for the owning main session. Its completion
 check requests at most one continuation per active completed run; other roles
@@ -123,7 +127,7 @@ and unclassified sessions receive none.
 These are reminders, not semantic or merge validators. A read, shell command or
 MCP call outside the adapters' recognized names may bypass an action reminder;
 repository gates and the continuing role remain authoritative. Claude session
-activity is kept in the plugin data directory and reset at each user prompt.
+activity is kept in the plugin data directory and reset at each completion.
 
 Codex can consume the role through `model_instructions_file` in a separate
 profile (this replaces built-in instructions), or through an additive
@@ -140,7 +144,8 @@ reload before relying on changed instructions.
 
 `skills/task-owner/references/runtimes.md` states what a task owner needs from a host
 (loading, asking, sub-agent dispatch, isolation, verification, waiting, a
-review carrier, merging, completion) as requirements only. The task owner meets each
+review carrier, merging, completion) and from the deployment's always-loaded
+rules (its Deployment rules section) as requirements only. The task owner meets each
 with the host's own native mechanism, or with a binding your instructions
 name, and reports a requirement the host cannot meet as blocked. Which bots,
 agent ids, machines, and model CLIs your setup uses belong in that binding;
