@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.1...HEAD)
+
+## [0.64.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.0...manager-0.64.1) (2026-11-03)
+
+**Rule edits land without a review** — A change to a rule, skill, agent
+definition or plugin text can be reverted and reaches no other user, so it
+closes on its `writing-for-agents` self-check and the deterministic checks
+unless you name a judge. A cross-family judge is now required only for
+irreversible changes (money, deleting data that cannot be restored) and changes
+that reach real users (their authentication, permissions, payments, privacy or
+data); your deployment's model routing lists the concrete cases.
 
 ## [0.64.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.63.0...manager-0.64.0) (2026-11-03)
 
