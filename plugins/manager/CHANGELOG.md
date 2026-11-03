@@ -2,6 +2,26 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.2...HEAD)
 
+## [0.62.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.2...manager-0.62.0) (2026-11-03)
+
+**The host loads the role** — Claude Code sessions take the task-owner role from
+the `agent` setting or `--agent manager:task-owner`; the plugin no longer injects
+it at session start, so the completion check fires for every session started that
+way. Codex, Pi and bot hosts keep their own native role loading.
+
+**Reminders that act** — Hooks now cover publication, merge and dispatch, plus
+edits to the rule paths your deployment lists; the dispatch reminder carries
+your deployment's model-routing table when you configure its path.
+
+**Method from the first message** — The task-owner skill triggers from the first
+substantive message about a piece of work, so discussion and Grill run under its
+direction method, not only delivery.
+
+**What a deployment supplies** — One list names the rules the plugin expects
+from your always-loaded rules; a generated excerpt can carry them to sessions
+that load none. A continuation creates a task record only where the project's
+record rules let this owner do so.
+
 ## [0.61.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.1...manager-0.61.2) (2026-11-03)
 
 **One review, then done** — Every review is a single round. The task owner

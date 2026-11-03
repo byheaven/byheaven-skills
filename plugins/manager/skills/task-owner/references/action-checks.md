@@ -18,6 +18,10 @@ Apply the repository's controlled merge entry and the task's current integration
 
 Apply Production's directive contract and the deployment's Model routing authority. The dispatcher records model, effort and authorized source; this reminder selects none. For review, the owner uses Verification carrier, with its exact-state, read-only and result guards. Preserve a result route that resumes the owner.
 
+## Rules
+
+This file is agent-facing rule text. Write the change with the `writing-for-agents` skill and carry its self-check; the deployment's rule-change review (one round, then the owner settles the findings) and its deterministic checks still decide whether it lands. A reminder proves neither.
+
 ## Finish
 
 Apply the role's records and report contract and Evidence's predicate closure. Separate newly delivered results from pending evidence. Return questions through the deployment's question route and finish the turn; preserve recorded sessions for rework.

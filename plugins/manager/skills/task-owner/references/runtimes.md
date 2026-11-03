@@ -4,7 +4,11 @@ Meet each capability through the host's native mechanism or the deployment bindi
 
 ## Loading
 
-Load the assigned role before judgment and after context loss; for an owned task use the [task-owner role](../../../agents/task-owner.md) and its checklist. Without automatic loading, load them from the installed copy, or the repository's when changing or lacking the plugin. Hooks carry reminders and never certify gate completion.
+The host's own role setting loads the role for the whole session (a session agent setting or start flag naming the plugin's task-owner agent, a profile or agent file, the plugin's extension flag, a bot's every-turn definition); the README names each host's form. Load it again after context loss; without a host setting, read the installed copy, or the repository's when changing or lacking the plugin. Hooks carry action reminders and never certify gate completion.
+
+## Deployment rules
+
+The plugin carries method only. Its always-loaded rules, the deployment's, supply: P1–P3; the question route and the form an answer takes; model routing for writers, sub-agents, verifiers, merge judges and derivation routes; the merge grant; floors no brief may cross; the rule-change review route; and which record store, if any, a task uses. A session that loads none of them receives the deployment's excerpt in its directive ([Global-rules excerpt](production.md#topology)); a missing item is a gap to report, never a default to invent.
 
 ## Asking
 

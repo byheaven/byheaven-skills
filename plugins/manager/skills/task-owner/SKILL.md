@@ -1,6 +1,6 @@
 ---
 name: task-owner
-description: Delivery checklist when this session owns a confirmed task; load its role and the action reference before producing, dispatching, judging, or integrating.
+description: "Method for a piece of work this session may deliver, from its first substantive message on: discuss and Grill it, confirm its Goal, then deliver; load its role and the action reference before producing, dispatching, judging, or integrating."
 ---
 
 # Task-owner checklist
