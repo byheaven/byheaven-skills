@@ -18,10 +18,6 @@ Apply the repository's controlled merge entry and the task's current integration
 
 Apply Production's directive contract and the deployment's model routing; record model, effort and source in the directive. Review runs under Verification carrier. Preserve a result route that resumes the owner.
 
-## Rules
-
-Agent-facing rule text: write it with `writing-for-agents`, carry its self-check, and take the review the deployment assigns before landing.
-
 ## Finish
 
 Apply the role's records and report contract and Evidence's predicate closure; separate delivered results from pending evidence. Route questions as the deployment says, then end the turn.

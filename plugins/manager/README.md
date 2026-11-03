@@ -110,28 +110,18 @@ charters are optional bounded slices. The `manager` skill remains for deployment
 with project queues or recurring delivery loops; it assigns no coordinator.
 
 Claude Code loads the role through its own `agent` setting (`"agent": "manager:task-owner"` in
-`settings.json`) or `claude --agent manager:task-owner`; the plugin injects
-nothing at session start. The plugin's `hooks/hooks.json` adds context before an
-action: publication, merge, dispatch, and edits to the rule paths the deployment
-lists. Completion requests one checklist pass only for a session the host started
-as the task owner that has received such a reminder; `stop_hook_active` permits the
-next stop. Workers and verifiers receive no extra completion pass. Deployment
-options sit in `settings.json` under `pluginConfigs["manager@<marketplace>"].options`:
-`rule_paths`, regular expressions matched against an edited file's path, and
-`routing_table`, a file whose text the dispatch reminder appends. Pi uses the registered
-`.pi-plugin/task-lifecycle.ts` extension at the corresponding event boundaries.
-Use `pi --manager-role task-owner` for the owning main session. Its completion
-check requests at most one continuation per active completed run; other roles
-and unclassified sessions receive none.
-These are reminders, not semantic or merge validators. The action reminder is a
-labelled interim: in a blind commit-and-push trial, two runs per arm, it changed
-no action. A read, shell command or
-MCP call outside the adapters' recognized names may bypass an action reminder;
-repository gates and the continuing role remain authoritative. Claude session
-activity is kept in the plugin data directory and reset at each completion.
+`settings.json`) or `claude --agent manager:task-owner`; the plugin registers no hook
+there. The task-owner checklist's pointers reach the action checks: production for
+dispatch and the deployment's model routing, repository integration for publication
+and merge, governed changes for rule edits, closure for completion.
+Pi uses the registered `.pi-plugin/task-lifecycle.ts` extension, which adds the role,
+an action reminder and one completion check. Use `pi --manager-role task-owner` for
+the owning main session; other roles and unclassified sessions receive no completion
+check. These are reminders, not semantic or merge validators; repository gates and
+the continuing role remain authoritative.
 
 Codex reads the role through the `task-owner` skill; its manifest registers
-no hooks or agents. Hooks never select a model or inference source; the dispatcher reads the deployment's
+no hooks or agents. The dispatcher reads the deployment's
 Model routing and records its choice. Owners invoke verifiers through their
 harness, or the verification launcher their deployment binds, under
 Verification carrier: pinned state, read-only artifacts, unchanged-artifact

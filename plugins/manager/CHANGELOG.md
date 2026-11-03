@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.63.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.0...HEAD)
+
+## [0.64.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.63.0...manager-0.64.0) (2026-11-03)
+
+**No hooks in Claude Code** — The plugin no longer adds a reminder before
+pushes, merges, dispatches or rule edits, and no longer asks a task owner for an
+extra pass before it stops. The role still loads from the `agent` setting, and
+the task-owner checklist routes each of those actions to its method. The
+`pluginConfigs` options for rule paths and the routing table are gone with them;
+you can delete them from your settings.
+
+**Pi keeps its extension** — Pi sessions still receive the role, the action
+reminder and one completion check from the bundled extension.
 
 ## [0.63.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.2...manager-0.63.0) (2026-11-03)
 
