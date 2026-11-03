@@ -111,16 +111,12 @@ with project queues or recurring delivery loops; it assigns no coordinator.
 
 Claude Code loads the role through its own `agent` setting (`"agent": "manager:task-owner"` in
 `settings.json`) or `claude --agent manager:task-owner`; the plugin registers no hook
-there. The task-owner checklist's pointers reach the action checks: production for
+there. The task-owner checklist routes each action to its method: production for
 dispatch and the deployment's model routing, repository integration for publication
 and merge, governed changes for rule edits, closure for completion.
-Pi uses the registered `.pi-plugin/task-lifecycle.ts` extension, which adds the role,
-an action reminder and one completion check. Use `pi --manager-role task-owner` for
-the owning main session; other roles and unclassified sessions receive no completion
-check. The reminder covers only calls the extension recognizes, and each active
-completed run gets at most one completion continuation. These are reminders, not
-semantic or merge validators; repository gates and the continuing role remain
-authoritative.
+Pi loads the role through the registered `.pi-plugin/task-owner-role.ts` extension,
+which adds the role body to every run's system prompt; it adds no reminder or
+completion check.
 
 Codex reads the role through the `task-owner` skill; its manifest registers
 no hooks or agents. The dispatcher reads the deployment's
