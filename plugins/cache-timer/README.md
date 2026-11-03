@@ -13,7 +13,12 @@ plugin API). Other agent tools do not load it.
 - **Countdown status line**: `54:12 · 612k` under the prompt reads as the
   time left on the cache and the tokens the next request re-sends; it shows
   `0:00` once the cache has expired, and nothing before the first request or
-  after a compaction. It shows in the terminal and in sessions the desktop
+  after a compaction. When Claude Code has written a summary ahead of a
+  compaction, as its idle compaction does while you are away, an arrow adds
+  the estimated size the next request will send once the summary replaces the
+  conversation (`0:00 · 612k → ~45k`): the fixed part as `/context` counts it,
+  the summary as its writer reported it, and the messages it keeps by their
+  share of the old ones' characters. The next request clears it. It shows in the terminal and in sessions the desktop
   app runs, including between turns; viewers that attach over Remote Control,
   including the iOS app, do not draw mod UI.
 - **`/cache-timer`**: asks which setting to change, each shown with its
