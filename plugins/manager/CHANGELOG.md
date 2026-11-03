@@ -2,6 +2,13 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.2...HEAD)
 
+## [0.62.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.0...manager-0.62.1) (2026-11-03)
+
+**Routing decides the no-route case** — When no cross-family judge is available,
+the deployment's routing says what follows; the method no longer grants a
+same-family judge on its own. The rule-text reminder asks for the review the
+deployment assigns, not a fixed one-round review.
+
 ## [0.62.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.2...manager-0.62.0) (2026-11-03)
 
 **The host loads the role** — Claude Code sessions take the task-owner role from

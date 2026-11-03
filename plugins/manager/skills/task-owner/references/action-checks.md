@@ -20,7 +20,7 @@ Apply Production's directive contract and the deployment's model routing; record
 
 ## Rules
 
-Agent-facing rule text: write it with `writing-for-agents`, carry its self-check, and take the deployment's one-round review before it lands.
+Agent-facing rule text: write it with `writing-for-agents`, carry its self-check, and take the review the deployment assigns before landing.
 
 ## Finish
 
