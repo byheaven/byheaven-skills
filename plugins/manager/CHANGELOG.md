@@ -8,7 +8,7 @@
 reference's trigger, and procedures that only some tasks need moved into their
 own files: rule changes, review presentation, followup closure, design rounds
 (competing candidates and polishing) and consequential plans. The method text every
-task reads drops from about 12,400 to 6,200 words, with no rule dropped.
+task reads drops from about 8,600 to 6,200 words, with no rule dropped.
 
 **One shared worker charter** — The code worker, designer and knowledge worker
 apply one bounded-worker reference and keep only what is specific to them, and
