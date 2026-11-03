@@ -7,7 +7,7 @@ description: Code editing and checking method for one bounded change. Use when p
 
 Before the first edit, decide whether the change adds or reshapes a type, a module, stored data, or a command or job that writes files or records. If it does, read [references/structure.md](references/structure.md) now; it sets how that new shape is built.
 
-Before the first repository action in a Git repository — install, build, test, check, or edit — follow [Shared checkout](https://github.com/byheaven/byheaven-skills/blob/main/plugins/manager/skills/task-owner/references/repo-integration.md#applicability-and-boundary).
+Before the first repository action in a Git repository — install, build, test, check, or edit — follow [Shared checkout](../task-owner/references/repo-integration.md#applicability-and-boundary).
 
 - In a Bun repository, use the shared `~/.bun` install cache (`~/.bun/install/cache`) with `bun install --offline`, setting `BUN_INSTALL_CACHE_DIR` to it when the environment points elsewhere. If it isn't writable, clone it copy-on-write (`cp -cR` on macOS, `cp -R --reflink=always` elsewhere) and point `BUN_INSTALL_CACHE_DIR` at the clone. Never do a fresh install into a private `/tmp` cache.
 - Make the smallest coherent change that satisfies Acceptance. Modify or delete before adding; remove the superseded path in the same candidate. Prefer targeted edits when they keep the change easy to review; a broader rewrite is appropriate when it produces a simpler reviewable result without absorbing unrelated or concurrent work. The proportion of lines changed does not decide the method.

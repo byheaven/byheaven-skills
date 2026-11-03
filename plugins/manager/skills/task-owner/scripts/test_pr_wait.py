@@ -1,9 +1,13 @@
 import io
 import json
+import sys
 import unittest
+from pathlib import Path
 from unittest.mock import Mock, patch
 
-import pr_wait
+# `python3 -I` leaves the script's directory off sys.path; add it for the sibling module.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import pr_wait  # noqa: E402
 
 
 def make_pr(

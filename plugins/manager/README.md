@@ -43,10 +43,9 @@ merge grants are used only when the project or the user has defined them.
 Pull requests are merged without asking only under a standing grant the user
 has recorded in their own instructions.
 
-The `verifier` and `code-worker` agents pin no model or effort, so they run on
-the model your deployment's model routing names, or else the host's default;
-add `model` or `effort` to the agent frontmatter to choose
-another.
+No agent pins a model or effort: each runs on what your deployment's model
+routing names, or else the host's default; add `model` or `effort` to an agent's
+frontmatter to choose another.
 
 ## Installation
 
@@ -124,21 +123,21 @@ options sit in `settings.json` under `pluginConfigs["manager@<marketplace>"].opt
 Use `pi --manager-role task-owner` for the owning main session. Its completion
 check requests at most one continuation per active completed run; other roles
 and unclassified sessions receive none.
-These are reminders, not semantic or merge validators. A read, shell command or
+These are reminders, not semantic or merge validators. The action reminder is a
+labelled interim: in a blind commit-and-push trial, two runs per arm, it changed
+no action. A read, shell command or
 MCP call outside the adapters' recognized names may bypass an action reminder;
 repository gates and the continuing role remain authoritative. Claude session
 activity is kept in the plugin data directory and reset at each completion.
 
-Codex can consume the role through `model_instructions_file` in a separate
-profile (this replaces built-in instructions), or through an additive
-SessionStart hook. No Codex hook manifest is shipped in this change. Trust and
-embedding-host adoption must be verified for the chosen carrier. Hooks never
-select a model or inference source; the dispatcher reads the deployment's
+Codex reads the role through the `task-owner` skill; its manifest registers
+no hooks or agents. Hooks never select a model or inference source; the dispatcher reads the deployment's
 Model routing and records its choice. Owners invoke verifiers through their
 harness, or the verification launcher their deployment binds, under
 Verification carrier: pinned state, read-only artifacts, unchanged-artifact
-checks and non-zero/no-verdict handling. Existing sessions require a confirmed
-reload before relying on changed instructions.
+checks and non-zero/no-verdict handling.
+Deployment bindings invoke `skills/task-owner/scripts/pr_wait.py` to wait on one
+pull request; it prints one verdict with a fixed exit code.
 
 ### Host mechanisms
 

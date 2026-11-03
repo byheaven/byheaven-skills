@@ -1,14 +1,12 @@
 /**
  * Pi adapter for the manager plugin: loads the user's cross-agent rules file.
  *
- * Claude Code and Codex read the user's global rules from their own config
- * directories, and those rules route a task-owning session to the
- * `task-owner` skill. Pi reads user rules from its agent directory, which some
- * Pi hosts create fresh for every run. This extension reads
- * `~/.agents/AGENTS.md` at the start of every run, so the current text applies
- * without a copy or a restart. A missing or unreadable file adds nothing, and
- * neither does a file whose text the run's prompt already carries, for
- * example through a host's appended system prompt or a context file.
+ * It exists for a Pi host whose agent directory does not carry the user's
+ * global rules, for example one that creates that directory fresh for every
+ * run. At the start of every run it reads `~/.agents/AGENTS.md`, so the
+ * current text applies without a copy or a restart. On a host whose prompt
+ * already carries that text (an appended system prompt or a context file),
+ * its dedupe makes it a no-op; a missing or unreadable file adds nothing.
  */
 
 import { readFile } from "node:fs/promises";

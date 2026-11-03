@@ -60,7 +60,7 @@ The task owner triages hosted review findings against the current candidate. Rou
 ## Failure and completion
 
 - Authentication, permission, or protected-branch failure stops at the exact blocked action.
-- A reality finding that contradicts locked Intent reopens Direction; an architecture-classification error re-runs the [Architecture impact](production.md#architecture-impact) call.
+- A reality finding that contradicts locked Intent reopens Direction; an architecture-classification error re-runs the [Architecture impact](closure.md#architecture-impact) call.
 - CI or command failures are evidence, not a new subjective verification round.
 - Completion asks only for remaining user judgment or irreversible authorization and never removes required true-judge evidence.
 - Required source integration, including the merge when authorized, completes before the terminal task state.

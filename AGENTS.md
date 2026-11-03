@@ -102,6 +102,8 @@ When a skill needs something (e.g., a `AGENTS.md` with a `## Contributor Convent
 
 Before authoring or modifying a skill, ask: *"Can I run this skill on a brand-new project without touching any other skill?"* If the answer is no, fix it.
 
+The `manager` plugin's skills ship and install together and may reference each other by relative link; this rule applies to every other plugin.
+
 ---
 
 ## Skill Authoring: User Input
