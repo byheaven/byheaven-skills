@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.65.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.66.0...HEAD)
+
+## [0.66.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.65.0...manager-0.66.0) (2026-11-04)
+
+**One review for brief and draft** — A writing task no longer waits for you to
+approve its writing brief before drafting. The writer drafts the brief, checks
+it, writes the draft, and hands you the brief and the draft together, so you
+review copy once instead of twice. A brief you have reviewed still covers the
+task's later revisions, and Knowledge Worker and Designer now write and check a
+brief themselves when a directive carries none instead of stopping. Your own
+posts, articles and books stay yours to write.
 
 ## [0.65.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.1...manager-0.65.0) (2026-11-03)
 
