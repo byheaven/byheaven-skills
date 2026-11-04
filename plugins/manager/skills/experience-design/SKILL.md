@@ -76,7 +76,7 @@ Done when each sentence removed in step 3 has either a design replacement or a r
 
 ### 5. Write what remains
 
-- Write to the writing brief the user approved for this copy (`content-creator`).
+- Write to this copy's writing brief (`content-creator`).
 - Use the person's words for things they recognize, never the system's names for how it is built.
 - One term per concept across the whole product; the button's verb is the next screen's title.
 - Put the key word first; one idea per screen or message.
