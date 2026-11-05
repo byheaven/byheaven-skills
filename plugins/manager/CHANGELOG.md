@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.67.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.0...HEAD)
+
+## [0.68.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.67.0...manager-0.68.0) (2026-11-05)
+
+**QA for any change, in any project** — A new `qa` skill tells an agent how to
+test a feature, page, flow or fix on the real build: pin what is actually
+deployed, plan items from Acceptance and the touched features, cover the hard
+states, prove side effects from before-and-after state, and report each item as
+PASS, FAIL, NOT RUN or BLOCKED with its evidence. Your project's QA overlay
+supplies who runs it, environments, test accounts and secret rules. The
+task-owner checklist now sends a person-facing change, a change in an
+always-QA class (sign-in, money, user data, privacy, irreversible operations,
+a major dependency bump) or an Acceptance item that needs a live observation to
+`qa` once it is built or deployed; without an overlay, a fresh worker that did
+not produce the change runs it and the task owner accepts its verdicts from the
+raw evidence.
 
 ## [0.67.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.66.0...manager-0.67.0) (2026-11-05)
 

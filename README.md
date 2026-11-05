@@ -20,6 +20,7 @@ Pi, and Grok Bot all run them; `cache-timer` is the one Claude Code-only extensi
   - **content-creator** — Writing brief and drafting method for copy, articles, and documents. Writing you reserve for yourself (your own posts, articles, books) is yours to write: it assists, and drafts none of it
   - **code-production** — Code editing and checking method for one bounded change
   - **diagnosing-bugs** — Build a feedback loop for a hard bug, and classify bugs that reached users or production
+  - **qa** — Test a change on the real build, before or after deploy, and report a verdict per item with evidence
   - **roundtable** — Ask several model families the same question and compare their answers (invoked by you only)
 - **cache-timer** (Claude Code only) — Claude Code mod: prompt-cache countdown in a status line under the prompt, with Claude Code's own idle compaction, its threshold, and the expiry notification set from `/cache-timer`
 - **newproject** — Self-contained full project setup: scaffolding, CI, linting, release automation, GitHub repo config, dependency management, and security scanning

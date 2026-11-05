@@ -23,6 +23,10 @@ skills/manager            A project's Manager: handoff receipt, standing
 skills/code-production    Code editing and checking method
 skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped
                           bugs
+skills/qa                 QA of a change on the real build: verdicts,
+                          regression of touched features, first-time-user
+                          walkthroughs; a project overlay supplies
+                          environments and test identities
 skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
 skills/grilling           Question rounds that converge a direction (Grill)
