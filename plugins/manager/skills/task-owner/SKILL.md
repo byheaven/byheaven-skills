@@ -15,4 +15,5 @@ Apply the [task-owner role](../../agents/task-owner.md) and P1–P3 from the dep
 6. Before a runtime action: [runtimes.md](references/runtimes.md).
 7. A person-facing change: [experience-gate.md](references/experience-gate.md), with `experience-design` for design and `code-production` for code.
 8. Asking the user to judge a concrete object: [review-presentation.md](references/review-presentation.md).
-9. Before completion: [closure.md](references/closure.md) for architecture impact and followups, then the role's records and report contract; required evidence stays open until its judge settles it.
+9. A person-facing change, a change in an [always-QA class](../qa/SKILL.md#always-qa), or an Acceptance item that needs a live observation, once built or deployed: test it with `qa`. The project's QA overlay names who runs it; without one, dispatch a worker that did not produce the change, in fresh context, and accept its verdicts yourself from the raw evidence. A lockfile-, toolchain- or build-config-only change outside those classes closes on green CI.
+10. Before completion: [closure.md](references/closure.md) for architecture impact and followups, then the role's records and report contract; required evidence stays open until its judge settles it.
