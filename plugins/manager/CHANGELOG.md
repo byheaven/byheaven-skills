@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.1...HEAD)
+
+## [0.68.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.0...manager-0.68.1) (2026-11-05)
+
+**Finished worktrees get reclaimed** — Work in a worktree your host created now
+stays on the branch the host gave it, with one PR per worktree, and a review moves
+that branch to the PR head instead of detaching. A host's automatic cleanup skips
+any worktree whose branch has changed, so switching branches used to leave merged
+work on disk until someone removed it by hand.
 
 ## [0.68.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.67.0...manager-0.68.0) (2026-11-05)
 
