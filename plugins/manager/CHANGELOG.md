@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.2...HEAD)
+
+## [0.68.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.1...manager-0.68.2) (2026-11-05)
+
+**Simulators get shut down** — A task now shuts down the simulators it booted when
+it finishes, and so does a QA run. Booted simulators were the largest memory use
+observed on a machine running parallel agents, and nothing turned them off.
 
 ## [0.68.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.0...manager-0.68.1) (2026-11-05)
 
