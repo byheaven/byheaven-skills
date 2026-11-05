@@ -36,9 +36,9 @@ A project's QA overlay, kept in the deployment, declares: who runs QA; the carri
 
 ## Guardrails
 
-These hold through every step, on every carrier:
+These hold on every step and carrier:
 
 - Work only on test identities and non-production environments; a check that would need production or a real person's account is BLOCKED.
 - Keep tokens, tickets, cookies, signatures, session values and launch payloads out of every command, output and file; mask user identifiers.
-- One run at a time per shared machine or device; work in the background and leave a person's foreground application, settings and sign-ins as they were. Stop the run when a shared session's signed-in state is lost.
-- Stay within the declared budgets; an overrun stops the run and is reported.
+- One run at a time per shared machine or device; work in the background, leave a person's foreground app, settings and sign-ins untouched, and shut down simulators you booted. Stop the run when a shared session's signed-in state is lost.
+- An overrun of a declared budget stops the run and is reported.
