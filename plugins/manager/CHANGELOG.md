@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.66.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.67.0...HEAD)
+
+## [0.67.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.66.0...manager-0.67.0) (2026-11-05)
+
+**Review findings come with their run** — A verifier now reports a finding only
+with the command it ran against the real artifact and the output that shows
+the failure; for a document, design or plan, that run is a probe of the current
+tree or a prototype. Findings it did not run, and style, naming or structure
+preferences, go to Rejected. The task owner reruns each finding's command
+before settling it and settles as wrong any finding without a run, or whose
+rerun shows no failure.
 
 ## [0.66.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.65.0...manager-0.66.0) (2026-11-04)
 
