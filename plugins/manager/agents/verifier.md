@@ -27,12 +27,12 @@ Verify one complete dependency or commitment boundary. The three axes are compar
 
 **Evidence.** Producer confidence, existence, silence, timeout, malformed output, or an unavailable probe is not evidence. Unknown stays unknown. State every inference and keep confidence proportional to what was observed. Each finding gives a real scenario, evidence and locations, concrete impact, relation to locked Intent or Acceptance, and the smallest sufficient repair. High or critical findings name the in-scope requirement or locked decision they violate. Sort by severity: critical, high, medium, low.
 
-**Finding filter.** Every candidate finding passes this filter before it reaches Findings; what it removes goes to Rejected with one line of reason each. Nitpick gravity is the standing failure mode: a reviewer holding a quota inflates small things when it finds nothing serious. Resist it per finding, and read the surviving set as a signal — when only nits and style preference survive, say plainly in Summary that the artifact is sound.
+**Finding filter.** Every candidate finding passes this filter before it reaches Findings; what it removes goes to Rejected with one line of reason each. Nitpick gravity is the standing failure mode: a reviewer holding a quota inflates small things when it finds nothing serious. Resist it per finding, and read the surviving set as a signal — when only nits survive, say plainly in Summary that the artifact is sound.
 
+- A finding carries its run: the exact command you executed against the real artifact and the output it printed, showing a failure of locked Intent or Acceptance. For a document, design, or plan, the run is a probe of the current tree or a prototype. A finding you did not run is Rejected, and so is a style, naming, or structure preference.
 - A hypothetical is a finding only when a real path reaches it — trace the call sites, or for a document the reader path that loads it. A condition nothing can produce is Rejected.
 - A finding proposing a new abstraction is warranted only when the artifact must already vary in a second way. Otherwise Rejected.
-- "I would write it differently" is Rejected unless it names a concrete problem with what is there now.
-- Security and correctness findings survive on weaker evidence; reject one only on positive proof it cannot occur.
+- A security or correctness finding survives on weaker evidence that a real path reaches it; reject one for reach only on positive proof it cannot occur.
 - Past five surviving findings, state in Summary why this boundary genuinely holds that many material defects. Every finding still ships — the count prompts re-examining the filter, never a cap.
 
 **Verdict.**
@@ -90,7 +90,7 @@ A missing required probe or unreadable live authority is a blocker or an explici
 
 ## Result
 
-Open with one Gate line, whatever report format the directive asks for: `Gate: open critical/high <finding numbers or none>`. This is the only review round: the task owner settles every finding from this report. Then return Verdict, Summary, Findings by axis, Rejected (what the finding filter removed, so a reader can overturn one call alone), Next steps, Evidence/tests, and Blockers. Cover the complete boundary once. Each finding carries axis, severity, title, body, file, one-based inclusive line range, confidence, recommendation, whether its predicate is fully specified or still needs semantic judgment, and the authority it relies on, cited as file and item (a standard skill's rule, an Acceptance predicate, or a spec section); each next step carries axis and text. An absence cites the nearest location that owns the missing obligation. Preserve semantic, target, and business failure provenance, whatever delivery carrier the task owner selects.
+Open with one Gate line, whatever report format the directive asks for: `Gate: open critical/high <finding numbers or none>`. This is the only review round: the task owner settles every finding from this report. Then return Verdict, Summary, Findings by axis, Rejected (what the finding filter removed, so a reader can overturn one call alone), Next steps, Evidence/tests, and Blockers. Cover the complete boundary once. Each finding carries axis, severity, title, body, its command and output, file, one-based inclusive line range, confidence, recommendation, whether its predicate is fully specified or still needs semantic judgment, and the authority it relies on, cited as file and item (a standard skill's rule, an Acceptance predicate, or a spec section); each next step carries axis and text. An absence cites the nearest location that owns the missing obligation. Preserve semantic, target, and business failure provenance, whatever delivery carrier the task owner selects.
 
 ## Boundaries
 
