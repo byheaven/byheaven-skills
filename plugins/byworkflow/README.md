@@ -1,6 +1,6 @@
-# manager
+# byworkflow
 
-`manager` packages one project-collaboration method for any agent host that
+`byworkflow` packages one project-collaboration method for any agent host that
 loads skills. The `task-owner` role and checklist are the delivery method of any session that
 owns a task: it locks the task's Intent, or takes one the direction owner (the
 conversation where you settle project direction) hands over with your explicit
@@ -11,15 +11,16 @@ Manager, which exists only where your deployment's own instructions name one.
 ## What It Includes
 
 ```text
-skills/task-owner         Task delivery: Intake, Records, Delivery,
-                          Completion, Report; uses always-loaded P1-P3
+skills/task-owner         The task owner role and its checklist: Intake,
+                          Records, Delivery, Completion, Report; uses
+                          always-loaded P1-P3
   references/             direction (Grill, handoff), experience gates,
                           production topology, evidence, repository
                           integration, and the capabilities a host
                           provides
-skills/manager            A project's Manager: handoff receipt, standing
-                          mandate, task sizing, several Managers;
-                          loads skills/task-owner first
+skills/manager            A project's Manager, which drives without producing:
+                          handoff receipt, standing mandate, task sizing,
+                          several Managers
 skills/code-production    Code editing and checking method
 skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped
                           bugs
@@ -34,12 +35,8 @@ skills/roundtable         One question to several model families, compared
                           in one saved file (user-invoked)
 skills/writing-for-agents How to write skills, rules, and directives agents
                           follow
-agents/task-owner         Accountable task owner; self-production or P3 dispatch
+agents/worker             Bounded sub-agent slice: code, design, or knowledge
 agents/verifier           Independent verifier with its checklist
-agents/code-worker        Bounded code-production slice
-agents/designer           Bounded design slice: flow, screen, states, or
-                          interface copy
-agents/knowledge-worker   Bounded research or document artifact
 ```
 
 The method is store-neutral: task records, standing delivery mandates, and
@@ -57,7 +54,7 @@ frontmatter to choose another.
 
 ```text
 /plugin marketplace add byheaven/byheaven-skills
-/plugin install manager
+/plugin install byworkflow
 ```
 
 ### Codex
@@ -66,7 +63,7 @@ Codex reads this repository's Claude-format marketplace:
 
 ```bash
 codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
-codex plugin add manager@byheaven-skills
+codex plugin add byworkflow@byheaven-skills
 ```
 
 P1–P3 come from the deployment's always-loaded rules; the plugin carries no copy.
@@ -108,22 +105,24 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 
 ## Usage
 
-Three responsibilities stay separate: the deployment defines its coordinator,
-`agents/task-owner.md` owns one task, and `agents/verifier.md` judges it. Worker
-charters are optional bounded slices. The `manager` skill remains for deployments
-with project queues or recurring delivery loops; it assigns no coordinator.
+Each role has one definition. `skills/task-owner` owns one task, `skills/manager`
+drives a project without producing, `agents/worker` produces one bounded slice,
+and `agents/verifier` judges it. Roles a session holds for its whole life are
+skills so every host can load them; worker and verifier are agents because they
+only run as sub-agents.
 
-Claude Code loads the role through its own `agent` setting (`"agent": "manager:task-owner"` in
-`settings.json`) or `claude --agent manager:task-owner`; the plugin registers no hook
-there. The task-owner checklist routes each action to its method: production for
-dispatch and the deployment's model routing, repository integration for publication
-and merge, governed changes for rule edits, closure for completion.
+Claude Code loads a skill role as its session agent: link
+`~/.claude/agents/<role>.md` to that skill's `SKILL.md` in the marketplace clone and
+set `"agent": "<role>"` in `settings.json`, or pass `claude --agent <role>`; the
+plugin registers no hook there. The checklist routes each action to its method:
+production for dispatch and the deployment's model routing, repository integration
+for publication and merge, governed changes for rule edits, closure for completion.
 Pi loads the role through the registered `.pi-plugin/task-owner-role.ts` extension,
-which adds the role body to every run's system prompt; it adds no reminder or
-completion check.
+which adds the `task-owner` skill body to every run's system prompt; it adds no
+reminder or completion check.
 
-Codex reads the role through the `task-owner` skill; its manifest registers
-no hooks or agents. The dispatcher reads the deployment's
+Codex reads the role through the `task-owner` skill and registers `worker` and
+`verifier` as deployment profiles; its manifest registers no hooks or agents. The dispatcher reads the deployment's
 Model routing and records its choice. Owners invoke verifiers through their
 harness, or the verification launcher their deployment binds, under
 Verification carrier: pinned state, read-only artifacts, unchanged-artifact

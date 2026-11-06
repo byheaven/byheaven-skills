@@ -19,11 +19,11 @@
   ],
   "pi": {
     "skills": [
-      "./plugins/manager/skills"
+      "./plugins/byworkflow/skills"
     ],
     "extensions": [
-      "./plugins/manager/.pi-plugin/user-rules.ts",
-      "./plugins/manager/.pi-plugin/task-owner-role.ts"
+      "./plugins/byworkflow/.pi-plugin/user-rules.ts",
+      "./plugins/byworkflow/.pi-plugin/task-owner-role.ts"
     ]
   },
   "bugs": {

@@ -44,7 +44,7 @@ jobs:
         run: python3 -m unittest discover -s scripts
 
       - name: Test task-owner scripts
-        run: python3 -m unittest discover -s plugins/manager/skills/task-owner/scripts
+        run: python3 -m unittest discover -s plugins/byworkflow/skills/task-owner/scripts
 
       - name: Test Pi extensions
-        run: node --experimental-strip-types --test plugins/manager/.pi-plugin/*.test.mjs
+        run: node --experimental-strip-types --test plugins/byworkflow/.pi-plugin/*.test.mjs

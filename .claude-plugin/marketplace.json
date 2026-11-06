@@ -30,8 +30,8 @@
       "source": "./plugins/newproject"
     },
     {
-      "name": "manager",
-      "version": "0.68.2",
+      "name": "byworkflow",
+      "version": "0.69.0",
       "category": "productivity",
       "tags": [
         "project-management",
@@ -48,7 +48,7 @@
         "qa"
       ],
       "description": "Project-collaboration roles and methods: one task owner writes or dispatches bounded work and closes acceptance through qualified evidence; deployments may add a coordinator and project queues.",
-      "source": "./plugins/manager"
+      "source": "./plugins/byworkflow"
     },
     {
       "name": "cache-timer",

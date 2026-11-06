@@ -1,6 +1,23 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.69.0...HEAD)
+
+## [0.69.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.2...byworkflow-0.69.0) (2026-11-06)
+
+**Renamed to byworkflow, with one definition per role** — The plugin is now
+`byworkflow`; reinstall it as `byworkflow@byheaven-skills` and remove `manager`. The
+task owner role now lives in the `task-owner` skill and no longer as an agent, so
+the same text serves every host. A Claude Code session loads it by linking
+`~/.claude/agents/task-owner.md` to the skill.
+
+**Manager drives without producing** — A Manager now selects work, dispatches it,
+follows it and closes it. Work the user will discuss goes to a session that owns it;
+bounded work with settled Acceptance, such as a bug fix, goes to a worker the Manager
+accepts itself.
+
+**One worker** — `code-worker`, `designer` and `knowledge-worker` are now one `worker`
+agent whose definition holds the worker's boundaries in its own prompt, with the
+differences per kind of slice as sections of it.
 
 ## [0.68.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.1...manager-0.68.2) (2026-11-05)
 
