@@ -13,5 +13,5 @@ test('a run receives only the role body as its own prompt section', async () => 
   assert.equal(existing, 'keep');
   assert.ok(role.startsWith('# Task owner'));
   assert.ok(!role.includes('name: task-owner'));
-  assert.ok(readFileSync(new URL('../agents/task-owner.md', import.meta.url), 'utf8').includes(role));
+  assert.ok(readFileSync(new URL('../skills/task-owner/SKILL.md', import.meta.url), 'utf8').includes(role));
 });

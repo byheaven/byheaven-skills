@@ -13,7 +13,7 @@ Pi, and Grok Bot all run them; `cache-timer` is the one Claude Code-only extensi
 
 ## Skills
 
-- **manager** — Project delivery role: take a locked, authorized Intent from the direction owner, deliver, verify independently with sub-agents. Also bundles:
+- **byworkflow** — Project delivery role: take a locked, authorized Intent from the direction owner, deliver, verify independently with sub-agents. Also bundles:
   - **grilling** — Question rounds that stress-test a plan or idea until it converges
   - **writing-for-agents** — How to write skills, rules, and directives that agents follow
   - **experience-design** — Design what a person experiences, from the job and journey down to screens and their words
@@ -34,7 +34,7 @@ the plugins you want:
 
 ```text
 /plugin marketplace add byheaven/byheaven-skills
-/plugin install manager@byheaven-skills
+/plugin install byworkflow@byheaven-skills
 ```
 
 ### Codex
@@ -43,14 +43,14 @@ Codex reads the same marketplace:
 
 ```bash
 codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
-codex plugin add manager@byheaven-skills
+codex plugin add byworkflow@byheaven-skills
 ```
 
 Install the other skills with `npx skills add` below.
 
 ### Pi
 
-Install the repository as a Pi package. It loads the `manager` skills and an
+Install the repository as a Pi package. It loads the `byworkflow` skills and an
 extension that applies `~/.agents/AGENTS.md`, if present, to every run, read
 fresh each time:
 
@@ -65,7 +65,7 @@ read to give Pi the same rules.
 
 Grok Bot has no plugin installer or hook. Have the bot load the skill it needs
 at the start of its conversation, from a checkout of this repository. For the
-Manager role, see the [manager README](plugins/manager/README.md#host-mechanisms).
+Manager role, see the [byworkflow README](plugins/byworkflow/README.md#host-mechanisms).
 
 ### Other tools that load skills
 

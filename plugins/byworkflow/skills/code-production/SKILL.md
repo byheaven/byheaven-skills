@@ -1,6 +1,6 @@
 ---
 name: code-production
-description: Code editing and checking method for one bounded change. Use when producing or editing code under a locked objective and Acceptance, whether as the coordinating agent or as a dispatched code worker.
+description: Code editing and checking method for one bounded change. Use when producing or editing code under a locked objective and Acceptance, whether as the coordinating agent or as a dispatched worker.
 ---
 
 # Code production

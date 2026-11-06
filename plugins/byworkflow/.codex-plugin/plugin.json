@@ -1,9 +1,9 @@
 {
-  "name": "manager",
+  "name": "byworkflow",
   "description": "Project-collaboration roles and methods: one task owner writes or dispatches bounded work and closes acceptance through qualified evidence; deployments may add a coordinator and project queues.",
   "skills": "./skills",
   "interface": {
-    "displayName": "Manager",
+    "displayName": "Byworkflow",
     "shortDescription": "Deliver, verify, integrate"
   }
 }

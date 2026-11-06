@@ -10,7 +10,7 @@
 
 ## Skills
 
-- **manager** — 项目交付角色：接收方向负责方交来的已锁定、已授权 Intent，交付并通过子代理独立验证。同时附带：
+- **byworkflow** — 项目交付角色：接收方向负责方交来的已锁定、已授权 Intent，交付并通过子代理独立验证。同时附带：
   - **grilling** — 一轮轮追问，压力测试计划或想法直到收敛
   - **writing-for-agents** — 如何编写供 Agent 遵循的 skill、规则与指令
   - **experience-design** — 设计用户的体验：从任务与旅程，到界面及其文字
@@ -30,7 +30,7 @@
 
 ```text
 /plugin marketplace add byheaven/byheaven-skills
-/plugin install manager@byheaven-skills
+/plugin install byworkflow@byheaven-skills
 ```
 
 ### Codex
@@ -39,14 +39,14 @@ Codex 读取同一个 marketplace：
 
 ```bash
 codex plugin marketplace add https://github.com/byheaven/byheaven-skills.git
-codex plugin add manager@byheaven-skills
+codex plugin add byworkflow@byheaven-skills
 ```
 
 其他 skill 用下方的 `npx skills add` 安装。
 
 ### Pi
 
-把本仓库作为 Pi 包安装。它会加载 `manager` 的 skill，以及一个扩展：每次运行都重新读取 `~/.agents/AGENTS.md`（存在时）并应用到这次运行：
+把本仓库作为 Pi 包安装。它会加载 `byworkflow` 的 skill，以及一个扩展：每次运行都重新读取 `~/.agents/AGENTS.md`（存在时）并应用到这次运行：
 
 ```bash
 pi install git:github.com/byheaven/byheaven-skills
@@ -56,7 +56,7 @@ pi install git:github.com/byheaven/byheaven-skills
 
 ### Grok Bot
 
-Grok Bot 没有插件安装器或 hook。让 bot 在对话开始时从本仓库的检出中加载所需的 skill；Manager 角色见 [manager README](plugins/manager/README.md#host-mechanisms)。
+Grok Bot 没有插件安装器或 hook。让 bot 在对话开始时从本仓库的检出中加载所需的 skill；Manager 角色见 [byworkflow README](plugins/byworkflow/README.md#host-mechanisms)。
 
 ### 其他能加载 skill 的工具
 
