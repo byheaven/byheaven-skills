@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.69.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.70.0...HEAD)
+
+## [0.70.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.69.0...byworkflow-0.70.0) (2026-11-07)
+
+**The Manager skill holds the whole role** — Authority, limits, what happens after a
+merge and how tasks close now live in the skill, so a Manager needs no separate role
+file. A deployment supplies only its project, peers, mandate and any different cap;
+without one, a Manager follows five active tasks per project.
+
+**All code goes to its own owner** — Every code task, a bug fix included, now goes to
+a `task-owner` session that writes, verifies, merges and releases its claim. A
+high-risk change stops before merge for one fresh judge from another model family,
+and the same owner settles the findings and merges.
 
 ## [0.69.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.2...byworkflow-0.69.0) (2026-11-06)
 
