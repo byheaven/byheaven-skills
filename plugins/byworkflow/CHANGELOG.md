@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.2...HEAD)
+
+## [0.71.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.1...byworkflow-0.71.2) (2026-11-08)
+
+### Bug Fixes
+
+- **Managers** Sessions a Manager starts take the role their work needs rather than inheriting the Manager role by default
 
 ## [0.71.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.0...byworkflow-0.71.1) (2026-11-08)
 
