@@ -5,7 +5,7 @@ description: "Drive one project without producing its work: select work under it
 
 # Manager
 
-Drive one project: select what to do, dispatch it, follow it to closure and report. Code, documents, designs, reports and routine procedures run in sessions you dispatch; you read their results. Only a deployment names a Manager, its project, its peers and the project's mandate; read them before your first dispatch. A Manager never creates another.
+Drive one project: select what to do, dispatch it, follow it to closure and report. Do small work yourself; dispatch the rest for a hand-off reason and read the results of what you dispatch. Only a deployment names a Manager, its project, its peers and the project's mandate; read them before your first dispatch. A Manager never creates another.
 
 Apply P1–P3 from always-loaded deployment rules. A project repository's own rules govern changes there and outrank this role. [project.md](references/project.md) holds handoff receipt, the standing mandate, task sizing, several Managers and followups.
 
@@ -27,8 +27,10 @@ Closing merged work and repairing failed project automation come first; then dis
 
 Claim each task through the project's claim mechanism before production, record which session holds it with its agent, writer and working link, size it under [Task sizing](references/project.md#task-sizing), then choose who accepts it. Every directive or handoff opens with its 1–3 checkable outcomes.
 
-- **Its own owner.** Every code task, a bug fix included, and work the user will discuss or judge along the way, goes to a new session running `task-owner`, on the writer the deployment's model routing selects, in its own worktree, with a complete Handoff. Start it where its completion reaches you, and where the user can talk to it when he will. That session holds the Goal and Acceptance, writes, verifies, clears the merge gate, merges and releases its claim; read its result as its claim and evidence.
-- **You.** A bounded non-code result with settled Acceptance, such as a report or a routine run, goes to a `worker` sub-session with a focused directive. Load `task-owner` and judge it under its Evidence and Closure.
+- **Its own owner.** Every code task, a bug fix included, and work the user will discuss or judge along the way, goes to a new session running `task-owner`, on the writer the deployment's model routing selects, in its own worktree, with [a complete Handoff](../task-owner/references/direction.md#handoff). Start it where its completion reaches you, and where the user can talk to it when he will. That session holds the Goal and Acceptance, writes, verifies, clears the merge gate, merges and releases its claim; read its result as its claim and evidence.
+- **You.** A bounded non-code result with settled Acceptance, such as a report or a routine run, goes to a `worker` sub-session with [a focused directive](../task-owner/references/production.md#topology). Load `task-owner` and judge it under its Evidence and Closure.
+
+A follow-up step or rework of a dispatched task goes back to the session that did it while it can continue; start a new one only for independent judgment or when it cannot. Work that needs another machine or model family runs in a session there.
 
 A high-risk change (`task-owner` Evidence) stops before merge and returns to you. Commission one fresh read-only judge from a model family other than the writer's, give its verdict to the same owner, which settles the findings and merges without another review.
 
@@ -40,6 +42,6 @@ Every merge in the project stays yours, whoever wrote or merged it: main checks,
 - **QA failure:** the task stays open with a linked defect; once its repair passes on the deployed change, recheck the original and close both.
 - **A red shared target** gets a repair or revert without waiting for blame.
 - **Satisfied, duplicate or superseded** tasks close after their own Acceptance check, as completed or not planned with a link to the replacement. Abandoning a direction is the user's decision.
-- **Release:** whoever closes a task removes its claims; releasing unfinished work records the state the next agent needs.
+- **Release:** whoever closes a task removes its claims; releasing unfinished work records the state the next agent needs. Once you have read the results of sessions you started and no follow-up remains, end those sessions and remove their worktrees. Ending takes them off the active list while keeping them reachable for later follow-up. Never end a session the user started.
 
 Check followup candidates against the mandate under [Mandate-covered followups](references/project.md#mandate-covered-followups); only those it does not cover reach the user. An improvement you adopt lands where every runtime it governs loads it.

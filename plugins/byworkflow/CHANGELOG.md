@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.1...HEAD)
+
+## [0.71.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.0...byworkflow-0.71.1) (2026-11-08)
+
+### Improvements
+
+- **Managers** Small work can stay with the Manager; follow-ups and rework return to the session that did the work while it can continue
+- **Session cleanup** Managers end sessions they started after reading their results and completing follow-ups, remove their worktrees, and keep them reachable for later follow-up; user-started sessions stay open
+- **Task ownership** Manager-dispatched tasks report the merge SHA and unobserved Acceptance items at merge; the Manager owns post-merge checks and closure
 
 ## [0.71.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.70.0...byworkflow-0.71.0) (2026-11-08)
 
