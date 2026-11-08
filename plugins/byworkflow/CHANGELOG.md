@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.70.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.0...HEAD)
+
+## [0.71.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.70.0...byworkflow-0.71.0) (2026-11-08)
+
+**Fresh eyes polish every new screen** — Each polishing round now starts with a new
+walkthrough on the real build: two or three simulated people with a real goal and
+one reviewer, none of whom saw how the work was made. Each finding names its place
+and a fix, and is reproduced before anyone changes the design. Picking among
+candidates, taste and style stay with their owner.
+
+**QA chooses its own automated suites** — QA decides which automated suites run and
+when. A device farm with a quota spends it on release candidates first, and a
+flow already walked before merge is not walked again after deployment.
 
 ## [0.70.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.69.0...byworkflow-0.70.0) (2026-11-07)
 
