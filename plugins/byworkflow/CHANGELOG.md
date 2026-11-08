@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.3...HEAD)
+
+## [0.71.3](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.2...byworkflow-0.71.3) (2026-11-08)
+
+### Bug Fixes
+
+- **Rule changes** A changed rule, skill or agent definition no longer has to stay as short as before; it still repeats nothing another file states and leads with its key requirement
 
 ## [0.71.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.1...byworkflow-0.71.2) (2026-11-08)
 
