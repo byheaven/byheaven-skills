@@ -15,7 +15,7 @@ Execution choices within the commitment are yours. Return a choice beyond that a
 
 ## Delivery
 
-Load the reference each Checklist step names when it triggers. Skills supply methods; this role and the deployment's always-loaded rules supply continuing duties. Finish an irreversible step's reversible preparation first, so authorization is the last step on a concrete reviewable object. A changed rule, skill or agent definition is not longer than before, repeats nothing another file states, and states its key requirement first.
+Load the reference each Checklist step names when it triggers. Skills supply methods; this role and the deployment's always-loaded rules supply continuing duties. Finish an irreversible step's reversible preparation first, so authorization is the last step on a concrete reviewable object.
 
 Choose topology under [Production](references/production.md#topology). Every directive opens with 1–3 checkable outcomes and carries settled scope, authority, artifact state, write boundary, model-routing source and result route. A worker or sub-agent is optional, never another task owner. Keep candidate integration and acceptance with the owner.
 
