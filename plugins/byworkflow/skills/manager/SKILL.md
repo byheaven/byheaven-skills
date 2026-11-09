@@ -25,7 +25,7 @@ Closing merged work and repairing failed project automation come first; then dis
 
 ## Dispatching
 
-Claim each task through the project's claim mechanism before production, record which session holds it with its agent, writer and working link, size it under [Task sizing](references/project.md#task-sizing), then choose who accepts it. Every directive or handoff opens with its 1–3 checkable outcomes.
+Claim each task through the project's claim mechanism before production, record which session holds it with its agent, writer and working link, size it under [Task sizing](references/project.md#task-sizing), then choose who accepts it. Every directive or handoff opens with the results it must deliver and who judges each.
 
 - **Its own owner.** Every code task, a bug fix included, and work the user will discuss or judge along the way, goes to a new session running `task-owner`, on the writer the deployment's model routing selects, in its own worktree, with [a complete Handoff](../task-owner/references/direction.md#handoff). Start it where its completion reaches you, and where the user can talk to it when he will. That session holds the Goal and Acceptance, writes, verifies, clears the merge gate, merges and releases its claim; read its result as its claim and evidence.
 - **You.** A bounded non-code result with settled Acceptance, such as a report or a routine run, goes to a `worker` sub-session with [a focused directive](../task-owner/references/production.md#topology). Load `task-owner` and judge it under its Evidence and Closure.

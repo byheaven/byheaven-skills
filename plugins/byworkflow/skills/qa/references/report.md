@@ -1,6 +1,6 @@
 # Report shape
 
-Lead with the overall verdict line, for example `QA <change> at <sha>: 2 FAIL, 1 BLOCKED, 14 PASS (3 qualified)`. Then, in this order:
+Lead with the overall verdict line, for example `QA <change> at <sha>: 2 FAIL, 1 BLOCKED, 14 PASS (3 qualified)`. Then cover the following, in the arrangement that serves its reader:
 
 1. **Subject**: sha, CI and deploy runs, environment, how the served build was confirmed to contain the change, carriers and who drove each, all times with their zone.
 2. **Items**: one row per item: item, verdict with its qualifier, the raw observable, evidence path. A batch of changes on one deploy gets rows per change.

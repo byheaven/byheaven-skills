@@ -10,7 +10,7 @@ Measurement is the evidence for a change whose target is speed, latency, memory,
 
 ## Change
 
-Try remedies cheapest first and stop at the first that meets the target: skip work whose result nothing uses; avoid repeating work; do less; defer it; move it off the path the user waits on; run it concurrently; make it cheaper. Apply one remedy at a time, re-measure, and keep it only when the number moves toward the target by more than the run-to-run spread.
+Try remedies cheapest first: skip work whose result nothing uses; avoid repeating work; do less; defer it; move it off the path the user waits on; run it concurrently; make it cheaper. Apply one remedy at a time, re-measure, and keep it only when it improves the number by more than the run-to-run spread.
 
 ## Vet every number
 
@@ -18,7 +18,7 @@ Check each number on these five points before you report it or act on it:
 
 - **Errors.** Count failures and non-success results, and check that outputs are correct. Rejections are often fast; timeouts and retries are slow.
 - **The work happened.** Confirm the timed region did the work: the request reached the server, the rows were written, the result was awaited and used. Cache hits, unawaited async work, discarded results, and timeouts all print numbers for work that never ran.
-- **Repeats.** Run each side at least five times, alternating A, B, A, B, and report the median and range. A gap smaller than the run-to-run spread is no measurable difference.
+- **Repeats.** Run each side enough times, alternating A, B, A, B, to know its run-to-run spread, and report the median and range. A gap smaller than the run-to-run spread is no measurable difference.
 - **Limits.** Do the arithmetic against bandwidth, cores, and the share of time the changed piece took. Removing a piece that takes 10% of a run makes it at most about 11% faster; a result past a limit measured something else.
 - **End to end.** Report a local speedup as its share of the end-to-end wait the user sees.
 

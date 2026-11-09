@@ -1,11 +1,11 @@
 ---
 name: diagnosing-bugs
-description: Build a feedback loop for a hard or performance bug, and classify every bug already observed by a user or production. Use when a defect resists the first obvious fix, reproduces intermittently, spans component boundaries, or has escaped to a user or production, before reading code to build theories.
+description: Build a feedback loop for a hard or performance bug, and classify every bug already observed by a user or production. Use when a defect resists the first obvious fix, reproduces intermittently, spans component boundaries, or has escaped to a user or production; reach for it early, so the loop decides where to look.
 ---
 
 # Diagnosing Bugs
 
-The failure this skill exists to prevent: read the code, form a theory, start changing things. **Building the feedback loop is the skill; everything after is mechanical.**
+A fix is done when a command that observes the user's exact failure goes red before it and green after it. **Building that feedback loop is the skill; everything after is mechanical.** Build it as early as the bug allows: a theory formed from the code before anything observes the failure tends to fix the wrong thing, while a loop turns each theory into a quick yes or no. Reading code to find where and how to observe the failure is part of building it.
 
 ## Phase 1 — Build the feedback loop
 
@@ -15,24 +15,24 @@ Phase 1 is complete only when you can state **one command you have already run a
 
 - **Red-capable** — it asserts the user's exact symptom, not merely "no error".
 - **Deterministic** — pin time, seed randomness; for flaky bugs the goal is a raised reproduction rate (loop it 100×, parallelize, add pressure), not a clean repro.
-- **Fast** — seconds, not minutes.
+- **Fast** — as fast as the bug allows, since every probe and every hypothesis reruns it.
 - **Agent-runnable** — you can run it yourself without a human.
 
-If you catch yourself reading code to build a theory before this command exists — stop; jumping to hypotheses is the exact failure this skill prevents. If the loop truly cannot be built, stop and ask the user as [Asking](../task-owner/references/runtimes.md#asking) says: "I could not build a command that reproduces this bug. I tried: <what was tried>. Can you give me <environment access, a capture, or production instrumentation>?"
+If the loop truly cannot be built, ask the user as [Asking](../task-owner/references/runtimes.md#asking) says: "I could not build a command that reproduces this bug. I tried: <what was tried>. Can you give me <environment access, a capture, or production instrumentation>?"
 
 Redact secrets everywhere: literals become `<REDACTED>`, loops read from environment variables, captures quote only the signal-bearing lines.
 
 ## Phase 2 — Reproduce and minimize
 
-Confirm the loop is red on the failure the user described — fixing the wrong bug is the expensive version of fixing nothing. Then cut inputs, callers, and configuration one slice at a time, re-running after each cut. Done when every remaining element is load-bearing: removing any one turns the loop green.
+Confirm the loop is red on the failure the user described — fixing the wrong bug is the expensive version of fixing nothing. Then minimize the repro until what remains makes the cause clear.
 
 ## Phase 3 — Hypotheses
 
-Write 3–5 ranked falsifiable hypotheses before touching anything; a single hypothesis is anchoring on the first plausible idea. Each must carry a prediction: "if X is the cause, changing Y makes the bug disappear." A hypothesis without a prediction is a vibe — discard or sharpen it. Show the ranked list to the user before testing (they often re-rank instantly from domain knowledge), but do not block on their absence.
+Hold several ranked, falsifiable hypotheses rather than anchoring on the first plausible idea. Each carries a prediction: "if X is the cause, changing Y makes the bug disappear." A hypothesis without a prediction is a vibe — discard or sharpen it.
 
 ## Phase 4 — Instrument
 
-Every probe maps to a specific prediction; change one variable at a time. Prefer debugger/REPL, then targeted logging. Never "log everything and grep". Prefix every debug log with one unique tag such as `[DEBUG-a4f2]` so cleanup is a single grep. Performance problems branch here: measure a baseline first, then bisect.
+Every probe tests a specific prediction, so its result moves one hypothesis; every debug line you add is gone before handover. Performance problems branch here: measure a baseline first, then bisect.
 
 ## Phase 5 — Fix with a regression test
 
@@ -44,7 +44,7 @@ Before fixing, turn the minimized repro into a failing test — but only where a
 
 - Original repro no longer reproduces.
 - Regression test passes, or the missing-seam finding is recorded.
-- All `[DEBUG-]` lines removed (one grep proves it).
+- Every debug line added during the investigation removed.
 - Disposable harnesses deleted.
 - The winning hypothesis written into the commit/PR message for the next debugger.
 - When the deciding fact took a deep dig to find, the cheap always-on signal that would have shown it at first look is proposed in the report; adding it is a separate decision.

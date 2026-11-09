@@ -37,7 +37,7 @@ Every review is one round, with no follow-up. The task owner settles every findi
 
 ## Failure diagnosis
 
-When a predicate fails or a defect recurs, find the cause before the next action: a changed commitment, an implementation defect, an environment fault, stale evidence, or a correlated reasoning failure. After two fixes resting on the same premise fail the same check, test that premise directly before a third. A hard or recurring bug follows the `diagnosing-bugs` skill. Reopen Direction only when the remedy changes a user-owned dimension. Judge assignment follows Owner acceptance.
+When a predicate fails or a defect recurs, find the cause before the next action: a changed commitment, an implementation defect, an environment fault, stale evidence, or a correlated reasoning failure. After two fixes resting on the same premise fail the same check, test that premise directly before a third. The `diagnosing-bugs` skill holds a method for a hard or recurring bug. Reopen Direction only when the remedy changes a user-owned dimension. Judge assignment follows Owner acceptance.
 
 ## Dependency waits
 

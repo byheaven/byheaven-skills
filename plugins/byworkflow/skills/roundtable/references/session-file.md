@@ -42,7 +42,7 @@ Record each answer under `### @<Seat> Round <n>`, with the Seat's own structure,
 <the Seat's answer>
 ```
 
-Record user interjections verbatim. A response-round prompt carries the four packet fields, the user's verbatim interjection, and only the first-turn answers the user named; it carries the Host synthesis only when the user steers with it. Response turns are shorter than first turns.
+Record user interjections verbatim. A response-round prompt carries the four packet fields, the user's verbatim interjection, and only the first-turn answers the user named; it carries the Host synthesis only when the user steers with it.
 
 ## References
 
