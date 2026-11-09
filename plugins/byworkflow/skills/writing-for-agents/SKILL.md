@@ -3,7 +3,7 @@ name: writing-for-agents
 description: Writing documents for agents. Use when creating or editing a skill, agent definition, rule, the project instruction file, or when writing a directive or brief another agent will execute.
 ---
 
-Reference for writing any document an agent consumes: a skill, the project instruction file, a doc reached by a pointer. The packaging differs; the writing does not: the same levers make each one predictable, since the agent takes the same _process_ every run rather than producing the same output.
+Reference for writing any document an agent consumes: a skill, the project instruction file, a doc reached by a pointer, a directive or brief. The packaging differs; the writing does not. Each one tells the agent the outcome, why it matters, who judges it, and the facts it cannot find by looking, and leaves method, tools, format, and depth to the agent; a constraint belongs in it only while it carries the user's decision or guards a concrete risk. The levers below decide how reliably that reaches the agent.
 
 When the document you're writing is a skill, read [`SKILL-MECHANICS.md`](SKILL-MECHANICS.md) for frontmatter, invocation choice, and router skills.
 
@@ -28,23 +28,23 @@ Material reached only through a pointer escapes context load at the price of the
 
 ## Information hierarchy
 
-A document is built from two content types: **steps** (the ordered actions the agent performs) and **reference** (definitions, rules, facts consulted on demand). The two mix freely: all steps (a recipe), all reference (a review's rules, this skill), or both. The core decision is where each piece sits on the **information hierarchy**, a ladder ranked by how immediately the agent needs the material:
+A document is built from two content types: **outcomes** (what must be true when the work is done, and why) and **reference** (definitions, decided constraints, facts consulted on demand). Ordered **steps** appear only where the order itself is the user's decision or guards a risk, such as a check that must come before an irreversible action. The types mix freely: all outcomes, all reference (a review's rules, this skill), or both. The core decision is where each piece sits on the **information hierarchy**, a ladder ranked by how immediately the agent needs the material:
 
-1. **In-file step** is the primary tier: what the agent does, in order.
+1. **In-file outcome** is the primary tier: what must be true when the agent is done.
 2. **In-file reference** is consulted on demand. Often a legitimately flat peer-set (every rule of a review on one rung), which is a fine arrangement, not a smell.
 3. **Disclosed reference** is pushed out into a separate file, reached by a context pointer, loaded only when the pointer fires. Spans a sibling file in the same folder through fully external reference that lives anywhere and any document can point at.
 
 Push too little down and the top bloats; push too much and you hide material the agent actually needs. That tension is the whole decision.
 
-**Progressive disclosure** is the move down the ladder (out of the main file and behind a pointer) so the top stays legible. Not primarily a token optimisation: it is how the hierarchy is protected. Branching is the cleanest disclosure test: inline what every branch needs, and push behind a pointer what only some branches reach. When a document has steps, in-file reference that should be disclosed buries them and turns attending to them into a coin-flip: a variance lever, not just a legibility one.
+**Progressive disclosure** is the move down the ladder (out of the main file and behind a pointer) so the top stays legible. Not primarily a token optimisation: it is how the hierarchy is protected. Branching is the cleanest disclosure test: inline what every branch needs, and push behind a pointer what only some branches reach. When a document has outcomes or steps, in-file reference that should be disclosed buries them and turns attending to them into a coin-flip: a variance lever, not just a legibility one.
 
 **Co-location** is the within-file companion: where the ladder decides _how far down_ a piece sits, co-location decides _what sits beside it_ once there. Keep a concept's definition, rules, and caveats under one heading rather than scattered, so reading one part brings its neighbours with it. The test: the document should read like documentation written for the agent. Grouped material reads that way; scattered material does not. (Distinct from duplication: that repeats one meaning in two places; scattering fragments one meaning across many.)
 
 **Sprawl** is the failure mode here: a document simply too long, even when every line is live and unique. Attention thins across the excess, and every extra line is one more to keep relevant. The cure is the ladder: disclose reference behind pointers, and split by branch or sequence so each path carries only what it needs.
 
-## Steps and completion criteria
+## Outcomes and completion criteria
 
-Every step ends on a **completion criterion**, the condition that tells the agent the work is done. Two properties make it a lever:
+Every outcome, and every step a document keeps, ends on a **completion criterion**, the condition that tells the agent the work is done. Two properties make it a lever:
 
 - **Clarity**: can the agent tell done from not-done? A vague bound ("understanding reached") invites **premature completion**: ending the step before it is genuinely done, attention slipping to _being done_. The visible steps still ahead (the **post-completion steps**) supply the pull; the criterion's clarity is the resistance. Defend in order: **sharpen the bound first** (local and cheap); only if it is irreducibly fuzzy _and_ you observe the rush, hide the later steps by splitting the sequence. Hiding only works across a real context boundary (a hand-off or a subagent dispatch; an inline call leaves the later steps in context and clears nothing).
 - **Demand**: how much it requires. "Every modified model accounted for" forces thorough work where "produce a change list" does not. Demand drives **legwork** (the digging the agent does within the work, latent in the wording rather than written as its own step), and it is not step-bound: "every rule applied" binds a body of flat reference just as "every step done" binds a sequence, which is how an all-reference document still carries an exhaustiveness bar.

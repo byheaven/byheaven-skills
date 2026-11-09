@@ -7,24 +7,24 @@ description: Method for designing what a person experiences in a product, from t
 
 Every step, element, and word a person meets must **earn its place** in their experience. Whatever does not, the system does silently or leaves out. People should finish feeling the time was worth it, and leave freely when the job is done.
 
-The project's own authorities come first. Its Vision decides what counts as value and which tradeoffs win; its design system, tokens, glossary, and the surface's product document decide concrete values, names, and voice. This skill fills what they leave open and never weakens a floor they set.
+The project's own authorities come first. Its Vision decides what counts as value and which tradeoffs win; its design system, tokens, glossary, and the surface's product document decide concrete values, names, and voice. Where they are silent, this skill is design judgment to draw on, not law: depart from any of its defaults when the result serves the person better. The floor in step 3, the red lines, and every floor the project sets always hold.
 
-Product decisions belong to the product owner. Reuse the decisions the owner has settled; any new choice about the job, the primary person, the journey, or what ships is a proposal the owner decides before it shapes the product, through the project's own review process. This skill guides how to design and judge; it authorizes no change.
+Product decisions follow the project's decision rights, and P1 where the project names none. Reuse what the owner has settled; a choice those rights keep for the owner is a proposal the owner decides, through the project's own review process, before it shapes the product, and the designer makes the rest. This skill guides how to design and judge; it authorizes no change.
 
-Work in layers, from the job down to the words. A symptom on the surface often starts lower: trace it down (job, journey, screen, words) and fix the lowest layer where the wrong choice was made. Steps 1 and 2 apply whenever a feature or flow is created or changed; a change confined to one screen starts at step 3 after confirming the journey around it still holds and naming the benchmark for the qualities it changes.
+Work in layers, from the job down to the words. A symptom on the surface often starts lower: trace it down (job, journey, screen, words) and fix the lowest layer where the wrong choice was made. The steps below are an order that usually works, not a sequence to complete: start at the layer where the problem is, with the layers above it still holding, and judge against the benchmark for the qualities it changes.
 
 ## Steps
 
 ### 1. Name the job
 
-- Read the project authorities for this experience, then the current experience itself: the journey as people go through it today and every screen and state it reaches, rendered where possible.
+- Derive the experience from the project authorities and the person's job. Read the current experience, rendered where possible: the journey as people go through it today and every screen and state it reaches. It tests the derivation and shows what people meet now; it is not the template.
 - Write the progress the person wants in their circumstance: what they get done, how they want to feel, and how they want to be seen. Write what they use today for it, including doing nothing.
 - Pick one primary person in one scene and resolve tradeoffs for them, without failing the others. The same person in another scene is another user.
 - The new way must beat the old by more than the cost of switching: learning, setup, migration, risk, and social cost. Lower the anxiety and the habit cost, not only add attraction.
 - Name what excellent looks like: the best experience anywhere for this job and scene, and the qualities ours must match or beat. Step 6 judges against them.
 - Name the session shape: a quick visit that finishes and leaves, a long working session, or play. It sets density, pacing, and how much the product should hold attention.
 
-Done when the job, the person, the scene, the current alternative, the benchmark, and the session shape each fit in one sentence, each marked as settled by the owner (with its source), supported by evidence, assumed, or open for the owner.
+Done when the job, the person, the scene, the current alternative, the benchmark, and the session shape are each named and marked as settled by the owner (with its source), supported by evidence, assumed, or open for the owner.
 
 ### 2. Shape the journey
 
@@ -66,7 +66,7 @@ Done when every remaining element has a named reason from the floor or the scree
 
 - **One focal point.** Decide what the person sees first; show order with position, size, weight, color, and space. One primary action per decision; secondary actions recede.
 - **Contrast, repetition, alignment, proximity.** Related things sit together, unrelated things apart; same kind, same treatment; every element aligns with something; different things look clearly different.
-- **Conventions over invention.** Use the platform's and the genre's known patterns; keep one treatment per meaning across the product.
+- **Familiar interaction, a language of its own.** Interactions people already know, such as going back, scrolling, and the platform's gestures, keep working as they expect; the look, motion, and signature components are the product's own, carried from its brand. Keep one treatment per meaning across the product.
 - **Signifiers.** Make actionable things look actionable. Remove information, never the cue that something can be acted on.
 - **Feedback where the action happened**, immediate and proportional: ambient confirmation for routine actions, an interruption only when something is at risk.
 - **Teach by doing**, one concept at a time, at the moment it is needed. A tour or rules page is the last resort.
@@ -92,7 +92,7 @@ Done when every string passes the language reference for its language and reads 
 - Walk the journey as the primary person: at each step, would they try the right thing, notice the control, connect it to their goal, and see that it worked? Run the trunk test (where am I, what is this, what can I do) on any deep screen.
 - Floor check: contrast, minimum text size, touch target size, and reduced-motion behavior meet the platform's floor and the project's.
 - Compare the rendered result with the benchmark from step 1, quality by quality.
-- Count what changed: steps, requests, elements, and characters before and after, and every floor item still present.
+- Name what the change added and removed, and confirm every floor item is still present.
 - An agent's walkthrough predicts problems; first impressions, comprehension, feelings, and whether people come back are judged by real people. When the decision rests on one of these, say so and name the smallest test that would settle it (see the research reference).
 
 Done when every applicable check passes, or each failure is fixed or reported as open; an unrendered screen or an unobserved reaction is reported as unverified, not passed.

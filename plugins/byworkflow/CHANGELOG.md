@@ -1,6 +1,34 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.3...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.72.0...HEAD)
+
+## [0.72.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.3...byworkflow-0.72.0) (2026-11-09)
+
+**Directives state the result, not the method** — A directive now opens with the result
+its slice must deliver, why it matters and who judges it, then gives the facts the
+receiver cannot find. Method, tools, format, length, depth, structure, the skills to use
+and the shape of the result stay with the receiver; a constraint enters only when it
+carries the user's decision, quoted with its source, or guards a named risk. Every
+directive asks the receiver to trust its ability and deliver beyond what the user expects.
+
+**Agents work without hidden caps** — Fixed counts ("1–3 outcomes", "two or three
+versions", "five rounds", "3–5 hypotheses"), "smallest change" wording, light-change
+ceilings and fixed report shapes are gone across task ownership, design rounds, the
+experience gate, the worker and verifier, code production, QA, debugging, writing and
+the roundtable. Workers and verifiers may start their own sub-agents within their
+boundary, workers build prototypes whenever they make the review object better, and QA
+decides depth and which automated suites run.
+
+**Design starts from the product, not the current screen** — Experience design now
+derives the experience from the project's authorities and the person's job, and uses the
+current experience to test that derivation. Familiar interactions stay familiar while the
+look, motion and signature components are the product's own.
+
+### Improvements
+
+- **Writing for agents** Documents are built from outcomes and reference; ordered steps stay only where the order is the user's decision or guards a risk
+- **Code production** Scope follows the user's scope allowance, so an adjacent bug or improvement can be fixed in the same change and reported
+- **Verifier** History, sources and skills are read as far as the judgment needs; the report keeps the machine-read `Gate:` and `Verdict:` lines and frees the rest
 
 ## [0.71.3](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.2...byworkflow-0.71.3) (2026-11-08)
 

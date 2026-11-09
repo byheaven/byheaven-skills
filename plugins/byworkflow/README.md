@@ -92,10 +92,15 @@ another carrier for independent verification.
 are adapted from
 [mattpocock/skills](https://github.com/mattpocock/skills) under the MIT
 license; each skill's notice is in its own `LICENSE` file.
-`writing-for-agents` keeps the upstream text at commit `6fd9479`, widens its
-description to cover rules and directives, adds one sentence on blinding
-the no-op test run, and states that each host's packaging declares a
-skill's invocation.
+`writing-for-agents` starts from the upstream text at commit `6fd9479`: it
+widens its description to cover rules and directives, makes outcomes rather
+than ordered steps a document's primary content (steps stay where their order
+is the user's decision or guards a risk), adds one sentence on blinding the
+no-op test run, and states that each host's packaging declares a skill's
+invocation. `diagnosing-bugs` keeps the upstream loop-first method, states the
+loop as the outcome a fix is proven on rather than a stop rule, leaves the
+number of hypotheses and the probing tools to the agent, and adds the
+classification of escaped bugs.
 
 The performance method in `skills/code-production/references/performance.md`
 and the verifier's safety-fact check adapt ideas from the `benchmark-checklist`
