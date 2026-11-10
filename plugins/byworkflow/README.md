@@ -4,8 +4,8 @@
 loads skills. The `task-owner` role and checklist are the delivery method of any session that
 owns a task: it locks the task's Intent, or takes one the direction owner (the
 conversation where you settle project direction) hands over with your explicit
-authorization, and closes every Acceptance predicate through a qualified judge
-before it claims completion. The `manager` skill adds the duties of a project's
+authorization, and delivers evidence through its [completion boundary](skills/task-owner/SKILL.md#records-and-closure).
+The `manager` skill adds the duties of a project's
 Manager, which exists only where your deployment's own instructions name one.
 
 ## What It Includes
@@ -18,9 +18,9 @@ skills/task-owner         The task owner role and its checklist: Intake,
                           production topology, evidence, repository
                           integration, and the capabilities a host
                           provides
-skills/manager            A project's Manager, which drives without producing:
-                          handoff receipt, standing mandate, task sizing,
-                          several Managers
+skills/manager            A project's Manager: selects, delivers small work,
+                          dispatches the rest, follows and closes;
+                          handoff receipt, mandate, sizing, peers
 skills/code-production    Code editing and checking method
 skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped
                           bugs
@@ -111,7 +111,8 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 ## Usage
 
 Each role has one definition. `skills/task-owner` owns one task, `skills/manager`
-drives a project without producing, `agents/worker` produces one bounded slice,
+drives a project and may deliver small work under that skill's dispatch rules,
+`agents/worker` produces one bounded slice,
 and `agents/verifier` judges it. Roles a session holds for its whole life are
 skills so every host can load them; worker and verifier are agents because they
 only run as sub-agents.

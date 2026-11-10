@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.1...HEAD)
+
+## [0.74.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.0...byworkflow-0.74.1) (2026-11-10)
+
+### Bug Fixes
+
+- **Completion** Refused required actions leave the Goal incomplete; Manager-dispatched non-repository work returns its completed artifact and evidence
+- **Managers** Small work can be delivered directly on the permitted writer route; dispatched high-risk reviews are commissioned by the Manager and settled by the task owner
+- **QA** Walkthrough evidence is reusable only after a fresh walkthrough of the same flow and build
+- **Verification** Exact clean candidates respect host-owned worktree branches and cleanup
+- **PR waits** Deadlines take precedence over late query results, and queries run within the remaining wait budget
 
 ## [0.74.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.73.0...byworkflow-0.74.0) (2026-11-10)
 
