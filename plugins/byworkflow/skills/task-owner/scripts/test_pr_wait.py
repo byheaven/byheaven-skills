@@ -394,17 +394,30 @@ class WaitTests(unittest.TestCase):
 class MainTests(unittest.TestCase):
     def test_query_subprocess_cannot_outlive_the_wait(self):
         raw = json.dumps({"data": {"repository": {"pullRequest": make_pr()}}})
-        with tempfile.TemporaryDirectory() as folder:
-            gh = Path(folder) / "gh"
-            gh.write_text(f"#!{sys.executable}\nimport time\ntime.sleep(5)\nprint({raw!r})\n")
-            gh.chmod(0o755)
-            with patch.dict(os.environ, {"PATH": folder + os.pathsep + os.environ["PATH"]}), \
+        for ref, slow_command in (("o/r#42", "api"), ("42", "repo")):
+            with self.subTest(ref=ref), tempfile.TemporaryDirectory() as folder:
+                gh = Path(folder) / "gh"
+                gh.write_text(
+                    f"#!{sys.executable}\nimport sys, time\n"
+                    f"if sys.argv[1] == {slow_command!r}: time.sleep(5)\n"
+                    f"print('o/r' if sys.argv[1] == 'repo' else {raw!r})\n"
+                )
+                gh.chmod(0o755)
+                with patch.dict(os.environ, {"PATH": folder + os.pathsep + os.environ["PATH"]}), \
+                        patch("sys.stdout", new_callable=io.StringIO) as stdout:
+                    started = time.monotonic()
+                    exit_code = pr_wait.main([ref, "--timeout", "0.1"])
+                    elapsed = time.monotonic() - started
+                self.assertEqual((json.loads(stdout.getvalue())["verdict"], exit_code), ("TIMEOUT", 5))
+                self.assertLess(elapsed, 2)
+
+    def test_zero_timeout_starts_no_subprocess(self):
+        for ref in ("o/r#42", "42"):
+            with self.subTest(ref=ref), patch("pr_wait.subprocess.run") as query, \
                     patch("sys.stdout", new_callable=io.StringIO) as stdout:
-                started = time.monotonic()
-                exit_code = pr_wait.main(["o/r#42", "--timeout", "0.1"])
-                elapsed = time.monotonic() - started
-        self.assertEqual((json.loads(stdout.getvalue())["verdict"], exit_code), ("TIMEOUT", 5))
-        self.assertLess(elapsed, 2)
+                exit_code = pr_wait.main([ref, "--timeout", "0"])
+                self.assertEqual((json.loads(stdout.getvalue())["verdict"], exit_code), ("TIMEOUT", 5))
+                query.assert_not_called()
 
     def test_once_passes_ignored_check_names_through(self):
         cases = (

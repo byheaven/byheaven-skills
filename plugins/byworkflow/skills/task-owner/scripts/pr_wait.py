@@ -212,7 +212,7 @@ def wait(
     return Verdict("TIMEOUT", [f"deadline reached after {timeout_s:g}s", *last.reasons], last.head)
 
 
-def parse_pr(text: str, repo: str | None) -> PrRef:
+def parse_pr(text: str, repo: str | None, timeout_s: float = 60) -> PrRef:
     url = re.fullmatch(r"https://github\.com/([^/]+)/([^/]+)/pull/(\d+)/?", text)
     if url:
         return PrRef(url[1], url[2], int(url[3]))
@@ -220,7 +220,7 @@ def parse_pr(text: str, repo: str | None) -> PrRef:
     if short:
         return PrRef(short[1], short[2], int(short[3]))
     if re.fullmatch(r"[0-9]+", text):
-        repo = repo or _current_repo()
+        repo = repo or _current_repo(timeout_s)
         owner, _, name = repo.partition("/")
         if owner and name:
             return PrRef(owner, name, int(text))
@@ -237,8 +237,9 @@ def _gh(args: list[str], timeout_s: float = 60) -> str:
     return result.stdout
 
 
-def _current_repo() -> str:
-    return _gh(["repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner"]).strip()
+def _current_repo(timeout_s: float = 60) -> str:
+    return _gh(["repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner"],
+               timeout_s=timeout_s).strip()
 
 
 def fetch_pr(ref: PrRef, timeout_s: float = 60) -> dict:
@@ -315,14 +316,26 @@ def main(argv: list[str]) -> int:
 
     label = args.pr
     ignored = frozenset(args.ignore_check)
+    ref = None
+
+    def fetch(remaining: float) -> dict:
+        nonlocal ref, label
+        started = time.monotonic()
+        if ref is None:
+            ref = parse_pr(args.pr, args.repo, remaining)
+            label = str(ref)
+        remaining -= time.monotonic() - started
+        if remaining <= 0:
+            raise QueryError("deadline reached during reference lookup")
+        return fetch_pr(ref, remaining)
+
     try:
-        ref = parse_pr(args.pr, args.repo)
-        label = str(ref)
         if args.once:
+            ref = parse_pr(args.pr, args.repo)
+            label = str(ref)
             verdict = classify(fetch_pr(ref), ignored)
         else:
-            verdict = wait(lambda remaining: fetch_pr(ref, remaining), args.timeout, args.interval,
-                           time.sleep, time.monotonic, ignored)
+            verdict = wait(fetch, args.timeout, args.interval, time.sleep, time.monotonic, ignored)
     except QueryError as error:
         verdict = Verdict("QUERY_FAILED", [str(error)])
 
