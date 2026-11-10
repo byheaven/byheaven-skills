@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.73.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.0...HEAD)
+
+## [0.74.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.73.0...byworkflow-0.74.0) (2026-11-10)
+
+**Put surplus quota to work** — Tell your Manager a paid plan resets soon with much of
+its quota unused to start useful project work on that plan's models. The run stops at
+90% used or the reset, preserves other plans' allowance, and reports the results once.
 
 ## [0.73.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.72.0...byworkflow-0.73.0) (2026-11-09)
 
