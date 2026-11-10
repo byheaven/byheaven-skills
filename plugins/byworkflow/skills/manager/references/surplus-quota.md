@@ -30,7 +30,7 @@ Stop this surplus work, including work in progress, when a current reading reach
 90% or the known reset arrives, whichever comes first; save unfinished work
 recoverably. If no current usage reading is available, stop at the known reset and
 report the reading as missing; never guess a percentage. Without a known reset time,
-report the missing stop boundary before starting.
+leave the surplus run unstarted and report the missing stop boundary.
 
 After stopping, report once: what ran, what it found and changed, and the usage reading
 at the stop, or that it was missing.
