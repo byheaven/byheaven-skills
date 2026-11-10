@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.2...HEAD)
+
+## [0.74.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.1...byworkflow-0.74.2) (2026-11-10)
+
+### Bug Fixes
+
+- **Surplus quota** Your request to use a mostly unused paid plan starts the run without a reset-time requirement; it stops at 90% used, or finishes only its initial work selection if usage is unavailable
 
 ## [0.74.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.0...byworkflow-0.74.1) (2026-11-10)
 

@@ -1,10 +1,9 @@
 # Surplus quota
 
-The user's message that a paid plan resets soon with much of its quota unused starts
-self-selected work on that plan's models. Turn the surplus into useful project results
-until usage reaches 90% of the plan's allowance (10% left) or the allowance resets,
-whichever comes first. The Manager judges the results under the project's mandate and
-report-after boundary.
+The user's message that a paid plan has much of its quota unused and asks to use it
+starts self-selected work on that plan's models. Turn the surplus into useful project
+results until current usage reaches 90% of the plan's allowance (10% left). The Manager
+judges the results under the project's mandate and report-after boundary.
 
 ## Work worth doing
 
@@ -21,16 +20,15 @@ monitor, or output the user must review.
 
 ## Observable stop
 
-Read current usage and reset time from the plan provider's account usage surface or
-the host's authenticated usage capability, for the allowance window due to reset.
+Read current usage from the plan provider's account usage surface or the host's
+authenticated usage capability, for the plan's current allowance.
 Use plan allowance consumption, not session token counts, cost estimates or a stale
 snapshot. Readings during this run serve its stop condition, not a recurring check.
 
 Stop this surplus work, including work in progress, when a current reading reaches
-90% or the known reset arrives, whichever comes first; save unfinished work
-recoverably. If no current usage reading is available, stop at the known reset and
-report the reading as missing; never guess a percentage. Without a known reset time,
-leave the surplus run unstarted and report the missing stop boundary.
+90%; save unfinished work recoverably. If no current usage reading is available, the
+Manager finishes only the work selected at the run's start, starts no additional work,
+and reports the reading as missing; never guess a percentage.
 
 After stopping, report once: what ran, what it found and changed, and the usage reading
 at the stop, or that it was missing.
