@@ -1,6 +1,26 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.72.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.73.0...HEAD)
+
+## [0.73.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.72.0...byworkflow-0.73.0) (2026-11-09)
+
+**Rule changes hold to full capability** — Governed changes now name the outcome every
+rule, default or definition change must reach: each constraint it adds or keeps carries
+the user's decision or guards a concrete risk, and nothing in it holds the model below
+its full capability.
+
+**The user's remaining caps are settled** — Shared standards stay shared while loading a
+named skill becomes optional; the direction invariant applies only where the user
+reserved the pick of a reviewed object; the owner sizes pull requests; verifier findings
+carry evidence the owner can check (a command for code, location and reasoning for prose
+and design); the verifier's Gate line is retired; review pages and reports carry what the
+user needs to judge each decision.
+
+### Improvements
+
+- **Design and code** Usage-first interface design is a method the agent may choose, not a required order
+- **QA** The five simulated-user behaviours are a reference QA picks from
+- **Closure** Researching how others handle an observed problem is welcome; only structure for unobserved problems stays out
 
 ## [0.72.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.3...byworkflow-0.72.0) (2026-11-09)
 

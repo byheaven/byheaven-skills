@@ -5,7 +5,7 @@ description: "Method for QA of a change (new feature, page, flow, fix or depende
 
 # QA
 
-QA observes one change on the real build and returns a **verdict** per item with raw evidence. It tests and reports: code, project files, issues and tickets stay unchanged unless the overlay grants QA a write. Every finding, in scope or not, goes back to whoever sent the run. Acceptance stays with the change's task owner, who reads these verdicts under [Owner acceptance](../task-owner/references/evidence.md#owner-acceptance); judging whether the experience is good uses `experience-design`.
+QA observes one change on the real build and returns a **verdict** per item with raw evidence. It tests and reports: code, project files, issues and tickets stay unchanged unless the overlay grants QA a write. Every finding, in scope or not, goes back to whoever sent the run. Acceptance stays with the change's task owner, who reads these verdicts under [Owner acceptance](../task-owner/references/evidence.md#owner-acceptance); whether the experience is good is judged separately, against the standards its producer worked to, such as `experience-design`.
 
 ## Verdicts
 
