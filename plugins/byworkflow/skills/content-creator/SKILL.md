@@ -37,7 +37,7 @@ These hold whatever the brief says:
 - When a draft you write speaks for the user, use the user's own claims, positions, and examples; organize and phrase them, and add none.
 - Ground external claims per `references/freshness.md`. In a draft you write, soften an unconfirmed claim to what is known, or cut it; in the user's own writing, report it to them with what you found.
 - The title and opening promise what the body delivers. Present motives you infer as your reading of them.
-- Product copy also holds the `experience-design` skill's red lines.
+- Product copy also holds the [red lines](../experience-design/references/red-lines.md) of `experience-design`.
 
 ## Boundaries
 

@@ -12,10 +12,9 @@ A standing delivery mandate the project records, if any, may remain effective ac
 
 ## Task sizing
 
-When a Manager forms tasks, from a project's queue of open issues or task records or from followup candidates, it groups related items into one task rather than dispatching one task per item, and keeps each group small enough for one producer to deliver. Group before the task's scope is locked; once it is locked, the task-owner method's delivery unit governs its pull requests. A continuation follows the same bound: a selection that would exceed it becomes several bounded tasks dispatched in sequence.
+When a Manager forms tasks, from a project's queue of open issues or task records or from followup candidates, it groups related items into one task rather than dispatching one task per item. Group before the task's scope is locked; once it is locked, its task owner sizes the pull requests under the task-owner method's delivery unit.
 
 - **Group.** Put items in one task when they touch the same surface or code area and are judged by similar acceptance, so one producer, one setup, and one review cover them.
-- **Bound.** A task stays deliverable by one producer as one pull request a reviewer can judge in a single pass, or as a short ordered chain of two or three small pull requests. Split a group that would exceed that at a boundary where each part can be verified and recovered on its own.
 - **Alone.** An urgent fix, or an item that blocks other work, may go out on its own rather than wait for a group.
 
 ## Several Managers
@@ -30,4 +29,4 @@ A project's binding names its peer Managers, each in its own session, and any de
 
 ## Mandate-covered followups
 
-For continue-now and blocked candidates from [Followup routing](../../task-owner/references/closure.md#followup-routing), first check the project's standing delivery mandate. Work covered by an effective mandate is already authorized: cite its scope fit and apply that section's defaults within its bounds, as this Manager's next dispatch sized under [Task sizing](#task-sizing), without asking the user to select it; candidates the mandate does not cover go to the user for selection there. When the mandate permits parallel sessions, covered candidates that depend neither on this delivery nor on that continuation instead become parent-linked records, grouped and bounded under [Task sizing](#task-sizing), unowned and startable now, for a new session to claim; Manager requests that session through the runtime's available channel within the mandate's concurrency limit, and otherwise leaves the record for the mandate's next claim run.
+For continue-now and blocked candidates from [Followup routing](../../task-owner/references/closure.md#followup-routing), first check the project's standing delivery mandate. Work covered by an effective mandate is already authorized: cite its scope fit and apply that section's defaults within its bounds, as this Manager's next dispatch sized under [Task sizing](#task-sizing), without asking the user to select it; candidates the mandate does not cover go to the user for selection there. When the mandate permits parallel sessions, covered candidates that depend neither on this delivery nor on that continuation instead become parent-linked records, grouped under [Task sizing](#task-sizing), unowned and startable now, for a new session to claim; Manager requests that session through the runtime's available channel within the mandate's concurrency limit, and otherwise leaves the record for the mandate's next claim run.
