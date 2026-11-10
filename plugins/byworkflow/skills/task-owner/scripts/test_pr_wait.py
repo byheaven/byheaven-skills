@@ -1,6 +1,9 @@
 import io
 import json
+import os
 import sys
+import tempfile
+import time
 import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
@@ -274,6 +277,30 @@ class WaitTests(unittest.TestCase):
     def setUp(self):
         self.clock = FakeClock()
 
+    def test_zero_timeout_starts_no_query(self):
+        fetch = Mock(return_value=make_pr())
+        verdict = pr_wait.wait(
+            fetch, timeout_s=0, interval_s=1,
+            sleep=self.clock.sleep, monotonic=self.clock.monotonic,
+        )
+        self.assertEqual((verdict.name, verdict.exit_code), ("TIMEOUT", 5))
+        fetch.assert_not_called()
+
+    def test_deadline_precedes_a_late_query_result(self):
+        for result in (make_pr(), make_pr(state="MERGED"), pr_wait.QueryError("query failed")):
+            with self.subTest(result=result):
+                def fetch(*args):
+                    self.clock.sleep(2)
+                    if isinstance(result, Exception):
+                        raise result
+                    return result
+
+                verdict = pr_wait.wait(
+                    fetch, timeout_s=1, interval_s=1,
+                    sleep=self.clock.sleep, monotonic=self.clock.monotonic,
+                )
+                self.assertEqual((verdict.name, verdict.exit_code), ("TIMEOUT", 5))
+
     def test_pending_then_ready(self):
         fetch = Mock(side_effect=[make_pr(mergeable="UNKNOWN"), make_pr()])
         verdict = pr_wait.wait(
@@ -365,6 +392,20 @@ class WaitTests(unittest.TestCase):
 
 
 class MainTests(unittest.TestCase):
+    def test_query_subprocess_cannot_outlive_the_wait(self):
+        raw = json.dumps({"data": {"repository": {"pullRequest": make_pr()}}})
+        with tempfile.TemporaryDirectory() as folder:
+            gh = Path(folder) / "gh"
+            gh.write_text(f"#!{sys.executable}\nimport time\ntime.sleep(5)\nprint({raw!r})\n")
+            gh.chmod(0o755)
+            with patch.dict(os.environ, {"PATH": folder + os.pathsep + os.environ["PATH"]}), \
+                    patch("sys.stdout", new_callable=io.StringIO) as stdout:
+                started = time.monotonic()
+                exit_code = pr_wait.main(["o/r#42", "--timeout", "0.1"])
+                elapsed = time.monotonic() - started
+        self.assertEqual((json.loads(stdout.getvalue())["verdict"], exit_code), ("TIMEOUT", 5))
+        self.assertLess(elapsed, 2)
+
     def test_once_passes_ignored_check_names_through(self):
         cases = (
             (

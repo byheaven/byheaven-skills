@@ -17,7 +17,7 @@ A claim that a change is safe states the strongest level its deciding fact reach
 
 ## Predicate closure
 
-Each predicate closes as **confirmed**, **refuted**, or **unjudgeable**. A refuted predicate blocks completion until repair or reopened Direction settles it. A predicate is unjudgeable only when its judging layer is unreachable from this task at all: users who do not exist yet, an external gate outside the work, or an authorization the user refused; it names the missing layer and the observation that would settle it. A delivery whose unclosed predicates are all unjudgeable completes and names them in the linked evidence.
+Each predicate closes as **confirmed**, **refuted**, or **unjudgeable**. A refuted predicate blocks completion until repair or reopened Direction settles it. Refusal of a required action leaves the unchanged Goal incomplete until the user cancels, pauses or revises it. A predicate is unjudgeable only when its judging layer is unreachable from this task at all: users who do not exist yet or an external gate outside the work; it names the missing layer and the observation that would settle it. A delivery whose unclosed predicates are all unjudgeable completes and names them in the linked evidence.
 
 Only a remaining value, taste, risk, or irreversible-authorization predicate keeps a blocking completion gate, with three answers: done, needs adjustment, pause. "Pause" releases ownership until the user resumes. Otherwise a reversible delivery with complete evidence may complete asynchronously.
 

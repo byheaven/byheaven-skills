@@ -10,7 +10,8 @@ PR is a pull request URL, OWNER/NAME#N, or a bare number. Prints one JSON line:
 Exit codes: 0 READY or MERGED, 2 CONFLICT, 3 REVIEW, 4 CHECKS_FAILED, 5 TIMEOUT,
 6 GATED, 7 QUERY_FAILED, 8 CLOSED, 9 PENDING (only with --once).
 
-Only PENDING keeps polling; every other verdict returns at once. Defaults: --timeout 1800,
+Only PENDING keeps polling; a reached deadline returns TIMEOUT before any query verdict.
+Defaults: --timeout 1800,
 --interval 30 (seconds). --ignore-check NAME leaves a non-gating check out; it may repeat.
 """
 
@@ -176,7 +177,7 @@ def classify(pr: dict, ignored_checks: frozenset[str] = frozenset()) -> Verdict:
 
 
 def wait(
-    fetch: Callable[[], dict],
+    fetch: Callable[[float], dict],
     timeout_s: float,
     interval_s: float,
     sleep: Callable[[float], None],
@@ -184,27 +185,31 @@ def wait(
     ignored_checks: frozenset[str] = frozenset(),
 ) -> Verdict:
     start = monotonic()
+    deadline = start + timeout_s
     failures = 0
     last = Verdict("PENDING", ["no successful query yet"])
     while True:
+        remaining = deadline - monotonic()
+        if remaining <= 0:
+            break
         try:
-            last = classify(fetch(), ignored_checks)
+            last = classify(fetch(remaining), ignored_checks)
             failures = 0
         except QueryError as error:
             failures += 1
             last = Verdict("QUERY_FAILED", [str(error)], last.head)
+        remaining = deadline - monotonic()
+        if remaining <= 0:
+            break
+        if failures:
             if failures >= MAX_CONSECUTIVE_QUERY_FAILURES:
                 return last
         else:
             settling = last.no_checks_yet and monotonic() - start < NO_CHECKS_GRACE_S
             if last.name != "PENDING" and not settling:
                 return last
-        remaining = timeout_s - (monotonic() - start)
-        if remaining <= 0:
-            return Verdict("TIMEOUT", [f"still not terminal after {timeout_s:g}s", *last.reasons], last.head)
         sleep(min(interval_s, remaining))
-        if monotonic() - start >= timeout_s:
-            return Verdict("TIMEOUT", [f"still not terminal after {timeout_s:g}s", *last.reasons], last.head)
+    return Verdict("TIMEOUT", [f"deadline reached after {timeout_s:g}s", *last.reasons], last.head)
 
 
 def parse_pr(text: str, repo: str | None) -> PrRef:
@@ -222,9 +227,9 @@ def parse_pr(text: str, repo: str | None) -> PrRef:
     raise QueryError(f"cannot parse pull request reference: {text!r}")
 
 
-def _gh(args: list[str]) -> str:
+def _gh(args: list[str], timeout_s: float = 60) -> str:
     try:
-        result = subprocess.run(["gh", *args], capture_output=True, text=True, timeout=60)
+        result = subprocess.run(["gh", *args], capture_output=True, text=True, timeout=min(60, timeout_s))
     except (OSError, subprocess.TimeoutExpired) as error:
         raise QueryError(f"gh failed: {error}") from error
     if result.returncode != 0:
@@ -236,14 +241,14 @@ def _current_repo() -> str:
     return _gh(["repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner"]).strip()
 
 
-def fetch_pr(ref: PrRef) -> dict:
+def fetch_pr(ref: PrRef, timeout_s: float = 60) -> dict:
     raw = _gh([
         "api", "graphql",
         "-f", f"query={QUERY}",
         "-f", f"owner={ref.owner}",
         "-f", f"name={ref.name}",
         "-F", f"number={ref.number}",
-    ])
+    ], timeout_s=timeout_s)
     try:
         pr = json.loads(raw)["data"]["repository"]["pullRequest"]
     except (ValueError, KeyError, TypeError) as error:
@@ -316,7 +321,8 @@ def main(argv: list[str]) -> int:
         if args.once:
             verdict = classify(fetch_pr(ref), ignored)
         else:
-            verdict = wait(lambda: fetch_pr(ref), args.timeout, args.interval, time.sleep, time.monotonic, ignored)
+            verdict = wait(lambda remaining: fetch_pr(ref, remaining), args.timeout, args.interval,
+                           time.sleep, time.monotonic, ignored)
     except QueryError as error:
         verdict = Verdict("QUERY_FAILED", [str(error)])
 
