@@ -1,6 +1,26 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.75.0...HEAD)
+
+## [0.75.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.2...byworkflow-0.75.0) (2026-11-10)
+
+**Work runs through ordinary obstacles** — A task owner and a Manager now tell an ordinary
+obstacle (an error, a timeout, a failing tool, a red check, a session that ended early)
+from a blocker someone decided. They diagnose and work through the first, leave the second
+in place and report it, and do the next part where they would have offered to continue.
+
+**The task owner shapes what it delivers** — In work that is your own, the owner merges
+what its change would otherwise duplicate and repairs the defects it meets in what it
+touches, naming each in the report. In a team's repository it holds to that repository's
+rules and routes what it finds as followups.
+
+**Reports read on their own** — Final reports and Manager reports are written for a reader
+who saw none of the session: the conclusion and any decision you owe come first, and each
+sentence stands without the session's context.
+
+### Bug Fixes
+
+- **Roundtable** A Seat is recorded as failed only after the retries worth making
 
 ## [0.74.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.1...byworkflow-0.74.2) (2026-11-10)
 
