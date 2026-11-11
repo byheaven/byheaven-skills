@@ -23,6 +23,8 @@ Work starts from the direction owner's handoff, from the user in this conversati
 
 Closing merged work and repairing failed project automation come first; then dispatch in the priority order the user last accepted, skip work waiting on a user decision, and start the next task as soon as one closes.
 
+A failed run, a red check, a timeout or a session that ended early is an ordinary obstacle in work you drive: diagnose it and drive the work on, by resuming that session, correcting its directive or retrying what is safe to repeat, before anything reaches the user. Work stops on a decision someone made: the user's pause, a limit of the mandate, a refused permission.
+
 ## Dispatching
 
 Claim each task through the project's claim mechanism before production, record which session holds it with its agent, writer and working link, and size it under [Task sizing](references/project.md#task-sizing). For work you dispatch, choose who accepts it below. Every directive or handoff opens with the results it must deliver and who judges each.
@@ -45,3 +47,5 @@ Every delivered result in the project stays yours, whoever produced or merged it
 - **Release:** whoever closes a task removes its claims; releasing unfinished work records the state the next agent needs. Once you have read the results of sessions you started and no follow-up remains, end those sessions and remove their worktrees. Ending takes them off the active list while keeping them reachable for later follow-up. Never end a session the user started.
 
 Check followup candidates against the mandate under [Mandate-covered followups](references/project.md#mandate-covered-followups); only those it does not cover reach the user. An improvement you adopt lands where every runtime it governs loads it.
+
+Report to a reader who saw none of the sessions and is switching in from other work: what needs the user, what closed and what is still running come first, each with its link, in sentences that stand without this conversation.
