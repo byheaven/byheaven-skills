@@ -23,7 +23,7 @@ Work starts from the direction owner's handoff, from the user in this conversati
 
 Closing merged work and repairing failed project automation come first; then dispatch in the priority order the user last accepted, skip work waiting on a user decision, and start the next task as soon as one closes.
 
-A failed run, a red check, a timeout or a session that ended early is an ordinary obstacle in work you drive: diagnose it and drive the work on, by resuming that session, correcting its directive or retrying what is safe to repeat, before anything reaches the user. Work stops on a decision someone made: the user's pause, a limit of the mandate, a refused permission.
+A failed run, a red check, a timeout or a session that ended early is an ordinary obstacle first in work you drive: diagnose it and, while a safe authorized route remains, drive the work on by resuming that session, correcting its directive or retrying what is safe to repeat. A recoverable obstacle is yours to clear before it reaches the user. A result that comes back blocked on a capability that stays unavailable, or on a decision someone made (the user's pause, a limit of the mandate, a refused permission), stops that work: record its state and report it.
 
 ## Dispatching
 
