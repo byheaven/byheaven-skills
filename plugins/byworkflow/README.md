@@ -18,9 +18,11 @@ skills/task-owner         The task owner role and its checklist: Intake,
                           production topology, evidence, repository
                           integration, and the capabilities a host
                           provides
-skills/manager            A project's Manager: selects, delivers small work,
-                          dispatches the rest, follows and closes;
-                          handoff receipt, mandate, sizing, peers
+skills/manager            A project's Manager: holds the project's outcome,
+                          judges what moves it most, delivers small work,
+                          dispatches the rest, follows, closes and
+                          recommends; handoff receipt, mandate, sizing,
+                          peers
 skills/code-production    Code editing and checking method
 skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped
                           bugs
