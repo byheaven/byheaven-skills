@@ -1,15 +1,17 @@
 ---
 name: task-owner
-description: "Own one task through delivery, evidence, integration and acceptance, from its first substantive message: discuss, Grill, confirm the Goal, deliver. Use for work this session may deliver; load the action reference before producing, dispatching, judging or integrating."
+description: "Own one task's result from its first substantive message until acceptance closes: discuss, challenge, Grill, confirm the Goal, deliver. Use for work this session may deliver; load the action reference before producing, dispatching, judging or integrating."
 ---
 
 # Task owner
 
-Paths here are relative to this skill's directory. Keep one task's confirmed Goal, Acceptance, and integration accountable until acceptance closes. Write it yourself or dispatch a bounded slice under P3; whoever executes returns results and evidence to you. This role applies when you hold a task's Goal. A deployment-assigned coordinator or project driver keeps its assignment; a bounded worker or verifier follows its directive instead.
+You own one task's result from its first message until acceptance closes. The Goal is the outcome the user needs, which can differ from the request: read the live facts, challenge a premise they contradict, recommend the better route, and set Acceptance where a leading practitioner would. Then deliver what that outcome needs. What you find on the way (a defect, a simpler design, a sibling the same fix covers) you act on inside the confirmed Scope and the user's allowance, and bring the rest back as a recommendation ready to decide.
+
+Write it yourself or dispatch a bounded slice under P3; whoever executes returns results and evidence to you. This role applies when you hold a task's Goal. A deployment-assigned coordinator or project driver keeps its assignment; a bounded worker or verifier follows its directive instead. Paths here are relative to this skill's directory.
 
 ## Intake and authority
 
-Apply [Direction](references/direction.md) to direct starts and handoffs. A complete authorized handoff keeps its settled Goal; a user-started task forms and confirms its Goal in this conversation. Before the first change, show the Goal and write Scope and Acceptance, each predicate with its true judge, in the task record when one exists, else in the delivery report. Missing Goal, Scope, Acceptance or authority blocks changes. A project driver additionally uses the `manager` skill only where the deployment assigns project queues or loops; task ownership grants neither.
+Apply [Direction](references/direction.md) to direct starts and handoffs. A complete authorized handoff keeps its settled Goal; a user-started task forms and confirms its Goal in this conversation. Before the first change, show the Goal and write Scope and Acceptance, each predicate with its true judge, in the task record when one exists, else in the delivery report. Until Goal, Scope, Acceptance and authority are settled, investigate, run the probes current authority allows and prepare; only changes wait on them. A project driver additionally uses the `manager` skill only where the deployment assigns project queues or loops; task ownership grants neither.
 
 Execution choices within the commitment are yours. Return a choice beyond that authority to the coordinator named by the deployment, otherwise to the user. A dispatched leaf returns it to its dispatcher. Include question, context, recommendation, any proposed wording and what proceeds and what waits in the result, then end the turn; resume this same session when the answer arrives. A queued question is not an answer.
 
@@ -19,7 +21,7 @@ Load the reference each Checklist step names when it triggers. Skills supply met
 
 Choose topology under [Production](references/production.md#topology). Every directive opens with the result its slice must deliver, why it matters and who judges it, and carries settled scope, authority, artifact state, write boundary, model-routing source and result route. A worker or sub-agent is optional, never another task owner. Keep candidate integration and acceptance with the owner.
 
-Inside the confirmed Scope, what you deliver is yours to shape. Where the repository or artifact is the user's own, merge what your change would otherwise duplicate and repair the defects you meet in what you touch, and name each in the report. Where it belongs to a team or another owner, hold to its rules and route what you find through [Followup routing](references/closure.md#followup-routing).
+Where the repository or artifact is the user's own, acting on what you find inside the confirmed Scope includes merging what your change would otherwise duplicate and repairing the defects you meet in what you touch; name each in the report. Where it belongs to a team or another owner, hold to its rules. What lies beyond Scope and allowance goes through [Followup routing](references/closure.md#followup-routing) either way.
 
 Observe [Evidence](references/evidence.md) on the exact final state, including its high-risk route. Invoke the required judge under [Verification carrier](references/runtimes.md#verification-carrier). Existing deterministic checks and repository gates retain their authority; a hook reminder or role load proves neither correctness nor activation elsewhere.
 

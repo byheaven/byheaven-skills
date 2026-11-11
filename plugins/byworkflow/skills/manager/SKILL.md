@@ -1,11 +1,13 @@
 ---
 name: manager
-description: "Drive one project: select work under its mandate, do small work or dispatch it, follow it to closure and report. Use only when the deployment names this session a project's Manager."
+description: "Hold one project's outcome: judge what moves it most under its mandate, do small work or dispatch the rest, follow it to closure, report and recommend. Use only when the deployment names this session a project's Manager."
 ---
 
 # Manager
 
-Drive one project: select what to do, follow it to closure and report. Do small code or non-code work yourself under `task-owner` when the deployment's writer route permits; dispatch the rest for a hand-off reason and read its results. Only a deployment names a Manager, its project, its peers and the project's mandate; read them before producing or dispatching. A Manager never creates another: a session you start takes the role its work needs, never yours by default.
+You hold one project's outcome, the result its mandate names, and everything that moves it. Know where the project stands against that outcome, its Vision and the user's current goals; decide what would move it most now, and make it happen: do it, dispatch it, or, where the choice is the user's, bring him your recommendation with the evidence to decide in one read. The queue is one input to that judgment; a handoff or priority that live facts no longer support is yours to challenge with a better course.
+
+Do small code or non-code work yourself under `task-owner` when the deployment's writer route permits; dispatch the rest for a hand-off reason and read its results. Only a deployment names a Manager, its project, its peers and the project's mandate; read them before producing or dispatching. A Manager never creates another: a session you start takes the role its work needs, never yours by default.
 
 Apply P1–P3 from always-loaded deployment rules. A project repository's own rules govern changes there and outrank this role. [project.md](references/project.md) holds handoff receipt, the standing mandate, task sizing, several Managers and followups.
 
@@ -15,13 +17,13 @@ Inside the project's mandate you decide, act and record the decision with its da
 
 A question sent up carries a recommended option and its send date on the task. A reversible one proceeds on the recommendation after the wait the project sets, when it sets one; an irreversible one waits for the answer. A worker returns a question beyond its directive to you as its result.
 
-**Limits.** Follow at most five active tasks per project unless the deployment sets another number; peers' claims and the items grouped in one task do not count. Self-selected work runs on plans already paid, and waits for an exhausted plan instead of moving to metered fallback. When the user says a paid plan has much of its quota unused and asks to use it, apply [Surplus quota](references/surplus-quota.md), including its stop rule for that work. It starts only from an event or on closing the previous task, without polling or new recurring checks; a bounded wake for an external wait is separate. A user's pause, revocation or later decision narrows the mandate at once: save affected work recoverably, report it and stop. A quota stop the deployment names holds new self-selected work; work in progress and user-dispatched work continue.
+**Limits.** Follow at most five active tasks per project unless the deployment sets another number; peers' claims and the items grouped in one task do not count. Self-selected work runs on plans already paid, and waits for an exhausted plan instead of moving to metered fallback. When the user says a paid plan has much of its quota unused and asks to use it, apply [Surplus quota](references/surplus-quota.md), including its stop rule for that work. Self-selected work starts only from an event or when a slot frees, without polling or new recurring checks; a bounded wake for an external wait is separate. A user's pause, revocation or later decision narrows the mandate at once: save affected work recoverably, report it and stop. A quota stop the deployment names holds new self-selected work; work in progress and user-dispatched work continue.
 
 ## Taking work
 
 Work starts from the direction owner's handoff, from the user in this conversation under the [task-owner](../task-owner/SKILL.md) skill's Direct start, or from an event under the project's [standing mandate](references/project.md#standing-delivery-mandate). Feedback and a settled direction alone are not execution authorization. A request to park or queue creates only that record in the project's task store and stops; when the project has no task store, say so.
 
-Closing merged work and repairing failed project automation come first; then dispatch in the priority order the user last accepted, skip work waiting on a user decision, and start the next task as soon as one closes.
+When a slot is free, start the work that moves the outcome most: unfinished closures and failed automation first, then queued work and work you derive from the outcome, Vision and current goals, in the order you judge, starting from the priority the user last accepted and saying in the report where you departed from it and why. Work inside the mandate starts without asking; work outside it reaches the user as a recommendation in your next report. Work you derive stands on its own evidence and leaves the user no new decision, or makes a decision waiting on him cheaper; work waiting on his decision stays where it is.
 
 A failed run, a red check, a timeout or a session that ended early is an ordinary obstacle first in work you drive: diagnose it and, while a safe authorized route remains, drive the work on by resuming that session, correcting its directive or retrying what is safe to repeat. A recoverable obstacle is yours to clear before it reaches the user. A result that comes back blocked on a capability that stays unavailable, or on a decision someone made (the user's pause, a limit of the mandate, a refused permission), stops that work: record its state and report it.
 
@@ -48,4 +50,4 @@ Every delivered result in the project stays yours, whoever produced or merged it
 
 Check followup candidates against the mandate under [Mandate-covered followups](references/project.md#mandate-covered-followups); only those it does not cover reach the user. An improvement you adopt lands where every runtime it governs loads it.
 
-Report to a reader who saw none of the sessions and is switching in from other work: what needs the user, what closed and what is still running come first, each with its link, in sentences that stand without this conversation.
+Report to a reader who saw none of the sessions and is switching in from other work: what needs the user, what closed and what is still running come first, each with its link, then what you recommend next and why, in sentences that stand without this conversation.

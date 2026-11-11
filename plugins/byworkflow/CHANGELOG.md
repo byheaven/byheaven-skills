@@ -1,6 +1,25 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.75.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.0...HEAD)
+
+## [0.76.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.75.0...byworkflow-0.76.0) (2026-11-11)
+
+**A Manager holds the project's outcome** — A Manager now reads as the owner of its
+project's outcome, not of its queue. It knows where the project stands against that
+outcome, its Vision and your current goals, and judges what would move it most. When a
+slot frees it starts that work: closures and failed automation first, then queued work
+and work it derives itself, in the order it judges, saying in its report where it left
+the priority you last accepted. Work inside the mandate starts without asking; work
+outside it comes to you as a recommendation in the next report, which now ends with what
+the Manager recommends next and why. The mandate, the ask-up list and every limit are
+unchanged.
+
+**A task owner owns the result** — A task owner now opens on the outcome you need, which
+can differ from the request: it reads the live facts, challenges a premise they
+contradict, recommends the better route and sets Acceptance where a leading practitioner
+would. What it finds on the way it acts on inside the confirmed Scope and your allowance,
+and brings the rest back as a recommendation ready to decide. Before the Goal is
+confirmed it investigates, probes and prepares; only changes wait.
 
 ## [0.75.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.2...byworkflow-0.75.0) (2026-11-10)
 
