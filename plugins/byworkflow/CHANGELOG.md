@@ -1,6 +1,38 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.1...HEAD)
+
+## [0.76.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.0...byworkflow-0.76.1) (2026-11-13)
+
+**A rule change carries its dependants with it** — When a change supersedes or
+contradicts other current text (plugin files, deployment rules and bindings, scripts,
+sibling project entries), updating that text in the same change is now part of the
+outcome every rule-class change checks itself against, not a step further down the
+reference.
+
+**Refused means refused** — A blocker someone decided (an off-limits file, withheld
+access, a refused permission, a guardrail) stays in place even when it shows up as a tool
+error. The task owner finishes the work that does not need it and reports the rest
+blocked, instead of looking for another route to the same effect.
+
+**Producer and judge read the same rules again** — The verifier now rebuilds the
+simplest change set that serves the Intent within its scope allowance, as code
+production does, instead of the smallest one, so authorized adjacent fixes are no longer
+flagged. It judges tests by the rules the producer worked to, and judges user-visible
+departures by the Product decision gate's invariants, which workers and code production
+now point to instead of restating. Workers reach the shared-checkout guard directly, and
+polishing rounds are observed by someone without the producer's reasoning.
+
+**Manager fixes** — A Manager's start conditions now include when the deployment lets
+the session start work, a freed slot under the standing mandate, and code work it does
+not do itself. Surplus quota starts from your message alone and takes a usage reading
+before each dispatch and when each result returns, so its 90% stop can fire. Finished
+sessions' worktrees are confirmed gone, leaving host-provided ones to their host.
+
+**Smaller corrections** — QA labels walkthrough findings; the global-rules excerpt names
+the sections that exist; the merge-only boundary for Manager-dispatched tasks is stated
+once; placement follows who acts on a rule; `pr_wait.py` reports a malformed pull-request
+reference at once instead of retrying it for a minute.
 
 ## [0.76.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.75.0...byworkflow-0.76.0) (2026-11-11)
 
