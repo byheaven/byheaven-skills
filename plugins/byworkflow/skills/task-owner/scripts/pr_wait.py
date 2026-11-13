@@ -72,6 +72,10 @@ class QueryError(Exception):
     pass
 
 
+class PrRefError(QueryError):
+    pass
+
+
 @dataclass
 class Verdict:
     name: str
@@ -195,6 +199,8 @@ def wait(
         try:
             last = classify(fetch(remaining), ignored_checks)
             failures = 0
+        except PrRefError:
+            raise
         except QueryError as error:
             failures += 1
             last = Verdict("QUERY_FAILED", [str(error)], last.head)
@@ -224,7 +230,7 @@ def parse_pr(text: str, repo: str | None, timeout_s: float = 60) -> PrRef:
         owner, _, name = repo.partition("/")
         if owner and name:
             return PrRef(owner, name, int(text))
-    raise QueryError(f"cannot parse pull request reference: {text!r}")
+    raise PrRefError(f"cannot parse pull request reference: {text!r}")
 
 
 def _gh(args: list[str], timeout_s: float = 60) -> str:
