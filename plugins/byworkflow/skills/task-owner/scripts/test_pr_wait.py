@@ -392,6 +392,21 @@ class WaitTests(unittest.TestCase):
 
 
 class MainTests(unittest.TestCase):
+    def test_malformed_reference_fails_without_waiting(self):
+        clock = FakeClock()
+        started = clock.monotonic()
+        with patch("pr_wait.time.sleep", side_effect=clock.sleep), \
+                patch("pr_wait.time.monotonic", side_effect=clock.monotonic), \
+                patch("pr_wait.subprocess.run") as query, \
+                patch("sys.stdout", new_callable=io.StringIO) as stdout:
+            exit_code = pr_wait.main(["not a ref"])
+        result = json.loads(stdout.getvalue())
+        self.assertEqual((result["verdict"], result["exit"], exit_code), ("QUERY_FAILED", 7, 7))
+        self.assertEqual(result["pr"], "not a ref")
+        self.assertIn("not a ref", result["reasons"][0])
+        self.assertEqual(clock.monotonic() - started, 0)
+        query.assert_not_called()
+
     def test_query_subprocess_cannot_outlive_the_wait(self):
         raw = json.dumps({"data": {"repository": {"pullRequest": make_pr()}}})
         for ref, slow_command in (("o/r#42", "api"), ("42", "repo")):

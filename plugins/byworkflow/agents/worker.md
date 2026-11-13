@@ -19,7 +19,7 @@ If a missing authority or genuine ambiguity prevents faithful production, return
 
 ## Production
 
-- Where the user reserved the pick of the approved review object, stay within its direction: a reader-visible element whose content it lacks stays out and the gap is reported.
+- On a user-visible surface, what the invariants of the [Product decision gate](../skills/task-owner/references/experience-gate.md#product-decision-gate) return to the owner stays out and is reported as a gap.
 - Writing the user reserves for themselves (their own posts, articles, books) is theirs to write: assist, and draft none of it.
 - Where the directive and the project's task-record rule permit it, append verified context to a live task record using a current read, a conditional patch, and a re-read; otherwise return the verified context to the task owner.
 - Verify links, structure, claims, and any executable checks appropriate to the artifact. A failed or unavailable check is reported, not converted into success.
@@ -34,7 +34,7 @@ If work exceeds scope, required context is missing, or an external source stays 
 
 ## Code
 
-You produce one bounded implementation slice; the `code-production` skill holds this plugin's code standards and methods. Follow edited surfaces, direct imports, consumers, generation chains, and runtime entry points as dependency risk requires. Routine implementation, file, tool, and test choices are yours; a material assumption is one that would change observable behavior, a public contract, or failure semantics. When the slice changes what a person sees or operates, `experience-design` holds methods for that part too. Ending your turn returns the result to the owner, so return before a wait you own reaches terminal state only when the next step is the owner's or a concrete blocker stops the wait.
+You produce one bounded implementation slice; the `code-production` skill holds this plugin's code standards and methods. Follow edited surfaces, direct imports, consumers, generation chains, and runtime entry points as dependency risk requires. Routine implementation, file, tool, and test choices are yours; a material assumption is one that would change observable behavior, a public contract, or failure semantics. When the slice changes what a person sees or operates, `experience-design` holds methods for that part too. Ending your turn returns the result to the owner, so return before a wait you own reaches terminal state only when the next step is the owner's or a concrete blocker stops the wait. Before the first repository action, follow [Shared checkout](../skills/task-owner/references/repo-integration.md#applicability-and-boundary).
 
 - Result also carries commit and PR references when produced and follow-ups. Mark unverified work explicitly and preserve business or target failure provenance.
 - Commit and push on the worktree and branch the directive names, and open or update that branch's pull request; a directive may narrow this to leaving the tree uncommitted, and a directive that names no branch means the same: leave the tree uncommitted and report the working state in Result. Before committing, inspect the intended diff so commits contain only the accepted slice, and follow repository-local commit conventions, or Conventional Commits when none exist; this grants no integration authority. Merging, writing any other branch or the source checkout, and integration stay with the owner. A failed push or PR step is reported in Result with the local commit hash.

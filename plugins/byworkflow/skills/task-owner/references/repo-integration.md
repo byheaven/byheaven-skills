@@ -32,7 +32,7 @@ The project determines which predicates close before merge and which close on ac
 
 Establish the entry's guarantee and participating writers from live project authority. Use atomic stale-state rejection where available; cooperative coordination covers only writers that honor it, so a queue, lock, or final read alone never shows other writers are excluded. Remain within the project's authorized risk boundary; a material uncovered race requires a sufficient project mechanism or a user-owned risk decision before merge. Every dependency wait has a verifiable terminal signal and a bounded lifetime.
 
-For tasks not dispatched by a Manager, observe the actual accepted target after merge. Where admission used a validated candidate, compare its content and provenance under the project's merge strategy; a mismatch leaves integration unverified and blocks reuse of those receipts. Where engineering validation is deliberately post-merge, the original task follows actual-main verification and coordinates necessary recovery before completion; merge alone is not delivery. Preserve the project's declared publication risk boundary rather than inventing candidate proof or outsourcing normal recovery to a new task.
+After merge, observe the actual accepted target unless [Records and closure](../SKILL.md#records-and-closure) ends the task at merge. Where admission used a validated candidate, compare its content and provenance under the project's merge strategy; a mismatch leaves integration unverified and blocks reuse of those receipts. Where engineering validation is deliberately post-merge, the original task follows actual-main verification and coordinates necessary recovery before completion; merge alone is not delivery. Preserve the project's declared publication risk boundary rather than inventing candidate proof or outsourcing normal recovery to a new task.
 
 ## Integration sequence
 
@@ -41,7 +41,7 @@ For tasks not dispatched by a Manager, observe the actual accepted target after 
 3. Join supported findings and repair within locked Intent and Acceptance. Triage hosted review under [PR review triage](#pr-review-triage), diagnose failures through [Failure diagnosis](evidence.md#failure-diagnosis), and remint invalidated predicates through their true judges. An unresolved material semantic predicate blocks integration.
 4. Ensure intentional commits contain only the accepted task diff. Follow repository-local commit conventions, or Conventional Commits when none exist. Push and create or update the PR with the outcome — its Goal and Acceptance when no task record holds them — dependencies, evidence, and known limitations.
 5. Establish the intended update and any project-required pre-merge candidate under [Same-target merge coordination](#same-target-merge-coordination). Close all applicable pre-merge Acceptance predicates, required checks, review blockers, and mergeability conditions. Then use the controlled entry to merge under [Merge authorization](#merge-authorization). Wait on checks, review threads and mergeability through the permitted host continuation under [Wait and wake](runtimes.md#wait-and-wake).
-6. For tasks not dispatched by a Manager, verify the accepted target state. Close remaining actual-main engineering, deployment, and actual-outcome predicates through their appropriate judges before claiming completion. A merge receipt does not prove deployment or user outcome; an environment-only predicate is observed in that environment under existing authorization.
+6. Unless the task ends at merge, verify the accepted target state. Close remaining actual-main engineering, deployment, and actual-outcome predicates through their appropriate judges before claiming completion. A merge receipt does not prove deployment or user outcome; an environment-only predicate is observed in that environment under existing authorization.
 
 ## PR review triage
 
@@ -63,4 +63,4 @@ The task owner triages hosted review findings against the current candidate. Rou
 - Completion asks only for remaining user judgment or irreversible authorization and never removes required true-judge evidence.
 - Required source integration, including the merge when authorized, completes before the terminal task state.
 
-After merge, verify the merged state or accepted target ref for tasks not dispatched by a Manager; record the final checkout reference in the task record's current state, if any, and clean up the task-owned branch.
+After merge, unless the task ends there, verify the merged state or accepted target ref; record the final checkout reference in the task record's current state, if any, and clean up the task-owned branch.
