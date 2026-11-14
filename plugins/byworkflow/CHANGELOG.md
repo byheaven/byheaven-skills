@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.77.0...HEAD)
+
+## [0.77.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.1...byworkflow-0.77.0) (2026-11-14)
+
+**The Manager hands settled work to a task owner** — Once a task's direction is settled and
+execution can start, the Manager dispatches it to a new task owner, code or not, on the model
+the deployment's routing gives that kind of work. It does the work itself only when a handoff
+would cost more than the work and doing it keeps the thread free for the user, such as a quick
+edit or check finished within the turn; its own records, judgments and reports stay its own.
 
 ## [0.76.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.0...byworkflow-0.76.1) (2026-11-13)
 

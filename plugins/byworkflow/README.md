@@ -19,10 +19,10 @@ skills/task-owner         The task owner role and its checklist: Intake,
                           integration, and the capabilities a host
                           provides
 skills/manager            A project's Manager: holds the project's outcome,
-                          judges what moves it most, delivers small work,
-                          dispatches the rest, follows, closes and
-                          recommends; handoff receipt, mandate, sizing,
-                          peers
+                          judges what moves it most, dispatches settled
+                          work to task owners, does only quick work itself,
+                          follows, closes and recommends; handoff
+                          receipt, mandate, sizing, peers
 skills/code-production    Code editing and checking method
 skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped
                           bugs
@@ -113,7 +113,7 @@ license; its notice is in `skills/code-production/LICENSE-pstack`.
 ## Usage
 
 Each role has one definition. `skills/task-owner` owns one task, `skills/manager`
-drives a project and may deliver small work under that skill's dispatch rules,
+drives a project and dispatches settled work to task owners under that skill's dispatch rules,
 `agents/worker` produces one bounded slice,
 and `agents/verifier` judges it. Roles a session holds for its whole life are
 skills so every host can load them; worker and verifier are agents because they
