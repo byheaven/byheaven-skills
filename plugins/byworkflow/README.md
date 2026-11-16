@@ -126,8 +126,10 @@ plugin registers no hook there. The checklist routes each action to its method:
 production for dispatch and the deployment's model routing, repository integration
 for publication and merge, governed changes for rule edits, closure for completion.
 Pi loads the role through the registered `.pi-plugin/task-owner-role.ts` extension,
-which adds the `task-owner` skill body to every run's system prompt; it adds no
-reminder or completion check.
+which adds a role skill's body to every run's system prompt: `task-owner`, unless the
+working directory's `.claude/settings.json` sets `"agent"` to another session role this
+plugin ships (`manager`), the same setting Claude Code reads. It adds no reminder or
+completion check.
 
 Codex reads the role through the `task-owner` skill and registers `worker` and
 `verifier` as deployment profiles; its manifest registers no hooks or agents. The dispatcher reads the deployment's
