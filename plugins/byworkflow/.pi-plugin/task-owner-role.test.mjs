@@ -48,7 +48,7 @@ test('a project whose Claude settings name the manager role gets that role inste
 });
 
 test('an unknown role, an unreadable setting or no setting keeps the default', async () => {
-  for (const settings of [JSON.stringify({ agent: 'flow' }), JSON.stringify({ agent: '' }), '{not json', undefined]) {
+  for (const settings of [JSON.stringify({ agent: 'flow' }), JSON.stringify({ agent: 'constructor' }), JSON.stringify({ agent: '' }), '{not json', undefined]) {
     const dir = project(settings);
     try {
       const sections = await run(dir);

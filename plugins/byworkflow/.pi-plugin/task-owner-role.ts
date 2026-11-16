@@ -23,7 +23,7 @@ export async function projectRole(cwd: string | undefined): Promise<string> {
 	if (!cwd) return DEFAULT_ROLE;
 	try {
 		const agent = JSON.parse(await readFile(join(cwd, ".claude", "settings.json"), "utf8"))?.agent;
-		return typeof agent === "string" && agent in SECTIONS ? agent : DEFAULT_ROLE;
+		return typeof agent === "string" && Object.hasOwn(SECTIONS, agent) ? agent : DEFAULT_ROLE;
 	} catch {
 		return DEFAULT_ROLE;
 	}
