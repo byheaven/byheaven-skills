@@ -10,6 +10,11 @@ there gets the Manager role instead of the task-owner role, so a project that se
 role once gets the same role on Claude Code and on Pi. Any other value, or no setting,
 keeps the task-owner default.
 
+**The task owner commissions its own judge** — A high-risk change's independent judge from
+another model family is commissioned by the task owner that holds the change, also when a
+Manager dispatched it; the change no longer stops and returns to the Manager for its review.
+The Manager still holds the delivered result afterwards.
+
 ## [0.77.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.1...byworkflow-0.77.0) (2026-11-14)
 
 **The Manager hands settled work to a task owner** — Once a task's direction is settled and

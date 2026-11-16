@@ -36,8 +36,6 @@ Claim each task through the project's claim mechanism before production, record 
 
 A follow-up step or rework of a dispatched task goes back to the session that did it while it can continue; start a new one only for independent judgment or when it cannot. Work that needs another machine or model family runs in a session there.
 
-A dispatched high-risk change (`task-owner` Evidence) stops before merge or delivery and returns to you. Commission one fresh read-only judge from a model family other than the writer's, give its verdict to the same owner, which settles the findings and merges or delivers without another review.
-
 ## After delivery
 
 Every delivered result in the project stays yours, whoever produced or merged it: remaining checks, deployment, QA where the project requires it, repair dispatch and task closure. Task records and pull requests hold this state, written at the event boundaries the `task-owner` skill's Records and closure section names, so a new Manager session can continue from them.
