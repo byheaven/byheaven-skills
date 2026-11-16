@@ -2,6 +2,14 @@
 
 ## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.77.0...HEAD)
 
+## [0.78.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.77.0...byworkflow-0.78.0) (2026-11-16)
+
+**Pi takes the project's role** — The Pi extension that loads a session role now reads the
+working directory's `.claude/settings.json`: when its `agent` names `manager`, a Pi run
+there gets the Manager role instead of the task-owner role, so a project that sets its
+role once gets the same role on Claude Code and on Pi. Any other value, or no setting,
+keeps the task-owner default.
+
 ## [0.77.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.1...byworkflow-0.77.0) (2026-11-14)
 
 **The Manager hands settled work to a task owner** — Once a task's direction is settled and
