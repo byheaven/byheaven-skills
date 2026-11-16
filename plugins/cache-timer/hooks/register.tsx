@@ -167,7 +167,7 @@ async function estimateAfterSummary($: EngineInterface, before: number, old: rea
   return Math.round(fixed + writtenTokens + Math.max(0, before - fixed) * keptShare)
 }
 
-const THRESHOLD_PRESETS_K = [300, 500, 700]
+const THRESHOLD_PRESETS_K = [200, 300, 500]
 const NOTIFY_LEAD_PRESETS_MIN = [10, 15, 20]
 
 /** The `/config` key of one of this plugin's fields, as the engine names it. */
@@ -222,7 +222,9 @@ type IdleCompaction = 'on' | 'off' | 'unavailable'
 const IDLE_ROW = 'idleCompaction'
 
 // Claude Code raises a lower idle-compaction minimum to this floor, and uses
-// its default when the variable is unset or not a positive whole number.
+// its default when the variable is unset or not a positive whole number. The
+// mod's own `threshold_k` default is that same default, so an unset option
+// leaves Claude Code's behavior as it is.
 const IDLE_FLOOR_K = 100
 const IDLE_DEFAULT_K = 200
 
@@ -356,7 +358,7 @@ export const register: Register = (on, options) => {
   const option = (field: string, fallback: boolean | number) => overrides[field] ?? options[field] ?? fallback
   const isNotify = () => option('notify', true) !== false
   const notifyLeadMin = () => Number(option('notify_lead_minutes', 10))
-  const thresholdK = () => Number(option('threshold_k', 500))
+  const thresholdK = () => Number(option('threshold_k', IDLE_DEFAULT_K))
   const ttlMode = String(options.cache_ttl ?? 'auto')
 
   const effectiveTtl = (s: CacheClock): CacheTtl => (ttlMode === '1h' || ttlMode === '5m' ? ttlMode : s.ttl)

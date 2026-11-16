@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.6.0...HEAD)
+
+## [0.6.0](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.1...cache-timer-0.6.0) (2026-11-16)
+
+**Claude Code's own threshold by default** — With no threshold set, idle
+compaction now runs from 200k tokens, the same as Claude Code's built-in
+default, so installing the mod or clearing its setting no longer moves the
+threshold. `/cache-timer` offers 200k, 300k, and 500k, or a number you type.
+
+### Breaking Changes
+
+- The default idle-compaction threshold is 200k instead of 500k. If you relied
+  on the old default, set `threshold_k` to `500` under `/config` or pick 500k
+  in `/cache-timer`
+- The 700k preset is gone from `/cache-timer`; type `700` under Other to keep
+  using it
 
 ## [0.5.1](https://github.com/byheaven/byheaven-skills/compare/cache-timer-0.5.0...cache-timer-0.5.1) (2026-11-02)
 

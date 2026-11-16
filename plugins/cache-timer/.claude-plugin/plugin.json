@@ -6,7 +6,7 @@
       "type": "number",
       "title": "Idle-compaction threshold (k tokens)",
       "description": "Claude Code's own idle compaction compacts a conversation shortly before its 1-hour cache expires only when the context holds at least this many thousand tokens.",
-      "default": 500
+      "default": 200
     },
     "notify": {
       "type": "boolean",

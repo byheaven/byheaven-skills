@@ -23,7 +23,7 @@ plugin API). Other agent tools do not load it.
   including the iOS app, do not draw mod UI.
 - **`/cache-timer`**: asks which setting to change, each shown with its
   current value, then the new value, in Claude Code's own question dialog:
-  idle compaction on or off, the idle-compaction threshold (300k, 500k, 700k,
+  idle compaction on or off, the idle-compaction threshold (200k, 300k, 500k,
   or a number typed under Other), and the notification (off, or 10, 15, or 20
   minutes before expiry). Idle compaction is left out where `/config` offers
   no `Idle compaction` row in this session: Claude Code does not run idle
@@ -65,7 +65,7 @@ Code's own `Idle compaction` row, not one of these fields.
 
 | Field | Default | Meaning |
 | --- | --- | --- |
-| `threshold_k` | `500` | Idle compaction runs only when the context holds at least this many thousand tokens |
+| `threshold_k` | `200` | Idle compaction runs only when the context holds at least this many thousand tokens |
 | `notify` | `true` | Send a push notification before a 1-hour cache expires |
 | `notify_lead_minutes` | `10` | Minutes before a 1-hour cache expires to notify |
 | `cache_ttl` | `auto` | `auto` (transcript, then inference), `1h`, or `5m` |
