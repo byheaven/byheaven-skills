@@ -266,7 +266,7 @@ test('the session gets the threshold as Claude Code’s idle-compaction minimum'
   const w = world(on)
   await start($)
 
-  expect(w.thresholds).toEqual(['500000'])
+  expect(w.thresholds).toEqual(['200000'])
   expect(w.registered).toEqual(['cache-timer'])
 })
 
@@ -292,7 +292,7 @@ for (const k of [50, 0]) {
   })
 }
 
-test('a refused threshold is reported, and /cache-timer shows the one Claude Code uses', async ($, on) => {
+test('a refused threshold is reported, and /cache-timer shows the one Claude Code uses', { options: { threshold_k: 500 } }, async ($, on) => {
   mock.clock(on, { now: 1_000_000 })
   const w = world(on)
   w.envDeny = 'held by policy'
@@ -309,9 +309,9 @@ test('a refused /config change leaves the threshold as it was', async ($, on) =>
   await start($)
   w.configDeny = 'locked'
 
-  expect(await changeSetting($, w, 'Threshold (500k)', '700k')).toBe('No change')
+  expect(await changeSetting($, w, 'Threshold (200k)', '500k')).toBe('No change')
   expect(w.toasts).toContain('cache-timer: threshold_k not changed (locked)')
-  expect(w.thresholds).toEqual(['500000'])
+  expect(w.thresholds).toEqual(['200000'])
 })
 
 test('a miss after a 10-minute gap switches to a 5m cache', async ($, on) => {
@@ -496,7 +496,7 @@ test('/cache-timer offers each setting with its current value', async ($, on) =>
 
   expect(await changeSetting($, w)).toBe('No change')
   expect(w.asked).toEqual([
-    { question: 'Which setting?', options: ['Idle compaction (on)', 'Threshold (500k)', 'Notification (10 min before)'] },
+    { question: 'Which setting?', options: ['Idle compaction (on)', 'Threshold (200k)', 'Notification (10 min before)'] },
   ])
 })
 
@@ -506,7 +506,7 @@ test('where Claude Code does not run idle compaction /cache-timer leaves it out'
   await start($)
 
   await changeSetting($, w)
-  expect(w.asked[0]?.options).toEqual(['Threshold (500k)', 'Notification (10 min before)'])
+  expect(w.asked[0]?.options).toEqual(['Threshold (200k)', 'Notification (10 min before)'])
 })
 
 test('idle compaction that starts running mid-session shows after the next turn', async ($, on) => {
@@ -549,16 +549,16 @@ test('/cache-timer sets the threshold from a preset or a typed number', async ($
   const w = world(on)
   await start($)
 
-  expect(await changeSetting($, w, 'Threshold (500k)', '700k')).toBe('Threshold 700k')
-  expect(w.asked[1]?.options).toEqual(['300k', '500k', '700k'])
+  expect(await changeSetting($, w, 'Threshold (200k)', '500k')).toBe('Threshold 500k')
+  expect(w.asked[1]?.options).toEqual(['200k', '300k', '500k'])
   // Typed under Other.
-  expect(await changeSetting($, w, 'Threshold (700k)', '800')).toBe('Threshold 800k')
+  expect(await changeSetting($, w, 'Threshold (500k)', '800')).toBe('Threshold 800k')
   expect(await changeSetting($, w, 'Threshold (800k)', 'lots')).toBe('No change')
   expect(w.configSets).toEqual([
-    { key: 'cache-timer@market.threshold_k', value: 700 },
+    { key: 'cache-timer@market.threshold_k', value: 500 },
     { key: 'cache-timer@market.threshold_k', value: 800 },
   ])
-  expect(w.thresholds).toEqual(['500000', '700000', '800000'])
+  expect(w.thresholds).toEqual(['200000', '500000', '800000'])
 })
 
 test('/cache-timer sets the notification', async ($, on) => {
@@ -580,9 +580,9 @@ test('a dismissed /cache-timer changes nothing', async ($, on) => {
   const w = world(on)
   await start($)
 
-  expect(await changeSetting($, w, 'Threshold (500k)')).toBe('No change')
+  expect(await changeSetting($, w, 'Threshold (200k)')).toBe('No change')
   expect(w.configSets).toEqual([])
-  expect(w.thresholds).toEqual(['500000'])
+  expect(w.thresholds).toEqual(['200000'])
 })
 
 test('a 1h cache sends one push notification 10 minutes before it expires', async ($, on) => {
@@ -659,10 +659,10 @@ test('without /config rows (a desktop-app session) /cache-timer keeps its change
   const w = world(on, { pluginRows: false })
   await start($)
 
-  expect(await changeSetting($, w, 'Threshold (500k)', '700k')).toBe('Threshold 700k')
+  expect(await changeSetting($, w, 'Threshold (200k)', '500k')).toBe('Threshold 500k')
   expect(w.configSets).toEqual([])
   expect(w.toasts).toEqual([])
-  expect(w.thresholds).toEqual(['500000', '700000'])
+  expect(w.thresholds).toEqual(['200000', '500000'])
 })
 
 test('saved settings apply in the next session', async ($, on) => {
