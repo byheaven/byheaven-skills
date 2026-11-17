@@ -1,6 +1,20 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.77.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.79.0...HEAD)
+
+## [0.79.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.78.0...byworkflow-0.79.0) (2026-11-17)
+
+**Projects move without waiting on you** — A Manager can start self-selected work at a daily
+start your deployment schedules, beside events and freed slots; the start picks work and adds
+no monitoring. Before it starts such work it records which of your current goals the work moves
+and why it beats the next candidate, and its weekly report lists that work with each reason and
+outcome, so a choice you overturn corrects the next ranking. With no current goals, or stale
+ones, it only finishes and runs queued work and asks you to set goals.
+
+**Unanswered questions expire** — Once your project's wait passes, a question whose recommended
+action is reversible goes ahead on the recommendation, and any other is withdrawn after the
+longer wait with its reason, for you to reopen. A category of decision your deployment makes
+default-on is carried out without asking and listed with its undo in the next report.
 
 ## [0.78.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.77.0...byworkflow-0.78.0) (2026-11-16)
 
