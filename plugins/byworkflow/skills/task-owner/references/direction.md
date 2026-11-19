@@ -58,7 +58,7 @@ Independent derivation can expose materially different options before a user-own
 
 ## Handoff
 
-A handoff transfers authorized work to its task owner. Its first message carries:
+A handoff transfers authorized work to its task owner. Before sending it, the sender dry-runs the landing against live state and the rules the task will meet, and asks the user every checkpoint it can foresee in one round, each with its recommendation; a category of decision the deployment makes default-on needs no question. The task then runs to closure on that authority, with no gate added on the way. Its first message carries:
 
 - **Outcomes:** the results the work must deliver, each with who judges it.
 - **Intent:** locked Goal, observation, user-selected route or method, and Defaults ledger.
