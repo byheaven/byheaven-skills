@@ -21,7 +21,7 @@ skills/task-owner         The task owner role and its checklist: Intake,
 skills/manager            A project's Manager: holds the project's outcome,
                           judges what moves it most, dispatches settled
                           work to task owners, does only quick work itself,
-                          follows, closes and recommends; handoff
+                          takes over stuck work and recommends; handoff
                           receipt, mandate, sizing, peers
 skills/code-production    Code editing and checking method
 skills/diagnosing-bugs    Feedback loop for a hard bug; classifies escaped

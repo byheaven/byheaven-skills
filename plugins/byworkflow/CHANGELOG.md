@@ -1,6 +1,25 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.79.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.80.0...HEAD)
+
+## [0.80.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.79.0...byworkflow-0.80.0) (2026-11-18)
+
+**Questions go straight to whoever decides** — A task owner settles what its handoff covers,
+sends its Manager only what the Manager's mandate covers, and asks you itself, in its own
+conversation, what only you can decide, wherever your runtime lets you reach it. A Manager
+sends a question that is yours back to the task to ask you, instead of relaying it.
+
+**Checkpoints asked once, before the work starts** — Whoever sends a handoff first dry-runs
+the landing and asks you every checkpoint it can foresee in one round, skipping categories
+your deployment makes default-on; the task then runs to closure on that authority with no
+gates added on the way.
+
+**One report, from the task that did the work** — A task owner carries its task through
+closure, deployment, QA and the task record included, also when a Manager dispatched it. Its
+final message is the one report to you; the Manager gets a copy that asks nothing of it, and
+speaks up only for a problem or an action you owe. The Manager keeps released, abandoned or
+stuck work and coordination across tasks, and its own reports link a result a task already
+reported instead of restating it.
 
 ## [0.79.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.78.0...byworkflow-0.79.0) (2026-11-17)
 
