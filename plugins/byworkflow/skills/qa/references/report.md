@@ -2,7 +2,7 @@
 
 Lead with the overall verdict line, for example `QA <change> at <sha>: 2 FAIL, 1 BLOCKED, 14 PASS (3 qualified)`. Then cover the following, in the arrangement that serves its reader:
 
-1. **Subject**: sha, CI and deploy runs, environment, how the served build was confirmed to contain the change, carriers and who drove each, all times with their zone.
+1. **Subject**: sha, build or CI and deploy runs, environment, how the tested build was confirmed to contain the change, carriers and who drove each, all times with their zone.
 2. **Items**: one row per item: item, verdict with its qualifier, the raw observable, evidence path. A batch of changes on one deploy gets rows per change.
 3. **Regression**: depth, touched features, automated checks run with counts, failures attributed or not to this change, substitutes for features with no map entry.
 4. **Feature-map corrections**: `action | command | observable` triples with evidence.
