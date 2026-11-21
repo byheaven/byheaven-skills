@@ -34,7 +34,7 @@ skills/experience-design  From the job and the journey down to screens
                           that need fewer words, and the words that remain
 skills/grilling           Question rounds that converge a direction (Grill)
 skills/roundtable         One question to several model families, compared
-                          in one saved file (user-invoked)
+                          in one saved file (interactive or unattended)
 skills/writing-for-agents How to write skills, rules, and directives agents
                           follow
 agents/worker             Bounded sub-agent slice: code, design, or knowledge

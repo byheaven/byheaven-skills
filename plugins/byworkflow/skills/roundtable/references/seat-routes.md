@@ -1,21 +1,22 @@
 # Seat routes
 
-How the Host chooses the Seats and reaches each one. Read when choosing the Seats and before running any Seat other than the Host's own.
+How the Host chooses the Seats, resolves their models and efforts, and reaches each one. Read when choosing the Seats and before running any Seat other than the Host's own.
 
 ## Seats
 
-The Seat roster comes from the user's instructions when they name one: each Seat's model family, its source mode (packet-only, web search, or X search), whether that search is required on every run, and its route. Without a named roster, offer every real model family the session can reach, each packet-only unless the user asks a Seat to search, and ask the user to confirm the room before any Seat runs.
+The Seat roster comes from the deployment's instructions when they name one: each Seat's model family, its source mode (packet-only, web search, or X search), whether that search is required on every run, and its route. Without a named roster, offer every real model family the session can reach, each packet-only unless the user or caller asks a Seat to search; in interactive mode, ask the user to confirm the room before any Seat runs.
 
 ## Route kinds
 
-- **Native**: the Host's own model family. The Host writes that Seat's answer directly, separately from its Host synthesis.
+- **Host-native child dispatch**: a fresh, read-only sub-agent or child session launched through the host's native cross-family dispatch capability, given the Seat prompt alone, with no persistent session or write authority. Prefer this route when the host natively dispatches that model family, so Seats run concurrently with clean context isolation and structured receipts.
+- **Native**: the Host's own model family. The Host writes that Seat's answer directly, separately from its Host synthesis, before reading other Seats' answers — or uses host-native child dispatch for its own family when fresh-context isolation from Host reasoning is needed.
 - **CLI one-shot**: a logged-in model CLI run once in print or exec mode, read-only, with no persistent session, from a working directory that holds the packet's sources. The Host may run it on any machine the session can reach where that CLI is installed and logged in, or through the host's configured cross-model launcher when one exists. The roster names each CLI's one-shot shape when it has one.
-- **Manual paste**: the Host prints one exact prompt per Seat, the user runs it in that model's product, and the user pastes the visible answer back. A valid route that needs no API key.
-- **Browser**: only when the user prefers it or nothing else exists. Use a fresh chat, enable only the Seat's source surface, and copy back only the visible answer and references.
+- **Manual paste** (interactive mode only): the Host prints one exact prompt per Seat, the user runs it in that model's product, and the user pastes the visible answer back. A valid route that needs no API key.
+- **Browser** (interactive mode only): only when the user prefers it or nothing else exists. Use a fresh chat, enable only the Seat's source surface, and copy back only the visible answer and references.
 
 Check a CLI before use: `command -v <cli>`, its live `--help` for the one-shot and read-only flags, and a tiny harmless probe when the CLI is migrating or plan-gated. A shape the roster records is a claim to confirm against `--help`, not a fact about any machine. Install or update a CLI only when the user asks. Each Seat run is one-shot and ends with the roundtable: no resumed session, persistent chat bridge, or task-owning agent.
 
-The model and reasoning effort each Seat's CLI runs come from the deployment's model routing when the user's instructions name one, otherwise from that CLI's configured default.
+Resolve each Seat's model and reasoning effort dynamically at run time from the deployment's model routing table when the deployment names one, otherwise from that route's configured default; keep hardcoded model version strings out of routine prompts and rosters. Record the actual resolved model, effort, and route in Seat Status.
 
 ## Seat prompt
 
@@ -44,4 +45,7 @@ A Seat whose source mode requires search searches its surface on every run, repo
 
 ## Failure
 
-A selected Seat that still cannot be reached after the retries worth making is recorded as failed with the reason, and the Host stops and reports it. For a default room, the user is asked whether to continue with the Seats that answered; a Seat the user named as required stops the run unless the user accepts a smaller room. A room needs at least two real model families. Credentials, logins, captchas, paywalls, and usage limits stay with the user: report the block, and offer manual paste.
+A selected Seat that still cannot be reached after the retries worth making is recorded as `failed` with its failure layer and reason. A multi-family room needs at least two real model families.
+
+- **Interactive mode**: stop and report the failure. For a default room, ask the user whether to continue with the Seats that answered; a Seat the user named as required stops the run unless the user accepts a smaller room. Credentials, logins, captchas, paywalls, and usage limits stay with the user: report the block, and offer manual paste.
+- **Unattended mode**: continue without blocking on a user prompt whenever at least two real model families answered. When fewer than two real model families answered, record the single-family or failed limitation explicitly in Seat Status and Host Synthesis and return it to the caller; never substitute another family or simulate a missing Seat.

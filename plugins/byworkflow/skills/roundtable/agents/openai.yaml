@@ -1,6 +1,3 @@
 interface:
   display_name: "Roundtable"
   short_description: "Ask several model families one question and compare"
-
-policy:
-  allow_implicit_invocation: false
