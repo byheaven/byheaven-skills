@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.80.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.81.0...HEAD)
+
+## [0.81.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.80.0...byworkflow-0.81.0) (2026-11-21)
+
+**Tasks close on merge** — Pre-merge verification and QA now close ordinary tasks once
+their pull request merges, without waiting on post-merge deployment or per-PR queued QA.
+Deployed-build QA stays available for release candidates and tasks whose Acceptance
+explicitly requires a deployed observation, and defects found later on a deployed build
+open their own defect task instead of holding closed tasks open.
 
 ## [0.80.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.79.0...byworkflow-0.80.0) (2026-11-18)
 
