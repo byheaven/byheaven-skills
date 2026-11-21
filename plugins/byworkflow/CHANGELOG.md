@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.81.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.0...HEAD)
+
+## [0.82.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.81.0...byworkflow-0.82.0) (2026-11-21)
+
+**Unattended roundtables for routines** — You can now run `roundtable` inside scheduled
+routines and Manager workflows without interactive pauses. Unattended runs use the
+caller's fixed packet and sources, automatically exclude public-search Seats when private
+material is present, skip straight to Host synthesis, and continue cleanly whenever at
+least two real model families answer.
+
+**Host-native Seats and dynamic routing** — `roundtable` now supports host-native
+read-only child dispatch as a first-class Seat route alongside native and CLI one-shot
+runs, resolves each Seat's model and effort dynamically from your deployment's model
+routing table, and lets routines and Managers invoke the skill directly across hosts.
 
 ## [0.81.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.80.0...byworkflow-0.81.0) (2026-11-21)
 
