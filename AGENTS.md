@@ -42,10 +42,8 @@ an email address, or a notes-vault link. It catches known patterns only; the rev
 in meaning. Its `ADAPTER` list names the skill and agent files allowed to name hosts; extend it only
 for a new packaging file there. When a legitimate shared line trips it, rephrase the line.
 
-The Human-Agent Principles P1–P3 in
-`plugins/manager/skills/principles/SKILL.md` mirror the owner's global rules file
-(`AI/AGENTS-global.md` in the byheaven vault), which is their source of truth: change them there
-first, then mirror them here.
+The deployment's always-loaded rules carry P1–P3. Plugin skills and roles apply those
+identifiers; their bodies stay in that source.
 
 ## Plugin Structure
 
@@ -104,13 +102,15 @@ When a skill needs something (e.g., a `AGENTS.md` with a `## Contributor Convent
 
 Before authoring or modifying a skill, ask: *"Can I run this skill on a brand-new project without touching any other skill?"* If the answer is no, fix it.
 
+The `byworkflow` plugin's skills ship and install together and may reference each other by relative link; this rule applies to every other plugin.
+
 ---
 
 ## Skill Authoring: User Input
 
 When a skill needs input from the user, write the question as its own step with its exact text, and
 say how to ask it: the route the host's own instructions name for questions to the user, otherwise
-as [Asking](plugins/manager/skills/task-owner/references/runtimes.md#asking) says. A vague line such as "ask the
+as [Asking](plugins/byworkflow/skills/task-owner/references/runtimes.md#asking) says. A vague line such as "ask the
 user for X" gets answered with a guess instead of asked.
 
 Do this:

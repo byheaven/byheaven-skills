@@ -1,0 +1,1544 @@
+# Changelog
+
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.0...HEAD)
+
+## [0.82.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.81.0...byworkflow-0.82.0) (2026-11-21)
+
+**Unattended roundtables for routines** — You can now run `roundtable` inside scheduled
+routines and Manager workflows without interactive pauses. Unattended runs use the
+caller's fixed packet and sources, automatically exclude public-search Seats when private
+material is present, skip straight to Host synthesis, and continue cleanly whenever at
+least two real model families answer.
+
+**Host-native Seats and dynamic routing** — `roundtable` now supports host-native
+read-only child dispatch as a first-class Seat route alongside native and CLI one-shot
+runs, resolves each Seat's model and effort dynamically from your deployment's model
+routing table, and lets routines and Managers invoke the skill directly across hosts.
+
+## [0.81.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.80.0...byworkflow-0.81.0) (2026-11-21)
+
+**Tasks close on merge** — Pre-merge verification and QA now close ordinary tasks once
+their pull request merges, without waiting on post-merge deployment or per-PR queued QA.
+Deployed-build QA stays available for release candidates and tasks whose Acceptance
+explicitly requires a deployed observation, and defects found later on a deployed build
+open their own defect task instead of holding closed tasks open.
+
+## [0.80.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.79.0...byworkflow-0.80.0) (2026-11-18)
+
+**Questions go straight to whoever decides** — A task owner settles what its handoff covers,
+sends its Manager only what the Manager's mandate covers, and asks you itself, in its own
+conversation, what only you can decide, wherever your runtime lets you reach it. A Manager
+sends a question that is yours back to the task to ask you, instead of relaying it.
+
+**Checkpoints asked once, before the work starts** — Whoever sends a handoff first dry-runs
+the landing and asks you every checkpoint it can foresee in one round, skipping categories
+your deployment makes default-on; the task then runs to closure on that authority with no
+gates added on the way.
+
+**One report, from the task that did the work** — A task owner carries its task through
+closure, deployment, QA and the task record included, also when a Manager dispatched it. Its
+final message is the one report to you; the Manager gets a copy that asks nothing of it, and
+speaks up only for a problem or an action you owe. The Manager keeps released, abandoned or
+stuck work and coordination across tasks, and its own reports link a result a task already
+reported instead of restating it.
+
+## [0.79.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.78.0...byworkflow-0.79.0) (2026-11-17)
+
+**Projects move without waiting on you** — A Manager can start self-selected work at a daily
+start your deployment schedules, beside events and freed slots; the start picks work and adds
+no monitoring. Before it starts such work it records which of your current goals the work moves
+and why it beats the next candidate, and its weekly report lists that work with each reason and
+outcome, so a choice you overturn corrects the next ranking. With no current goals, or stale
+ones, it only finishes and runs queued work and asks you to set goals.
+
+**Unanswered questions expire** — Once your project's wait passes, a question whose recommended
+action is reversible goes ahead on the recommendation, and any other is withdrawn after the
+longer wait with its reason, for you to reopen. A category of decision your deployment makes
+default-on is carried out without asking and listed with its undo in the next report.
+
+## [0.78.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.77.0...byworkflow-0.78.0) (2026-11-16)
+
+**Pi takes the project's role** — The Pi extension that loads a session role now reads the
+working directory's `.claude/settings.json`: when its `agent` names `manager`, a Pi run
+there gets the Manager role instead of the task-owner role, so a project that sets its
+role once gets the same role on Claude Code and on Pi. Any other value, or no setting,
+keeps the task-owner default.
+
+**The task owner commissions its own judge** — A high-risk change's independent judge from
+another model family is commissioned by the task owner that holds the change, also when a
+Manager dispatched it; the change no longer stops and returns to the Manager for its review.
+The Manager still holds the delivered result afterwards.
+
+## [0.77.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.1...byworkflow-0.77.0) (2026-11-14)
+
+**The Manager hands settled work to a task owner** — Once a task's direction is settled and
+execution can start, the Manager dispatches it to a new task owner, code or not, on the model
+the deployment's routing gives that kind of work. It does the work itself only when a handoff
+would cost more than the work and doing it keeps the thread free for the user, such as a quick
+edit or check finished within the turn; its own records, judgments and reports stay its own.
+
+## [0.76.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.76.0...byworkflow-0.76.1) (2026-11-13)
+
+**A rule change carries its dependants with it** — When a change supersedes or
+contradicts other current text (plugin files, deployment rules and bindings, scripts,
+sibling project entries), updating that text in the same change is now part of the
+outcome every rule-class change checks itself against, not a step further down the
+reference.
+
+**Refused means refused** — A blocker someone decided (an off-limits file, withheld
+access, a refused permission, a guardrail) stays in place even when it shows up as a tool
+error. The task owner finishes the work that does not need it and reports the rest
+blocked, instead of looking for another route to the same effect.
+
+**Producer and judge read the same rules again** — The verifier now rebuilds the
+simplest change set that serves the Intent within its scope allowance, as code
+production does, instead of the smallest one, so authorized adjacent fixes are no longer
+flagged. It judges tests by the rules the producer worked to, and judges user-visible
+departures by the Product decision gate's invariants, which workers and code production
+now point to instead of restating. Workers reach the shared-checkout guard directly, and
+polishing rounds are observed by someone without the producer's reasoning.
+
+**Manager fixes** — A Manager's start conditions now include when the deployment lets
+the session start work, a freed slot under the standing mandate, and code work it does
+not do itself. Surplus quota starts from your message alone and takes a usage reading
+before each dispatch and when each result returns, so its 90% stop can fire. Finished
+sessions' worktrees are confirmed gone, leaving host-provided ones to their host.
+
+**Smaller corrections** — QA labels walkthrough findings; the global-rules excerpt names
+the sections that exist; the merge-only boundary for Manager-dispatched tasks is stated
+once; placement follows who acts on a rule; `pr_wait.py` reports a malformed pull-request
+reference at once instead of retrying it for a minute.
+
+## [0.76.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.75.0...byworkflow-0.76.0) (2026-11-11)
+
+**A Manager holds the project's outcome** — A Manager now reads as the owner of its
+project's outcome, not of its queue. It knows where the project stands against that
+outcome, its Vision and your current goals, and judges what would move it most. When a
+slot frees it starts that work: closures and failed automation first, then queued work
+and work it derives itself, in the order it judges, saying in its report where it left
+the priority you last accepted. Work inside the mandate starts without asking; work
+outside it comes to you as a recommendation in the next report, which now ends with what
+the Manager recommends next and why. The mandate, the ask-up list and every limit are
+unchanged.
+
+**A task owner owns the result** — A task owner now opens on the outcome you need, which
+can differ from the request: it reads the live facts, challenges a premise they
+contradict, recommends the better route and sets Acceptance where a leading practitioner
+would. What it finds on the way it acts on inside the confirmed Scope and your allowance,
+and brings the rest back as a recommendation ready to decide. Before the Goal is
+confirmed it investigates, probes and prepares; only changes wait.
+
+## [0.75.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.2...byworkflow-0.75.0) (2026-11-10)
+
+**Work runs through ordinary obstacles** — A task owner and a Manager now tell an ordinary
+obstacle (an error, a timeout, a failing tool, a red check, a session that ended early)
+from a blocker someone decided. They diagnose and work through the first, leave the second
+in place and report it, and do the next part where they would have offered to continue.
+
+**The task owner shapes what it delivers** — In work that is your own, the owner merges
+what its change would otherwise duplicate and repairs the defects it meets in what it
+touches, naming each in the report. In a team's repository it holds to that repository's
+rules and routes what it finds as followups.
+
+**Reports read on their own** — Final reports and Manager reports are written for a reader
+who saw none of the session: the conclusion and any decision you owe come first, and each
+sentence stands without the session's context.
+
+### Bug Fixes
+
+- **Roundtable** A Seat is recorded as failed only after the retries worth making
+
+## [0.74.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.1...byworkflow-0.74.2) (2026-11-10)
+
+### Bug Fixes
+
+- **Surplus quota** Your request to use a mostly unused paid plan starts the run without a reset-time requirement; it stops at 90% used, or finishes only its initial work selection if usage is unavailable
+
+## [0.74.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.74.0...byworkflow-0.74.1) (2026-11-10)
+
+### Bug Fixes
+
+- **Completion** Refused required actions leave the Goal incomplete; Manager-dispatched non-repository work returns its completed artifact and evidence
+- **Managers** Small work can be delivered directly on the permitted writer route; dispatched high-risk reviews are commissioned by the Manager and settled by the task owner
+- **QA** Walkthrough evidence is reusable only after a fresh walkthrough of the same flow and build
+- **Verification** Exact clean candidates respect host-owned worktree branches and cleanup
+- **PR waits** Deadlines take precedence over late query results, and queries run within the remaining wait budget
+
+## [0.74.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.73.0...byworkflow-0.74.0) (2026-11-10)
+
+**Put surplus quota to work** — Tell your Manager a paid plan resets soon with much of
+its quota unused to start useful project work on that plan's models. The run stops at
+90% used or the reset, preserves other plans' allowance, and reports the results once.
+
+## [0.73.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.72.0...byworkflow-0.73.0) (2026-11-09)
+
+**Rule changes hold to full capability** — Governed changes now name the outcome every
+rule, default or definition change must reach: each constraint it adds or keeps carries
+the user's decision or guards a concrete risk, and nothing in it holds the model below
+its full capability.
+
+**The user's remaining caps are settled** — Shared standards stay shared while loading a
+named skill becomes optional; the direction invariant applies only where the user
+reserved the pick of a reviewed object; the owner sizes pull requests; verifier findings
+carry evidence the owner can check (a command for code, location and reasoning for prose
+and design); the verifier's Gate line is retired; review pages and reports carry what the
+user needs to judge each decision.
+
+### Improvements
+
+- **Design and code** Usage-first interface design is a method the agent may choose, not a required order
+- **QA** The five simulated-user behaviours are a reference QA picks from
+- **Closure** Researching how others handle an observed problem is welcome; only structure for unobserved problems stays out
+
+## [0.72.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.3...byworkflow-0.72.0) (2026-11-09)
+
+**Directives state the result, not the method** — A directive now opens with the result
+its slice must deliver, why it matters and who judges it, then gives the facts the
+receiver cannot find. Method, tools, format, length, depth, structure, the skills to use
+and the shape of the result stay with the receiver; a constraint enters only when it
+carries the user's decision, quoted with its source, or guards a named risk. Every
+directive asks the receiver to trust its ability and deliver beyond what the user expects.
+
+**Agents work without hidden caps** — Fixed counts ("1–3 outcomes", "two or three
+versions", "five rounds", "3–5 hypotheses"), "smallest change" wording, light-change
+ceilings and fixed report shapes are gone across task ownership, design rounds, the
+experience gate, the worker and verifier, code production, QA, debugging, writing and
+the roundtable. Workers and verifiers may start their own sub-agents within their
+boundary, workers build prototypes whenever they make the review object better, and QA
+decides depth and which automated suites run.
+
+**Design starts from the product, not the current screen** — Experience design now
+derives the experience from the project's authorities and the person's job, and uses the
+current experience to test that derivation. Familiar interactions stay familiar while the
+look, motion and signature components are the product's own.
+
+### Improvements
+
+- **Writing for agents** Documents are built from outcomes and reference; ordered steps stay only where the order is the user's decision or guards a risk
+- **Code production** Scope follows the user's scope allowance, so an adjacent bug or improvement can be fixed in the same change and reported
+- **Verifier** History, sources and skills are read as far as the judgment needs; the report keeps the machine-read `Gate:` and `Verdict:` lines and frees the rest
+
+## [0.71.3](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.2...byworkflow-0.71.3) (2026-11-08)
+
+### Bug Fixes
+
+- **Rule changes** A changed rule, skill or agent definition no longer has to stay as short as before; it still repeats nothing another file states and leads with its key requirement
+
+## [0.71.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.1...byworkflow-0.71.2) (2026-11-08)
+
+### Bug Fixes
+
+- **Managers** Sessions a Manager starts take the role their work needs rather than inheriting the Manager role by default
+
+## [0.71.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.71.0...byworkflow-0.71.1) (2026-11-08)
+
+### Improvements
+
+- **Managers** Small work can stay with the Manager; follow-ups and rework return to the session that did the work while it can continue
+- **Session cleanup** Managers end sessions they started after reading their results and completing follow-ups, remove their worktrees, and keep them reachable for later follow-up; user-started sessions stay open
+- **Task ownership** Manager-dispatched tasks report the merge SHA and unobserved Acceptance items at merge; the Manager owns post-merge checks and closure
+
+## [0.71.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.70.0...byworkflow-0.71.0) (2026-11-08)
+
+**Fresh eyes polish every new screen** — Each polishing round now starts with a new
+walkthrough on the real build: two or three simulated people with a real goal and
+one reviewer, none of whom saw how the work was made. Each finding names its place
+and a fix, and is reproduced before anyone changes the design. Picking among
+candidates, taste and style stay with their owner.
+
+**QA chooses its own automated suites** — QA decides which automated suites run and
+when. A device farm with a quota spends it on release candidates first, and a
+flow already walked before merge is not walked again after deployment.
+
+## [0.70.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.69.0...byworkflow-0.70.0) (2026-11-07)
+
+**The Manager skill holds the whole role** — Authority, limits, what happens after a
+merge and how tasks close now live in the skill, so a Manager needs no separate role
+file. A deployment supplies only its project, peers, mandate and any different cap;
+without one, a Manager follows five active tasks per project.
+
+**All code goes to its own owner** — Every code task, a bug fix included, now goes to
+a `task-owner` session that writes, verifies, merges and releases its claim. A
+high-risk change stops before merge for one fresh judge from another model family,
+and the same owner settles the findings and merges.
+
+## [0.69.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.2...byworkflow-0.69.0) (2026-11-06)
+
+**Renamed to byworkflow, with one definition per role** — The plugin is now
+`byworkflow`; reinstall it as `byworkflow@byheaven-skills` and remove `manager`. The
+task owner role now lives in the `task-owner` skill and no longer as an agent, so
+the same text serves every host. A Claude Code session loads it by linking
+`~/.claude/agents/task-owner.md` to the skill.
+
+**Manager drives without producing** — A Manager now selects work, dispatches it,
+follows it and closes it. Work the user will discuss goes to a session that owns it;
+bounded work with settled Acceptance, such as a bug fix, goes to a worker the Manager
+accepts itself.
+
+**One worker** — `code-worker`, `designer` and `knowledge-worker` are now one `worker`
+agent whose definition holds the worker's boundaries in its own prompt, with the
+differences per kind of slice as sections of it.
+
+## [0.68.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.1...manager-0.68.2) (2026-11-05)
+
+**Simulators get shut down** — A task now shuts down the simulators it booted when
+it finishes, and so does a QA run. Booted simulators were the largest memory use
+observed on a machine running parallel agents, and nothing turned them off.
+
+## [0.68.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.68.0...manager-0.68.1) (2026-11-05)
+
+**Finished worktrees get reclaimed** — Work in a worktree your host created now
+stays on the branch the host gave it, with one PR per worktree, and a review moves
+that branch to the PR head instead of detaching. A host's automatic cleanup skips
+any worktree whose branch has changed, so switching branches used to leave merged
+work on disk until someone removed it by hand.
+
+## [0.68.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.67.0...manager-0.68.0) (2026-11-05)
+
+**QA for any change, in any project** — A new `qa` skill tells an agent how to
+test a feature, page, flow or fix on the real build: pin what is actually
+deployed, plan items from Acceptance and the touched features, cover the hard
+states, prove side effects from before-and-after state, and report each item as
+PASS, FAIL, NOT RUN or BLOCKED with its evidence. Your project's QA overlay
+supplies who runs it, environments, test accounts and secret rules. The
+task-owner checklist now sends a person-facing change, a change in an
+always-QA class (sign-in, money, user data, privacy, irreversible operations,
+a major dependency bump) or an Acceptance item that needs a live observation to
+`qa` once it is built or deployed; without an overlay, a fresh worker that did
+not produce the change runs it and the task owner accepts its verdicts from the
+raw evidence.
+
+## [0.67.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.66.0...manager-0.67.0) (2026-11-05)
+
+**Review findings come with their run** — A verifier now reports a finding only
+with the command it ran against the real artifact and the output that shows
+the failure; for a document, design or plan, that run is a probe of the current
+tree or a prototype. Findings it did not run, and style, naming or structure
+preferences, go to Rejected. The task owner reruns each finding's command
+before settling it and settles as wrong any finding without a run, or whose
+rerun shows no failure.
+
+## [0.66.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.65.0...manager-0.66.0) (2026-11-04)
+
+**One review for brief and draft** — A writing task no longer waits for you to
+approve its writing brief before drafting. The writer drafts the brief, checks
+it, writes the draft, and hands you the brief and the draft together, so you
+review copy once instead of twice. A brief you have reviewed still covers the
+task's later revisions, and Knowledge Worker and Designer now write and check a
+brief themselves when a directive carries none instead of stopping. Your own
+posts, articles and books stay yours to write.
+
+## [0.65.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.1...manager-0.65.0) (2026-11-03)
+
+**Pi loads only the role** — The Pi extension now adds the task-owner role to
+every run and nothing else: the action reminder and the completion check are
+gone, as they went from Claude Code in 0.64.0. The `--manager-role` flag is gone
+with them; drop it from your `pi` commands.
+
+## [0.64.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.64.0...manager-0.64.1) (2026-11-03)
+
+**Rule edits land without a review** — A change to a rule, skill, agent
+definition or plugin text can be reverted and reaches no other user, so it
+closes on its `writing-for-agents` self-check and the deterministic checks
+unless you name a judge. A cross-family judge is now required only for
+irreversible changes (money, deleting data that cannot be restored) and changes
+that reach real users (their authentication, permissions, payments, privacy or
+data); your deployment's model routing lists the concrete cases.
+
+## [0.64.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.63.0...manager-0.64.0) (2026-11-03)
+
+**No hooks in Claude Code** — The plugin no longer adds a reminder before
+pushes, merges, dispatches or rule edits, and no longer asks a task owner for an
+extra pass before it stops. The role still loads from the `agent` setting, and
+the task-owner checklist routes each of those actions to its method. The
+`pluginConfigs` options for rule paths and the routing table are gone with them;
+you can delete them from your settings.
+
+**Pi keeps its extension** — Pi sessions still receive the role, the action
+reminder and one completion check from the bundled extension.
+
+## [0.63.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.2...manager-0.63.0) (2026-11-03)
+
+**A lighter read for every task** — The task-owner checklist now names each
+reference's trigger, and procedures that only some tasks need moved into their
+own files: rule changes, review presentation, followup closure, design rounds
+(competing candidates and polishing) and consequential plans. The method text every
+task reads drops from about 8,600 to 6,200 words, with no rule dropped.
+
+**One shared worker charter** — The code worker, designer and knowledge worker
+apply one bounded-worker reference and keep only what is specific to them, and
+none of them pins an effort level any more, so your deployment's model routing
+alone picks it.
+
+**Quieter hooks** — The action reminder no longer starts for reads and searches;
+it runs only for shell, edit, dispatch and connector tools.
+
+## [0.62.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.1...manager-0.62.2) (2026-11-03)
+
+**Installs reuse the shared Bun cache** — Code production in a Bun repository
+installs offline from the shared `~/.bun` cache, cloning it when it isn't
+writable, instead of downloading a fresh copy into a private temporary cache.
+
+## [0.62.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.62.0...manager-0.62.1) (2026-11-03)
+
+**Routing decides the no-route case** — When no cross-family judge is available,
+the deployment's routing says what follows; the method no longer grants a
+same-family judge on its own. The rule-text reminder asks for the review the
+deployment assigns, not a fixed one-round review.
+
+## [0.62.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.2...manager-0.62.0) (2026-11-03)
+
+**The host loads the role** — Claude Code sessions take the task-owner role from
+the `agent` setting or `--agent manager:task-owner`; the plugin no longer injects
+it at session start, so the completion check fires for every session started that
+way. Codex, Pi and bot hosts keep their own native role loading.
+
+**Reminders that act** — Hooks now cover publication, merge and dispatch, plus
+edits to the rule paths your deployment lists; the dispatch reminder carries
+your deployment's model-routing table when you configure its path.
+
+**Method from the first message** — The task-owner skill triggers from the first
+substantive message about a piece of work, so discussion and Grill run under its
+direction method, not only delivery.
+
+**What a deployment supplies** — One list names the rules the plugin expects
+from your always-loaded rules; a generated excerpt can carry them to sessions
+that load none. A continuation creates a task record only where the project's
+record rules let this owner do so.
+
+## [0.61.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.1...manager-0.61.2) (2026-11-03)
+
+**One review, then done** — Every review is a single round. The task owner
+settles, repairs and records each finding without asking the verifier to look
+again; a finding beyond its authority goes to you. Design polishing rounds
+are the task owner's own comparisons against the benchmark.
+
+**Experience checks match your risk rules** — An independent verifier walks
+the experience scenarios only when the acceptance rules assign one; otherwise
+the task owner renders and walks them itself. Task owners changing the plugin
+load its role from the repository.
+
+## [0.61.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.61.0...manager-0.61.1) (2026-11-02)
+
+**One evidence policy** — Task owners respect your goal-confirmation and scope
+allowance, and can arrange independent verification of work they produced.
+Design feedback no longer introduces an extra acceptance gate.
+
+**Continuation fits your host** — External waits use the host's permitted
+continuation mechanism. A temporary yield preserves the result route; a missing
+bounded wake remains an explicit capability gap.
+
+## [0.61.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.1...manager-0.61.0) (2026-11-02)
+
+**Keep one accountable owner** — A fixed task-owner role holds the goal and
+acceptance while writing itself or dispatching for a P3 hand-off reason.
+The skill becomes an action checklist, and optional workers stay bounded.
+Local lifecycle adapters load the role and add publication, merge and
+dispatch context; completion reminders apply only to active task owners.
+Pending activity survives compaction, and storage faults retain basic reminders.
+
+**One source for P1–P3** — The deployment's always-loaded rules carry the
+principles. The duplicate skill and its role-loading entries are removed;
+methods use that source and directives carry it to sessions that lack it.
+The task-owner role retains preparation, readable delivery and continuation duties.
+Historical entries below describe their released versions, not current loading.
+
+**Resume the same work** — Routed questions return with context and a
+recommendation, then the turn ends. Dispatchers finish independent work
+without waiting in-turn; writer rework and permitted verifier follow-up
+resume their recorded sessions.
+
+**The owner calls the judge** — The owner invokes it through its harness, or
+the verification launcher its deployment binds, with the model and effort
+deployment routing selects. The carrier
+pins exact state, keeps artifacts read-only and verifies them unchanged;
+non-zero exit or a missing verdict cannot count as success. Judge lines disclose
+any difference between the selected model and the receipt's actual model.
+
+## [0.60.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.60.0...manager-0.60.1) (2026-11-02)
+
+### Bug Fixes
+
+- **Evidence** High-risk rule changes now cover agent permissions and rules guarding credentials or security
+
+## [0.60.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.59.0...manager-0.60.0) (2026-10-31)
+
+**No producer-routed verification** — A directive can no longer hand
+verification to the producer it dispatches. The producer-routed route, its
+forwarding to a verifier endpoint, and its exempt marking are gone; a
+producer returns its work to the task owner.
+
+**Peer duties no longer need a subject key** — Without a default, a duty is
+still taken as a task and the first recorded claim wins; the plugin no longer
+asks for a stable subject key on that task.
+
+## [0.59.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.1...manager-0.59.0) (2026-10-30)
+
+**Share work without a default** — Your project can name peer Managers without
+choosing a default. Project-wide work and repairs that would fall to a default
+are claimed as tasks under a stable subject, so competing claims find the
+same duty and the first recorded claim owns it. Projects with a named default
+keep their existing division of work.
+
+## [0.58.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.58.0...manager-0.58.1) (2026-10-30)
+
+**Your rules load once in Pi** — When a Pi host already puts your
+cross-agent rules in the prompt, the plugin no longer adds a second copy, so
+each run carries them once.
+
+## [0.58.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.57.0...manager-0.58.0) (2026-10-29)
+
+**Questions end the turn** — Questions list recommended-first choices,
+answerable in one step or your own words, and end the turn while you
+decide; your own rules for questions still come first.
+
+## [0.57.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.56.0...manager-0.57.0) (2026-10-29)
+
+**Ordinary changes merge without an independent review** — Outside the
+high-risk class, a predicate now closes on the producer's own check and
+deterministic evidence, rule changes included, so a delivery no longer waits
+for a second agent unless you name one.
+
+**High-risk reviews run alongside the checks** — The other-family review a
+high-risk change still needs runs at the same time as the deterministic
+checks of the same state, so its wait overlaps theirs instead of adding to it.
+
+## [0.56.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.55.0...manager-0.56.0) (2026-10-29)
+
+**Install Manager in Pi** — Pi installs the Manager skills straight from
+this repository with `pi install git:github.com/byheaven/byheaven-skills`.
+
+**Your global rules in every Pi run** — An included extension reads
+`~/.agents/AGENTS.md` at the start of every Pi run and applies it, so Pi
+follows the same rules as your other agents, even where its own config
+directory is recreated for each run.
+
+## [0.55.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.54.0...manager-0.55.0) (2026-10-29)
+
+**Directives stop prescribing tests** — A directive now describes the
+behaviors a slice must get right, not a list of tests to write, so the
+producer decides which tests are worth adding under the test rules instead
+of turning every listed scenario into one.
+
+### Improvements
+
+- **Task owner** A directive's Acceptance slice names behaviors to judge, never tests to write
+- **Code worker** No longer expects the directive to supply its tests
+
+## [0.54.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.53.0...manager-0.54.0) (2026-10-29)
+
+**Fewer, sharper tests** — A task no longer sends a second agent to write
+test cases for a decided requirement while the code is being written. The
+producer writes those cases from the requirement's own words. The review
+before merge now asks whether each new test should exist at all, and a test
+that repeats another one across variants, or that the test rules would not
+add, comes back as a finding to delete.
+
+### Improvements
+
+- **Code production** A decided requirement's test cases come from its statement and no longer need an author other than the producer
+- **Task owner** Directives no longer carry independently written requirement cases, and a task owner producing alone no longer asks a verifier for them first
+- **Verifier** Judges whether each new or changed test should exist as well as whether it can fail, and stops asking for every reachable boundary case
+
+## [0.53.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.1...manager-0.53.0) (2026-10-29)
+
+**Worktrees no longer pile up after a task** — Each session now removes
+the worktrees and scratch it created when its own part of the task ends,
+instead of waiting for a close that a session handing the task on never
+reaches. A session that runs in a worktree the host made for it names that
+worktree when it finishes, and whoever started it ends it once its task
+resolves and checks that the directory is gone.
+
+### Improvements
+
+- **Task owner** Each session removes the worktrees and scratch it created when its part of the task ends, and names anything left, its own host-made worktree included, with machine and path
+- **Verifier** Removes the worktrees and scratch it created before it returns
+
+## [0.52.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.52.0...manager-0.52.1) (2026-10-28)
+
+### Bug Fixes
+
+- **task-owner** The skill description is quoted, so hosts that read skill frontmatter as strict YAML load the skill instead of rejecting it
+
+## [0.52.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.51.0...manager-0.52.0) (2026-10-28)
+
+**Reviews say whether another round is needed** — Every verdict now opens
+with a Gate line listing the open critical or high findings and which of
+them need a follow-up. When it lists no follow-up, the remaining findings
+are fixed and checked against the diff, and the change merges without
+another review. A follow-up looks only at the listed findings and continues
+the first reviewer's session, so it does not reread everything.
+
+### Improvements
+
+- **Verifier** The result opens with a Gate line, whatever report format the directive asks for
+- **Verifier dispatch** The Gate line decides the next round; a medium or low finding never starts one, and a follow-up resumes the first verifier's session
+
+## [0.51.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.50.0...manager-0.51.0) (2026-10-28)
+
+**Design drafts go straight to you** — A proposal, mockup, or candidate
+draft you see before implementation no longer waits on a review by another
+model family; you judge it directly. The change that implements it is still
+judged before merge as before.
+
+### Improvements
+
+- **Owner acceptance** Design-stage artifacts get no cross-family judge; the implementing change keeps its usual judge
+- **Design polishing rounds** Each round's fresh judge may come from any model family
+
+## [0.50.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.49.0...manager-0.50.0) (2026-10-28)
+
+**Derivation on request** — Your first reply with routes no longer waits on
+another model family. Every card that asks you to pick a route offers an
+option to have another family derive independently; picking it runs one
+derivation and brings a new card.
+
+### Improvements
+
+- **Independent derivation** Runs only when the user picks the card option, with one route from one other family; the not-run line is gone
+- **Verifier** Checks the `Independent derivation:` line only when the user picked derivation
+
+## [0.49.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.48.0...manager-0.49.0) (2026-10-28)
+
+**Second family on every route list** — Whenever direction offers you more
+than one route, one of them comes from another model family's independent
+derivation, or the reply says in one line why none ran. A direction with one
+sensible route, a factual lookup, or a pure question is unchanged.
+
+### Improvements
+
+- **Independent derivation** The trigger is now "the direction presents more than one route" instead of four decision classes (0.48.0), so no separate classification is left to the producer
+- **Verifier** Checks the `Independent derivation:` line whenever the direction presented more than one route
+
+## [0.48.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.47.0...manager-0.48.0) (2026-10-28)
+
+**Cross-model derivation by default** — Decisions
+that fix an interface or architecture others depend on, change stored data, are
+costly to reverse, or restructure a user journey get a derivation from another
+model family before you commit. The reply in which you confirm such a decision
+shows that family's routes or divergences, or one line saying none ran and why,
+so you can ask for it.
+
+### Improvements
+
+- **Independent derivation** The default classes run by default again instead of only when another family would likely change the choice (the 0.43.0 wording); other decisions keep the conditional trigger
+- **Record** The handoff, and the task record or else the delivery report, carry one `Independent derivation:` line naming the families that ran and what they changed, or why none ran
+- **Verifier** For a default-class decision, the verifier judges the class itself and checks that line
+- **Task owner** The "bring in another family only when it would likely change" sentence now applies only to evidence judges, not to derivation
+
+## [0.47.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.46.0...manager-0.47.0) (2026-10-28)
+
+### Features
+
+- **Task owner** The task owner is the session holding the task's goal, whoever started it, until acceptance closes; before the first change it writes Scope and Acceptance in the project's task record, else in the delivery report, and an item not yet set reads as missing and blocks the change
+- **Worktrees** Every sub-agent's result names each worktree it created (machine and path) and whether it removed it; at close (merged, abandoned, or done) the task owner has removed every worktree the task created, wherever it lives, and the report or a recurring job's record says so. Post-merge cleanup removes only the branch, so post-merge verification keeps its worktree
+- **Method** A method the user picked binds the task owner and travels in the handoff; the task owner still sets the rest of scope and method
+- **Report** A recurring job reports as its definition says
+
+### Removed
+
+- The handoff's independent-derivation line (already dropped in 0.43.0; Synthesis still says what derivation changed), and duplicate sentences in the task-owner skill (the Contract's Goal-change and explicit-request clauses, the read-only allowance, and Intake's continue-unaffected-work line)
+
+## [0.46.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.45.0...manager-0.46.0) (2026-10-28)
+
+### Features
+
+- **P3** The feasible alternatives compared include removing the structure that produces the problem, not only patching on top of the existing structure
+- **Contributing** The repository `AGENTS.md` names the owner's global rules file, which now holds the role rules and the full P1–P3, as the source the `principles` P1–P3 mirror
+
+## [0.45.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.44.0...manager-0.45.0) (2026-10-27)
+
+### Features
+
+- **P3** A fix is done only when evidence shows its class will not recur: every path that produces it is blocked or its cause no longer exists, checked against a new case of the class; an interim fix also names where the problem can still recur
+- **Intent** For a problem, the Goal's visible result includes its class not recurring; **Owner acceptance** checks a root fix against a new case of the class
+- **Context pointers** Placement follows when a rule must act and how long it must hold: session-long rules are always loaded, an action-triggered rule's pointer is always loaded and names the action, and a rule that contradicts a platform default the user may override is always loaded and says it overrides it
+
+## [0.44.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.1...manager-0.44.0) (2026-10-27)
+
+### Features
+
+- **Intent is the Goal** Direction locks only the Goal, written as the result visible once done; Boundary and Approach are gone, and the task owner sets scope and method by P1–P3 and Acceptance by P2, escalating what lies beyond its authority. Handoff, Reopen Direction, Grill, the Delivery gate, Direct start, the task-owner contract, and the verifier's cancel verdict follow
+- **Direct start** drops its restatement step; the user's own rules say how a direct message is confirmed
+- **Owner acceptance** A predicate judged by taste or value has the user as judge and is marked `judged by the user`
+- **P1** drops the passage that feedback about current work does not itself authorize a new or changed outcome; inferred intent still authorizes no action by itself
+
+## [0.43.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.43.0...manager-0.43.1) (2026-10-27)
+
+### Bug Fixes
+
+- **Direct start** A task the user starts directly sets out its Intent dimensions and waits for the user to confirm or amend them before a delivery or a costly or hard-to-reverse action, even when Grill had nothing to ask; cheap, reversible work opens with one line on what done looks like and who judges it
+
+## [0.43.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.42.1...manager-0.43.0) (2026-10-27)
+
+**Deliverables instead of steps** — The task-owner method is now a one-page
+list of outcomes a reviewer checks, directives open with the outcomes they must
+reach, and a cross-family judge is required only where a mistake is hard to
+undo. Models are stronger now, so the method states results and drops the
+bookkeeping and repeated checks that had piled up.
+
+### Features
+
+- **Task owner** The skill is a one-page deliverables list: contract, outcomes-first directives, evidence, rule changes, integration, escaped bugs, followups, and the report; the fixed basis line becomes "the user can see why", and a delivery with no pull request no longer has to open a task record to hold its evidence
+- **Directives** Every directive opens with the 1–3 checkable outcomes its slice must reach; a bare "load skill X" is not an outcome, and the global-rules excerpt no longer copies P2 verbatim
+- **Rule changes** The line-by-line keep-or-move audit (0.41.0) is replaced by one outcome: each changed file is not longer, repeats nothing, and states its key requirement first
+- **Evidence** Rewritten as a short list of what the evidence must show. A cross-family judge is required for authentication, money, deletion, privacy, irreversible actions, material Vision changes, or a change to an agent's permissions, or to a rule that guards credentials or security; other rule changes can be rolled back and are no longer high-risk
+- **Cross-family steps** Shape candidates, competing-candidate scoring, polishing rounds, design versions, and architecture derivation bring in another model family only when it would likely change the choice; design versions get no per-version verifier pre-check
+
+- **Principles** The core of Project foundations (grounding project work in P1–P3 and the Vision, traceable conclusions, named derivation gaps) now lives in the user's global rules so every session gets it; the skill keeps only the mechanics beyond that core
+
+### Removed
+
+- The verifier finding ledger rows, review replay cases and replays, the per-route choice log, and the `Independent derivation:` handoff line; turn such bookkeeping on only for a named experiment
+- The repeated "read task-owner/principles first" lines in the manager skill, the task-owner skill, and the loading requirement
+
+## [0.42.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.42.0...manager-0.42.1) (2026-10-27)
+
+### Bug Fixes
+
+- **Principles** P3 now says that when the same correction recurs, you first find why it recurs, such as a rule too long to hold, an outcome not stated clearly, or the wrong owner, and fix that cause without piling on instruction text; an executable check is one option among others, not the default
+
+## [0.42.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.41.0...manager-0.42.0) (2026-10-27)
+
+**Bug diagnosis ships with the plugin** — The `diagnosing-bugs` skill is now
+part of the plugin, so every session that installs it builds a feedback loop
+before theorizing about a hard bug and classifies a bug that reached users or
+production the same way.
+
+### Features
+
+- **diagnosing-bugs** New skill, adapted from mattpocock/skills: build one red-capable, deterministic, fast command that observes the failure, minimize, rank falsifiable hypotheses, fix with a regression test, and classify an escaped bug as a registered-assertion regression or a new behavior gap, recorded on the task record or, without one, in the evidence the report links
+- **Evidence** An escaped bug is classified with the `diagnosing-bugs` skill instead of "a bug-diagnosis skill if one is installed"; an install without it reads the skill from the repository
+
+## [0.41.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.40.0...manager-0.41.0) (2026-10-27)
+
+**Rule reviews audit every line** — A change to a rule or an agent definition
+now gets a line-by-line review against the `writing-for-agents` tests, with a
+keep-or-move verdict for each line, so content that belongs elsewhere is moved
+instead of trimmed.
+
+### Features
+
+- **Governed changes** Agent-definition changes now go through Governed changes too, and a rule or agent-definition change names, as an Acceptance item of its review, a line-by-line audit of each touched file against the `writing-for-agents` branch-disclosure, relevance, and no-op tests, with a keep-or-move verdict for every line
+- **Global-rules excerpt** Any directive, derivation packet, or verifier hand-over to a session that does not load the user's global rules carries what it needs from them: reply language, the user-owned P1 boundaries and floors, P2's two evidence sentences, and that questions go back to the dispatcher
+- **writing-for-agents** The single source of truth states only the current state; every other document links to it, and a summary or synced copy names its source
+
+### Documentation
+
+- **Contributing** The repository `AGENTS.md` names the owner's role rules file as the source the `principles` P1–P3 mirror
+
+## [0.40.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.39.0...manager-0.40.0) (2026-10-27)
+
+**No session-start hook** — The plugin no longer ships a `SessionStart` hook for
+Claude Code or Codex, so nothing runs when a session starts and Codex no longer
+asks you to review and trust a plugin hook.
+
+### Breaking Changes
+
+- **Hook** The `SessionStart` hook and its git-currency notice are removed; check whether a checkout is behind its remote yourself when it matters
+
+### Bug Fixes
+
+- **README** The cloud-host note names `task-owner`, not `manager`, as the skill a cloud host loads
+
+## [0.39.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.38.0...manager-0.39.0) (2026-10-27)
+
+**No default role at session start** — The `SessionStart` hook no longer tells
+Claude Code and Codex sessions to load the `manager` skill. It now only tells an
+interactive session when its checkout is behind the remote, and otherwise adds
+nothing.
+
+### Breaking Changes
+
+- **Hook** New Claude Code and Codex sessions are no longer told to take the Manager role
+- **Hook** A session the hook cannot place as interactive now gets no output at all
+
+## [0.38.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.37.0...manager-0.38.0) (2026-10-27)
+
+**Task owner and Manager are separate roles** — Any session that delivers a task
+now uses the new `task-owner` skill: it locks the task, delivers it through
+sub-agents, closes acceptance through independent verification, merges under
+your standing grant, and reports. The `manager` skill now holds only what a
+project's Manager adds on top: receiving handoffs, working inside a standing
+delivery mandate, sizing tasks from a queue, and sharing a project with other
+Managers. A session is a Manager only when your deployment's own instructions
+name it one; a standalone session asks you in its own conversation, records its
+work on the pull request, claims an existing issue through the project's own
+mechanism, leaves parked and queued work for the project's Manager, and continues
+only the followups you select.
+
+### Breaking Changes
+
+- **Skills** The delivery references (`direction`, `evidence`, `experience-gate`, `production`, `repo-integration`, `runtimes`) and `scripts/pr_wait.py` moved from `skills/manager/` to `skills/task-owner/`; update links that point at the old paths
+- **Skills** The `manager` skill no longer matches a session that merely delivers a task; load it only where your deployment names the session a project's Manager, and it loads `task-owner` first
+- **Evidence** `Manager acceptance` is now `Owner acceptance` (anchor `#owner-acceptance`)
+- **Production** Task sizing, Several Managers, and mandate-covered followups moved to `skills/manager/references/project.md`
+
+### Improvements
+
+- **Verification** On the producer-routed route, the verifier endpoint runs one repair round: it sends repairable findings straight to the producer, returns scope, direction, and taste findings to the task owner, and re-verifies only a declared follow-up case
+
+## [0.37.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.36.0...manager-0.37.0) (2026-10-27)
+
+### Improvements
+
+- **Verification** Follow-ups focus on one declared case, mechanical repairs close on checks, and questions still open after two follow-ups return to you
+
+## [0.36.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.2...manager-0.36.0) (2026-10-27)
+
+**Direct verification from workers** — Manager can now delegate verification
+routing in the directive. Workers make a checkable risk classification, send
+required reviews directly to the verifier with the fixed directive fields, and
+record every route choice; exempt work arrives marked as not verified. The
+verifier chooses its model family and returns all findings and the final verdict
+to Manager, who retains acceptance and merging.
+
+### Improvements
+
+- **Verification** Delegated workers route required reviews to the named verifier and record exemptions for Manager acceptance
+- **Principles** P1 now lets the agent widen, narrow, or redirect the scope of authorized work within a scope allowance the user sets, reporting each change afterwards; anything outside the allowance stays a recommendation
+
+## [0.35.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.1...manager-0.35.2) (2026-10-27)
+
+### Bug Fixes
+
+- **Principles** P2 now treats any agent's account of its own work as a claim rather than evidence, and delegates a decision only where an independent judge or a later trace can check it
+- **Principles** P3 now names the five reasons a hand-off between agents can have (authority, independent information, context isolation, concurrency, or a missing capability or environment); relay, role labels, tidiness, and a same-family second look are not reasons
+
+## [0.35.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.35.0...manager-0.35.1) (2026-10-26)
+
+### Bug Fixes
+
+- **Principles** P3 now says the simplicity test holds between agents too: keep chains of hand-offs short, since each hand-off must add new information, such as an independent review or a required authority, and one that adds neither is removed
+
+## [0.35.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.1...manager-0.35.0) (2026-10-26)
+
+**Works with any host as is** — The plugin now states what Manager needs
+from a host (loading, asking, dispatching sub-agents, isolation,
+verification, waiting, review carriers, merging, completion) and lets your
+agent meet each need with its host's own tools. Per-host binding files are
+gone; a binding your own instructions name still applies, and a need the
+host cannot meet is reported as blocked.
+
+**No one person's setup built in** — Roundtable takes its Seat roster,
+search requirements, and CLI shapes from your instructions, and Seats reply
+in your language; its session file goes to a scratch directory outside the
+repository. Writing
+you reserve for yourself (your own posts, articles, books) is yours to
+write: Content Creator assists, and drafts none of it. It no longer ships
+one person's platform limits or skip-and-revision rules, and example paths
+are placeholders instead of one machine's layout.
+
+### Breaking Changes
+
+- **Manager** `runtime-claude.md`, `runtime-codex.md`, and `runtime-grokbot.md` are removed; name your host binding in your own instructions if you relied on them
+- **Roundtable** The built-in Seat roster and CLI shapes are removed; without a roster in your instructions, the Host offers the model families it can reach and confirms the room with you
+- **Content Creator** `references/platforms.md` and `references/anti-perfectionism.md` are removed, along with the built-in procedure for assisting personal posts, articles, and books
+- **Principles** The first-reply restatement rule is removed, and Discussion no longer opens with a restatement round
+
+### Improvements
+
+- **Code Production** The shared-checkout rule links the current repository-integration reference on `main` instead of a pinned commit
+- **Writing for Agents** Refers to the project instruction file instead of naming host-specific file names
+
+## [0.34.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.34.0...manager-0.34.1) (2026-10-26)
+
+### Bug Fixes
+
+- **Codex** Required confirmations use a question route that keeps dependent work waiting for your answer, with a direct text question when no suitable native tool is available
+
+## [0.34.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.33.0...manager-0.34.0) (2026-10-25)
+
+**Fewer, lighter reviews** — Work that needs an independent judge gets one
+review round from another model family by default, and a fix the verifier
+spelled out closes on a diff check instead of a second round. A follow-up
+runs only for an unresolved critical or high finding, or a fix that changes
+behavior beyond what was prescribed. Outside the high-risk class,
+documentation and records, corrections that change no meaning, hash-checked
+mirrors, version metadata, and test path fixes close on the producer's own
+check and deterministic evidence, with no independent judge.
+
+## [0.33.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.32.0...manager-0.33.0) (2026-10-25)
+
+**Related issues travel together** — When Manager dispatches work from a
+queue or turns followups into new work, it now groups issues that touch
+the same area and are judged the same way into one task instead of sending
+one task per issue, so setup and review happen once and your limit on tasks
+in flight covers more of the queue. Each task still stays small enough for
+one producer: one pull request a reviewer can judge in a single pass, or a
+short chain of two or three. Urgent fixes and blockers can still go out on
+their own.
+
+## [0.32.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.31.0...manager-0.32.0) (2026-10-25)
+
+**Every request starts with a restatement** — The `principles` skill now
+carries the first-reply rule. Your first reply to a request is a restatement
+of the intent the agent infers, what you observed, and your assumptions with
+evidence, and it acts only after you confirm. The only exceptions are a
+factual question about current state, an answer to a question the agent just
+asked, and a request to continue the current work. Every host and cloud
+session that loads the plugin gets it, not only the ones that read your global
+rules.
+
+## [0.31.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.1...manager-0.31.0) (2026-10-25)
+
+**Several Managers can share a project** — When your project binding names
+more than one Manager working at once, they divide the work by claim. Each
+takes only tasks no other Manager has claimed and owns them to closure, and a
+limit on work in flight counts each Manager's own dispatches. Every duty has
+exactly one owner, with the default Manager your binding names taking
+whatever no one owns, including the one list of questions for you. When the
+shared branch goes red, only the Manager that merged the failing commit
+dispatches the repair, so two Managers no longer fix the same failure.
+
+## [0.30.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.30.0...manager-0.30.1) (2026-10-25)
+
+**Work threads keep their roles** — A session whose project instructions or
+starting brief give it a role other than Manager, such as one that delivers a
+given task and leaves claiming, dispatch, and closure to a Manager, now takes
+that role instead of loading Manager. Conversations you start directly, and
+sessions assigned Manager, still load it.
+
+## [0.30.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.29.0...manager-0.30.0) (2026-10-24)
+
+**Restatements cite what you decided before** — Before restating your
+request, Manager looks up the decisions, experiments, and records it touches
+and cites them as the evidence for the intent it infers and for or against
+each of your assumptions. In a blind replay of three real cases this raised
+intent capture on both ambiguous requests and left clear questions answered
+directly.
+
+## [0.29.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.28.0...manager-0.29.0) (2026-10-24)
+
+**Your real intent comes first** — Every Discussion now opens with a round of
+its own that states the intent Manager infers from the whole context, what
+you observed, and each assumption your request carries, marked as yours with
+the evidence for or against it. You confirm or correct it before any
+diagnosis, and confirming it starts no work.
+
+**Cross-model designs by default** — Decisions that fix an interface or
+architecture others depend on, change stored data, are costly to reverse, or
+restructure a user journey now get derivations from another model family
+without anyone first naming a blind spot. Interface routes return a usage
+sketch, and that sketch is what you review in Grill. Open shape commitments
+in Delivery are drafted by two model families as competing candidates.
+
+**Evidence over abstract plan review** — Open questions in a plan are
+answered by probes and prototypes. The "meet Acceptance yet fail its purpose"
+review now runs only for plans costly to reverse, and the polishing loop
+covers designs, not plans.
+
+### Improvements
+
+- **Competing candidates** Selection fixes its criteria before fan-out, has
+  Manager and a judge from another family score independently and compare,
+  and reframes the task instead of averaging when candidates diverge too far
+  to pick
+- **Experience gate** Heavy and medium versions are drafted by producers from
+  different model families where available
+- **Code production** A new or reshaped interface starts from its README-style
+  usage and real call sites, then derives the types from them
+- **Basis line** Names only the principles that changed the choice and what
+  each ruled in or out
+- **Independent derivation** An unavailable or out-of-quota family falls back
+  to the next one the deployment's model routing names, and a missing
+  cross-family route is stated with the decision it affects
+- **Roundtable** Seat models and effort come from the deployment's model
+  routing when one is named
+
+## [0.28.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.27.0...manager-0.28.0) (2026-10-24)
+
+**One skill is the role** — The `manager` skill now holds the whole Manager
+role and reads the `principles` skill directly, so the role lives in one
+place on every host. Claude Code gets it the way Codex already does: the
+plugin's startup hook loads the skill.
+
+**Manager without the plugin** — Installing only the skills, for example
+with `npx skills add`, now gives you the full Manager role. Worker and
+verifier agents still come with the plugin.
+
+### Breaking Changes
+
+- The `manager` agent and its `manager:manager` agent type are gone, so remove
+  `"agent": "manager:manager"` from your Claude settings and any
+  `--agent manager:manager` flag from your launch commands, since the hook now
+  loads the role
+
+## [0.27.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.6...manager-0.27.0) (2026-10-24)
+
+**Manager works in Codex** — A new Codex runtime binding tells Manager how
+Codex loads the role and finds the plugin's files, and how it dispatches
+workers and verifiers as fresh-context sub-agents and asks you questions. When
+Codex cannot resume a long wait, Manager reports the wait as blocked instead
+of pretending it waits.
+
+**One method on every host** — The role, skills, and references no longer
+name a host, its tools, or a model. Each host's mechanics live in its runtime
+binding, listed in one index, and the Claude Code binding now also covers
+questions, sub-agents, and waits.
+
+**Your setup stays yours** — The Grok Bot binding describes only Grok Bot's
+mechanisms; which bots own direction, take your questions, write, and verify
+come from your own deployment binding. `content-creator` no longer bundles a
+copy of one person's notes-vault rules or assumes who you are: a workspace's
+own document rules load with that workspace.
+
+### Improvements
+
+- The roundtable stays user-invoked in Codex too, keeps its seat roster next
+  to its routes, and asks you exact questions through your host's question
+  route
+- `writing-for-agents` names the user-invoked metadata of each host
+- The `content-creator` skill no longer shows a stale version of its own, so
+  the manager plugin's version is the only one to compare when updating
+
+## [0.26.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.5...manager-0.26.6) (2026-10-23)
+
+**Your runtime binding picks the machine and model** — On Grok Bot, the
+writer and verifier CLIs run on whichever machine your runtime binding names
+for each one, instead of one fixed machine. The `code-worker` and `verifier`
+agents no longer pin a model or effort, so they run on the host's default
+unless you choose one. The roundtable seats `@Claude` whenever a logged-in
+route exists, like the other families.
+
+**Scripted Claude runs leave the repository alone** — A `claude -p` or Agent
+SDK run, such as a writer or judge another agent launches, no longer gets the
+Manager loader line or runs the branch-currency fetch, so the hook writes
+nothing into that run's repository. `codex exec` runs already worked this way.
+The fetch now runs only in a session the hook recognises as interactive; a
+session it cannot place still gets the loader line, without the fetch.
+
+## [0.26.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.4...manager-0.26.5) (2026-10-23)
+
+**Typed answers on your terms** — When your global rules require option
+cards to end with a free-text option, Manager report Decisions and roundtable
+questions now include it, so you can type your own answer.
+
+## [0.26.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.3...manager-0.26.4) (2026-10-23)
+
+**Scripted Codex runs keep their own role** — A `codex exec` run, such as a
+writer or judge another agent launches, no longer receives the Manager
+loader line or the branch-currency notice, so it works under the charter its
+directive names. Interactive Codex sessions still start as Manager.
+
+## [0.26.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.2...manager-0.26.3) (2026-10-22)
+
+**Follow-up rounds stay on the pull request** — A Codex session is told to
+move to a fresh worktree only when the branch's own same-named remote branch
+has commits it lacks. A branch that merely tracks `main` or another branch now
+only hears that that branch has newer commits.
+New slice branches are created without tracking `main`, and a follow-up round
+on an open pull request works at that pull request's head.
+
+## [0.26.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.1...manager-0.26.2) (2026-10-22)
+
+**Your project's own checks come first** — When a project names its own
+decisive check for the screens a change touches, Manager follows it instead of
+rerunning every registered end-to-end check before acceptance. When a
+repository has a written testing standard, code workers follow it instead of
+the plugin's own testing rules.
+
+## [0.26.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.26.0...manager-0.26.1) (2026-10-22)
+
+**Every question for you arrives in one place** — On Grok Bot, a bot sends
+every question or decision it needs from you to Flow, even in a chat you
+started with that bot; Flow answers it or brings it to you. Grilling,
+roundtable, and Manager reports with decisions also follow where your global
+rules send such questions, not only their format.
+
+## [0.26.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.6...manager-0.26.0) (2026-10-22)
+
+**Verifiers judge by the producer's standards** — A verifier now loads the
+same standard skill the producer applied to that kind of work (code, writing
+for people, agent-facing rules, or user-facing design) and cites the rule
+behind each finding. Its directive carries the approved writing brief, the
+approved review object, and the governed-change excerpt where they apply.
+
+## [0.25.6](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.5...manager-0.25.6) (2026-10-22)
+
+**Problems get fixed at their cause** — P3 now asks agents to find what
+produces a problem and fix it there before picking the simplest solution. A
+probe, periodic check, monitor, or workaround that leaves the cause in place
+counts only as a labeled interim step.
+
+## [0.25.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.4...manager-0.25.5) (2026-10-22)
+
+**Your writer choice takes precedence** — On Grok Bot, Manager passes your named
+writer to Code Worker, overriding the routing rule. Without a named writer,
+Code Worker follows your runtime binding's writer-selection rule.
+
+## [0.25.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.3...manager-0.25.4) (2026-10-22)
+
+**A verifier bot can check your work** — On Grok Bot, your runtime binding can
+name a shared verifier bot that runs each check on another model family, while
+Manager still decides acceptance and merging.
+
+## [0.25.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.2...manager-0.25.3) (2026-10-22)
+
+**Questions follow your own format** — When your global rules say how a
+message that needs your reply should look, grilling rounds, roundtable
+questions, and Manager reports with decisions now use that format.
+
+## [0.25.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.1...manager-0.25.2) (2026-10-22)
+
+**More models can check your code** — Grok Bot uses your runtime binding to
+choose writers and read-only verifiers from different model families.
+
+## [0.25.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.25.0...manager-0.25.1) (2026-10-22)
+
+**Writer choice stays yours** — On Grok Bot, only a writer you name overrides
+the selection rule, and directives leave both CLI models unchanged.
+
+## [0.25.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.4...manager-0.25.0) (2026-10-21)
+
+**Code written on your Mac** — On Grok Bot, the Codex CLI or the Cursor CLI
+on your Mac mini writes the code instead of Cursor cloud agents. Manager
+verifies that code on the other model.
+
+## [0.24.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.3...manager-0.24.4) (2026-10-21)
+
+**Tasks you start with Manager are discussed there** — A task you start
+directly with Manager is discussed and locked in that conversation with the
+same direction method, then delivered there. Once delivery starts, a decision
+that needs you uses the runtime's external ask route when it has one, and
+otherwise asks you in that session.
+
+## [0.24.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.2...manager-0.24.3) (2026-10-21)
+
+**Questions follow Asking** — In Grok Bot, a question or decision that
+needs you follows the runtime Asking rule. A review object stays in a form
+your client can open, and a P1 product-direction item stays marked for you
+to judge and is never scored. Roundtable and newproject follow that rule.
+
+## [0.24.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.1...manager-0.24.2) (2026-10-21)
+
+**Design slices stay with Designer** — A flow, a screen, its states, or its
+interface copy belongs to the designer agent. Knowledge Worker returns a
+slice like that as out of scope.
+
+## [0.24.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.24.0...manager-0.24.1) (2026-10-21)
+
+**Shared checkout stays put** — A checkout other sessions also use keeps
+the branch and commit where a session found it. Coding and verification,
+including sub-agents and cloud agents, run in that session's own worktree.
+When the branch is behind, the session-start notice tells you to work from
+a fresh worktree off the remote branch. The verifier runs its checks only
+in a worktree of its own, and cross-family verification follows that same
+rule. Permission to work on the current branch applies only to a checkout
+this session alone uses. The code-production skill follows that rule before any repository action,
+including an install, build, test, or check, and the link is pinned to the
+commit that contains the rule so a standalone install does not read an older copy.
+
+## [0.24.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.23.0...manager-0.24.0) (2026-10-21)
+
+**Manager delivers; direction is settled elsewhere** — Manager is now the
+delivery role of a project, not the place where you discuss ideas. You settle
+direction (Discussion, Grill, independent derivation) with a separate
+direction owner, which hands Manager the locked Intent (Goal, Boundary,
+Approach, Acceptance, and any observation) together with your quoted go-ahead.
+Manager does not ask you to confirm it again: it starts Delivery, creates any
+task record, dispatches, verifies, and integrates. It still asks you directly
+for small choices inside that Intent, such as approving a review object, a
+completion gate, or which followups to take; anything that would change the
+direction goes back to the direction owner.
+
+- New `designer` agent: one bounded flow, screen, state set, or interface-copy
+  slice from a Manager directive, built with `experience-design`, with
+  `content-creator` for interface copy only
+- The session-start line in Claude Code and Codex now calls Manager the
+  delivery role and says direction is settled with the direction owner
+
+## [0.23.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.22.0...manager-0.23.0) (2026-10-21)
+
+**Short Manager reports** — Manager now reports done, partially done, or
+blocked work in a few lines: a one-sentence conclusion, links you can open, and
+numbered one-line decisions with a question card only when you have a real
+choice. A high-risk change adds one line naming the model family that
+verified it, and unfinished work gets one line. Verification details and
+evidence stay in the pull request or task record the report links, and the
+fixed "Followup: none" line is gone.
+
+## [0.22.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.3...manager-0.22.0) (2026-10-20)
+
+- **Roundtable** A new user-invoked `roundtable` skill asks one question of
+  several real model families, each answering independently from the same
+  packet, then compares them in one saved session file. The default room is
+  every family the session can reach: Codex, Grok with X search, and Gemini
+  with web search; Claude is paused and joins only when you name it. A
+  conclusion you adopt applies to all models, so it lands in shared rules,
+  not one model's private setup
+- The document-architecture rules bundled with content-creator are
+  regenerated from the vault, so their principles links point at the
+  `manager:principles` skill sections
+
+## [0.21.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.2...manager-0.21.3) (2026-10-20)
+
+- The principles skill now says where P1–P3 come from: they are a synced
+  copy of the Human-Agent Principles in your global rules file
+  (`AI/AGENTS-global.md` in the byheaven vault), so a change to them starts
+  there and is then mirrored into the plugin
+
+## [0.21.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.1...manager-0.21.2) (2026-10-20)
+
+- The document-architecture rules bundled with content-creator now link the
+  vault's global guidance at its new home, `AI/AGENTS-global`, so their
+  Operational Baseline, Human-Agent Principles, and Project Vision links
+  resolve again
+
+## [0.21.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.21.0...manager-0.21.1) (2026-10-20)
+
+- A Grok Bot Manager merges an authorized pull request itself, with a squash
+  merge through the GitHub connector and the repository's required `Judge:`
+  line in the pull request body, instead of sending a cloud agent to merge.
+  A platform safety check may still ask you to confirm; that confirmation is
+  a platform gate and leaves the recorded authorization unchanged
+
+## [0.21.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.20.1...manager-0.21.0) (2026-10-20)
+
+- **Run Manager in Grok Bot** You can run the same Manager role in Grok Bot,
+  alongside Claude Code and Codex. A Grok Bot session reads how asking,
+  production, verification, waiting, and merge map onto that host: code slices
+  run on your self-hosted Mac mini worker, verification uses Codex there, and
+  knowledge outputs carry sha256 for cross-copy checks. Discussion, delivery,
+  and evidence stay the rules they already are
+
+## [0.20.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.20.0...manager-0.20.1) (2026-10-20)
+
+- Content Creator loads document-architecture rules from the vault's `AI/`
+  folder, and the bundled mirror follows that path, so a session can still
+  read them after the vault rename
+
+## [0.20.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.1...manager-0.20.0) (2026-10-18)
+
+- **Reviews judge decisions against your own words** When a reviewer checks
+  what a record says you decided, it now gets your verbatim words as the
+  standard, and any agent-written proposal you replied to arrives labelled as
+  agent-written. A detail inside a proposal you agreed to as a whole is no
+  longer read as your own decision
+
+## [0.19.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.19.0...manager-0.19.1) (2026-10-18)
+
+- `pr_wait.py` keeps waiting, for up to two minutes, when GitHub reports a PR
+  as blocked before any check has registered, instead of returning a gated
+  verdict right after a push
+
+## [0.19.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.1...manager-0.19.0) (2026-10-18)
+
+- **Plans settle only after routes, tests, and a failure question** A
+  consequential product or technical plan now lays out two or three routes
+  that differ in mechanism, runs the smallest test of each assumption that
+  would change the route before choosing (an untested one keeps its
+  dependent commitments provisional), and its review asks how the plan could
+  meet its criteria and still fail its purpose
+- **Polishing loop for designs and plans** After a candidate is chosen, a
+  fresh judge from another model family compares it with the benchmark each
+  round and names the largest gaps; the producer fixes those. It stops at
+  benchmark level, after two rounds without gain, or after five rounds.
+  Correctness review still runs once
+
+## [0.18.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.18.0...manager-0.18.1) (2026-10-18)
+
+- The session-start remote refresh no longer runs programs a checkout's own
+  config names. The fetch allows only standard transports and the stock
+  upload-pack, with automatic maintenance and lazy object fetches off, and a
+  repository whose config sets a credential helper, an ssh command, a
+  configured hook, an include, a custom upload-pack, a partial-clone promisor,
+  or transport permissions is not fetched; the notice falls back to the last
+  fetch and says why
+
+## [0.18.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.17.0...manager-0.18.0) (2026-10-18)
+
+- **You judge quality at the design stage** A heavy or medium change now
+  reaches you as two or three clickable high-fidelity versions with real
+  copy, realistic data, and every state, each beside the benchmark and
+  carrying its experience scenarios. A fresh reviewer renders, compares, and
+  walks each version first, so only versions that pass reach you. There is no
+  separate wireframe review; when versions differ in flow, a one-page overview
+  shows each route and you decide flow and look together. The build is then
+  compared, rendered, against the version you approved
+- **Games and 3D get playable prototypes** A game mechanic or 3D scene is
+  reviewed as a playable graybox on the target device, a visual target, and a
+  frame rate measured on a real device
+
+## [0.17.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.16.0...manager-0.17.0) (2026-10-18)
+
+- **An approved draft sets direction, not the ceiling** The draft you approve
+  fixes the journey, its steps, states, actions, entry points, information
+  priority, and what the copy says. Within that direction, implementation goes
+  past the draft's fidelity: visual polish, every viewport, motion and
+  feedback, and the states that follow by convention. A new step, action,
+  setting, or sentence still comes back to you
+- **Designs are judged on the experience, not only on matching the draft** A
+  heavy or medium user-visible change names a benchmark and the two or three
+  experience scenarios a leading team would not ship without, such as finding
+  a remembered moment. A fresh reviewer renders the result and walks those
+  scenarios; a candidate that fails one is fixed even if it matches the draft
+  and passes every test
+
+## [0.16.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.15.0...manager-0.16.0) (2026-10-18)
+
+- **Escaped bugs become review replay cases** When an escaped bug is one a
+  reviewer of the change that introduced it could have reported, Manager
+  records it as a fixed case: the reviewed state, what the review was given,
+  and the defect it should have reported. Changing the verifier, a review
+  checklist, or the verifier-dispatch rules now replays every case under the
+  old and the new text, and a case the new text misses blocks the change
+  until it is caught again or you accept the loss
+- **Every verifier finding gets a recorded resolution** Once each verifier
+  finding is settled, Manager marks it fixed, wrong, intentional, or
+  immaterial, adds one row per finding to the finding ledger, and reports the
+  counts with the delivery, so the false-alarm share can be measured
+- **You choose where the records live** Both records go where your own or the
+  project's instructions say; without a location, the delivery reply carries
+  them instead
+
+## [0.15.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.14.0...manager-0.15.0) (2026-10-17)
+
+- **Acceptance checks the effect, not just the artifact** Every delivery's
+  acceptance now includes at least one check that watches the change do what
+  it is for: a rule change is run to see an agent behave differently, a script
+  is run on a real case. Reviews of the text, passing linters, and a merge no
+  longer stand in for that
+- **The session-start notice looks at the remote** When a session starts in a
+  git checkout, Manager now fetches the remote default branch and the branch's
+  upstream, within two seconds per remote, and says when your checkout lacks
+  commits either has, even on a branch with no upstream. Each line says whether
+  it was refreshed just now or why refreshing failed. The fetch never prompts
+  for credentials, runs no repository hooks, and writes only remote-tracking
+  refs
+- **Acceptance wording for later effects** An effect that only later real use
+  can show stays an observation outside Acceptance
+
+## [0.14.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.13.0...manager-0.14.0) (2026-10-17)
+
+- **A writing brief before every draft** Before drafting or revising product
+  copy, a post, an article, or a document written to be read, Claude shows you
+  who the author and the reader are, what the piece is for, what the reader
+  should take away and feel, and the style it recommends with concrete
+  references. It drafts only after you approve
+- **Your posts, articles, and books stay yours** For anything published under
+  your name, Claude assists and writes none of the text: it asks questions that
+  draw out your view, gathers what you have already written and read, points
+  out gaps in your outline, reads your draft as your reader would, and fixes
+  only typos and punctuation. A book gets a workspace with your chapter map,
+  material, and a consistency check
+- The fixed voice rules are gone: the Paul Graham voice target, the Chinese
+  hard rules, the banned-phrase lists, and the fixed lengths and structures per
+  platform. Platform notes now carry only each platform's hard limits
+
+## [0.13.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.1...manager-0.13.0) (2026-10-17)
+
+- **Goals and acceptance criteria set at an expert's bar** For a product plan,
+  a design, or other method-heavy work, Manager finds the fields involved by
+  restating the work as verbs, then writes the goal and acceptance criteria
+  the way the best practitioner in each field would: the checks they would
+  insist on, the raw material and methods those checks use, and a judge other
+  than the producer and you where one exists. A field counts only when one of
+  its checks could change the result. How hard each criterion is verified
+  still follows its risk
+- **Designs name the experience to beat** Experience design now names the
+  best existing experience for the job and scene and judges the rendered
+  result against it quality by quality
+
+## [0.12.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.12.0...manager-0.12.1) (2026-10-17)
+
+- `pr_wait.py` no longer reports a failed check when a run was cancelled and
+  replaced by a later run of the same check; only the latest run of each check
+  counts
+
+## [0.12.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.11.0...manager-0.12.0) (2026-10-17)
+
+- **A stale checkout says so at session start** When a session opens in a git
+  checkout whose branch trails its upstream, Manager is told how many commits
+  behind it is and to read the upstream before saying whether something exists
+
+## [0.11.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.10.0...manager-0.11.0) (2026-10-17)
+
+- **One command tells you where a PR stands** `scripts/pr_wait.py` polls a
+  GitHub pull request within a time bound and reports a single verdict with
+  its own exit code: ready, merged, conflict, review threads open, checks
+  failed, waiting on a merge gate, timed out, or query failed. Checks that do
+  not gate the change can be left out with `--ignore-check`
+
+## [0.10.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.9.0...manager-0.10.0) (2026-10-16)
+
+- **A third fix waits until the premise is tested** After two fixes built on
+  the same assumption fail the same check, agents write the assumption down
+  and test it directly before trying again
+- **Batch edits checked one unit at a time** A sweep or batch of similar
+  edits is checked unit by unit, and reuses an existing command or gets a
+  small script a reviewer can rerun
+- **Easier code to follow** The structure reference now asks for fewer
+  pass-through layers and less hidden state
+
+## [0.9.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.8.0...manager-0.9.0) (2026-10-16)
+
+- **A correction you repeat changes the structure, not the instructions**
+  When the same correction comes back, the principles now ask agents to
+  change what allowed it (an owner, an interface, or a check where the lesson
+  can be formalized) instead of writing more text; text keeps only the lessons
+  that need judgment
+- **Fewer comments, clearer code** Code changes keep a comment only for what
+  the code cannot say. A surprising behavior in our own code is fixed by
+  reshaping the code, and agents reread their diff to remove narrating
+  comments, needless defensive checks, and type-checker bypasses. A new
+  structure reference covers data shape, boundaries, safe reruns, shared
+  state, and commit order
+- **Every open question says what waits** A question you own now says what
+  proceeds and what waits until you answer
+- **Safety claims say how far they were checked** A claim that a change is
+  safe names whether it was only asserted, traced to a line, walked through,
+  run, or reproduced in the product
+- **Rule tests run blind** Running a document to test a rule change hides
+  that it is a test from the agent and the outputs' origin from the judge
+
+## [0.8.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.7.0...manager-0.8.0) (2026-10-13)
+
+- **Independent followups can run in parallel** When a project's standing
+  delivery mandate allows parallel sessions, a followup that depends neither
+  on the finished delivery nor on the rest of the continuation becomes its
+  own queued record for a new session, within the mandate's concurrency
+  limit. Dependent followups still continue in the same conversation
+
+## [0.7.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.5...manager-0.7.0) (2026-10-09)
+
+- **Experiences with fewer, better words** A new `experience-design` skill
+  guides any work on what people experience in a product. It starts from the
+  job the person wants done and the journey: fewer steps and requests, value
+  before any ask, a designed peak and ending, and freedom to leave. A list of
+  manipulative patterns never ships. On each screen, every element and string
+  must earn its place, the system stops explaining itself, and the remaining
+  text follows one set of Chinese and English conventions; money, irreversible
+  actions, privacy, and what a person cannot see always keep their words.
+  Manager and its workers and verifier apply it to every user-facing change
+
+## [0.6.5](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.4...manager-0.6.5) (2026-10-08)
+
+- **"Just do it" still shows you the preview** Telling Manager to go ahead
+  now authorizes the build but no longer settles how it looks: anything you
+  have not chosen is shown to you before the parts that depend on it, unless
+  you say to skip the review. Choices you state in the request stay settled
+
+## [0.6.4](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.3...manager-0.6.4) (2026-10-08)
+
+- **Interface changes to your own tools get a preview** A status line, pane,
+  or other interface mod for your own setup now gets the same review object
+  as product work before it is built
+- **Effects that need real use get named up front** When a delivery's value
+  can only show in later use, its opening states what to watch and asks you
+  to settle the keep, adjust, and withdraw conditions
+- **Sub-agent prompts follow the writing rules** Every prompt Manager hands
+  to a sub-agent is now written with the agent-writing rules loaded
+
+## [0.6.3](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.2...manager-0.6.3) (2026-10-08)
+
+- **New tests need a source outside the code** A producer now adds a test
+  only for a bug reproduction, a decided requirement whose cases another
+  agent writes from the requirement (on trial), or a trust boundary; any
+  other change runs the existing checks. Tests that restate the
+  implementation, such as copied counts, rosters, copy, or mock-call
+  assertions, are deleted or rewritten when an intended change breaks them
+
+## [0.6.2](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.1...manager-0.6.2) (2026-10-08)
+
+- **A fixed basis line** Recommendations, decision requests, and acceptance
+  judgments now carry one line right after the conclusion naming the red
+  lines and the principle or Vision clause behind them
+- **Acceptance written down at the start** A delivery now opens, before
+  any action, with its goal, boundary, and acceptance; without a task
+  record, the pull request states them too
+- **Escaped bugs and high-risk changes caught early** Manager now recognizes
+  a defect you report in something already delivered, and a high-risk
+  change that needs a reviewer from another model family, from any turn
+  instead of only after opening a reference file
+
+## [0.6.1](https://github.com/byheaven/byheaven-skills/compare/manager-0.6.0...manager-0.6.1) (2026-10-08)
+
+- **Followups at every close** Manager now runs its closing steps before
+  reporting any finished delivery, including work with no task record, and
+  ends that report with its followups, or a line saying there are none.
+  Before, these steps were only reached when the agent opened a
+  separate reference file, and in practice they were skipped
+
+## [0.6.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.5.0...manager-0.6.0) (2026-10-08)
+
+- **Content creator, bundled** The `content-creator` skill now ships with the
+  plugin in Claude Code, cloud sessions, and Codex. It drafts posts, essays,
+  and governance documents in the author's voice, and the knowledge worker
+  loads it for user-authored content. This plugin is now its only source
+- **Codex startup only** Manager's loading reminder now runs only when a new
+  Codex session starts. Resuming, clearing, or compacting the session no longer
+  injects it again. Claude Code's startup behavior is unchanged.
+
+## [0.5.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.4.0...manager-0.5.0) (2026-10-07)
+
+- **Performance numbers you can trust** Before reporting or acting on a
+  performance number, code production now names what limits it, counts
+  errors, confirms the timed work actually ran, alternates at least five runs
+  per side, and states the share of the end-to-end wait; otherwise the result
+  is reported as inconclusive
+- **Safety fact** The verifier now names the one fact a code or configuration
+  change is safe because of, proves it by running real code, and looks for
+  breakage that a symbol search misses
+
+## [0.4.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.3.0...manager-0.4.0) (2026-10-07)
+
+- **Startup hook for Claude Code** Every Claude Code session with the plugin
+  enabled now gets the same `SessionStart` reminder Codex uses, so Manager is
+  the default role even where the host ignores the `agent` setting, such as
+  Claude Code project threads on claude.ai
+- **Writing for agents, bundled** The `writing-for-agents` skill now ships
+  with the plugin in both Claude Code and Codex, and Manager loads it before
+  writing any skill, rule, agent instruction, sub-agent directive, or task
+  Acceptance another agent will execute
+- **Performance changes** Code production now measures a baseline before the
+  first edit, tries remedies cheapest first, keeps only those that move the
+  number, and reports baseline, result, delta, and conditions
+
+## [0.3.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.2.0...manager-0.3.0) (2026-10-06)
+
+- **Principles** Derivation anchors only on the principles and the
+  commitments of the project's Vision, and begins by stating the red lines
+  they or the user draw; current facts (including those a Vision records),
+  decision history, and existing practice are references that test a
+  conclusion, never its starting point. A recorded
+  preference, rule, or past decision settles an owner decision in Grill only
+  when it agrees with that derivation; a divergence goes to the user with both
+
+## [0.2.0](https://github.com/byheaven/byheaven-skills/compare/manager-0.1.0...manager-0.2.0) (2026-10-05)
+
+- **Evidence** High-risk predicates (authentication, money, deletion,
+  privacy, irreversible actions, and changes to a Vision or a rule) always get
+  an independent verifier from another model family by default, with no
+  blind-spot reason required; terminal evidence names each predicate's judge
+  so a later audit can check the choice
+
+## [0.1.0](https://github.com/byheaven/byheaven-skills/compare/a5b412ebb6d4e4c31be99fda1adb6165460347f7...manager-0.1.0) (2026-10-05)
+
+- **Manager role** A `manager` agent that discusses first, delivers only on
+  an explicit request, and closes every Acceptance predicate through a
+  qualified judge before claiming completion; it carries the full role and
+  the principles from the first turn, and a `manager` skill loads it in
+  runtimes that cannot select the agent
+- **Principles** The `principles` skill holds the Human-Agent Principles
+  P1-P3, project-foundation guidance with first-principles derivation as the
+  default, and the operational baseline; CI fails when the agent's copy
+  drifts from it
+- **Intent** Defines Goal, Boundary, Approach, and Acceptance, the four
+  dimensions a settled direction locks
+- **Grill** Ships the `grilling` skill, so question rounds work the same on
+  every machine
+- **Sub-agents** `verifier`, `code-worker`, and `knowledge-worker` agents plus
+  a shared `code-production` skill for bounded, independently judged work;
+  workers report a material assumption the Acceptance leaves open instead of
+  deciding it
+- **Evidence** Defines commitment identity: a repair inside the same locked
+  Intent and Acceptance keeps it, a change to what is promised does not
+- **Governed changes** A temporary capability patch carries its review date
+  and exit condition
+- **Codex startup** Loads the Manager role in Codex through a session hook,
+  without changing Claude Code's agent-based startup
+- **Claude worktree note** Describes what the worktree command guard in
+  Claude Code 2.1.289 actually refuses
+- **Plugin page** Shows the plugin's description on Claude Code's plugin page
+  when it is installed from the marketplace

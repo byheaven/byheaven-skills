@@ -1,0 +1,44 @@
+---
+name: content-creator
+description: "Writing brief and drafting method for any writing task (product and interface copy, articles, introductions, documents written to be read such as a Vision or a PRD, messages sent on the user's behalf). Use before drafting or revising any of them, and whenever the user writes something to publish under their own name."
+---
+
+# Content Creator
+
+Every writing task starts with a **writing brief**, and the draft follows that brief. The executor writes the brief, checks it, drafts, and then gives the user the brief and the draft together for one review. Style is chosen for each piece from its reader and purpose.
+
+A **writing task** is text whose value lies in how a human reader receives it: product and interface copy, posts, articles, introductions, documents written to be read such as a Vision, principles, or a PRD, and messages sent on the user's behalf. Conversation replies, status updates, code, commit and PR text, instructions for agents (skills, rules, charters, directives), and documents that record facts for reference (decision records, product behavior documents, architecture, runbooks, reviews) are not writing tasks.
+
+## 1. Writing brief
+
+Write the brief before drafting or revising, and check it yourself: each item below is filled, specific, and consistent with what the project has settled. Then draft without waiting for approval. A Vision, other project documents, and product copy go through this brief and an agent draft even when the user signs them. Writing the user reserves for themselves (their own posts, articles, books) is theirs to write: assist, and draft none of it.
+
+- **Author**: who is speaking, as a specific person or voice (a product team; a product's in-app companion; the founder in a Vision).
+- **Reader**: who reads it and in what moment, described by what they already know, what they care about, and what would convince them, as specific as the piece allows.
+- **Purpose**: what the piece should achieve, and what the reader takes away: the value (what they now know, can do, or can decide) and the feeling (how they feel about the subject and the author).
+- **Style**: the style that best serves this reader and purpose (tone, register, rhythm, length, structure, how vivid or plain), with concrete references that model it well: published works, writers, products, or pieces the user already approved, each with what to take from it.
+
+Reuse what the project has settled, such as a product's brand voice, a document's agreed structure, or an approved brief for the same series, and name it in the brief. Done when every item above is filled and checked. Once the user has reviewed a brief with its draft, that brief, as written or as changed, covers the task's later drafts and revisions until its author, reader, or purpose changes.
+
+## 2. Draft
+
+- Write to the brief. Where another style rule differs, the brief decides.
+- Conceive each language in that language from the shared argument, so every version reads as first written in it, never as a translation.
+- Vision and governance documents: `references/governance-docs.md`.
+
+## 3. Review
+
+Give the user the brief and the draft in one message for one review. Revise both from the answer; a change the user makes to the brief applies to every later draft.
+
+## Floor
+
+These hold whatever the brief says:
+
+- When a draft you write speaks for the user, use the user's own claims, positions, and examples; organize and phrase them, and add none.
+- Ground external claims per `references/freshness.md`. In a draft you write, soften an unconfirmed claim to what is known, or cut it; in the user's own writing, report it to them with what you found.
+- The title and opening promise what the body delivers. Present motives you infer as your reading of them.
+- Product copy also holds the [red lines](../experience-design/references/red-lines.md) of `experience-design`.
+
+## Boundaries
+
+Whether to publish stays with the user unless a standing authorization covers the specific path.

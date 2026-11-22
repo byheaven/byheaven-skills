@@ -1,0 +1,3 @@
+interface:
+  display_name: "QA"
+  short_description: "Test a change on the real build and report verdicts"
