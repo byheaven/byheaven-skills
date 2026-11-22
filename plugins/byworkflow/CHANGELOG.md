@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.1...HEAD)
+
+## [0.82.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.0...byworkflow-0.82.1) (2026-11-21)
+
+**Real-run evidence for rule and SOP edits** — `task-owner`'s governed-changes reference now specifies that rule and SOP updates are proven by one real run—or a differential replay against prior input with every output delta explained—rather than by static text or link checks alone, recording a follow-up observation whenever only a later run can supply that evidence.
 
 ## [0.82.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.81.0...byworkflow-0.82.0) (2026-11-21)
 
