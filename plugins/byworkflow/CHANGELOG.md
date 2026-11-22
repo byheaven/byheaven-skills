@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.83.0...HEAD)
+
+## [0.83.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.2...byworkflow-0.83.0) (2026-11-22)
+
+**Owned post-merge observations** — Unverified post-merge observations no longer die in closed pull requests. Task owners now record the baseline alongside refuting and exit conditions and hand each observation to the project's Manager in the delivery report; the Manager checks reported paired metrics against the baseline immediately and arms one bounded post-merge check or follow-up until real-use evidence confirms the gain or triggers repair or revert.
+
+**Safer structural removals and handoffs** — Handoffs that remove or replace an existing mechanism now enumerate every responsibility it carried—marking each as explicitly dropped by you or carried by the new design—and keep user-locked decisions strictly distinct from dispatcher-proposed steps. Managers state outcome invariants rather than locking unverified deletion lists, and verifiers now check both sides of a supersession: that the old competitor is gone, no hidden responsibility was silently dropped, and dispatcher-derived steps do not regress the locked Goal outcome.
 
 ## [0.82.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.1...byworkflow-0.82.2) (2026-11-22)
 

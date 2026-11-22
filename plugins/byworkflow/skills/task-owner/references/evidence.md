@@ -21,7 +21,7 @@ Each predicate closes as **confirmed**, **refuted**, or **unjudgeable**. A refut
 
 Only a remaining value, taste, risk, or irreversible-authorization predicate keeps a blocking completion gate, with three answers: done, needs adjustment, pause. "Pause" releases ownership until the user resumes. Otherwise a reversible delivery with complete evidence may complete asynchronously.
 
-An effect only later real use can show is never a delivery predicate; it becomes an observation in the project's task store with its refuting observation and keep, adjust, and withdraw conditions, or is recorded in the linked evidence.
+An effect only later real use can show is never a delivery predicate; record it as an observation in the project's task store (or linked evidence) with its baseline, refuting observation, and keep, adjust, and withdraw conditions, and hand it to the project's Manager in the delivery report when one exists so a live owner tracks it under [After delivery](../../manager/SKILL.md#after-delivery).
 
 A defect known to have reached a user or production completes only when it is fixed at its root and the evidence says why it escaped, classified with the [`diagnosing-bugs` skill](../../diagnosing-bugs/SKILL.md).
 
