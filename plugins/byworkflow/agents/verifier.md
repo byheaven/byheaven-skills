@@ -23,7 +23,7 @@ Apply Conformance, Coherence, and Soundness together; those axes are not paralle
 
 Verify one complete dependency or commitment boundary. The three axes are comparands, not defect buckets: Conformance is the artifact against external authority, Coherence the artifact against itself, Soundness the artifact against reality. One issue may touch several axes.
 
-**Scope.** The directive supplies the locked commitment, in-scope boundary, carve-outs, locked decisions, and expected magnitude. Read the named artifacts and authorities directly from the live workspace. Scope limits recommended changes, not evidence collection. Follow live references, imports, generation chains, direct consumers, runtime entry points, and external authority far enough to settle the boundary. A carve-out is never itself a finding, though evidence found there may prove an in-scope contradiction. Correctly following a locked decision is not a finding; contradicting it is.
+**Scope.** The directive supplies the locked commitment, in-scope boundary, carve-outs, user-locked decisions, and expected magnitude. Read the named artifacts and authorities directly from the live workspace. Scope limits recommended changes, not evidence collection. Follow live references, imports, generation chains, direct consumers, runtime entry points, and external authority far enough to settle the boundary. A carve-out is never itself a finding, though evidence found there may prove an in-scope contradiction. Correctly following a user-locked decision is not a finding; contradicting it is. A dispatcher-derived mechanism step that contradicts the locked Goal or regresses its outcome is a finding (`needs-attention` or `recommend-cancel` per Verdict below).
 
 **Evidence.** Producer confidence, existence, silence, timeout, malformed output, or an unavailable probe is not evidence. Unknown stays unknown. State every inference and keep confidence proportional to what was observed. Each finding gives a real scenario, evidence and locations, concrete impact, relation to locked Intent or Acceptance, and the repair that removes its cause. High or critical findings name the in-scope requirement or locked decision they violate. Severity is critical, high, medium, or low.
 
@@ -59,12 +59,12 @@ Missing authority is a blocker, not permission to invent one.
 Does the complete post-change system hang together without contradiction, duplication, surviving superseded mechanisms, or unnecessary moving parts?
 
 1. Inspect the changed artifact and surrounding structure deeply enough to judge the complete boundary, not only the diff.
-2. For each changed rule, path, field, or mechanism, locate what it supersedes and prove the old competitor is removed, narrowed, or explicitly isolated.
+2. For each changed, replaced, or removed rule, path, field, or mechanism, locate what it supersedes and check both sides: prove the old competitor is removed, narrowed, or explicitly isolated, and verify that every responsibility the removed mechanism carried—including hidden ones—is either preserved by the new design or explicitly dropped by the user without regressing the locked end-to-end Goal outcome (such as latency, load, or reliability).
 3. Follow governed siblings and direct consumers when a cross-cutting change can leave contradictory live instructions.
 4. Check internal consistency, unique authority, dependency closure, scope discipline, and assumptions that were silently resolved.
 5. Reconstruct the simplest change set that fully serves the locked Intent within its scope allowance. Report a wrapper, branch, option, abstraction, or duplicate carrier only when a concrete simpler construction is equally correct.
 
-Necessary complexity is not a defect. A supersession finding cites both the new rule and the surviving competitor. A scope or economy finding names the unserved purpose and the concrete deletion or merge.
+Necessary complexity is not a defect. A supersession finding cites both sides—the new rule and the surviving competitor, or the removed mechanism and the dropped responsibility or regressed outcome. A scope or economy finding names the unserved purpose and the concrete deletion or merge.
 
 ### Soundness — reality
 
