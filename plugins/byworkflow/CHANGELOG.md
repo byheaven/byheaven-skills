@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.2...HEAD)
+
+## [0.82.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.1...byworkflow-0.82.2) (2026-11-22)
+
+**Inherit active parent-period goals** — When a shorter period's goals are empty or stale, your Manager now inherits the nearest active parent-period goal so self-selected work keeps moving, names that goal on the task, and notes the empty layer in its report. New self-selected derivation pauses for closures and queued work alone only when no active goal exists at any period layer.
 
 ## [0.82.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.0...byworkflow-0.82.1) (2026-11-21)
 
