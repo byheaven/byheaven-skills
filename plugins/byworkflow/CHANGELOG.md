@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.83.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.84.0...HEAD)
+
+## [0.84.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.83.0...byworkflow-0.84.0) (2026-11-23)
+
+**Keep Manager threads idle** — Your Manager now stays free to accept new commands instead of blocking its turn on multi-step investigations. Single-step local reads, dispatches, summaries, and lightweight judgments remain in the Manager thread, while multi-step fact-finding, diagnostics, and sibling checks—even during discussion or before direction settles—run in async read-only research children that wake the Manager to synthesize and reply.
 
 ## [0.83.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.82.2...byworkflow-0.83.0) (2026-11-22)
 
