@@ -16,7 +16,7 @@ Each question goes to whoever can decide it, and only there. A bounded worker or
 
 ## Sub-agent dispatch
 
-Dispatch bounded work with fresh context and the focused directive. A verifier always receives the plugin's verifier role and its listed skills, without producer reasoning; a writer takes a worker charter only when it adds needed method or context. Use a registered role only when the host registered it from this plugin; otherwise supply its body and skills. Without sub-agents, run the assembled prompt as a one-shot in its own worktree, or keep the slice yourself; verification always uses [Verification carrier](#verification-carrier).
+Dispatch bounded work with fresh context and the focused directive. A verifier always receives the plugin's verifier role and its listed skills, without producer reasoning; follow the deployment's runtime binding for how each role charter loads when the host does not auto-inject it. Use a registered role only when the host registered it from this plugin; otherwise supply its body and skills. Without sub-agents, run the assembled prompt as a one-shot in its own worktree, or keep the slice yourself; verification always uses [Verification carrier](#verification-carrier).
 
 A registered role's body resolves no relative link, so the directive names the absolute path of the installed charter directory (the candidate's during development) for every reference the role must read before producing. A same-family sub-agent is never a cross-family judge.
 
