@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.84.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.0...HEAD)
+
+## [0.85.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.84.0...byworkflow-0.85.0) (2026-11-24)
+
+**Behavioral delivery acceptance** — Every task and handoff now defines Acceptance as observable real-world behavior rather than engineering proxies like green CI, unit tests, builds, or wiring, including for infrastructure, CI, and dependency changes. Delivery closes at the earliest real layer that exhibits the behavior—locally before merge when local runtime suffices, or on the live/deployed target or distributed build by default when the behavior depends on deployed environment, bindings, secrets, external vendors, or a distributed build. When a required behavior is objectively unreachable by agents, delivery closes as a clearly labeled staged handoff leading with the unverified behavior and its next owner rather than claiming completion.
+
+**Zero explanatory comments and no self-confirming tests** — `code-production` now applies to every code change in `task-owner` and enforces zero explanatory, section, "why", or "do not remove" comments in source code (keeping only compiler/tooling directives and legal headers). Self-confirming fake external-protocol mocks, constant/copy/roster mirrors, and mock-call-only tests are explicitly banned across all repositories and flagged for deletion by `verifier`.
+
+### Improvements
+
+- **Role loading** Aligned `production.md` and `runtimes.md` with deployment runtime bindings so hosts that require an explicit role-loading opener no longer conflict with directive-opening rules or duplicate charter text
 
 ## [0.84.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.83.0...byworkflow-0.84.0) (2026-11-23)
 
