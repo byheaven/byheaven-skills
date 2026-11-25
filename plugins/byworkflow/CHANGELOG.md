@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.2...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.86.0...HEAD)
+
+## [0.86.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.2...byworkflow-0.86.0) (2026-11-25)
+
+**Rebuild substandard foundations, preserve full dispatch goals, and run multi-round end-to-end QA** — Elevated quality from end-of-pass critique to implementation and dispatch defaults across `task-owner`, `code-production`, `manager`, `worker`, and `qa`. Producers now bring substandard foundations up to a leading-finished-work bar—rewriting cleanly when needed and reporting expanded reversible scope after—rather than patching over broken code, while `worker` surfaces out-of-boundary substandard foundations immediately. Directives and handoffs preserve the full Goal without narrowing it or locking legacy compromises into patch constraints. Human-facing interactive surfaces now require full-journey end-to-end QA (continuous interactions, transitions, and real-use feel, not static snapshots alone) with multiple repair-and-QA rounds whenever needed until the full experience passes.
 
 ## [0.85.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.1...byworkflow-0.85.2) (2026-11-24)
 
