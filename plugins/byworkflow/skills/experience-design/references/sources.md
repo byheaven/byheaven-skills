@@ -15,7 +15,8 @@ The rules in this skill are distilled from the sources below, checked on 2026-10
 | Tone follows the moment | Apple HIG Writing; Mailchimp voice and tone; Tencent ISUX on playful copy |
 | Chinese conventions | Ant Design copywriting spec; 中文文案排版指北 (sparanoid/chinese-copywriting-guidelines); Feishu multilingual design spec |
 | Game feedback and juice | Schell, *The Art of Game Design* (lenses of transparency, feedback, juiciness); Swink, *Game Feel*; Duolingo streak milestone design |
-| Audit flow, deletion of repeated text, delight scaled to effort, machine-made tells | pbakaus/impeccable 4.5.2 (commit d631a88, Apache License 2.0): clarify, distill, onboard, delight, craft-floor references and detector rules; ideas adapted, no text copied |
+| Audit flow, deletion of repeated text, delight scaled to effort, machine-made tells, surface modes, color strategy | pbakaus/impeccable 4.5.2 (d631a88) & 4.11.0 (9e460a8, Apache License 2.0): clarify, distill, onboard, delight, craft-floor, surface modes (Persuade/Experience/Operate/Read), color strategies, and deterministic detector concepts; ideas adapted, no text copied |
+| Motion frequency, micro-interaction craft, runtime/layout/typography floor, second-wave AI visual calibration | emilkowalski/skills (64eb3de: emil-design-eng, animation-performance); ibelick/ui-skills (15e16e6: baseline-ui, fixing-motion-performance); anthropics/skills (e4bb5d9: frontend-design); ideas adapted, no text copied |
 | Five-second and trunk tests | Krug; Facebook Instant Games |
 | The job and the switch | Christensen, "Know Your Customers' Jobs to Be Done" (HBR 2016); Klement, *When Coffee and Kale Compete* (forces of progress); Ulwick, outcome-driven job map; Cooper, *About Face* (goals, personas, posture); 俞军《俞军产品方法论》 (用户价值 = 新体验 − 旧体验 − 替换成本; 用户是需求的集合); 梁宁《产品思维30讲》 (痛点、痒点、爽点) |
 | Layers and fixing at the origin | Garrett, *The Elements of User Experience* (strategy, scope, structure, skeleton, surface) |
