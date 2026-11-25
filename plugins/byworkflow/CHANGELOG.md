@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.86.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.87.0...HEAD)
+
+## [0.87.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.86.0...byworkflow-0.87.0) (2026-11-25)
+
+**Web and UI craft reference in `experience-design`** — Added an on-demand design-engineering reference (`references/web-craft.md`, zero always-loaded context cost) covering surface modes (Persuade/Experience vs Operate/Read), color strategy before color picking, anti-template visual calibration, frequency-based motion rules (zero animation on high-frequency and keyboard actions, compositor-only properties), and runtime/typography hygiene (SSR frame-0 chrome state, client-side soft navigation, static font caching within auth boundaries, `text-balance`/`tabular-nums`/`dvh`, and accessible primitives).
 
 ## [0.86.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.2...byworkflow-0.86.0) (2026-11-25)
 
