@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.1...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.2...HEAD)
+
+## [0.85.2](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.1...byworkflow-0.85.2) (2026-11-24)
+
+**Model-ceiling quality baseline in `task-owner`** — Replaced the vague "leading practitioner" line with a concrete delivery baseline: benchmark Acceptance against a leading finished work rather than merely improving on the current state, treat passing engineering checks as the floor rather than completion, and run one peer-level critique pass on the real rendered or running output to fix obvious roughness, duplication, or awkwardness before handoff.
 
 ## [0.85.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.0...byworkflow-0.85.1) (2026-11-24)
 
