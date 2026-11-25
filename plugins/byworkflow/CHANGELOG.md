@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.87.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.88.0...HEAD)
+
+## [0.88.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.87.0...byworkflow-0.88.0) (2026-11-25)
+
+**All-dimensions highest-standard contract in production, QA, and verification** — Established a single canonical `Highest-standard bar` in `task-owner/references/evidence.md` and referenced it across `task-owner`, `production.md`, `worker`, `verifier`, `qa`, `qa/references/report.md`, `code-production`, and `experience-design`: never trade quality for delivery speed, define and meet every applicable core and domain dimension upfront with no omission (including adherence to locked intent and authorities), and conclude every QA pass and independent review with an explicit per-dimension verdict (`MEETS BAR`, `BELOW BAR`, `UNVERIFIED`, or `N/A`). Clarified that producers and task owners iterate across rounds until every applicable dimension reaches `MEETS BAR`, while read-only reviewers and QA return findings honestly for the task owner to settle and repair.
 
 ## [0.87.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.86.0...byworkflow-0.87.0) (2026-11-25)
 

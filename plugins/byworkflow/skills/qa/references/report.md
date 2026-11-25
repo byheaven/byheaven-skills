@@ -1,6 +1,6 @@
 # Report shape
 
-Lead with the overall verdict line, for example `QA <change> at <sha>: 2 FAIL, 1 BLOCKED, 14 PASS (3 qualified)`. Then cover the following, in the arrangement that serves its reader:
+Lead with the overall verdict line, for example `QA <change> at <sha>: 2 FAIL, 1 BLOCKED, 14 PASS (3 qualified)`, followed immediately by a **Highest-standard judgment** block evaluating every applicable dimension from the task's settled [Highest-standard bar](../../task-owner/references/evidence.md#highest-standard-bar) with no omission (including adherence to locked intent and authorities as well as domain bars) — scoring each as `MEETS BAR`, `BELOW BAR` (concrete gap), `UNVERIFIED` (missing observation and next owner — never counts as passing), or `N/A` (one-line reason). Then cover the following, in the arrangement that serves its reader:
 
 1. **Subject**: sha, build or CI and deploy runs, environment, how the tested build was confirmed to contain the change, carriers and who drove each, all times with their zone.
 2. **Items**: one row per item: item, verdict with its qualifier, the raw observable, evidence path. A batch of changes on one deploy gets rows per change.
