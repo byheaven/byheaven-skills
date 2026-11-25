@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.1...HEAD)
+
+## [0.85.1](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.85.0...byworkflow-0.85.1) (2026-11-24)
+
+**Review before final behavioral QA and real sign-in observation** — Resolved a contradiction in `task-owner`'s `repo-integration.md` where review-repair guidance said to rerun only deterministic checks even when repairs altered runtime behavior. Changes requiring independent code review now run review after fast unit/type/build checks and settle review findings before running final-state behavioral QA or E2E once on the settled head, and any post-review repair re-observes every invalidated deterministic check and behavioral predicate without a second review round. `qa` also clarifies that pre-seeded sessions or cookies prove only post-login surfaces, never the sign-in flow itself.
 
 ## [0.85.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.84.0...byworkflow-0.85.0) (2026-11-24)
 
