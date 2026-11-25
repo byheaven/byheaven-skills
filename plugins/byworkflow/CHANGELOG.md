@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.87.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.88.0...HEAD)
+
+## [0.88.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.87.0...byworkflow-0.88.0) (2026-11-25)
+
+**All-dimensions highest-standard contract in production, QA, and verification** — Elevated the model-ceiling requirement from a general prompt into an explicit, end-to-end standard across `task-owner`, `worker`, `verifier`, `qa`, `code-production`, and `experience-design`: never trade quality for delivery speed, and iterate across as many rounds as needed while any dimension falls short. Producers now define and meet the highest standard across every applicable dimension upfront with no omission (core premise and value truth; factual and third-party asset authenticity; target-audience, locale and ecosystem fit; craft of design, motion, copy and code; functional, edge-case and runtime soundness; and locked intent and authorities), and both QA and independent cross-model reviews must conclude with an explicit highest-standard verdict covering every applicable dimension.
 
 ## [0.87.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.86.0...byworkflow-0.87.0) (2026-11-25)
 

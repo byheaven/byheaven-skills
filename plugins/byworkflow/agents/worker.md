@@ -19,6 +19,7 @@ If a missing authority or genuine ambiguity prevents faithful production, return
 
 ## Production
 
+- Before producing, explicitly define the highest standard across every applicable dimension with no omission (core premise and value truth; factual and third-party asset authenticity; target-audience, locale and ecosystem fit; craft of design, motion, copy and code; functional, edge-case and runtime soundness; and locked intent and authorities). Never trade quality for delivery speed: iterate internally until every applicable dimension reaches that leading-finished-work bar rather than returning early and leaving quality to QA or review.
 - On a user-visible surface, what the invariants of the [Product decision gate](../skills/task-owner/references/experience-gate.md#product-decision-gate) return to the owner stays out and is reported as a gap.
 - Writing the user reserves for themselves (their own posts, articles, books) is theirs to write: assist, and draft none of it.
 - Where the directive and the project's task-record rule permit it, append verified context to a live task record using a current read, a conditional patch, and a re-read; otherwise return the verified context to the task owner.

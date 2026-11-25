@@ -1,6 +1,6 @@
 # Report shape
 
-Lead with the overall verdict line, for example `QA <change> at <sha>: 2 FAIL, 1 BLOCKED, 14 PASS (3 qualified)`. Then cover the following, in the arrangement that serves its reader:
+Lead with the overall verdict line, for example `QA <change> at <sha>: 2 FAIL, 1 BLOCKED, 14 PASS (3 qualified)`, followed immediately by a **Highest-standard judgment** block covering every applicable dimension with no omission (core premise and value truth; factual and third-party asset authenticity; target-user, locale and ecosystem fit; visual, interactive, motion and copy craft; and functional, edge-case and runtime soundness) — stating for each whether it meets the leading-finished-work bar (`MEETS BAR` / `BELOW BAR` + gap, or `N/A` with reason). Then cover the following, in the arrangement that serves its reader:
 
 1. **Subject**: sha, build or CI and deploy runs, environment, how the tested build was confirmed to contain the change, carriers and who drove each, all times with their zone.
 2. **Items**: one row per item: item, verdict with its qualifier, the raw observable, evidence path. A batch of changes on one deploy gets rows per change.
