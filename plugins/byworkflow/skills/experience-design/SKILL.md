@@ -7,7 +7,14 @@ description: Method for designing what a person experiences in a product, from t
 
 Every step, element, and word a person meets must **earn its place** in their experience. Whatever does not, the system does silently or leaves out. People should finish feeling the time was worth it, and leave freely when the job is done.
 
-The project's own authorities come first. Its Vision decides what counts as value and which tradeoffs win; its design system, tokens, glossary, and the surface's product document decide concrete values, names, and voice. Where they are silent, this skill is design judgment to draw on, not law: depart from any of its defaults when the result serves the person better. The floor in step 3, the red lines, and every floor the project sets always hold.
+The project's own authorities come first. Its Vision, brand ethos, official mark, and ethical red lines are fixed; its sensory worlds (themes, materials, motion, layout) grow over time unless a task explicitly extends an already-settled surface in place. Where authorities are silent, this skill is design judgment to draw on, not law: depart from any default when the result serves the person better. The floor in step 3, the red lines, and every floor the project sets always hold.
+
+## Two stages for open design work
+
+For a new surface, page redesign, or open visual direction, separate **creative exploration** from **engineering integration**:
+
+1. **Stage 1 — Clean-sandbox exploration.** Work in a lightweight interactive sandbox fed only a concise Soul Brief (Vision, brand ethos, official mark, hard red lines, real user job, and factual constraints) plus living sensory specimens—leave repository runbooks, approval matrices, full product manuals, legacy token lints, and CSS hygiene checklists out of this stage so attention stays on visual and interactive craft. Where the project holds multiple or growing brand sensory worlds, deliver both an evolution of an existing sensory world and at least one **brand-new sensory world** derived freshly from Vision and brand ethos. Every section across the entire page must stand on visual composition, media, or live interaction rather than explanatory prose walls.
+2. **Stage 2 — Engineering integration.** Once the owner picks the winning interactive prototype, wire real data, auth and security boundaries, accessible primitives, runtime hygiene (`references/web-craft.md`), tests, and documentation. When the chosen sensory world or prototype conflicts with stale code tokens or specs, extend or update the specs and theme registry to carry the new design rather than diluting the design to fit old constraints.
 
 Product decisions follow the project's decision rights, and P1 where the project names none. Reuse what the owner has settled; a choice those rights keep for the owner is a proposal the owner decides, through the project's own review process, before it shapes the product, and the designer makes the rest. This skill guides how to design and judge; it authorizes no change.
 
@@ -88,9 +95,9 @@ Done when every string passes the language reference for its language and reads 
 
 ### 6. Judge
 
-- Render the changed screens at their real viewports and themes, with real copy and every state. A source read does not show overflow, truncation, or contrast.
+- Render **full-page** captures across every band, route, viewport, and theme with real copy and live states—never judge from an above-the-fold crop alone. Verify that visual composition and interaction carry every section below the fold with the same restraint and craft as the hero.
 - Walk the journey as the primary person: at each step, would they try the right thing, notice the control, connect it to their goal, and see that it worked? Run the trunk test (where am I, what is this, what can I do) on any deep screen.
-- Floor check: contrast, minimum text size, touch target size, and reduced-motion behavior meet the platform's floor and the project's.
+- Floor check: contrast, minimum text size, touch target size, and reduced-motion behavior meet the platform's floor and the project's. Automated visual scanners check objective legibility and contrast floor only; they never prove aesthetic quality, originality, or text restraint.
 - Compare the rendered result with the benchmark from step 1, quality by quality.
 - Name what the change added and removed, and confirm every floor item is still present.
 - An agent's walkthrough predicts problems; first impressions, comprehension, feelings, and whether people come back are judged by real people. When the decision rests on one of these, say so and name the smallest test that would settle it (see the research reference).
