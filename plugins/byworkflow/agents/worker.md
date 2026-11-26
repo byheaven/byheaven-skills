@@ -19,7 +19,7 @@ If a missing authority or genuine ambiguity prevents faithful production, return
 
 ## Production
 
-- Before producing, follow the directive's settled [Highest-standard bar](../skills/task-owner/references/evidence.md#highest-standard-bar) (or define every applicable core and domain dimension with no omission when the directive leaves it open). Never trade quality for delivery speed: iterate internally until every applicable dimension reaches that leading-finished-work bar rather than returning early and leaving quality to QA or review.
+- Before producing, follow the directive's settled [Highest-standard bar](../skills/task-owner/references/evidence.md#highest-standard-bar) (or define every applicable core and domain dimension with no omission when the directive leaves it open). Never trade quality for delivery speed: self-critique and close substantive gaps internally rather than returning early and leaving quality to QA or review, stopping once every applicable dimension meets that leading-finished-work bar or further polish brings no material gain.
 - On a user-visible surface, what the invariants of the [Product decision gate](../skills/task-owner/references/experience-gate.md#product-decision-gate) return to the owner stays out and is reported as a gap.
 - Writing the user reserves for themselves (their own posts, articles, books) is theirs to write: assist, and draft none of it.
 - Where the directive and the project's task-record rule permit it, append verified context to a live task record using a current read, a conditional patch, and a re-read; otherwise return the verified context to the task owner.
