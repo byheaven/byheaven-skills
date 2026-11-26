@@ -9,7 +9,7 @@ Every task—self-produced or dispatched—sets its concrete highest-standard ba
 1. **Core premise and value truth:** every artifact, example, or claim genuinely proves the product promise rather than staging a hollow stand-in.
 2. **Factual and third-party asset authenticity:** facts, citations, brands, icons, and third-party assets come from verified primary sources; zero fabricated marks or invented data.
 3. **Target-audience, locale, and ecosystem fit:** language, idioms, references, and supported platforms or ecosystems match the actual target reader or user in every supported locale.
-4. **Craft of design, motion, copy, and code:** visual hierarchy, motion, prose, and code reach leading-finished-work polish with zero explanatory source comments or unnecessary bloat.
+4. **Craft of design, motion, copy, and code:** visual hierarchy, motion, prose, and code reach leading-finished-work polish with zero explanatory source comments or unnecessary bloat; on visual surfaces, judge full-page renders across every band and route (never above-the-fold alone) for genuine visual craft and text restraint, treating automated visual scanners as legibility floors rather than aesthetic proof.
 5. **Functional, edge-case, and runtime soundness:** real-layer behavior, error paths, hard states, responsiveness, and migrations work cleanly end to end.
 6. **Adherence to locked intent and authorities:** settled user decisions, scope bounds, rules, and owning product/architecture documents hold throughout.
 
