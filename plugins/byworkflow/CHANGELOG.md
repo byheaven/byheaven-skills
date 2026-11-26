@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.88.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.89.0...HEAD)
+
+## [0.89.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.88.0...byworkflow-0.89.0) (2026-11-25)
+
+**Two-stage open-design model and growing brand sensory worlds** — Split open design work in `experience-design`, `experience-design/references/web-craft.md`, `task-owner/references/experience-gate.md`, and `task-owner/references/evidence.md` into two clean stages: Stage 1 runs clean-sandbox creative exploration from a concise Soul Brief (Vision, brand ethos, official mark, red lines, and functional/data needs) before loading repo compliance manuals, token tables, or CI scripts, requiring existing sensory world evolution plus at least one brand-new sensory world derived freshly from Vision and Brand with strict text restraint; Stage 2 wires the chosen direction(s) into real code, extends stale specs/tokens to fit approved designs, and demotes automated pattern scanners to an objective legibility floor while requiring full-page captures across every band and route for visual acceptance.
 
 ## [0.88.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.87.0...byworkflow-0.88.0) (2026-11-25)
 
