@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.89.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.90.0...HEAD)
+
+## [0.90.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.89.0...byworkflow-0.90.0) (2026-11-25)
+
+**Bounded QA rounds, blocking-vs-nitpick filter, and unambiguous single-round review** — Updated `task-owner` (`SKILL.md`, `references/evidence.md`, `references/production.md`), `qa` (`SKILL.md`, `references/report.md`, `references/walkthrough.md`), `verifier`, `worker`, and `experience-design` to eliminate open-ended QA loops and nitpick churn while preserving high delivery quality. `Highest-standard bar` now applies a nitpick filter so only material or blocking defects (`critical`/`high`) mark a dimension `BELOW BAR`, whereas minor polish items pass as `MEETS BAR` with non-blocking notes and never open another round. QA is bounded to 2 rounds by default (Round 1 full journey, batched blocking repairs, then Round 2 targeted re-check of affected paths instead of repeating full walkthroughs; escalate to the user if blockers remain, with a hard-capped Round 3 permitted only for a real functional failure with a newly identified root cause). Independent review stays strictly one round with no re-review, and producer self-critique converges once substantive gaps are closed or further polish yields no material gain.
 
 ## [0.89.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.88.0...byworkflow-0.89.0) (2026-11-25)
 
