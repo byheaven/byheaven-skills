@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.90.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.91.0...HEAD)
+
+## [0.91.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.90.0...byworkflow-0.91.0) (2026-11-27)
+
+**Proactive Manager dispatch and refill** — Your Manager now keeps parallel tracks moving automatically instead of stalling between completions or freezing ahead of user decisions. When high-value goal work awaits your sign-off, your Manager can dispatch reversible isolated-worktree prototypes, spikes, option packs, or deep research on local branches and bring concrete previews to your thread while keeping merge, ship, and external effects gated on your approval.
+
+**Parallel epic decomposition and freed-slot refill** — Large approved epics and multi-surface goals now split into non-conflicting parallel tracks in `manager/references/project.md` while keeping tightly coupled changes grouped. Whenever a dispatched task finishes and frees a slot, your Manager immediately checks goals, backlog, and quota to dispatch the next high-value item before going idle, with zero polling.
+
+**Auto-consumed quota surplus with quality brake** — Fresh runtime quota readings now drive concurrency targets automatically—steady 2–3 tracks during healthy operation and up to 4–5 tracks whenever an active paid pool has `>50%` weekly quota remaining (or a deployment-configured surplus threshold) or on manual surplus calls, throttling back as quota tightens. Weekly reports pair autonomous dispatch counts with adoption/merge rate against discard rate, and consecutive discards automatically throttle exploratory concurrency back so free slots never fill with noise.
 
 ## [0.90.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.89.0...byworkflow-0.90.0) (2026-11-25)
 

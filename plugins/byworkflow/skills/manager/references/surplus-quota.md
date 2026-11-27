@@ -1,35 +1,26 @@
 # Surplus quota
 
-The user's message that a paid plan has much of its quota unused starts self-selected work on that plan's models. Turn the surplus into useful project
-results until current usage reaches 90% of the plan's allowance (10% left). The Manager
-judges the results under the project's mandate and any act-first, report-after limits
-the deployment sets.
+Paid-plan quota drives target concurrency automatically whenever fresh (non-stale) runtime usage readings are available—no manual user surplus announcement is required—while continuing to honor explicit user surplus calls. Turn available paid capacity into useful project results up to the 90% allowance stop (10% left), judged under the project's mandate and any act-first, report-after limits the deployment sets.
+
+## Concurrency targets and quality brake
+
+Scale concurrent tracks from fresh plan-allowance readings within the project's active-task cap:
+
+- **Steady target:** target **2–3 concurrent tracks** during normal active operation when paid quota is healthy and qualified work is ready.
+- **Surplus expansion:** whenever a fresh runtime reading shows a paid plan has **above 50% of its weekly allowance remaining** (or meets a deployment-configured surplus threshold), or when the user announces unused quota, allow scaling up to **4–5 concurrent tracks** on that plan's models until the stop threshold below—bounded by the project's active-task cap, qualified goal-anchored work, and the quality brake.
+- **Tightening quota:** as remaining weekly allowance drops below the surplus threshold or tightens further, throttle exploratory concurrency back, prioritize mandate-covered closures and queued work, and wait for an exhausted plan rather than moving self-selected work to metered fallback.
+- **Paired quality brake:** concurrency targets serve useful outcomes, never slot utilization; follow the weekly adoption-vs-discard metric and consecutive-discard throttle in [Taking work](../SKILL.md#taking-work).
 
 ## Work worth doing
 
-Choose work worth doing even without the surplus, inside that mandate and those limits,
-that leaves the user no new decision or makes a waiting decision cheaper. Prefer what
-the model family adds: a cross-family read of recently landed work, read-only research,
-test and documentation debt, independent preparation of choices waiting for the user,
-and queued tasks that family suits.
+Choose work anchored to an active goal or unmet roadmap exit gate—worth doing even without surplus—inside the mandate and limits, leaving the user no new decision or delivering concrete evidence that makes a waiting decision cheaper. Prefer what the available model family adds: reversible exploratory pre-work under [Taking work](../SKILL.md#taking-work) (isolated-worktree prototypes, spikes, architecture or UX option packs, deep research kept on local branches), cross-family reads of recently landed work, test and documentation debt, and queued tasks that family suits.
 
-Spend every other plan as little as possible, the Manager's own included. Sessions on
-the surplus plan do the reading, triage, fixing and verification; the Manager keeps to
-selecting, briefing and the closing report. Surplus justifies no new recurring check,
-monitor, or output the user must review.
+Spend every other plan as little as possible, the Manager's own included. Sessions on the surplus plan do the reading, triage, prototyping, fixing, and verification; the Manager keeps to selecting, briefing, and reporting. Surplus justifies no new recurring check, monitor, filler work to occupy free slots, or unsolicited review burden beyond choices the user already owes.
 
 ## Observable stop
 
-Read current usage from the plan provider's account usage surface or the host's
-authenticated usage capability, for the plan's current allowance.
-Use plan allowance consumption, not session token counts, cost estimates or a stale
-snapshot. Take a reading before each dispatch and whenever a dispatched result returns;
-these readings serve this run's stop, not a recurring check.
+Read current usage from the plan provider's account usage surface or the host's authenticated usage capability for the plan's current allowance. Use fresh, non-stale plan allowance consumption—never session token counts, cost estimates, or a stale snapshot. Take a reading before each dispatch and whenever a dispatched result returns; these readings guide dispatch and this run's stop without adding polling or a recurring check.
 
-Stop this surplus work, including work in progress, when a current reading reaches
-90%; save unfinished work recoverably. If no current usage reading is available, the
-Manager finishes only the work selected at the run's start, starts no additional work,
-and reports the reading as missing; never guess a percentage.
+Stop surplus-driven work—including surplus work in progress, saved recoverably—when a fresh reading reaches 90% used (10% left); user-dispatched work continues. When no fresh reading is available, never guess a percentage: during an explicit user surplus call, finish only the work selected at the run's start, start no additional surplus work, and report the reading as missing; during ordinary event, freed-slot, or daily starts, skip surplus expansion and run only standard mandate-priority work.
 
-After stopping, report once: what ran, what it found and changed, and the usage reading
-at the stop, or that it was missing.
+After stopping a surplus run, report once: what ran, what it found and changed, and the usage reading at the stop, or that it was missing.
