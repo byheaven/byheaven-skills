@@ -6,10 +6,10 @@ Paid-plan quota drives target concurrency automatically whenever fresh (non-stal
 
 Scale concurrent tracks from fresh plan-allowance readings within the project's active-task cap:
 
-- **Generous remaining quota** (above 50% of a paid plan's weekly allowance remaining, or the deployment-configured target): target **2–3 concurrent tracks** for steady autonomous delivery and goal-anchored exploratory pre-work.
-- **Surplus capacity** (abundant remaining weekly allowance near reset, a deployment-configured surplus threshold, or an explicit user surplus call): expand up to **4–5 concurrent tracks** on that plan's models until the stop threshold below.
-- **Tightening quota** (below the generous threshold): throttle exploratory concurrency back, prioritize mandate-covered closures and queued work, and wait for an exhausted plan rather than moving self-selected work to metered fallback.
-- **Paired quality brake:** concurrency targets serve useful outcomes, never slot utilization. Pair autonomous dispatch count with adoption/merge rate against discard rate in the weekly report ([Taking work](../SKILL.md#taking-work)); consecutive discards automatically throttle exploratory concurrency back until adoption recovers.
+- **Steady target:** target **2–3 concurrent tracks** during normal active operation when paid quota is healthy and qualified work is ready.
+- **Surplus expansion:** whenever a fresh runtime reading shows a paid plan has **above 50% of its weekly allowance remaining** (or meets a deployment-configured surplus threshold), or when the user announces unused quota, allow scaling up to **4–5 concurrent tracks** on that plan's models until the stop threshold below—bounded by the project's active-task cap, qualified goal-anchored work, and the quality brake.
+- **Tightening quota:** as remaining weekly allowance drops below the surplus threshold or tightens further, throttle exploratory concurrency back, prioritize mandate-covered closures and queued work, and wait for an exhausted plan rather than moving self-selected work to metered fallback.
+- **Paired quality brake:** concurrency targets serve useful outcomes, never slot utilization; follow the weekly adoption-vs-discard metric and consecutive-discard throttle in [Taking work](../SKILL.md#taking-work).
 
 ## Work worth doing
 
