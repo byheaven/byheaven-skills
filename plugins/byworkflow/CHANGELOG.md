@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.91.0...HEAD)
+## [Unreleased](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.92.0...HEAD)
+
+## [0.92.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.91.0...byworkflow-0.92.0) (2026-11-28)
+
+**Vertical craft milestones for complex features** — Open design work in `experience-design` now decouples creative exploration from engineering integration, while `task-owner` and `manager` break complex multi-dimension features and games into focused vertical craft milestones (1–2 pillars per milestone) instead of collapsing them into a single monolithic pull request. Your Manager or task owner derives a lightweight, transient unit dependency map autonomously—sequencing riskiest unknowns and verification baselines first, running independent branches in parallel, verifying each unit against the real product before advancing, and keeping the feature open until every committed experience milestone closes.
+
+**Pre-decomposition reframing for craft coverage** — `task-owner`'s `Practitioner's bar` now reframes unfamiliar or multi-dimension features before splitting them, naming real problem forks, aligning on domain-expert concepts, and assigning every unmentioned experience pillar (core loop, onboarding, motion/audio/haptics, themes, progression/return hooks, and edge recovery) to a planned delivery unit or explicit exclusion so nothing gets silently dropped.
+
+**Worker gate ceiling** — `worker` now treats the kickoff directive's Acceptance and highest-standard bar as the whole bar, adding no self-invented checks, gates, sign-offs, or extra review rounds above it and blocking only on failing in-scope checks at the current head or real user-facing defects rather than pre-existing base issues.
 
 ## [0.91.0](https://github.com/byheaven/byheaven-skills/compare/byworkflow-0.90.0...byworkflow-0.91.0) (2026-11-27)
 
