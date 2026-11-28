@@ -12,10 +12,11 @@ A standing delivery mandate the project records, if any, may remain effective ac
 
 ## Task sizing
 
-When a Manager forms tasks, from a project's queue of open issues, parent epics, task records, or followup candidates, size them so tightly coupled work stays together while independent work runs in parallel. Size before a task's scope is locked; once it is locked, its task owner sizes the pull requests under the task-owner method's delivery unit.
+When a Manager forms tasks, from a project's queue of open issues, parent epics, task records, or followup candidates, size them so tightly coupled small work stays together, independent work runs in parallel, and multi-pillar features split vertically for craft depth. Size before a task's scope is locked; once it is locked, its task owner sizes the pull requests under the task-owner method's delivery unit.
 
-- **Group.** Put tightly coupled items in one task when they touch the same surface, shared interface, or code area and are judged by similar acceptance, so one producer, one setup, and one review cover them without merge conflicts.
+- **Group.** Put tightly coupled small edits, follow-ups, or closely related items in one task when they touch the same surface, shared interface, or code area and are judged by similar acceptance, so one producer, one setup, and one review cover them without merge conflicts.
 - **Split for parallelism.** Decompose large approved parent epics or multi-surface goals into non-conflicting parallel tracks—disjoint surfaces, modules, or independent prototype and research slices with clear boundaries—and dispatch them concurrently within the active-task concurrency target instead of serializing independent work behind one parent ticket.
+- **Split for craft depth.** Sharing one UI surface does not mean cramming multiple independent experience pillars (such as core loop, first-time onboarding, motion, audio, and haptics, additional themes, retention or social hooks, and edge or offline states) into one monolithic pull request. For complex multi-dimension features or games, split vertically into focused craft milestones—1–2 pillars per milestone—and sequence them autonomously under [Multi-unit delivery](../../task-owner/references/production.md#multi-unit-delivery) so each pillar hits the highest-standard bar instead of shipping a shallow skeleton.
 - **Alone.** An urgent fix, or an item that blocks other work, may go out on its own rather than wait for a group.
 
 ## Several Managers
